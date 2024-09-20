@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799155651690320}
   - component: {fileID: 58396082583656817}
-  - component: {fileID: 6924411403222090451}
+  - component: {fileID: 2221391266380416117}
   m_Layer: 0
   m_Name: attackArea
   m_TagString: Saw
@@ -79,7 +79,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -99,7 +99,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
---- !u!114 &6924411403222090451
+--- !u!114 &2221391266380416117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sawAttackAni: {fileID: 111004637468825729}
+  sawBlood: {fileID: 198610801345529849}
 --- !u!1 &1231968894101382
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +295,7 @@ SortingGroup:
   m_GameObject: {fileID: 1609174078772716}
   m_Enabled: 1
   m_SortingLayerID: 939080219
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &1631708161858431

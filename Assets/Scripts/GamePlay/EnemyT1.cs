@@ -19,15 +19,13 @@ public class EnemyT1 : EnemyHandler
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
+        if (collision.CompareTag("Car")) animator.SetBool("attack", false);
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
     {
         base.OnCollisionStay2D(collision);
         if (isCollisionWithCar
-            || amoutCollision == 2
-            && listNormals[0].y == 0
-            && listNormals[1].y == 0
             || isStunned && collision.contacts[0].normal.x >= 0.99f) isWalk = false;
         else isWalk = true;
     }

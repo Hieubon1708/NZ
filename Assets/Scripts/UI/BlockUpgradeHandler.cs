@@ -21,6 +21,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public GameObject weaponUpgrade;
     public GameObject canvas;
     public WeaponUpgradeHandler weaponUpgradeHandler;
+    public WeaponShoter weaponShoter;
 
     public void Update()
     {
@@ -95,10 +96,19 @@ public class BlockUpgradeHandler : ButtonUpgradee
         }
         weaponBuyer.SetActive(false);
         weaponUpgrade.SetActive(true);
-        if(weaponLevel > 0) weapons[weaponLevel -1].SetActive(false);
+        if (weaponLevel > 0) weapons[weaponLevel - 1].SetActive(false);
+        weaponShoter = weapons[weaponLevel].GetComponentInChildren<WeaponShoter>();
         weapons[weaponLevel].SetActive(true);
         weaponUpgradeHandler.weapon = weapons[weaponLevel];
         weaponUpgradeHandler.UpgradeHandle();
+    }
+    public void StartWeapon()
+    {
+        if (weaponShoter != null)
+        {
+            weaponShoter.ani.SetBool("startGame", true);
+            weaponShoter.StartGame();
+        }
     }
 
     public override void Upgrade()
@@ -110,7 +120,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
 
     public void CheckButtonStateInBlock()
     {
-        for(int i = 0; i < weaponBuyButtons.Length; i++)
+        for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
             weaponBuyButtons[i].CheckButtonState();
         }

@@ -83,6 +83,7 @@ public class BlockController : MonoBehaviour
         {
             Block scBlock = GetScBlock(blocks[i]);
             scBlock.blockUpgradeHandler.canvas.SetActive(isActive);
+            scBlock.blockUpgradeHandler.StartWeapon();
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);

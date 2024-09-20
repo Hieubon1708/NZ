@@ -390,9 +390,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4321018387187193}
   - component: {fileID: 58333022663234599}
+  - component: {fileID: 5975515761875352564}
   m_Layer: 0
   m_Name: attackArea
-  m_TagString: Untagged
+  m_TagString: Saw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -447,6 +448,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &5975515761875352564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577854232110383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110a103c68797fc46a89334ef6fd3253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sawAttackAni: {fileID: 111527075121000270}
+  sawBlood: {fileID: 198464099956926886}
 --- !u!1 &1632333629298807
 GameObject:
   m_ObjectHideFlags: 0

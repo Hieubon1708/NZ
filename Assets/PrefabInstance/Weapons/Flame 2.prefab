@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 1113128855721848}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.024, z: 0}
+  m_LocalPosition: {x: 0, y: 0.024, z: -0.1}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2470,7 +2470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4364686293967615}
   - component: {fileID: 95302829505178179}
-  - component: {fileID: 6552326158174340635}
+  - component: {fileID: 5381125779939251381}
   m_Layer: 0
   m_Name: content
   m_TagString: Untagged
@@ -2515,7 +2515,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6552326158174340635
+--- !u!114 &5381125779939251381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2524,7 +2524,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1210927475054879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 38204779e45a5ca4b8ba68464a795c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flameOnceParticle: {fileID: 198325388609497203}
@@ -4913,6 +4913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4721036834199841}
   - component: {fileID: 210277598310531466}
+  - component: {fileID: 1230312081274048883}
   m_Layer: 0
   m_Name: Flame 2
   m_TagString: Untagged
@@ -4950,6 +4951,22 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1230312081274048883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307240375371472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani: {fileID: 95302829505178179}
+  flameSmokeParticle: {fileID: 198950690231065356}
+  attackCollider: {fileID: 61426527809421287}
+  flameThrover: {fileID: 0}
 --- !u!1 &1311829122622715
 GameObject:
   m_ObjectHideFlags: 0
@@ -9691,7 +9708,7 @@ Transform:
   m_GameObject: {fileID: 1495867789363018}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.09, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0.09, y: 0.05, z: -0.1}
   m_LocalScale: {x: 2.164959, y: 2.164959, z: 2.164959}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -29,10 +29,7 @@ public class EnemyT4 : EnemyHandler
     protected override void OnCollisionStay2D(Collision2D collision)
     {
         base.OnCollisionStay2D(collision);
-        if (isCollisionWithCar
-            || amoutCollision == 2
-            && listNormals[0].y == 0
-            && listNormals[1].y == 0) isWalk = false;
+        if (isCollisionWithCar) isWalk = false;
         else isWalk = true;
     }
 

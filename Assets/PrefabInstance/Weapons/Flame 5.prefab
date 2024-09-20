@@ -166,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 1125831553951070}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.024, z: 0}
+  m_LocalPosition: {x: 0, y: 0.024, z: -0.1}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4862,7 +4862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4184751680831889}
   - component: {fileID: 95965869736222763}
-  - component: {fileID: 3679755644649382343}
+  - component: {fileID: 6038051485188988098}
   m_Layer: 0
   m_Name: content
   m_TagString: Untagged
@@ -4907,7 +4907,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3679755644649382343
+--- !u!114 &6038051485188988098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4916,7 +4916,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1200341724537297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 38204779e45a5ca4b8ba68464a795c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flameOnceParticle: {fileID: 198340871180702420}
@@ -14545,7 +14545,7 @@ Transform:
   m_GameObject: {fileID: 1779085307278754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.09, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0.09, y: 0.05, z: -0.1}
   m_LocalScale: {x: 2.164959, y: 2.164959, z: 2.164959}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17021,6 +17021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4466284462238941}
   - component: {fileID: 210787959622993285}
+  - component: {fileID: 5189372505088515614}
   m_Layer: 0
   m_Name: Flame 5
   m_TagString: Untagged
@@ -17058,6 +17059,22 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &5189372505088515614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864942955136224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani: {fileID: 95965869736222763}
+  flameSmokeParticle: {fileID: 198157581601945713}
+  attackCollider: {fileID: 61075911917070238}
+  flameThrover: {fileID: 212033445664680151}
 --- !u!1 &1925176447570354
 GameObject:
   m_ObjectHideFlags: 0

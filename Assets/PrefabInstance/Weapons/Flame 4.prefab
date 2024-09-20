@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4861412978896819}
   - component: {fileID: 210347853661160255}
+  - component: {fileID: 1813616835952998391}
   m_Layer: 0
   m_Name: Flame 4
   m_TagString: Untagged
@@ -47,6 +48,22 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1813616835952998391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065521983732540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani: {fileID: 95532662524928745}
+  flameSmokeParticle: {fileID: 198361269003565209}
+  attackCollider: {fileID: 61753370240720155}
+  flameThrover: {fileID: 212342350735980389}
 --- !u!1 &1082297828435526
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2630,7 @@ Transform:
   m_GameObject: {fileID: 1483479139560920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.024, z: 0}
+  m_LocalPosition: {x: 0, y: 0.024, z: -0.1}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12082,7 +12099,7 @@ Transform:
   m_GameObject: {fileID: 1598233046468597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.09, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0.09, y: 0.05, z: -0.1}
   m_LocalScale: {x: 2.164959, y: 2.164959, z: 2.164959}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19424,7 +19441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4241232807346650}
   - component: {fileID: 95532662524928745}
-  - component: {fileID: 1500364334714457777}
+  - component: {fileID: 2452025074868229681}
   m_Layer: 0
   m_Name: content
   m_TagString: Untagged
@@ -19469,7 +19486,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1500364334714457777
+--- !u!114 &2452025074868229681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19478,7 +19495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1946936910968775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 38204779e45a5ca4b8ba68464a795c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flameOnceParticle: {fileID: 198813872054221309}

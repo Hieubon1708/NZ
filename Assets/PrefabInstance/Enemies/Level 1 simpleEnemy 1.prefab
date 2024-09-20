@@ -918,6 +918,7 @@ GameObject:
   - component: {fileID: 2885895912888928536}
   - component: {fileID: 3438151689352656486}
   - component: {fileID: -5028497913313914360}
+  - component: {fileID: 7250182961572006772}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 1
   m_TagString: Enemy
@@ -997,10 +998,10 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 28727
+    m_Bits: 28726
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!210 &3438151689352656486
 SortingGroup:
@@ -1033,9 +1034,8 @@ MonoBehaviour:
   rb: {fileID: 2885895912888928536}
   sortingGroup: {fileID: 3438151689352656486}
   colObj: {fileID: 6321465562159464689}
-  col: {fileID: 6943277198851427297}
   animator: {fileID: 6307429596205432657}
-  forceJump: 3.5
+  forceJump: 4
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -1047,20 +1047,57 @@ MonoBehaviour:
   isStunned: 0
   amoutCollision: 0
   lineIndex: 0
-  layerJumping:
-    serializedVersion: 2
-    m_Bits: 0
-  layerDoneJumping:
-    serializedVersion: 2
-    m_Bits: 4294967295
   content: {fileID: 2078466305346430152}
-  eCollisionFStunned: {fileID: 0}
-  eCollisionFJump: {fileID: 0}
+  frontalCollision: {fileID: 0}
   listCollisions: []
   listNormals: []
   b: 0
   d: {fileID: 0}
   a: 0
+--- !u!114 &7250182961572006772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  face: {fileID: 2783849717978133849}
+  bodyUp: {fileID: 7513844658712173236}
+  bodyDown: {fileID: 5621911484681888871}
+  bodyDownJoint: {fileID: 3621319624593883539}
+  rightLeg: {fileID: 6873668239337926531}
+  leftLeg: {fileID: 5625548171263538892}
+  faces:
+  - {fileID: 21300000, guid: a934bbdc93f725c419ee11a960616c79, type: 2}
+  - {fileID: 21300000, guid: bbf2f10b077e53f4185b377814adca0e, type: 2}
+  - {fileID: 21300000, guid: 37918115e6b965a4f90b76a8bd67fa60, type: 2}
+  - {fileID: 21300000, guid: 529cea0e0eaa17a45b6dcbc544f58f8c, type: 2}
+  - {fileID: 21300000, guid: 265a824c3b3fe1f46baf1e7755ff9ea1, type: 2}
+  bodyUps:
+  - {fileID: 21300000, guid: f60591c6d95f9634fa01b6111f4096ee, type: 2}
+  - {fileID: 21300000, guid: 198768eed01309f468f7ab8fb7666490, type: 2}
+  - {fileID: 21300000, guid: 0b675dbf8d7d6d243819bab73ba9a85d, type: 2}
+  - {fileID: 21300000, guid: ae8ac68b135105f4eada848e7d98398d, type: 2}
+  bodyDowns:
+  - {fileID: 21300000, guid: 603ecc4b68fc9d842a2254a9f17a396d, type: 2}
+  - {fileID: 21300000, guid: ce1c602bba43f464eb00d25af6c6a1dc, type: 2}
+  - {fileID: 21300000, guid: 3d0aedcf670a0d145a6d574892de26fc, type: 2}
+  - {fileID: 21300000, guid: 3645c4f35c89f5f48bf97c643cf47d2a, type: 2}
+  bodyDownJoints:
+  - {fileID: 21300000, guid: 5cb3191645be29b47b0d54e4cbcf8ace, type: 2}
+  - {fileID: 21300000, guid: 7e56329a4247e9a4b9c4dd9837d04490, type: 2}
+  - {fileID: 21300000, guid: f62c248c5e490ba42b5e3286e6c0efa6, type: 2}
+  - {fileID: 21300000, guid: 9c78235088dcd6a49a8084664411ab41, type: 2}
+  legs:
+  - {fileID: 21300000, guid: 3b42bc456d80d694dae529a9fdcb6888, type: 2}
+  - {fileID: 21300000, guid: 0442ab49a211fab49b48a56579e853ab, type: 2}
+  - {fileID: 21300000, guid: 33f17d099002af14db25cdb52d1a483c, type: 2}
+  - {fileID: 21300000, guid: 03b907cd258e5ee48933f052c7d0e65b, type: 2}
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0
