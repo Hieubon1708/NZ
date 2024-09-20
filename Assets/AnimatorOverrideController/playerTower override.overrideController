@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: playerTower override
+  m_Controller: {fileID: 9100000, guid: 07dcffa2456f7454e94aa7f7810e86c1, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 247b1e10ef3b77046bebca298ab8f0c1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 80071bd3f16478b4bbcde8e6ee16d167, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1908d43b94666ee43aa51ea691835117, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3d99fb0bc086fe84197381afb5489b4c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6e5cf8062c9a78d4b825d7f664c6133e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4d2ed910e7e4ebb46a6dbb5097f2935d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 97fad9768a5db3547993eb7fc16e191d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0cf3daf2a3b6a024db55055ff1e0ea31, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ead8f5c446fb7a44e9aa47f67dea922b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce52a514a2617554cb5f0ea477dcfaca, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a61e9b53136a1a243953caec139fc3b3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: afd31e706e138094eaac7c41c5511389, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 238a996a4e226174cac5894dc8e050bc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9f29160f75079af4292e9a9438e49d4f, type: 2}

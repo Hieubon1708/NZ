@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_TextureOffsetRoadmap
+  m_Shader: {fileID: 4800000, guid: 7d3ef20f20cd59141b7970b3fca289ff, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties:
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+      _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _Texture_1:
+        m_Texture: {fileID: 2800000, guid: 0a85e7d478c06ee4dac13b7d7e49fefc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _Texture_2:
+        m_Texture: {fileID: 2800000, guid: 4666c25e97282534495aae8ec64c6b0c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+      _Texture_3:
+        m_Texture: {fileID: 2800000, guid: 9992511b237fb2545810518e16dc2604, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: {}
+    m_Floats:
+      _BUILTIN_QueueControl: 0
+      _BUILTIN_QueueOffset: 0
+      _ScrollValue: -295.46475
+    m_Colors:
+      _Offset: {r: 0, g: 0.4, b: 0, a: 0}
+      _Offset_1: {r: 0.01, g: 0.4, b: 0, a: 0}
+      _Offset_2: {r: -0.01, g: 0.2, b: 0, a: 0}
+      _Offset_3: {r: 0, g: 0.1, b: 0, a: 0}
+      _Tiling: {r: 1.5, g: 3, b: 0, a: 0}
+      _Tiling_1: {r: 1.5, g: 3, b: 0, a: 0}
+      _Tiling_2: {r: 1.5, g: 3, b: 0, a: 0}
+      _Tiling_3: {r: 1.5, g: 3, b: 0, a: 0}
+  m_BuildTextureStacks: []

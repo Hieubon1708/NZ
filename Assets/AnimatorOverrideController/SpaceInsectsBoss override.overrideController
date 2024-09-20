@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpaceInsectsBoss override
+  m_Controller: {fileID: 9100000, guid: bd3347d3a55a86e41abe69df28c41228, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 64117e7c0dfc2fc4d89fa5cd930f2814, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f3f08cdfdabc4c240a5f26a33ca879a4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 42e795d9e2956784a9e4cfb0193c1981, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: dc2d75c70136ab04c9b4b9a5a07f8203, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0458269a3ef2b08489c4231ae385eda2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8cf4480235eabaa4ca4ead82e271a450, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0fc96d0f7a6788d4a940ffe1c3f79d1f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 59adb04bb0ae1c94f9b3c2c1d6d70c50, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 842d1c3a4a67c3f46b6b266a0e35b23f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0a0bf9a2a6c606849951f26708bbff54, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 82231f96bbdfba5478e61923e7c63267, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b571b8bc447900247b76c4dca767f9f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 235afda3880a00641888cff2bb9fca14, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9bf75960dac15834db00cbf18d68f96c, type: 2}

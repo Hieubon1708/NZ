@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SteampunkerBoss override
+  m_Controller: {fileID: 9100000, guid: bd3347d3a55a86e41abe69df28c41228, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 64117e7c0dfc2fc4d89fa5cd930f2814, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d98fdf9208795a440a9f37e6fcd8ba04, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 42e795d9e2956784a9e4cfb0193c1981, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83ed23be1cef8f74eaa32a55aa0524d7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0458269a3ef2b08489c4231ae385eda2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 65b0d8de437319244a1bd2b69f7bdf6d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0fc96d0f7a6788d4a940ffe1c3f79d1f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b5e44853d7ebc2641a3389665c4fed74, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 842d1c3a4a67c3f46b6b266a0e35b23f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f8660d68b2c2f8c45ad6f495e2ada06e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 82231f96bbdfba5478e61923e7c63267, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c9a5f5ed9026e52468903afec63cda8d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 235afda3880a00641888cff2bb9fca14, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6300fa267a8be9d4998147775f7cb30c, type: 2}
