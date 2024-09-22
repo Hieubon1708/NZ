@@ -49,20 +49,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ThrowBoom()
+    public void ThrowBoom()
     {
         GameObject b = listBooms[boomIndex].gameObject;
         Rigidbody2D rb = listBooms[boomIndex];
         b.SetActive(true);
         b.transform.position = startBoom.position;
-        rb.isKinematic = false;
-        rb.AddForce(new Vector2(Random.Range(3f, 3.5f), 7), ForceMode2D.Impulse);
-        rb.AddTorque(0.5f, ForceMode2D.Impulse);
-        DOVirtual.DelayedCall(1.5f, delegate
-        {
-            rb.isKinematic = true;
-            b.SetActive(false);
-        });
+        rb.AddForce(new Vector2(Random.Range(2f, 2.5f), 7), ForceMode2D.Impulse);
+        rb.AddTorque(0.75f, ForceMode2D.Impulse);       
         boomIndex++;
         if(boomIndex == listBooms.Length) boomIndex = 0;
     }
@@ -96,11 +90,6 @@ public class PlayerController : MonoBehaviour
         /*if (!isMouseDown) return;
         isMouseDown = false;
         traectory.SetActive(false);*/
-    }
-
-    float GetAngle(Vector2 dir)
-    {
-        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
 
     public void AddBookAni()

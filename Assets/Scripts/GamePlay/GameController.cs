@@ -16,15 +16,24 @@ public class GameController : MonoBehaviour
 
     public Dictionary<GameObject, int> listDamages = new Dictionary<GameObject, int>();
 
+    public List<GameObject> listEVisible = new List<GameObject>();
+
     public Transform poolDamages;
     public Transform poolWeapons;
     public Transform poolBullets;
     public Transform poolEnemies;
 
+    public Transform defaultDir;
+
     public float timeSawDamage;
     public float timeFlameDamage;
 
     public float backgroundSpeed;
+
+    public GameObject menuCamera;
+    public GameObject gameCamera;
+    public GameObject booster;
+    public GameObject buttonStart;
 
     public bool isStart;
     public Camera cam;
@@ -83,7 +92,7 @@ public class GameController : MonoBehaviour
     {
         Sprite[] carSprites = dataManager.GetCarSprites(level);
 
-        if(carSprites != null)
+        if (carSprites != null)
         {
             carController.tent_part_3.sprite = carSprites[0];
             carController.tent_part_2.sprite = carSprites[1];
@@ -113,7 +122,7 @@ public class GameController : MonoBehaviour
 
     public void AddKeyDamage(GameObject obj, int damage)
     {
-        if(!listDamages.ContainsKey(obj))
+        if (!listDamages.ContainsKey(obj))
         {
             listDamages.Add(obj, damage);
         }
@@ -125,6 +134,10 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        menuCamera.SetActive(false);
+        gameCamera.SetActive(true);
+        buttonStart.SetActive(false);
+        booster.SetActive(true);
         BlockController.instance.SetActiveUI(false);
         EnemyTowerController.instance.NextTower();
         CarController.instance.multiplier = 1;
@@ -139,6 +152,24 @@ public class GameController : MonoBehaviour
     public enum WEAPON
     {
         NONE, SAW, FLAME, MACHINE_GUN
+    }
+
+
+    public Transform GetENearest(Vector2 startPos)
+    {
+        if (listEVisible.Count == 0) return defaultDir;
+        int index = -1;
+        float min = float.MaxValue;
+        for (int i = 0; i < listEVisible.Count; i++)
+        {
+            float distance = Vector2.Distance(startPos, listEVisible[i].transform.position);
+            if (distance < min)
+            {
+                min = distance;
+                index = i;
+            }
+        }
+        return listEVisible[index].transform;
     }
 
     public void OnDestroy()

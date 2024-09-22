@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 61172323965377666}
   m_Layer: 0
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: Flame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4604857579434789}
   - component: {fileID: 210952165322877559}
-  - component: {fileID: 5535392766670065728}
+  - component: {fileID: 2606974658299468258}
   m_Layer: 0
   m_Name: Flame 0
   m_TagString: Flame
@@ -339,7 +339,7 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &5535392766670065728
+--- !u!114 &2606974658299468258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,6 +355,7 @@ MonoBehaviour:
   flameSmokeParticle: {fileID: 6407423368650806151}
   attackCollider: {fileID: 61172323965377666}
   flameThrover: {fileID: 212707374628013382}
+  target: {fileID: 0}
 --- !u!1 &1858929538284853
 GameObject:
   m_ObjectHideFlags: 0

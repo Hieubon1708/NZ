@@ -4922,6 +4922,7 @@ MonoBehaviour:
   flameSmokeParticle: {fileID: 198737977217716754}
   attackCollider: {fileID: 61412353424442122}
   flameThrover: {fileID: 212366468469992542}
+  target: {fileID: 0}
 --- !u!1 &1317648248826315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,7 +7276,7 @@ GameObject:
   - component: {fileID: 61412353424442122}
   m_Layer: 0
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: Flame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

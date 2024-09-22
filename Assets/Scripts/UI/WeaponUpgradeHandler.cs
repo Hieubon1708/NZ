@@ -62,7 +62,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         textPriceUpgrade.text = priceUpgrades[level][levelUpgrade].ToString();
         for (int i = 0; i < boxProgress.Length; i++)
         {
-            if (i > levelUpgrade - 1 || levelUpgrade == boxProgress.Length - 1) boxProgress[i].SetActive(false);
+            if (i > levelUpgrade - 1) boxProgress[i].SetActive(false);
             else boxProgress[i].SetActive(true);
         }
         if (levelUpgrade == boxProgress.Length)

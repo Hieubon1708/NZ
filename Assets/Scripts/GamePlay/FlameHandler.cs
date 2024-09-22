@@ -5,6 +5,7 @@ using static UnityEngine.ParticleSystem;
 
 public class FlameHandler : WeaponShoter
 {
+    public Animator ani;
     public ParticleSystem flameSmokeParticle;
     public BoxCollider2D attackCollider;
     public SpriteRenderer flameThrover;
@@ -12,6 +13,8 @@ public class FlameHandler : WeaponShoter
     public override void StartGame()
     {
         StartCoroutine(Shot());
+        StartCoroutine(FindTarget());
+        StartCoroutine(Rotate());
     }
 
     IEnumerator Shot()
@@ -19,13 +22,15 @@ public class FlameHandler : WeaponShoter
         EmissionModule esmission = flameSmokeParticle.emission;
         while (true)
         {
+            ani.SetBool("attack", true);
             esmission.enabled = true;
             attackCollider.enabled = true;
-            if(flameThrover != null) flameThrover.DOFade(1f, 0.5f);
+            if (flameThrover != null) flameThrover.DOFade(1f, 0.5f);
             yield return new WaitForSeconds(2.5f);
             if (flameThrover != null) flameThrover.DOFade(0f, 0.5f);
-            attackCollider.enabled = false; 
+            attackCollider.enabled = false;
             esmission.enabled = false;
+            ani.SetBool("attack", false);
             yield return new WaitForSeconds(1f);
         }
     }

@@ -137,7 +137,6 @@ public class EnemyController : MonoBehaviour
             int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
-            spawnX += randomDistance * distance;
 
             GameObject e = listRandomEs[count];
             e.name = count.ToString();
@@ -164,6 +163,7 @@ public class EnemyController : MonoBehaviour
             scE.sortingGroup.sortingLayerName = "Line_" + indexLine;
             scE.rb.excludeLayers |= (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8); ;
 
+            spawnX += randomDistance * distance;
             count++;
         }
     }
@@ -183,13 +183,15 @@ public class EnemyController : MonoBehaviour
         }
         e.SetActive(true);
         int indexLine = EUtils.GetIndexLine(e);
+        float x = listRandomEs[index].transform.position.x + defaultDistance;
         float y = CarController.instance.spawnY[indexLine].position.y;
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
         {
             if (spawnX > transform.position.x - 0.5f) y += Random.Range(1f, 2f);
             else y = Random.Range(0f, 4f);
         }
-        e.transform.position = new Vector2(listRandomEs[index].transform.position.x + defaultDistance, y);
+        if (x < GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1) x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
+        e.transform.position = new Vector2(x, y);
     }
 
     void CheckAmoutEnemyEachLine()

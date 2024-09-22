@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -76,7 +77,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("MachineGun"))
         {
-            subtractHp = GameController.instance.listDamages[collision.attachedRigidbody.gameObject];
+            subtractHp = int.Parse(collision.attachedRigidbody.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
@@ -106,11 +107,15 @@ public class EnemyHandler : MonoBehaviour
     {
         if (collision.CompareTag("Saw")) isTriggerSaw = false;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
+        if (collision.CompareTag("Boom"))
+        {
+            SubtractHp(499);
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
+        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -127,7 +132,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
+        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Enemy") && collision.contacts[0].normal.x >= 0.99f) frontalCollision = collision.gameObject;
 
         if (collision.gameObject.CompareTag("Enemy") && !isStunned)
@@ -169,7 +174,7 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
+        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
         {

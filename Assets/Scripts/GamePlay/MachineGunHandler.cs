@@ -1,79 +1,92 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineGunHandler : MonoBehaviour
+public class MachineGunHandler : WeaponShoter
 {
-    public Animator ani;
-
     public GameObject preBullet;
     public int count;
     public float timeDistance;
     public float speedBullet;
     public float turnTimeDelay;
-    public GameObject[] listBullets;
-    public MachineGunBulletHandler[] listScBullets;
-    public Transform container;
+    public List<List<GameObject>> listBullets = new List<List<GameObject>>();
+    public List<List<MachineGunBulletHandler>> listScBullets = new List<List<MachineGunBulletHandler>>();
+    public Transform[] containers;
+    public GameObject block;
+    public int amoutLine;
 
     public void Awake()
     {
         Generate();
     }
 
-    private void Start()
+    public override void StartGame()
     {
-        StartCoroutine(Shot());
+        SetDamage();
+        for (int i = 0; i < listBullets.Count; i++)
+        {
+            StartCoroutine(Shot(listBullets[i], listScBullets[i], i));
+        }
+        StartCoroutine(FindTarget());
+        StartCoroutine(Rotate());
     }
 
     void Generate()
     {
-        listBullets = new GameObject[count];
-        listScBullets = new MachineGunBulletHandler[count];
-        for (int i = 0; i < count; i++)
+        for (int j = 0; j < amoutLine; j++)
         {
-            listBullets[i] = Instantiate(preBullet, container);
-            listBullets[i].SetActive(false);
-            listScBullets[i] = listBullets[i].GetComponent<MachineGunBulletHandler>();
+            List<GameObject> listB = new List<GameObject>();
+            List<MachineGunBulletHandler> listScB = new List<MachineGunBulletHandler>();
+            for (int i = 0; i < count; i++)
+            {
+                GameObject b = Instantiate(preBullet, containers[j]);
+                b.SetActive(false);
+                MachineGunBulletHandler scB = b.GetComponent<MachineGunBulletHandler>();
+                listScB.Add(scB);
+                listB.Add(b);
+            }
+            listBullets.Add(listB);
+            listScBullets.Add(listScB);
         }
     }
 
-    public void SetDefaultBullets()
+    void SetDamage()
     {
-        for (int i = 0; i < listBullets.Length; i++)
+        for (int i = 0; i < listBullets.Count; i++)
         {
-            listBullets[i].SetActive(false);
-            listBullets[i].transform.SetParent(container);
-            listScBullets[i].rb.velocity = Vector2.zero;
-            listBullets[i].transform.localPosition = new Vector3(0, 0, 0);
+            for (int j = 0; j < listBullets[i].Count; j++)
+            {
+                listBullets[i][j].name = GameController.instance.listDamages[block].ToString();
+            }
         }
     }
 
-    public IEnumerator Shot()
+    public void SetDefaultBullets(List<GameObject> listB, List<MachineGunBulletHandler> listScB, int index)
+    {
+        for (int i = 0; i < listB.Count; i++)
+        {
+            listB[i].SetActive(false);
+            listB[i].transform.SetParent(containers[index]);
+            listScB[i].rb.velocity = Vector2.zero;
+            listB[i].transform.localPosition = new Vector3(0, 0, 0);
+            listB[i].transform.localRotation = Quaternion.identity;
+        }
+    }
+
+    public IEnumerator Shot(List<GameObject> listB, List<MachineGunBulletHandler> listScB, int index)
     {
         while (true)
         {
-            for (int i = 0; i < listBullets.Length; i++)
+            for (int i = 0; i < listB.Count; i++)
             {
-                listBullets[i].transform.SetParent(GameController.instance.poolBullets);
-                listBullets[i].SetActive(true);
-                listScBullets[i].Shot(speedBullet, listBullets[i].transform.right);
+                listB[i].transform.SetParent(GameController.instance.poolBullets);
+                listB[i].SetActive(true);
+                listScB[i].Shot(speedBullet, listB[i].transform.right);
                 yield return new WaitForSeconds(timeDistance);
             }
             yield return new WaitForSeconds(turnTimeDelay);
-            SetDefaultBullets();
-        }
-    }
-
-    public void PlayShotAni()
-    {
-        ani.Play("game idle");
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            PlayShotAni();
+            SetDefaultBullets(listB, listScB, index);
         }
     }
 }
