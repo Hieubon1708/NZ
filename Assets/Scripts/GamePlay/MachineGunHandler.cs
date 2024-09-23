@@ -8,6 +8,7 @@ public class MachineGunHandler : WeaponShoter
     public GameObject preBulletBooster;
     public int count;
     public float timeDistance;
+    public float timeDistanceBooster;
     public float speedBullet;
     public float turnTimeDelay;
     public List<List<GameObject>> listBullets = new List<List<GameObject>>();
@@ -38,7 +39,7 @@ public class MachineGunHandler : WeaponShoter
     {
         for (int i = 0; i < listBullets.Count; i++)
         {
-            shots[i] = StartCoroutine(Shot(listBullets[i], listScBullets[i], i));
+            shots[i] = StartCoroutine(Shot(listBullets[i], listScBullets[i], i, false, timeDistance));
         }
     }
 
@@ -96,11 +97,11 @@ public class MachineGunHandler : WeaponShoter
         }
     }
 
-    public IEnumerator Shot(List<GameObject> listB, List<MachineGunBulletHandler> listScB, int index)
+    public IEnumerator Shot(List<GameObject> listB, List<MachineGunBulletHandler> listScB, int index, bool isBooster, float timeDistance)
     {
         while (true)
         {
-            ani.SetBool("attack", true);
+            if(!isBooster) ani.SetBool("attack", true);
             for (int i = 0; i < listB.Count; i++)
             {
                 listB[i].transform.SetParent(GameController.instance.poolBullets);
@@ -108,7 +109,7 @@ public class MachineGunHandler : WeaponShoter
                 listScB[i].Shot(speedBullet, listB[i].transform.right);
                 yield return new WaitForSeconds(timeDistance);
             }
-            ani.SetBool("attack", false);
+            if (!isBooster) ani.SetBool("attack", false);
             yield return new WaitForSeconds(turnTimeDelay);
             SetDefaultBullets(listB, listScB, index);
         }
@@ -117,7 +118,8 @@ public class MachineGunHandler : WeaponShoter
     public override void UseBooster()
     {
         ani.SetTrigger("booster");
-        if(booster != null) StopCoroutine(booster);
+        ani.SetBool("attack", false);
+        if (booster != null) StopCoroutine(booster);
         booster = StartCoroutine(Booster());
     }
 
@@ -126,10 +128,14 @@ public class MachineGunHandler : WeaponShoter
         StopAll();
         for (int i = 0; i < listBulletBoosters.Count; i++)
         {
-            shotBoosters[i] = StartCoroutine(Shot(listBulletBoosters[i], listScBulletBoosters[i], i));
+            shotBoosters[i] = StartCoroutine(Shot(listBulletBoosters[i], listScBulletBoosters[i], i, true, timeDistanceBooster));
         }
-        yield return new WaitForSeconds(2.5f);
-        StopAll();
+        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < amoutLine; i++)
+        {
+            if (shotBoosters[i] != null) StopCoroutine(shotBoosters[i]);
+        }
+        yield return new WaitForSeconds(0.5f);
         ShotAll();
     }
 
@@ -139,6 +145,8 @@ public class MachineGunHandler : WeaponShoter
         {
             if (shots[i] != null) StopCoroutine(shots[i]);
             if (shotBoosters[i] != null) StopCoroutine(shotBoosters[i]);
+            SetDefaultBullets(listBulletBoosters[i], listScBulletBoosters[i], i);
+            SetDefaultBullets(listBullets[i], listScBullets[i], i);
         }
     }
 }

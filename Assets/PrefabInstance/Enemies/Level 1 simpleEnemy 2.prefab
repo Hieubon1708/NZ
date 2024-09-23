@@ -908,8 +908,8 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   animator: {fileID: 8697987506082482330}
   forceJump: 4
-  multiplier: 1
-  speed: -2
+  multiplier: 0.5
+  speed: 0
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -1912,7 +1912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f226743f34ccf14e8797d09e596b47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preBullet: {fileID: 6576302235395994816, guid: 9ac77716c24ba3b4cae1c5e326df1979, type: 3}
+  preBullet: {fileID: 1904040921391727, guid: 801f82f2c0e0b5b429ac6d44ea8a2e3e, type: 3}
   rbBullets: []
   count: 3
   mouth: {fileID: 5833222935557416321}

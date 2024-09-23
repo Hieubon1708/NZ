@@ -6,6 +6,7 @@ using static UnityEngine.ParticleSystem;
 public class FlameHandler : WeaponShoter
 {
     public ParticleSystem flameSmokeParticle;
+    public ParticleSystem flameBoosterSmokeParticle;
     public BoxCollider2D attackCollider;
     public SpriteRenderer flameThrover;
     Coroutine shot;
@@ -32,9 +33,9 @@ public class FlameHandler : WeaponShoter
         ShotHandle(true, 0f, 0f);
         attackCollider.transform.localScale = Vector3.one * 2;
         ColNFlameThrover(true, 1f, 0.5f);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitWhile(() => flameBoosterSmokeParticle.emission.enabled);
         ColNFlameThrover(false, 0f, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         shot = StartCoroutine(Shot());
     }
 

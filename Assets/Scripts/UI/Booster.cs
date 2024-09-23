@@ -24,7 +24,7 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         //1f / DataManager.instance.energyData.times[DataManager.instance.playerData.indexEnergy]
-        energyBar.DOFillAmount(1, 1).SetEase(Ease.Linear).OnComplete(delegate
+        energyBar.DOFillAmount(1, 0.3f).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
             energyBar.fillAmount = 0;

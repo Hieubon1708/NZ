@@ -14487,10 +14487,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ani: {fileID: 95050793840448339}
+  target: {fileID: 0}
   flameSmokeParticle: {fileID: 198868936630754856}
+  flameBoosterSmokeParticle: {fileID: 198540531171692176}
   attackCollider: {fileID: 61186366553594414}
   flameThrover: {fileID: 212775409252547619}
-  target: {fileID: 0}
 --- !u!1 &1628077125470962
 GameObject:
   m_ObjectHideFlags: 0

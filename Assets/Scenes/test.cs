@@ -2,13 +2,10 @@
 
 public class test : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("ok");
-    }
+    public Rigidbody2D rb;
+    public BoxCollider2D col;
 
-    public void OnCollisionStay2D(Collision2D collision)
+    private void Start()
     {
-        Debug.Log("ok");
     }
 }

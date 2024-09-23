@@ -21,13 +21,16 @@ public class EnemyAniEvent : MonoBehaviour
         rbBullets = new Rigidbody2D[count];
         for (int i = 0; i < count; i++)
         {
-            rbBullets[i] = Instantiate(preBullet, transform).GetComponent<Rigidbody2D>();
+            GameObject b = Instantiate(preBullet, transform);
+            Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+            b.SetActive(false);
+            rbBullets[i] = rb;
         }
     }
 
     public void ShotEvent()
     {
-        rbBullets[index].isKinematic = false;
+        rbBullets[index].gameObject.SetActive(true);
         rbBullets[index].transform.position = mouth.position;
         float YUnder = -1, YAbove = -1, x = 0;
         if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y;
@@ -36,6 +39,7 @@ public class EnemyAniEvent : MonoBehaviour
         YAbove = PlayerController.instance.transform.position.y + 0.75f;
         float randomTarget = Random.Range(YUnder, YAbove);
         MakeAngle(new Vector2(x, randomTarget));
+        rbBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(dir) - 90);
         rbBullets[index].velocity = force * dir;
         index++;
         if (index == rbBullets.Length) index = 0;

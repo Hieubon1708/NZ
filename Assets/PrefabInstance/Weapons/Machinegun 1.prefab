@@ -1034,10 +1034,12 @@ MonoBehaviour:
   ani: {fileID: 95694132976639490}
   target: {fileID: 0}
   preBullet: {fileID: 1679334284406129, guid: 3c4c314e82ebdb8418f0243fa87ef814, type: 3}
-  count: 20
-  timeDistance: 0.06
+  preBulletBooster: {fileID: 0}
+  count: 25
+  timeDistance: 0.08
+  timeDistanceBooster: 0.15
   speedBullet: 20
-  turnTimeDelay: 1
+  turnTimeDelay: 0.75
   containers:
   - {fileID: 4402855309228807328}
   - {fileID: 8290064039819244249}
