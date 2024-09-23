@@ -2874,8 +2874,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110a103c68797fc46a89334ef6fd3253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ani: {fileID: 95944292546024306}
+  target: {fileID: 0}
   sawAttackAni: {fileID: 111974256618156514}
   sawBlood: {fileID: 198391738484936160}
+  sawBoosterPref: {fileID: 1106291111016258, guid: b467c4a0954d59b44b8ff7aba2a5be3b, type: 3}
+  amout: 6
+  sawBoosters: []
+  container: {fileID: 4708699233875885}
 --- !u!1 &1761374629782067
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,11 @@ using UnityEngine.EventSystems;
 
 public class ButtonClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public Vector3 localScale;
+    public float localScale;
 
     public void Start()
     {
-        localScale = transform.localScale;
+        localScale = transform.localScale.z;
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -22,7 +22,7 @@ public class ButtonClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         BlockController.instance.CheckButtonStateAll();
     }
 
-    public void ScaleButton(Vector3 value, float duration)
+    public void ScaleButton(float value, float duration)
     {
         transform.DOKill();
         transform.DOScale(value, duration).SetEase(Ease.Linear);

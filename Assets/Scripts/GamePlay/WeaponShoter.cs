@@ -7,6 +7,7 @@ public abstract class WeaponShoter : MonoBehaviour
     public Transform target;
 
     public abstract void StartGame();
+    public abstract void UseBooster();
 
     public IEnumerator Rotate()
     {

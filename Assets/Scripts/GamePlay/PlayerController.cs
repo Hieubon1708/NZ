@@ -56,16 +56,15 @@ public class PlayerController : MonoBehaviour
         b.SetActive(true);
         b.transform.position = startBoom.position;
         rb.AddForce(new Vector2(Random.Range(2f, 2.5f), 7), ForceMode2D.Impulse);
-        rb.AddTorque(0.75f, ForceMode2D.Impulse);       
+        rb.AddTorque(0.75f, ForceMode2D.Impulse);
         boomIndex++;
-        if(boomIndex == listBooms.Length) boomIndex = 0;
+        if (boomIndex == listBooms.Length) boomIndex = 0;
     }
 
     public void MouseDown()
     {
-        //if (!GameManager.instance.isStart) return;
-        /*isMouseDown = true;
-        traectory.SetActive(true);*/
+        isMouseDown = true;
+        traectory.SetActive(true);
     }
 
     public void Update()
@@ -74,22 +73,20 @@ public class PlayerController : MonoBehaviour
         {
             ThrowBoom();
         }
-        //if (!GameManager.instance.isStart) return;
-        /*if (isMouseDown)
+        if (isMouseDown)
         {
-            Vector2 mousePos = GameManager.instance.cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dir = mousePos - (Vector2)gunPivot.position;
-            float angle = Mathf.Clamp(Mathf.DeltaAngle(0f, GetAngle(dir) - gunPivotForAni.localEulerAngles.z), -90f, 90f);
+            float angle = Mathf.Clamp(Mathf.DeltaAngle(0f, EUtils.GetAngle(dir) - gunPivotForAni.localEulerAngles.z), -90f, 90f);
             gunPivot.localRotation = Quaternion.Euler(0, 0, angle);
-        }*/
+        }
     }
 
     public void MouseUp()
     {
-        //if (!GameManager.instance.isStart) return;
-        /*if (!isMouseDown) return;
+        if (!isMouseDown) return;
         isMouseDown = false;
-        traectory.SetActive(false);*/
+        traectory.SetActive(false);
     }
 
     public void AddBookAni()

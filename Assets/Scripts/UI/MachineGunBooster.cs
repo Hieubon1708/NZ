@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MachineGunBooster : MonoBehaviour
+public class MachineGunBooster : WeaponBooster
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void UseBooster()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BlockController.instance.UseBooster(GameController.WEAPON.MACHINE_GUN);
     }
 }

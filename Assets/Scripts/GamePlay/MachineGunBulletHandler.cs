@@ -14,7 +14,7 @@ public class MachineGunBulletHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Road_" + indexRoadCollider) || collision.CompareTag("Road_0"))
+        if (collision.CompareTag("Road_" + indexRoadCollider))
         {
             gameObject.SetActive(false);
             ParController.instance.PlayRoadBulletHole(transform.position);

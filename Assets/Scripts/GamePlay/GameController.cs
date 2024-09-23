@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     public GameObject gameCamera;
     public GameObject booster;
     public GameObject buttonStart;
+    public GameObject touchScreen;
 
     public bool isStart;
     public Camera cam;
@@ -136,6 +137,7 @@ public class GameController : MonoBehaviour
     {
         menuCamera.SetActive(false);
         gameCamera.SetActive(true);
+        touchScreen.SetActive(true);
         buttonStart.SetActive(false);
         booster.SetActive(true);
         BlockController.instance.SetActiveUI(false);

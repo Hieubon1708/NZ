@@ -5,33 +5,62 @@ using static UnityEngine.ParticleSystem;
 
 public class FlameHandler : WeaponShoter
 {
-    public Animator ani;
     public ParticleSystem flameSmokeParticle;
     public BoxCollider2D attackCollider;
     public SpriteRenderer flameThrover;
+    Coroutine shot;
+    Coroutine boosterShot;
+    EmissionModule esmission;
 
     public override void StartGame()
     {
-        StartCoroutine(Shot());
+        shot = StartCoroutine(Shot());
         StartCoroutine(FindTarget());
         StartCoroutine(Rotate());
     }
 
+    public override void UseBooster()
+    {
+        ani.SetTrigger("booster");
+        boosterShot = StartCoroutine(Booster());
+    }
+
+    IEnumerator Booster()
+    {
+        if(shot != null) StopCoroutine(shot);
+        if(boosterShot != null) StopCoroutine(boosterShot);
+        ShotHandle(true, 0f, 0f);
+        attackCollider.transform.localScale = Vector3.one * 2;
+        ColNFlameThrover(true, 1f, 0.5f);
+        yield return new WaitForSeconds(4f);
+        ColNFlameThrover(false, 0f, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        shot = StartCoroutine(Shot());
+    }
+
     IEnumerator Shot()
     {
-        EmissionModule esmission = flameSmokeParticle.emission;
+        attackCollider.transform.localScale = Vector3.one;
+        esmission = flameSmokeParticle.emission;
         while (true)
         {
-            ani.SetBool("attack", true);
-            esmission.enabled = true;
-            attackCollider.enabled = true;
-            if (flameThrover != null) flameThrover.DOFade(1f, 0.5f);
+            ShotHandle(true, 1f, 0.5f);
             yield return new WaitForSeconds(2.5f);
-            if (flameThrover != null) flameThrover.DOFade(0f, 0.5f);
-            attackCollider.enabled = false;
-            esmission.enabled = false;
-            ani.SetBool("attack", false);
+            ShotHandle(false, 0f, 0.5f);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    void ShotHandle(bool isActive, float alpha, float duration)
+    {
+        ani.SetBool("attack", isActive);
+        esmission.enabled = isActive;
+        ColNFlameThrover(isActive, alpha, duration);
+    }
+
+    void ColNFlameThrover(bool isActive, float alpha, float duration)
+    {
+        attackCollider.enabled = isActive;
+        if (flameThrover != null) flameThrover.DOFade(alpha, duration);
     }
 }

@@ -120,6 +120,26 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    public void UseBooster(WEAPON weaponType)
+    {
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block sc = GetScBlock(blocks[i]);
+            if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponShoter is SawHandler)
+            {
+                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+            }
+            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponShoter is FlameHandler)
+            {
+                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+            }
+            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponShoter is MachineGunHandler)
+            {
+                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+            }
+        }
+    }
+
     public void SetPositionNearest(GameObject block, GameObject frame)
     {
         int indexNearest = GetIndexNearest(block);
@@ -197,5 +217,5 @@ public class BlockController : MonoBehaviour
             blockPools.Add(blockIns);
             scBlocks.Add(scBlock);
         }
-    }        
+    }
 }

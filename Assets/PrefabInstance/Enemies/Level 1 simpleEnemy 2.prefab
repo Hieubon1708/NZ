@@ -904,26 +904,31 @@ MonoBehaviour:
   healthHandler: {fileID: 9144352815958860949}
   damage: {fileID: 5631743602232870298}
   rb: {fileID: 2885895912888928536}
-  col: {fileID: 6321465562159464689}
-  forceJump: 7
+  sortingGroup: {fileID: 3438151689352656486}
+  colObj: {fileID: 6321465562159464689}
+  animator: {fileID: 8697987506082482330}
+  forceJump: 4
   multiplier: 1
   speed: -2
   timeStunned: 0
   timeJump: 0
-  animator: {fileID: 8697987506082482330}
   isCollisionWithCar: 0
   isCollisionWithGround: 0
-  isCollisionWithBump: 0
   isJump: 0
   isWalk: 0
   isStunned: 0
   amoutCollision: 0
   lineIndex: 0
   content: {fileID: 6957286141607537267}
-  enemyCollisionToJump: {fileID: 0}
-  listCollisions: []
-  listNormals: []
   frontalCollision: {fileID: 0}
+  listCollisions: []
+  layerOrigin:
+    serializedVersion: 2
+    m_Bits: 0
+  layerBumping:
+    serializedVersion: 2
+    m_Bits: 0
+  b: 0
   d: {fileID: 0}
   a: 0
   xMin: 1

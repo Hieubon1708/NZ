@@ -29,11 +29,6 @@ public class EnemyT3 : EnemyHandler
         if (collision.CompareTag("Tower")) StartCoroutine(LevingCave());
     }
 
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-
-    }
-
     protected override void FixedUpdate()
     {
         if (transform.position.x < xMax)

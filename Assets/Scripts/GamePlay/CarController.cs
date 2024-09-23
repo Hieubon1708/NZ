@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TerrainTools;
 
 public class CarController : MonoBehaviour
 {
@@ -49,6 +50,15 @@ public class CarController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) amoutCollison--;
+    }
+
+    public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject ePush)
+    {
+        ePush.layer = layerBumping;
+        colObj.layer = layerBumping;
+        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= 0.5f && droping.activeSelf && ePush.activeSelf);
+        ePush.layer = layerOrigin;
+        colObj.layer = layerOrigin;
     }
 
     private void FixedUpdate()

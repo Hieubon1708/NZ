@@ -83,7 +83,11 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         if (weapon == null) return;
         /*Debug.Log(level);
         Debug.Log(priceUpgrades.Length);*/
-        if (level == priceUpgrades.Length - 1 && levelUpgrade == boxProgress.Length - 1) UIHandler.instance.ChangeSpriteWeaponUpgradee(frame, textPriceUpgrade, textMax);
+        if (level == priceUpgrades.Length && levelUpgrade == boxProgress.Length)
+        {
+            DisableBox();
+            UIHandler.instance.ChangeSpriteWeaponUpgradee(frame, textPriceUpgrade, textMax);
+        }
         else if (DataManager.instance.playerData.gold < priceUpgrades[level][levelUpgrade])
         {
             if (levelUpgrade == boxProgress.Length) UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frameLastUpgrade);
@@ -93,6 +97,14 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         {
             if (levelUpgrade == boxProgress.Length) UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.ENOUGH_MONEY, frameLastUpgrade);
             else UIHandler.instance.ChangeSpriteWeaponUpgradee(UIHandler.Type.ENOUGH_MONEY, frame);
+        }
+    }
+
+    void DisableBox()
+    {
+        for (int i = 0; i < boxProgress.Length; i++)
+        {
+            boxProgress[i].SetActive(false);
         }
     }
 

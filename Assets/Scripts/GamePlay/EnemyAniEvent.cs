@@ -33,7 +33,7 @@ public class EnemyAniEvent : MonoBehaviour
         if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y;
         else YUnder = PlayerController.instance.transform.position.y;
         x = PlayerController.instance.transform.position.x;
-        YAbove = PlayerController.instance.transform.position.y;
+        YAbove = PlayerController.instance.transform.position.y + 0.75f;
         float randomTarget = Random.Range(YUnder, YAbove);
         MakeAngle(new Vector2(x, randomTarget));
         rbBullets[index].velocity = force * dir;

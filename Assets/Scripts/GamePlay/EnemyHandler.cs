@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -32,13 +31,13 @@ public class EnemyHandler : MonoBehaviour
     public GameObject frontalCollision;
 
     public List<GameObject> listCollisions = new List<GameObject>();
-    public List<Vector2> listNormals = new List<Vector2>();
     public ContactPoint2D[] listContacts = new ContactPoint2D[10];
 
     Coroutine stunnedDelay;
     Coroutine jump;
-    LayerMask layerOrigin;
-    LayerMask layerBumping;
+    public LayerMask layerOrigin;
+    public LayerMask layerBumping;
+    Coroutine bumping;
 
     public void Start()
     {
@@ -64,6 +63,7 @@ public class EnemyHandler : MonoBehaviour
     protected virtual void OnEnable()
     {
         healthHandler.SetTotalHp(enemyInfo.hp);
+        if(lineIndex != 0) SetDefaultField();
     }
 
     protected virtual IEnumerator OnTriggerEnter2D(Collider2D collision)
@@ -130,7 +130,7 @@ public class EnemyHandler : MonoBehaviour
     public GameObject d;
     public bool a;
 
-    protected virtual void OnCollisionStay2D(Collision2D collision)
+    protected void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Enemy") && collision.contacts[0].normal.x >= 0.99f) frontalCollision = collision.gameObject;
@@ -184,27 +184,22 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
-    void CheckJump(Collision2D collision)
+    public void CheckJump(Collision2D collision)
     {
         if (!isJump
+            && collision.gameObject.CompareTag("Enemy")
             && collision.contacts[0].normal.x >= 0.99f
             && Mathf.Abs(collision.contacts[0].rigidbody.transform.position.y - transform.position.y) <= 0.01f
             && !isStunned
             && !isCollisionWithCar)
         {
-            jump = StartCoroutine(JumpStart());
+            Jump();
         }
     }
 
-    public IEnumerator Bump(GameObject droping)
+    public virtual void Jump()
     {
-        gameObject.layer = layerBumping;
-        colObj.layer = layerBumping;
-        CarController.instance.isBump[lineIndex - 1] = true;
-        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - transform.position.y) >= 0.5f);
-        CarController.instance.isBump[lineIndex - 1] = false;
-        gameObject.layer = layerOrigin;
-        colObj.layer = layerOrigin;
+        jump = StartCoroutine(JumpStart());
     }
 
     void GetContacts()
@@ -220,7 +215,6 @@ public class EnemyHandler : MonoBehaviour
                 && listContacts[i].collider.gameObject.CompareTag("Enemy"))
             {
                 listCollisions.Add(listContacts[i].rigidbody.gameObject);
-                listNormals.Add(listContacts[i].normal);
                 amoutCollision++;
             }
         }
@@ -233,7 +227,7 @@ public class EnemyHandler : MonoBehaviour
             && collision.contacts[0].normal.y <= -0.85f
             && !CarController.instance.isBump[lineIndex - 1])
         {
-            StartCoroutine(Bump(collision.gameObject));
+            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.gameObject, gameObject));
         }
     }
 
@@ -293,7 +287,7 @@ public class EnemyHandler : MonoBehaviour
         EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
     }
 
-    public void OnDisable()
+    public void SetDefaultField()
     {
         isCollisionWithCar = false;
         isCollisionWithGround = false;
@@ -303,6 +297,9 @@ public class EnemyHandler : MonoBehaviour
         isWalk = false;
         isJump = false;
         frontalCollision = null;
+        if (stunnedDelay != null) StopCoroutine(stunnedDelay);
+        if (jump != null) StopCoroutine(jump);
+        gameObject.layer = layerOrigin;
     }
     IEnumerator SetFalseIsStunned(float time)
     {

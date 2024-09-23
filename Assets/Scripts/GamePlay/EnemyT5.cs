@@ -27,11 +27,6 @@ public class EnemyT5 : EnemyHandler
         base.OnTriggerExit2D(collision);
     }
 
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-        
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

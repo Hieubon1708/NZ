@@ -18,16 +18,9 @@ public class EnemyT1 : EnemyHandler
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
+        if (!content.activeSelf) return;
         base.OnTriggerExit2D(collision);
         if (collision.CompareTag("Car")) animator.SetBool("attack", false);
-    }
-
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-        base.OnCollisionStay2D(collision);
-        if (isCollisionWithCar
-            || isStunned && collision.contacts[0].normal.x >= 0.99f) isWalk = false;
-        else isWalk = true;
     }
 
     protected override void FixedUpdate()

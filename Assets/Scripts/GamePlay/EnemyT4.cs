@@ -26,13 +26,6 @@ public class EnemyT4 : EnemyHandler
         base.OnTriggerExit2D(collision);
     }
 
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-        base.OnCollisionStay2D(collision);
-        if (isCollisionWithCar) isWalk = false;
-        else isWalk = true;
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

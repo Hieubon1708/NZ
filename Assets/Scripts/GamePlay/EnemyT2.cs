@@ -23,41 +23,40 @@ public class EnemyT2 : EnemyHandler
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
+        if (!content.activeSelf) return;
         base.OnTriggerExit2D(collision);
-    }
-
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-        base.OnCollisionStay2D(collision);
-        if (isJump || isCollisionWithCar) isWalk = false;
-        if (enemyInfo.transform.position.x <= targetX
-            && isCollisionWithGround)
-        {
-            rb.velocity = Vector2.zero;
-            if (isWalk)
-            {
-                isWalk = false;
-                targetX = GetTargetX();
-            }
-        }
-        else if(enemyInfo.transform.position.x > targetX
-            || !isCollisionWithGround) isWalk = true;
     }
 
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
-        if(enemyInfo.transform.position.x <= targetX)
+        if (isCollisionWithCar
+            || amoutCollision >= 2
+            || gameObject.layer == layerBumping
+            || enemyInfo.transform.position.x <= targetX)
         {
-            if(!animator.GetBool("attack"))
+            if (!animator.GetBool("attack"))
             {
+                targetX = GetTargetX();
                 animator.SetBool("attack", true);
             }
+            isWalk = false;
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
-        else if (animator.GetBool("attack"))
+        else
         {
-            animator.SetBool("attack", false);
+            if (animator.GetBool("attack"))
+            {
+                animator.SetBool("attack", false);
+            }
+            isWalk = true;
+            rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
+    }
+
+    public override void Jump()
+    {
+        if (enemyInfo.transform.position.x <= targetX) return;
+        base.Jump();
     }
 
     protected override void DeathHandle()
