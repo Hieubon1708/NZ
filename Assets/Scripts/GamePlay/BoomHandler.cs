@@ -10,6 +10,7 @@ public class BoomHandler : MonoBehaviour
             DOVirtual.DelayedCall(1f, delegate
             {
                 gameObject.SetActive(false);
+                ParController.instance.PlayBoomParticle(gameObject.transform.position);
             });
         }
     }

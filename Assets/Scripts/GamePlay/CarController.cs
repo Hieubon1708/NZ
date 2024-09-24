@@ -47,6 +47,11 @@ public class CarController : MonoBehaviour
     {
         carAni.SetTrigger("removeGameBlock");
     }
+    
+    public void DeathAni()
+    {
+        carAni.SetTrigger("death");
+    }
 
     public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject ePush, EnemyHandler e)
     {
@@ -62,6 +67,6 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GameController.instance.backgroundSpeed = Mathf.Lerp(GameController.instance.backgroundSpeed, multiplier * backgroundSpeed - (partSpeed * Mathf.Clamp(amoutCollison, 0, 3)), 0.1f);
+        GameController.instance.backgroundSpeed = Mathf.Lerp(GameController.instance.backgroundSpeed, multiplier * (backgroundSpeed - (partSpeed * Mathf.Clamp(amoutCollison, 0, 3))), 0.1f);
     }
 }

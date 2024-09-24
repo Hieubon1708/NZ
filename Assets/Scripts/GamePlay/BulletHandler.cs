@@ -18,7 +18,7 @@ public class BulletHandler : MonoBehaviour
         if (collision.CompareTag("Road_" + indexRoadCollider))
         {
             gameObject.SetActive(false);
-            ParController.instance.PlayRoadBulletHole(transform.position);
+            ParController.instance.PlayRoadBulletHoleParticle(transform.position);
         }
     }
 }

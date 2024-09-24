@@ -103,4 +103,9 @@ public class PlayerController : MonoBehaviour
     {
         playerAni.SetBool("attack", true);
     }
+    
+    public void DeathAni()
+    {
+        playerAni.SetTrigger("death");
+    }
 }

@@ -4,11 +4,6 @@ public class Player : MonoBehaviour
 {
     public float hp;
 
-    public void Start()
-    {
-        hp = DataManager.instance.playerData.playerHp;
-    }
-
     public float SubtractHp(float hp)
     {
         this.hp -= hp;

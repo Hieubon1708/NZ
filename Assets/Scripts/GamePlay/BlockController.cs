@@ -9,6 +9,7 @@ public class BlockController : MonoBehaviour
     public List<GameObject> blockPools = new List<GameObject>();
     public List<Block> scBlocks = new List<Block>();
     public List<GameObject> blocks = new List<GameObject>();
+    public List<GameObject> tempBlocks;
     public float startY;
     public float startYPlayer;
     public float distance;
@@ -39,6 +40,11 @@ public class BlockController : MonoBehaviour
                 Debug.LogWarning(item.Value);
             }*/
         }
+    }
+
+    public void StartGame()
+    {
+        tempBlocks = new List<GameObject>(blocks);
     }
 
     public void ResetBlockSprites()
@@ -193,6 +199,21 @@ public class BlockController : MonoBehaviour
             blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, startY + distance * i);
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
+    }
+
+    public void DeleteBlockInGame(GameObject block)
+    {
+        Block scBlock = GetScBlock(block);
+        block.SetActive(false);
+        tempBlocks.Remove(block);
+        scBlock.DeleteBlockAni();
+        CarController.instance.DeleteGameBookAni();
+        PlayerController.instance.DeleteBookAni();
+        for (int i = 0; i < tempBlocks.Count; i++)
+        {
+            tempBlocks[i].transform.localPosition = new Vector2(tempBlocks[i].transform.localPosition.x, startY + distance * i);
+        }
+        player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * tempBlocks.Count);
     }
 
     public Block GetScBlock(GameObject block)

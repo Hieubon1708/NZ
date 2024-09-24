@@ -139,6 +139,7 @@ public class GameController : MonoBehaviour
         touchScreen.SetActive(true);
         buttonStart.SetActive(false);
         booster.SetActive(true);
+        BlockController.instance.StartGame();
         BlockController.instance.SetActiveUI(false);
         EnemyTowerController.instance.NextTower();
         CarController.instance.multiplier = 1;

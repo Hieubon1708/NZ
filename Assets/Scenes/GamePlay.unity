@@ -4827,12 +4827,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadBulletHolePrefab: {fileID: 1940063468435063, guid: 59bae647ab72b994784721f14b01c900, type: 3}
-  dieParticlePrefab: {fileID: 1948955770630358, guid: 2e730dbd180c1c84b912c4b5f18a6dd7, type: 3}
+  zomDiePrefab: {fileID: 1948955770630358, guid: 2e730dbd180c1c84b912c4b5f18a6dd7, type: 3}
+  blockDestroyPrefab: {fileID: 1206373143852319, guid: 71a95ade04171724da98738baf808232, type: 3}
+  playerDiePrefab: {fileID: 1754327290503304, guid: 72e30d96d67923544a2820bd4664d16b, type: 3}
+  boomEffectPrefab: {fileID: 1199880006629564, guid: 9d14b39c53aaa5b4cb09d71b418fc7e2, type: 3}
+  boomHolePrefab: {fileID: 1640544441618374, guid: 7f8abf10707851749919f8a6bff913b0, type: 3}
   roadBulletHole: []
-  dieParticles: []
+  boomHoles: []
+  boomEffects: []
+  zomDies: []
+  blockDestroys: []
+  playerDie: {fileID: 0}
   container: {fileID: 1210177669}
   amoutHoleBullet: 20
-  amoutDieParitcle: 40
+  amoutZomeDie: 20
+  amoutBoom: 20
+  amoutBlockDestroy: 6
 --- !u!114 &1972759687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10558,9 +10568,9 @@ GameObject:
   - component: {fileID: 3994208513095295448}
   - component: {fileID: 696929350995413234}
   - component: {fileID: 6756869253915322185}
-  m_Layer: 16
+  m_Layer: 3
   m_Name: Player On Tower
-  m_TagString: Block
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36364,6 +36374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 8135798957766936212}
   healthHandler: {fileID: 5466941881689128959}
+  healthBar: {fileID: 5013091339093058673}
+  boxCollider: {fileID: 190799909719529993}
   listEnemies: []
 --- !u!1 &8417933819100943565
 GameObject:
@@ -36529,6 +36541,7 @@ MonoBehaviour:
   blockPools: []
   scBlocks: []
   blocks: []
+  tempBlocks: []
   startY: 1.05
   startYPlayer: 0.38
   distance: 1.4
@@ -39099,9 +39112,9 @@ GameObject:
   - component: {fileID: 190799909719529993}
   - component: {fileID: 8922854044261841830}
   - component: {fileID: 8922854044261841831}
-  m_Layer: 16
+  m_Layer: 3
   m_Name: Collider
-  m_TagString: Block
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

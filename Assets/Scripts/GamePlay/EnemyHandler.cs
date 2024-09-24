@@ -120,7 +120,7 @@ public class EnemyHandler : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDeath) return;
-        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -138,7 +138,7 @@ public class EnemyHandler : MonoBehaviour
     protected void OnCollisionStay2D(Collision2D collision)
     {
         if (isDeath) return;
-        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Enemy"))
         {
             if (collision.contacts[0].normal.x >= 0.99f && !isBumping) frontalCollision = collision.gameObject;
@@ -184,7 +184,7 @@ public class EnemyHandler : MonoBehaviour
     public void OnCollisionExit2D(Collision2D collision)
     {
         if (isDeath) return;
-        if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = false;
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
         {
@@ -297,7 +297,7 @@ public class EnemyHandler : MonoBehaviour
         healthHandler.SetDefaultInfo(enemyInfo);
         enemyInfo.gameObject.SetActive(false);
         healthBar.SetActive(false);
-        ParController.instance.PlayDieParticle(enemyInfo.transform.position);
+        ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
         EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
     }
 
