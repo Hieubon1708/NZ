@@ -14436,7 +14436,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4707974686766461}
   - component: {fileID: 210699153815697770}
-  - component: {fileID: 6584651662748176606}
   m_Layer: 0
   m_Name: Flame 7
   m_TagString: Untagged
@@ -14474,24 +14473,6 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &6584651662748176606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550653244470900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ani: {fileID: 95050793840448339}
-  target: {fileID: 0}
-  flameSmokeParticle: {fileID: 198868936630754856}
-  flameBoosterSmokeParticle: {fileID: 198540531171692176}
-  attackCollider: {fileID: 61186366553594414}
-  flameThrover: {fileID: 212775409252547619}
 --- !u!1 &1628077125470962
 GameObject:
   m_ObjectHideFlags: 0
@@ -14503,6 +14484,7 @@ GameObject:
   - component: {fileID: 4275680574697287}
   - component: {fileID: 95050793840448339}
   - component: {fileID: 7016813088474980366}
+  - component: {fileID: 1946702258474038850}
   m_Layer: 0
   m_Name: content
   m_TagString: Untagged
@@ -14560,6 +14542,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flameOnceParticle: {fileID: 198698190844256782}
+--- !u!114 &1946702258474038850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628077125470962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani: {fileID: 95050793840448339}
+  target: {fileID: 0}
+  flameSmokeParticle: {fileID: 198868936630754856}
+  flameSmokeParticleChild: {fileID: 198909394445640676}
+  flameBoosterSmokeParticle: {fileID: 198540531171692176}
+  attackCollider: {fileID: 61186366553594414}
+  flameThrover: {fileID: 212775409252547619}
 --- !u!1 &1679977118936469
 GameObject:
   m_ObjectHideFlags: 0

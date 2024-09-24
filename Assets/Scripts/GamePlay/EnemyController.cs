@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -168,7 +170,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void ERevival(GameObject e)
+    public void ERevival(GameObject e, EnemyHandler sc)
     {
         int index = -1;
         float xHighest = int.MinValue;
@@ -183,8 +185,8 @@ public class EnemyController : MonoBehaviour
         }
         e.SetActive(true);
         int indexLine = EUtils.GetIndexLine(e);
-        float x = listRandomEs[index].transform.position.x + defaultDistance;
-        float y = CarController.instance.spawnY[indexLine].position.y;
+        float x = index == -1 ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : listRandomEs[index].transform.position.x + defaultDistance;
+        float y = CarController.instance.spawnY[indexLine - 1].position.y;
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
         {
             if (spawnX > transform.position.x - 0.5f) y += Random.Range(1f, 2f);
@@ -192,6 +194,7 @@ public class EnemyController : MonoBehaviour
         }
         if (x < GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1) x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
         e.transform.position = new Vector2(x, y);
+        sc.SetDefaultField();
     }
 
     void CheckAmoutEnemyEachLine()

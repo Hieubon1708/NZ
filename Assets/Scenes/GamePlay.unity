@@ -4827,9 +4827,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadBulletHolePrefab: {fileID: 1940063468435063, guid: 59bae647ab72b994784721f14b01c900, type: 3}
+  dieParticlePrefab: {fileID: 1948955770630358, guid: 2e730dbd180c1c84b912c4b5f18a6dd7, type: 3}
   roadBulletHole: []
+  dieParticles: []
   container: {fileID: 1210177669}
-  count: 50
+  amoutHoleBullet: 20
+  amoutDieParitcle: 40
 --- !u!114 &1972759687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4969,6 +4972,7 @@ MonoBehaviour:
     times: []
     priceUpgrades: 
   playerData:
+    playerHp: 0
     gameLevel: 0
     gold: 0
     indexEnergy: 0
@@ -7665,7 +7669,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 261695
+    m_Bits: 258111
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -10554,9 +10558,9 @@ GameObject:
   - component: {fileID: 3994208513095295448}
   - component: {fileID: 696929350995413234}
   - component: {fileID: 6756869253915322185}
-  m_Layer: 17
+  m_Layer: 16
   m_Name: Player On Tower
-  m_TagString: Player
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13559,7 +13563,8 @@ MonoBehaviour:
   carAni: {fileID: 8961751812791349758}
   isBump: 000000
   backgroundSpeed: 0
-  amoutCollison: 3
+  partSpeed: 0
+  amoutCollison: 0
   spawnY:
   - {fileID: 1355529034525726331}
   - {fileID: 1632672337175120278}
@@ -26089,7 +26094,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 261695
+    m_Bits: 258111
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -31458,7 +31463,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 511
+    m_Bits: 127039
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -36359,6 +36364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 8135798957766936212}
   healthHandler: {fileID: 5466941881689128959}
+  listEnemies: []
 --- !u!1 &8417933819100943565
 GameObject:
   m_ObjectHideFlags: 0
@@ -39091,13 +39097,54 @@ GameObject:
   m_Component:
   - component: {fileID: 406245187293875424}
   - component: {fileID: 190799909719529993}
-  m_Layer: 17
+  - component: {fileID: 8922854044261841830}
+  - component: {fileID: 8922854044261841831}
+  m_Layer: 16
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!50 &8922854044261841830
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922854044261841829}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &8922854044261841831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922854044261841829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72edf49214422748b3eb5535495ec53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8938527769941441830
 Transform:
   m_ObjectHideFlags: 0

@@ -96,6 +96,7 @@ public class BlockController : MonoBehaviour
         {
             GetScBlock(blocks[i]).blockUpgradeHandler.CheckButtonStateInBlock();
         }
+        blockBuyer.CheckButtonState();
         energyUpgradee.CheckButtonState();
     }
 

@@ -6,15 +6,18 @@ using static UnityEngine.ParticleSystem;
 public class FlameHandler : WeaponShoter
 {
     public ParticleSystem flameSmokeParticle;
+    public ParticleSystem flameSmokeParticleChild;
     public ParticleSystem flameBoosterSmokeParticle;
     public BoxCollider2D attackCollider;
     public SpriteRenderer flameThrover;
     Coroutine shot;
-    Coroutine boosterShot;
     EmissionModule esmission;
+    EmissionModule esmissionChild;
 
     public override void StartGame()
     {
+        esmission = flameSmokeParticle.emission;
+        esmissionChild = flameSmokeParticleChild.emission;
         shot = StartCoroutine(Shot());
         StartCoroutine(FindTarget());
         StartCoroutine(Rotate());
@@ -23,44 +26,50 @@ public class FlameHandler : WeaponShoter
     public override void UseBooster()
     {
         ani.SetTrigger("booster");
-        boosterShot = StartCoroutine(Booster());
     }
 
-    IEnumerator Booster()
+    void EndBooster()
     {
-        if(shot != null) StopCoroutine(shot);
-        if(boosterShot != null) StopCoroutine(boosterShot);
-        ShotHandle(true, 0f, 0f);
-        attackCollider.transform.localScale = Vector3.one * 2;
-        ColNFlameThrover(true, 1f, 0.5f);
-        yield return new WaitWhile(() => flameBoosterSmokeParticle.emission.enabled);
-        ColNFlameThrover(false, 0f, 0.5f);
-        yield return new WaitForSeconds(1f);
         shot = StartCoroutine(Shot());
+    }
+
+    void FadeOut()
+    {
+        ColNFlameThrover(false, 0f, 0.25f);
     }
 
     IEnumerator Shot()
     {
         attackCollider.transform.localScale = Vector3.one;
-        esmission = flameSmokeParticle.emission;
         while (true)
         {
-            ShotHandle(true, 1f, 0.5f);
+            ShotHandle(true, 1f, 0.25f);
             yield return new WaitForSeconds(2.5f);
-            ShotHandle(false, 0f, 0.5f);
+            ShotHandle(false, 0f, 0.25f);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    void StartBooster()
+    {
+        if (shot != null) StopCoroutine(shot);
+        attackCollider.transform.localScale = Vector3.one * 2;
+        esmission.enabled = false;
+        esmissionChild.enabled = false;
+        ColNFlameThrover(true, 1f, 0.25f);
     }
 
     void ShotHandle(bool isActive, float alpha, float duration)
     {
         ani.SetBool("attack", isActive);
         esmission.enabled = isActive;
+        esmissionChild.enabled = isActive;
         ColNFlameThrover(isActive, alpha, duration);
     }
 
     void ColNFlameThrover(bool isActive, float alpha, float duration)
     {
+        flameThrover.DOKill();
         attackCollider.enabled = isActive;
         if (flameThrover != null) flameThrover.DOFade(alpha, duration);
     }

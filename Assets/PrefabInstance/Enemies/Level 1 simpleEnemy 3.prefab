@@ -577,7 +577,8 @@ GameObject:
   - component: {fileID: 9144352815958860949}
   - component: {fileID: 2885895912888928536}
   - component: {fileID: 3438151689352656486}
-  - component: {fileID: 6378001736550055794}
+  - component: {fileID: 629573409863836213}
+  - component: {fileID: 4321627747312284488}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 3
   m_TagString: Enemy
@@ -618,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 2000
+  damage: 100
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +659,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 28727
+    m_Bits: 28726
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -674,7 +676,7 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &6378001736550055794
+--- !u!114 &629573409863836213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -683,41 +685,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 3440869563518828017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4a295ce5c4c2a449546606f995906a, type: 3}
+  m_Script: {fileID: 11500000, guid: 14e170f4bb6e7e04b81939cbd54e8c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthHandler: {fileID: 0}
-  damage: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
-  forceJump: 0
-  multiplier: 0
-  speed: 0
+  enemyInfo: {fileID: 8562291420998726704}
+  healthBar: {fileID: 6778249730772743942}
+  healthHandler: {fileID: 9144352815958860949}
+  damage: {fileID: 5631743602232870298}
+  rb: {fileID: 2885895912888928536}
+  sortingGroup: {fileID: 3438151689352656486}
+  colObj: {fileID: 6321465562159464689}
+  animator: {fileID: 4481301843861227183}
+  forceJump: 5
+  multiplier: 1
+  speed: -2
   timeStunned: 0
   timeJump: 0
-  animator: {fileID: 0}
   isCollisionWithCar: 0
   isCollisionWithGround: 0
-  isCollisionWithBump: 0
   isJump: 0
   isWalk: 0
   isStunned: 0
+  isBumping: 0
+  isDeath: 0
   amoutCollision: 0
   lineIndex: 0
-  content: {fileID: 0}
-  enemyCollisionToJump: {fileID: 0}
-  listCollisions: []
-  listNormals: []
+  content: {fileID: 5665526574945122214}
   frontalCollision: {fileID: 0}
+  listCollisions: []
+  b: 0
   d: {fileID: 0}
   a: 0
-  xMin: 0
-  xMax: 0
-  yMin: 0
-  yMax: 0
-  targetPos: {x: 0, y: 0}
+--- !u!114 &4321627747312284488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  face: {fileID: 903588980467914540}
+  bodyUp: {fileID: 8240552690552768193}
+  bodyDown: {fileID: 4966934803437992195}
+  bodyDownJoint: {fileID: 3989258096991503123}
+  rightLeg: {fileID: 1710597911463958779}
+  leftLeg: {fileID: 3540499030001077412}
+  faces:
+  - {fileID: 21300000, guid: f8cc747d298231d489c87033bf2a12bd, type: 2}
+  - {fileID: 21300000, guid: 5771b1ea912419a469141380d15475f2, type: 2}
+  - {fileID: 21300000, guid: e5208e88560c2184386db45e64554c06, type: 2}
+  - {fileID: 21300000, guid: acf9945787a69d84d9760ac6e9725685, type: 2}
+  - {fileID: 21300000, guid: 520124ade23803c4183dafd3ae8a223d, type: 2}
+  - {fileID: 21300000, guid: a536940a143dd84449dd3dcbf434f62c, type: 2}
+  bodyUps:
+  - {fileID: 21300000, guid: 42adc94e2a581464faad2c1da72fe04e, type: 2}
+  - {fileID: 21300000, guid: 501dc468ac7512d4a927b005a8bb4a05, type: 2}
+  - {fileID: 21300000, guid: a251e3119e2ae9346a1d73688add001a, type: 2}
+  - {fileID: 21300000, guid: 5202f34423a13c244b859483152bb46a, type: 2}
+  - {fileID: 21300000, guid: 7a490aff783e9ea4a954fc8a1c1e535e, type: 2}
+  - {fileID: 21300000, guid: 349f9e5d206faae47b5021c9ebe5bf94, type: 2}
+  bodyDowns:
+  - {fileID: 21300000, guid: ee96e2d764ef5454f9441ff192468ac6, type: 2}
+  - {fileID: 21300000, guid: 663dc3f552b8e584282257f6d39668f6, type: 2}
+  - {fileID: 21300000, guid: 8ea2c26a8c3e2da48bade59f1ec1a84c, type: 2}
+  - {fileID: 21300000, guid: 9772d55460ec7974aa7e6166fca64b0a, type: 2}
+  - {fileID: 21300000, guid: 1276788bd8b9e4845bd6fa840224b2d0, type: 2}
+  - {fileID: 21300000, guid: 5122ae51791550c42bdb2a193213d8fb, type: 2}
+  bodyDownJoints:
+  - {fileID: 21300000, guid: 504f748973226484abfecc08e7c0db6d, type: 2}
+  - {fileID: 21300000, guid: 72d138b1ca62ee94b952b30723dc2d87, type: 2}
+  - {fileID: 21300000, guid: 930370bc08c7397478ec4549368e9c57, type: 2}
+  - {fileID: 21300000, guid: 3be5fd400670c124fa83d66ce018a920, type: 2}
+  - {fileID: 21300000, guid: 2c9781b7fade07344976bf7ff058e353, type: 2}
+  - {fileID: 21300000, guid: 87c1c0d9d55bfab46b99bd6654f1007a, type: 2}
+  legs:
+  - {fileID: 21300000, guid: 42c658ab36a5d8e43b0723d21fba1a0e, type: 2}
+  - {fileID: 21300000, guid: bf050d631429ac94eb7b9b62b4e4da24, type: 2}
+  - {fileID: 21300000, guid: 5802de3c4f4a86645ae03c86f631ca26, type: 2}
+  - {fileID: 21300000, guid: 7ac3f0f72d46c334a9fa6e97eac704bf, type: 2}
+  - {fileID: 21300000, guid: 4fda365f7bf6d5948b586e28ebcb5bb1, type: 2}
+  - {fileID: 21300000, guid: 0dca6f0b83be39c47b54fef050d74f2e, type: 2}
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,6 +2400,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+--- !u!114 &5631743602232870298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7126976719786292588, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+  m_PrefabInstance: {fileID: 3229049490249642230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5566f8ec5897c024380ea08bf7359c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8722444560139475041 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6179988147239823511, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}

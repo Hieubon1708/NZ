@@ -14,6 +14,16 @@ public class BlockHandler : MonoBehaviour
         healthHandler.SetTotalHp(blockInfo.hp);
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison++;
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison--;
+    }
+
     public void OnCollisionStay2D(Collision2D collision)
     {
         GameObject enemy = collision.gameObject;

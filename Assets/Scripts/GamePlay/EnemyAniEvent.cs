@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public class EnemyAniEvent : MonoBehaviour
@@ -7,6 +6,7 @@ public class EnemyAniEvent : MonoBehaviour
     public Rigidbody2D[] rbBullets;
     public int count;
     public Transform mouth;
+    public Enemy enemy;
     float force = 13;
     int index;
     Vector2 dir;
@@ -23,6 +23,7 @@ public class EnemyAniEvent : MonoBehaviour
         {
             GameObject b = Instantiate(preBullet, transform);
             Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+            b.name = enemy.damage.ToString();
             b.SetActive(false);
             rbBullets[i] = rb;
         }
@@ -30,6 +31,7 @@ public class EnemyAniEvent : MonoBehaviour
 
     public void ShotEvent()
     {
+        rbBullets[index].gameObject.SetActive(false);
         rbBullets[index].gameObject.SetActive(true);
         rbBullets[index].transform.position = mouth.position;
         float YUnder = -1, YAbove = -1, x = 0;

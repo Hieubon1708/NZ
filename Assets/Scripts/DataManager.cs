@@ -13,7 +13,7 @@ public class DataManager : MonoBehaviour
     public Sprite[] blockSpritesLv4;
     public Sprite[] blockSpritesLv5;
     public Sprite[] blockSpritesLv6;
-    
+
     public Sprite[] carSpritesLv1;
     public Sprite[] carSpritesLv2;
     public Sprite[] carSpritesLv3;
@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
         if (level == 4) blockSprites = blockSpritesLv5;
         if (level == 5) blockSprites = blockSpritesLv6;
     }
-    
+
     public Sprite[] GetCarSprites(int level)
     {
         if (level == 0) return carSpritesLv1;
@@ -65,7 +65,7 @@ public class DataManager : MonoBehaviour
         TextAsset jsSaw = Resources.Load<TextAsset>("Datas/SawData");
         TextAsset jsFlame = Resources.Load<TextAsset>("Datas/FlameData");
         TextAsset jsMachineGun = Resources.Load<TextAsset>("Datas/MachineGunData");
-        TextAsset jsEnergy= Resources.Load<TextAsset>("Datas/EnergyData");
+        TextAsset jsEnergy = Resources.Load<TextAsset>("Datas/EnergyData");
 
         blockData = JsonConvert.DeserializeObject<BlockData>(jsBlock.text);
         sawData = JsonConvert.DeserializeObject<SawData>(jsSaw.text);
@@ -80,7 +80,7 @@ public class DataManager : MonoBehaviour
             ingameDatas = JsonConvert.DeserializeObject<IngameData[]>(jsonContent);
         }
         else Debug.LogWarning("File not found: " + jsIngame);
-        
+
         string jsPlayer = Path.Combine(Application.persistentDataPath, "PlayerData.json");
         if (File.Exists(jsPlayer))
         {
@@ -90,7 +90,7 @@ public class DataManager : MonoBehaviour
         else
         {
             Debug.LogWarning("File not found: " + jsPlayer);
-            playerData = new PlayerData();
+            playerData = new PlayerData(4500, 0, 0, 0);
         }
     }
 }
@@ -137,9 +137,18 @@ public class EnergyData
 [System.Serializable]
 public class PlayerData
 {
+    public float playerHp;
     public int gameLevel;
     public int gold;
     public int indexEnergy;
+
+    public PlayerData(float playerHp, int gameLevel, int gold, int indexEnergy)
+    {
+        this.playerHp = playerHp;
+        this.gameLevel = gameLevel;
+        this.gold = gold;
+        this.indexEnergy = indexEnergy;
+    }
 }
 
 [System.Serializable]

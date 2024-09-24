@@ -959,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 500
+  damage: 50
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,7 +1036,7 @@ MonoBehaviour:
   sortingGroup: {fileID: 3438151689352656486}
   colObj: {fileID: 6321465562159464689}
   animator: {fileID: 6307429596205432657}
-  forceJump: 4
+  forceJump: 5
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -1045,12 +1046,13 @@ MonoBehaviour:
   isJump: 0
   isWalk: 0
   isStunned: 0
+  isBumping: 0
+  isDeath: 0
   amoutCollision: 0
   lineIndex: 0
   content: {fileID: 2078466305346430152}
   frontalCollision: {fileID: 0}
   listCollisions: []
-  listNormals: []
   b: 0
   d: {fileID: 0}
   a: 0
@@ -1066,6 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   face: {fileID: 2783849717978133849}
   bodyUp: {fileID: 7513844658712173236}
   bodyDown: {fileID: 5621911484681888871}

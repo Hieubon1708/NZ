@@ -791,6 +791,7 @@ GameObject:
   - component: {fileID: 2885895912888928536}
   - component: {fileID: 3438151689352656486}
   - component: {fileID: 410237897961624098}
+  - component: {fileID: 2246718257229351700}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 2
   m_TagString: Enemy
@@ -831,6 +832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 500
+  damage: 0
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,8 +910,8 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   animator: {fileID: 8697987506082482330}
   forceJump: 4
-  multiplier: 0.5
-  speed: 0
+  multiplier: 1
+  speed: -2
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -917,23 +919,53 @@ MonoBehaviour:
   isJump: 0
   isWalk: 0
   isStunned: 0
+  isBumping: 0
+  isDeath: 0
   amoutCollision: 0
   lineIndex: 0
   content: {fileID: 6957286141607537267}
   frontalCollision: {fileID: 0}
   listCollisions: []
-  layerOrigin:
-    serializedVersion: 2
-    m_Bits: 0
-  layerBumping:
-    serializedVersion: 2
-    m_Bits: 0
   b: 0
   d: {fileID: 0}
   a: 0
   xMin: 1
   xMax: 3
   targetX: 0
+--- !u!114 &2246718257229351700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  face: {fileID: 7946886885808856377}
+  bodyUp: {fileID: 3494351163943567998}
+  bodyDown: {fileID: 364951002953512608}
+  bodyDownJoint: {fileID: 4379589341180104596}
+  rightLeg: {fileID: 7331771233079822706}
+  leftLeg: {fileID: 7954140162760265118}
+  faces:
+  - {fileID: 21300000, guid: bacb1239cfa566f4aaaee18524a78c5f, type: 2}
+  - {fileID: 21300000, guid: 6d100229e4c45eb4b9d53aa0c5e31a95, type: 2}
+  bodyUps:
+  - {fileID: 21300000, guid: 282ac28ebd400524996c89e2856852c1, type: 2}
+  - {fileID: 21300000, guid: 2f9e259ae6c467b4d94fb7d22f8e3868, type: 2}
+  bodyDowns:
+  - {fileID: 21300000, guid: 8ddba8e7a2eba8f45a112896534eeea6, type: 2}
+  - {fileID: 21300000, guid: 624cd8d85c462014e95c9ee48b3bf852, type: 2}
+  bodyDownJoints:
+  - {fileID: 21300000, guid: 51529976faa935d489401f21afbe281f, type: 2}
+  - {fileID: 21300000, guid: 986c9906308d66f4486324f6c8d1e21a, type: 2}
+  legs:
+  - {fileID: 21300000, guid: 38fefd09e6133cd44a039315e40cde1b, type: 2}
+  - {fileID: 21300000, guid: e34948d0303726a458a8a737167372c6, type: 2}
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,6 +1948,7 @@ MonoBehaviour:
   rbBullets: []
   count: 3
   mouth: {fileID: 5833222935557416321}
+  enemy: {fileID: 8562291420998726704}
   p: {fileID: 3100199516901066794, guid: 7f511aaa37a758946a8f0b59dfa42271, type: 3}
 --- !u!1 &7230202833428853407
 GameObject:

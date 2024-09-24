@@ -31,7 +31,6 @@ public class EnemyT2 : EnemyHandler
     {
         if (isCollisionWithCar
             || amoutCollision >= 2
-            || gameObject.layer == layerBumping
             || enemyInfo.transform.position.x <= targetX)
         {
             if (!animator.GetBool("attack"))

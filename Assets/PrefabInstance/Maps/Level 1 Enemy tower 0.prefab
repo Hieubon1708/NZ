@@ -492,7 +492,6 @@ GameObject:
   - component: {fileID: -4761481621960193217}
   - component: {fileID: -4907019566322060450}
   - component: {fileID: -7356064853032215106}
-  - component: {fileID: 4837307173805265014}
   m_Layer: 0
   m_Name: Level 1 Enemy tower 0
   m_TagString: Untagged
@@ -576,8 +575,8 @@ MonoBehaviour:
   - {fileID: 514162525848653926}
   amoutLimit: 3
   enemies:
-  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
-  amout: 02000000
+  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
+  amout: 01000000
   speed:
   - -2
   listRandomEs: []
@@ -643,19 +642,6 @@ MonoBehaviour:
   healthHandler: {fileID: -4907019566322060450}
   damage: {fileID: 675304469991516846}
   isVisible: 0
---- !u!114 &4837307173805265014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511787952999719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3cfd0c0347c51f41849476aca4efd6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplier: 1
 --- !u!1 &1522277298294279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6996733975855680790}
+  - component: {fileID: 8457690003433708604}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -1866,6 +1853,19 @@ Transform:
   - {fileID: 4573627170481721}
   m_Father: {fileID: 4911892524974337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8457690003433708604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077422137436670762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cfd0c0347c51f41849476aca4efd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 1
 --- !u!1 &6550986960967197878
 GameObject:
   m_ObjectHideFlags: 0

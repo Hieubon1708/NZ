@@ -130,7 +130,7 @@ public class MachineGunHandler : WeaponShoter
         {
             shotBoosters[i] = StartCoroutine(Shot(listBulletBoosters[i], listScBulletBoosters[i], i, true, timeDistanceBooster));
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.85f);
         for (int i = 0; i < amoutLine; i++)
         {
             if (shotBoosters[i] != null) StopCoroutine(shotBoosters[i]);

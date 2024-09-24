@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -25,6 +26,8 @@ public class EnemyHandler : MonoBehaviour
     public bool isJump;
     public bool isWalk;
     public bool isStunned;
+    public bool isBumping;
+    public bool isDeath;
     public int amoutCollision;
     public int lineIndex;
     public GameObject content;
@@ -35,8 +38,8 @@ public class EnemyHandler : MonoBehaviour
 
     Coroutine stunnedDelay;
     Coroutine jump;
-    public LayerMask layerOrigin;
-    public LayerMask layerBumping;
+    LayerMask layerOrigin;
+    LayerMask layerBumping;
     Coroutine bumping;
 
     public void Start()
@@ -63,11 +66,11 @@ public class EnemyHandler : MonoBehaviour
     protected virtual void OnEnable()
     {
         healthHandler.SetTotalHp(enemyInfo.hp);
-        if(lineIndex != 0) SetDefaultField();
     }
 
     protected virtual IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDeath) yield break;
         int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
@@ -105,6 +108,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
+        if (isDeath) return;
         if (collision.CompareTag("Saw")) isTriggerSaw = false;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
         if (collision.CompareTag("Boom"))
@@ -115,6 +119,7 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDeath) return;
         if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -132,8 +137,12 @@ public class EnemyHandler : MonoBehaviour
 
     protected void OnCollisionStay2D(Collision2D collision)
     {
+        if (isDeath) return;
         if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = true;
-        if (collision.gameObject.CompareTag("Enemy") && collision.contacts[0].normal.x >= 0.99f) frontalCollision = collision.gameObject;
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (collision.contacts[0].normal.x >= 0.99f && !isBumping) frontalCollision = collision.gameObject;
+        }
 
         if (collision.gameObject.CompareTag("Enemy") && !isStunned)
         {
@@ -174,6 +183,7 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
+        if (isDeath) return;
         if (collision.gameObject.CompareTag("Block")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
@@ -189,8 +199,8 @@ public class EnemyHandler : MonoBehaviour
         if (!isJump
             && collision.gameObject.CompareTag("Enemy")
             && collision.contacts[0].normal.x >= 0.99f
-            && Mathf.Abs(collision.contacts[0].rigidbody.transform.position.y - transform.position.y) <= 0.01f
             && !isStunned
+            && Mathf.Abs(collision.rigidbody.position.y - rb.position.y) <= 0.35f
             && !isCollisionWithCar)
         {
             Jump();
@@ -227,7 +237,7 @@ public class EnemyHandler : MonoBehaviour
             && collision.contacts[0].normal.y <= -0.85f
             && !CarController.instance.isBump[lineIndex - 1])
         {
-            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.gameObject, gameObject));
+            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this));
         }
     }
 
@@ -235,7 +245,9 @@ public class EnemyHandler : MonoBehaviour
     {
         if (isCollisionWithCar
             || amoutCollision >= 2
-            || gameObject.layer == layerBumping)
+            || gameObject.layer == layerBumping
+            || isJump && amoutCollision > 0
+            || frontalCollision != null)
         {
             isWalk = false;
             rb.velocity = new Vector2(0f, rb.velocity.y);
@@ -270,21 +282,23 @@ public class EnemyHandler : MonoBehaviour
 
     void SubtractHp(float subtractHp)
     {
+        if (isDeath) return;
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         damage.ShowDamage(subtractHp.ToString());
-
         if (hp == 0) DeathHandle();
     }
 
     protected virtual void DeathHandle()
     {
+        isDeath = true;
         //content.SetActive(false);
         healthHandler.SetDefaultInfo(enemyInfo);
         enemyInfo.gameObject.SetActive(false);
         healthBar.SetActive(false);
-        EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
+        ParController.instance.PlayDieParticle(enemyInfo.transform.position);
+        EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
     }
 
     public void SetDefaultField()
@@ -300,6 +314,9 @@ public class EnemyHandler : MonoBehaviour
         if (stunnedDelay != null) StopCoroutine(stunnedDelay);
         if (jump != null) StopCoroutine(jump);
         gameObject.layer = layerOrigin;
+        colObj.layer = layerOrigin;
+        colObj.SetActive(true);
+        isDeath = false;
     }
     IEnumerator SetFalseIsStunned(float time)
     {

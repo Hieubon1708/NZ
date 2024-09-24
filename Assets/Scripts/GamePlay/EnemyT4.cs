@@ -39,7 +39,6 @@ public class EnemyT4 : EnemyHandler
         DOVirtual.DelayedCall(timeRevive, delegate
         {
             enemyInfo.gameObject.SetActive(false);
-            EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
         });
     }
 }

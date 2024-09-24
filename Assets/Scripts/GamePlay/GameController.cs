@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour
         DOTween.SetTweensCapacity(200, 1000);
         Resize();
         MapGenerate(dataManager.playerData.gameLevel);
-        //Time.timeScale = 0.45f;
     }
 
     void MapGenerate(int index)
