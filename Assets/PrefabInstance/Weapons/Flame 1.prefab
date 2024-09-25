@@ -16965,7 +16965,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4076709789252272}
   - component: {fileID: 95080726805271084}
-  - component: {fileID: 5466019521843654535}
   - component: {fileID: 4320943296945186815}
   m_Layer: 0
   m_Name: content
@@ -17011,19 +17010,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5466019521843654535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1976680858914969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38204779e45a5ca4b8ba68464a795c08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flameOnceParticle: {fileID: 198473812138019255}
 --- !u!114 &4320943296945186815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17038,9 +17024,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ani: {fileID: 95080726805271084}
   target: {fileID: 0}
+  parent: {fileID: 4075911761227169}
   flameSmokeParticle: {fileID: 198737977217716754}
   flameSmokeParticleChild: {fileID: 198786589921534749}
   flameBoosterSmokeParticle: {fileID: 198198392994000766}
+  flameOnceParticle: {fileID: 198473812138019255}
   attackCollider: {fileID: 61412353424442122}
   flameThrover: {fileID: 212366468469992542}
 --- !u!1 &1994668073482281

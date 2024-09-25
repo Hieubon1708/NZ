@@ -13,7 +13,7 @@ public class WeaponUpgradeButton : ButtonClicker
     public override void OnPointerUp(PointerEventData eventData)
     {
         if (weaponUpgradeHandler.textMax.gameObject.activeSelf || DataManager.instance.playerData.gold < weaponUpgradeHandler.priceUpgrades[weaponUpgradeHandler.level][weaponUpgradeHandler.levelUpgrade]) return;
-        weaponUpgradeHandler.Upgrade();
         base.OnPointerUp(eventData);
+        if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) weaponUpgradeHandler.Upgrade();
     }
 }

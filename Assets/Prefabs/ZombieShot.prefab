@@ -7023,9 +7023,10 @@ GameObject:
   - component: {fileID: 50748073098662442}
   - component: {fileID: 210431548850996712}
   - component: {fileID: 1993159127944278007}
+  - component: {fileID: 3825033437495340193}
   m_Layer: 13
   m_Name: ZombieShot
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7082,10 +7083,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904040921391727}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1790435259
+  m_SortingLayer: 9
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &1993159127944278007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7099,3 +7100,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 50748073098662442}
+  col: {fileID: 3825033437495340193}
+  target: {x: 0, y: 0}
+  damage: 50
+--- !u!58 &3825033437495340193
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904040921391727}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.05

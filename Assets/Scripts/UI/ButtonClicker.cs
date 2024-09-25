@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class ButtonClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public float localScale;
+    public GameObject currentObjectSelected;
 
     public void Start()
     {
@@ -13,6 +14,7 @@ public class ButtonClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        currentObjectSelected = eventData.pointerCurrentRaycast.gameObject;
         ScaleButton(localScale * 0.95f, 0.05f);
     }
 

@@ -14,6 +14,6 @@ public class BlockBuyButton : ButtonClicker
     {
         if (DataManager.instance.playerData.gold < DataManager.instance.blockData.price) return;
         base.OnPointerUp(eventData);
-        blockBuyHandler.Buy();
+        if(eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) blockBuyHandler.Buy();
     }
 }

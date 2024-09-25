@@ -3,11 +3,11 @@ using UnityEngine;
 public class EnemyAniEvent : MonoBehaviour
 {
     public GameObject preBullet;
-    public Rigidbody2D[] rbBullets;
+    public EnemyBulletHandler[] scBullets;
     public int count;
     public Transform mouth;
     public Enemy enemy;
-    float force = 13;
+    float force;
     int index;
     Vector2 dir;
 
@@ -18,45 +18,52 @@ public class EnemyAniEvent : MonoBehaviour
 
     void Generate()
     {
-        rbBullets = new Rigidbody2D[count];
+        scBullets = new EnemyBulletHandler[count];
         for (int i = 0; i < count; i++)
         {
-            GameObject b = Instantiate(preBullet, transform);
-            Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+            GameObject b = Instantiate(preBullet, GameController.instance.poolBullets);
             b.name = enemy.damage.ToString();
             b.SetActive(false);
-            rbBullets[i] = rb;
+            scBullets[i] = b.GetComponent<EnemyBulletHandler>();
         }
     }
 
     public void ShotEvent()
     {
-        rbBullets[index].gameObject.SetActive(false);
-        rbBullets[index].gameObject.SetActive(true);
-        rbBullets[index].transform.position = mouth.position;
+        force = 9;
+        scBullets[index].gameObject.SetActive(false);
+        scBullets[index].gameObject.SetActive(true);
+        scBullets[index].transform.position = mouth.position;
         float YUnder = -1, YAbove = -1, x = 0;
-        if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y;
+        if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y - 0.75f;
         else YUnder = PlayerController.instance.transform.position.y;
         x = PlayerController.instance.transform.position.x;
         YAbove = PlayerController.instance.transform.position.y + 0.75f;
         float randomTarget = Random.Range(YUnder, YAbove);
-        MakeAngle(new Vector2(x, randomTarget));
-        rbBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(dir) - 90);
-        rbBullets[index].velocity = force * dir;
+        force += randomTarget;
+        Vector2 target = new Vector2(x, randomTarget);
+        Vector2 dir = target - (Vector2)mouth.transform.position;
+        float distance = Vector2.Distance(target, mouth.transform.position);
+        //MakeAngle(target);
+        scBullets[index].target = target;
+        scBullets[index].transform.rotation = Quaternion.Euler(0, 0, EUtils.GetAngle(dir) - 90);
+        scBullets[index].rb.velocity = distance * dir;
         index++;
-        if (index == rbBullets.Length) index = 0;
+        if (index == scBullets.Length) index = 0;
+        Debug.DrawLine(mouth.position, new Vector2(x, randomTarget), Color.red, 0.5f);
     }
 
     public GameObject p;
 
     public void MakeAngle(Vector2 target)
     {
-        for (float i = 110; i <= 170; i++)
+        for (float i = 100; i <= 130; i++)
         {
             dir = GetDir(i);
-            for (int j = 0; j < 30; j++)
+            for (int j = 0; j < 100; j++)
             {
-                Vector2 r = PointPosition(j * 0.05f);
+                Vector2 r = PointPosition(j * 0.025f);
+                //Instantiate(p, r, Quaternion.Euler(0,0, EUtils.GetAngle(dir)));
                 if (Vector2.Distance(r, target) <= 0.25f) return;
             }
         }

@@ -7,7 +7,7 @@ public class MachineGunBulletHandler : MonoBehaviour
 
     public void Shot(float speed, Vector2 dir)
     {
-        indexRoadCollider = Random.Range(1, RoadColliderGenerator.instance.count);
+        indexRoadCollider = Random.Range(0, RoadColliderGenerator.instance.count);
         rb.AddForce(dir * speed, ForceMode2D.Impulse);
         //Debug.DrawLine(transform.position, raycastDirection * 10, Color.red, 10);
     }

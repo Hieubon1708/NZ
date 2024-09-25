@@ -98,6 +98,7 @@ public class BlockController : MonoBehaviour
 
     public void CheckButtonStateAll()
     {
+        if (blockPools.Count == 0) blockBuyer.gameObject.SetActive(false);
         for (int i = 0; i < blocks.Count; i++)
         {
             GetScBlock(blocks[i]).blockUpgradeHandler.CheckButtonStateInBlock();

@@ -14,6 +14,6 @@ public class EnergyUpgradeButton : ButtonClicker
     {
         if (DataManager.instance.playerData.gold < DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy]) return;
         base.OnPointerUp(eventData);
-        energyUpgradeHandler.Upgrade();
+        if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) energyUpgradeHandler.Upgrade();
     }
 }

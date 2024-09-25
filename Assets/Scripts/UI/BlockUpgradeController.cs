@@ -28,7 +28,6 @@ public class BlockUpgradeController : MonoBehaviour
                 if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyle.position)) <= 1f)
                 {
                     scBlock.SubtractGold();
-                    GameController.instance.RemoveKeyDamage(blockSelected);
                     BlockController.instance.DeleteBlock(blockSelected);
                     scBlock.blockUpgradeHandler.ResetData();
                 }

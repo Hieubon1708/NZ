@@ -210,6 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4928548198096891}
   - component: {fileID: 95210986041299538}
+  - component: {fileID: 436563795798938971}
   m_Layer: 0
   m_Name: Machine_Gun_View_Level_3
   m_TagString: Untagged
@@ -259,6 +260,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &436563795798938971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243379245756280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b4902b5a96f7a459bc09518d4bcd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani: {fileID: 95210986041299538}
+  target: {fileID: 0}
+  parent: {fileID: 4634588535324913}
+  preBullet: {fileID: 1679334284406129, guid: 3c4c314e82ebdb8418f0243fa87ef814, type: 3}
+  preBulletBooster: {fileID: 1870203721908051, guid: 88245f5a1e105e941b1faf292d7eb702, type: 3}
+  count: 25
+  timeDistance: 0.08
+  timeDistanceBooster: 0.15
+  speedBullet: 25
+  turnTimeDelay: 0.75
+  listBulletBoosters: []
+  listScBulletBoosters: []
+  containers:
+  - {fileID: 2721330327098244003}
+  - {fileID: 7256518311731546014}
+  - {fileID: 3785978566548652746}
+  block: {fileID: 0}
+  amoutLine: 3
 --- !u!1 &1300061806878935
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +1000,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4634588535324913}
   - component: {fileID: 210181727923211813}
-  - component: {fileID: 427447194202377510}
   m_Layer: 0
   m_Name: Machinegun 3
   m_TagString: Untagged
@@ -1007,33 +1037,6 @@ SortingGroup:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &427447194202377510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786475346630303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2b4902b5a96f7a459bc09518d4bcd68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ani: {fileID: 95210986041299538}
-  target: {fileID: 0}
-  preBullet: {fileID: 1679334284406129, guid: 3c4c314e82ebdb8418f0243fa87ef814, type: 3}
-  preBulletBooster: {fileID: 0}
-  count: 25
-  timeDistance: 0.08
-  timeDistanceBooster: 0.15
-  speedBullet: 20
-  turnTimeDelay: 0.75
-  containers:
-  - {fileID: 2721330327098244003}
-  - {fileID: 7256518311731546014}
-  - {fileID: 3785978566548652746}
-  block: {fileID: 0}
-  amoutLine: 3
 --- !u!1 &1879700536338789
 GameObject:
   m_ObjectHideFlags: 0

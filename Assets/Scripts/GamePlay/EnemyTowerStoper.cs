@@ -7,6 +7,7 @@ public class EnemyTowerStoper : MonoBehaviour
         if (collision.CompareTag("ColStopTower"))
         {
             CarController.instance.multiplier = 0;
+            GameController.instance.listEVisible.Add(gameObject);
         }
     }
 }

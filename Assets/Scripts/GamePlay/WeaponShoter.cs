@@ -5,6 +5,7 @@ public abstract class WeaponShoter : MonoBehaviour
 {
     public Animator ani;
     public Transform target;
+    public Transform parent;
 
     public abstract void StartGame();
     public abstract void UseBooster();
@@ -13,7 +14,7 @@ public abstract class WeaponShoter : MonoBehaviour
     {
         while (true)
         {
-            transform.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, transform.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - transform.position)), 0.05f);
+            parent.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - parent.position)), 0.05f);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -22,7 +23,7 @@ public abstract class WeaponShoter : MonoBehaviour
     {
         while (true)
         {
-            target = GameController.instance.GetENearest(transform.position);
+            target = GameController.instance.GetENearest(parent.position);
             float time = target == GameController.instance.defaultDir ? 0.02f : 0.5f;
             yield return new WaitForSeconds(time);
         }

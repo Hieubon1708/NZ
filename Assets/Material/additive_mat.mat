@@ -12,56 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - ALPHACUTOFF_ON
-  - ALPHAOUTLINE_ON
-  - ALPHAROUND_ON
-  - ATLAS_ON
-  - BILBOARD_ON
   - BLURISHD_ON
-  - BLUR_ON
-  - CHANGECOLOR_ON
-  - CHROMABERR_ON
-  - CLIPPING_ON
-  - COLORRAMP_ON
-  - COLORSWAP_ON
-  - CONTRAST_ON
   - CUSTOMBLENDING_ON
-  - CUSTOMZTEST_ON
-  - DISTORT_ON
-  - DOODLE_ON
-  - FADE_ON
-  - FISHEYE_ON
-  - FLICKER_ON
-  - FOG_ON
-  - GHOST_ON
-  - GLITCH_ON
-  - GLOW_ON
-  - GRADIENT_ON
-  - GREYSCALE_ON
-  - HITEFFECT_ON
-  - HOLOGRAM_ON
-  - HSV_ON
-  - INNEROUTLINE_ON
-  - MOTIONBLUR_ON
-  - NEGATIVE_ON
-  - OFFSETUV_ON
-  - OUTBASE_ON
-  - OVERLAY_ON
-  - PINCH_ON
-  - PIXELATE_ON
-  - POLARUV_ON
-  - POSTERIZE_ON
-  - RECTSIZE_ON
-  - ROTATEUV_ON
-  - ROUNDWAVEUV_ON
-  - SHADOW_ON
-  - SHAKEUV_ON
-  - SHINE_ON
-  - TEXTURESCROLL_ON
-  - TWISTUV_ON
-  - WAVEUV_ON
-  - WIND_ON
-  - ZOOMUV_ON
   m_InvalidKeywords:
   - _BLURHD_ON
   m_LightmapFlags: 4
@@ -215,7 +167,7 @@ Material:
     - _MotionBlurAngle: 0.1
     - _MotionBlurDist: 1.25
     - _MyDstMode: 1
-    - _MySrcMode: 1
+    - _MySrcMode: 5
     - _NegativeAmount: 1
     - _OcclusionStrength: 1
     - _OffsetUvX: 0
@@ -275,7 +227,7 @@ Material:
     - _WaveX: 0
     - _WaveY: 0.5
     - _ZTestMode: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}

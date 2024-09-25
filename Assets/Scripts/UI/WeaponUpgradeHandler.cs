@@ -53,7 +53,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
 
     public override void UpgradeHandle()
     {
-        instance.AddKeyDamage(blockUpgradeHandler.blockInfo.gameObject, damages[level][levelUpgrade]);
+        weapon.name = damages[level][levelUpgrade].ToString();
         if (levelUpgrade < boxProgress.Length)
         {
             textLv.text = "Lv" + (level + 1);
@@ -68,7 +68,6 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         if (levelUpgrade == boxProgress.Length)
         {
             if (level != priceUpgrades.Length - 1) ChangeTextUpgrade();
-            levelUpgrade = 0;
         }
     }
 
@@ -83,7 +82,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         if (weapon == null) return;
         /*Debug.Log(level);
         Debug.Log(priceUpgrades.Length);*/
-        if (level == priceUpgrades.Length && levelUpgrade == boxProgress.Length)
+        if (level == priceUpgrades.Length - 1 && levelUpgrade == priceUpgrades[level].Length - 1)
         {
             DisableBox();
             UIHandler.instance.ChangeSpriteWeaponUpgradee(frame, textPriceUpgrade, textMax);

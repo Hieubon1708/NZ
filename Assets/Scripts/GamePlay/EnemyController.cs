@@ -1,5 +1,3 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public int amoutLimit;
     int milestone;
     float spawnX;
+    public GameObject col;
 
     public GameObject[] enemies;
     public int[] amout;

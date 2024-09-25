@@ -8,6 +8,7 @@ public class FlameHandler : WeaponShoter
     public ParticleSystem flameSmokeParticle;
     public ParticleSystem flameSmokeParticleChild;
     public ParticleSystem flameBoosterSmokeParticle;
+    public ParticleSystem flameOnceParticle;
     public BoxCollider2D attackCollider;
     public SpriteRenderer flameThrover;
     Coroutine shot;
@@ -21,6 +22,11 @@ public class FlameHandler : WeaponShoter
         shot = StartCoroutine(Shot());
         StartCoroutine(FindTarget());
         StartCoroutine(Rotate());
+    }
+
+    public void FlameOnceParticle()
+    {
+        flameOnceParticle.Play();
     }
 
     public override void UseBooster()

@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BlockUpgradeButton : ButtonClicker
@@ -14,7 +13,7 @@ public class BlockUpgradeButton : ButtonClicker
     public override void OnPointerUp(PointerEventData eventData)
     {
         if (blockUpgradeHandler.textMax.gameObject.activeSelf || DataManager.instance.playerData.gold < DataManager.instance.blockData.priceUpgrades[blockUpgradeHandler.blockInfo.level]) return;
-        blockUpgradeHandler.Upgrade();
+        if(eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) blockUpgradeHandler.Upgrade();
         base.OnPointerUp(eventData);
     }
 }

@@ -23,21 +23,34 @@ public class PlayerHandler : MonoBehaviour
         if (!listEnemies.Contains(enemy))
         {
             listEnemies.Add(enemy);
-            float hp = playerInfo.SubtractHp(int.Parse(collision.gameObject.name));
-            healthHandler.SubtractHp(hp);
+            SubtractHp(int.Parse(collision.gameObject.name));
             DOVirtual.DelayedCall(0.5f, delegate
             {
                 listEnemies.Remove(enemy);
             });
-            if(hp == 0)
-            {
-                PlayerController.instance.DeathAni();
-                CarController.instance.DeathAni();
-                ParController.instance.PlayPlayerDieParticle(PlayerController.instance.transform.position);
-                CarController.instance.multiplier = 0;
-                boxCollider.enabled = false;
-                healthBar.SetActive(false);
-            }
+        }
+    }
+
+    void SubtractHp(int subtractHp)
+    {
+        float hp = playerInfo.SubtractHp(subtractHp);
+        healthHandler.SubtractHp(hp);
+        if (hp == 0)
+        {
+            PlayerController.instance.DeathAni();
+            CarController.instance.DeathAni();
+            ParController.instance.PlayPlayerDieParticle(PlayerController.instance.transform.position);
+            CarController.instance.multiplier = 0;
+            boxCollider.enabled = false;
+            healthBar.SetActive(false);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            SubtractHp(int.Parse(collision.gameObject.name));
         }
     }
 }

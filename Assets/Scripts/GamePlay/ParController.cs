@@ -8,6 +8,8 @@ public class ParController : MonoBehaviour
     public GameObject roadBulletHolePrefab;
     public GameObject zomDiePrefab;
     public GameObject blockDestroyPrefab;
+    public GameObject towerExplosionHolePrefab;
+    public GameObject towerExplosionPrefab;
     public GameObject playerDiePrefab;
     public GameObject boomEffectPrefab;
     public GameObject boomHolePrefab;
@@ -17,6 +19,8 @@ public class ParController : MonoBehaviour
     public GameObject[] zomDies;
     public GameObject[] blockDestroys;
     public GameObject playerDie;
+    public GameObject towerExplosionHole;
+    public GameObject towerExplosion;
     public Transform container;
     public int amoutHoleBullet;
     public int amoutZomeDie;
@@ -67,11 +71,15 @@ public class ParController : MonoBehaviour
             boomHoles[i] = Instantiate(boomHolePrefab, container);
             boomHoles[i].SetActive(false);
         }
+        towerExplosion = Instantiate(towerExplosionPrefab, container);
+        towerExplosion.SetActive(false);
+        towerExplosionHole = Instantiate(towerExplosionHolePrefab, container);
+        towerExplosionHole.SetActive(false);
     }
 
     public void PlayRoadBulletHoleParticle(Vector2 pos)
     {
-        GameObject d = roadBulletHole[currentCount].gameObject;
+        GameObject d = roadBulletHole[currentCount];
         d.transform.position = pos;
         d.SetActive(true);
         currentCount++;
@@ -83,6 +91,15 @@ public class ParController : MonoBehaviour
     {
         playerDie.transform.position = pos;
         playerDie.SetActive(true);
+    }
+    
+    public void PlayTowerExplosionParticle(Vector2 pos)
+    {
+        towerExplosion.transform.position = pos;
+        towerExplosion.SetActive(true);
+        towerExplosionHole.transform.position = pos;
+        towerExplosionHole.SetActive(true);
+        DOVirtual.DelayedCall(5f, delegate { towerExplosion.SetActive(false); towerExplosionHole.SetActive(false); });
     }
 
     public void PlayZomDieParticle(Vector2 pos)

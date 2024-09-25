@@ -2590,6 +2590,7 @@ GameObject:
   - component: {fileID: 486651841617870419}
   - component: {fileID: 7920777270787124881}
   - component: {fileID: 8564156273966617754}
+  - component: {fileID: 454688196313922966}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -2646,6 +2647,24 @@ MonoBehaviour:
   scTowers: []
   distanceTower: 20
   indexTower: -1
+--- !u!114 &454688196313922966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967148387835107803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6a56c244d63e641adb16c9bb0b2ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zomHitOnRoadPrefab: {fileID: 1982696263771530, guid: 3e2b0a3e8372caf45a29f54cb5503eaf, type: 3}
+  zomHitOnHeroPrefab: {fileID: 1494868365755377, guid: 7e749c2e9c5071d4fb75741d499d89de, type: 3}
+  zomHitOnRoads: []
+  zomHitOnHeros: []
+  amoutZomHitOnRoad: 10
+  amoutZomHitOnHero: 20
 --- !u!1 &8425016553775969297
 GameObject:
   m_ObjectHideFlags: 0

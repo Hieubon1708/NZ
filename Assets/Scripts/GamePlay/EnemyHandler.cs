@@ -86,7 +86,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Saw"))
         {
-            subtractHp = GameController.instance.listDamages[collision.attachedRigidbody.gameObject];
+            subtractHp = 50;
             isTriggerSaw = true;
             while (isTriggerSaw && enemyInfo.hp > 0)
             {
@@ -96,7 +96,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            subtractHp = GameController.instance.listDamages[collision.attachedRigidbody.gameObject];
+            subtractHp = 50;
             isTriggerFlame = true;
             while (isTriggerFlame && enemyInfo.hp > 0)
             {

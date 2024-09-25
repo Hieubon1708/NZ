@@ -15,6 +15,6 @@ public class FlameBuyButton : ButtonClicker
     {
         if (DataManager.instance.playerData.gold < DataManager.instance.flameData.price) return;
         base.OnPointerUp(eventData);
-        flameBuyHandler.Buy();
+        if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) flameBuyHandler.Buy();
     }
 }

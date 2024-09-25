@@ -6,6 +6,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public Tower towerInfo;
     public HealthHandler healthHandler;
     public Damage damage;
+    public Transform towerPos;
     public bool isVisible;
     bool isTriggerFlame;
 
@@ -58,6 +59,7 @@ public class EnemyTowerHandler : MonoBehaviour
         {
             EnemyTowerController.instance.NextTower();
             towerInfo.gameObject.SetActive(false);
+            ParController.instance.PlayTowerExplosionParticle(new Vector2(towerPos.transform.position.x + 1.5f, towerPos.transform.position.y));
         }
     }
 }

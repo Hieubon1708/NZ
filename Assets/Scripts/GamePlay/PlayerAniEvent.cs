@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AniEvent : MonoBehaviour
+public class PlayerAniEvent : MonoBehaviour
 {
     public void ShotAniEvent()
     {

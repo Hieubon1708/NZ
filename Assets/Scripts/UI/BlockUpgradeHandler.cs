@@ -8,6 +8,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
 {
     public Block blockInfo;
     public GameObject weaponBuyer;
+    public BlockHandler blockHandler;
     public WeaponBuyButton[] weaponBuyButtons;
     public SpriteRenderer spriteRenderer;
     public SortingGroup sortingGroup;
@@ -115,6 +116,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     {
         blockInfo.PlusGold(DataManager.instance.blockData.priceUpgrades[blockInfo.level]);
         blockInfo.level++;
+        blockInfo.UpgradeBlockAni();
         UpgradeHandle();
     }
 
@@ -138,10 +140,12 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public override void UpgradeHandle()
     {
         textLv.text = "Lv" + (blockInfo.level + 1);
+        blockInfo.hp = DataManager.instance.blockData.hps[blockInfo.level];
+        blockHandler.SetTotalHp();
         spriteRenderer.sprite = DataManager.instance.blockSprites[blockInfo.level];
         int hp = DataManager.instance.blockData.hps[blockInfo.level];
         textHp.text = hp >= 1000 ? Mathf.Floor(hp / 100) / 10 + "K" : hp.ToString();
-        textPriceUpgrade.text = DataManager.instance.blockData.priceUpgrades[blockInfo.level].ToString();
+        if(blockInfo.level < DataManager.instance.blockData.priceUpgrades.Length) textPriceUpgrade.text = DataManager.instance.blockData.priceUpgrades[blockInfo.level].ToString();
     }
 
     public void ResetData()

@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
 --- !u!114 &78977796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   energy: 3
   booster: {fileID: 1528667896}
   num: {fileID: 1963775076}
@@ -504,6 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   energy: 7
   booster: {fileID: 1528667896}
   num: {fileID: 883156639}
@@ -788,6 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   blockBuyHandler: {fileID: 359868812}
 --- !u!114 &359868812
 MonoBehaviour:
@@ -1470,6 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   energyUpgradeHandler: {fileID: 614843853}
 --- !u!1 &651605881
 GameObject:
@@ -1562,6 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   energy: 10
   booster: {fileID: 1528667896}
   num: {fileID: 1521439704}
@@ -2532,6 +2538,51 @@ RectTransform:
   m_AnchoredPosition: {x: 51, y: -119.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &1072457009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1072457010}
+  - component: {fileID: 1072457011}
+  m_Layer: 0
+  m_Name: PoolDynamics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1072457010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072457009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1972759680}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1072457011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072457009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cfd0c0347c51f41849476aca4efd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 1
 --- !u!1 &1108333463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4804,6 +4855,7 @@ Transform:
   - {fileID: 4633665399123231507}
   - {fileID: 1706001891}
   - {fileID: 2079081491}
+  - {fileID: 1072457010}
   - {fileID: 1210177669}
   - {fileID: 1353833272}
   - {fileID: 449743393}
@@ -4829,6 +4881,8 @@ MonoBehaviour:
   roadBulletHolePrefab: {fileID: 1940063468435063, guid: 59bae647ab72b994784721f14b01c900, type: 3}
   zomDiePrefab: {fileID: 1948955770630358, guid: 2e730dbd180c1c84b912c4b5f18a6dd7, type: 3}
   blockDestroyPrefab: {fileID: 1206373143852319, guid: 71a95ade04171724da98738baf808232, type: 3}
+  towerExplosionHolePrefab: {fileID: 1260678400331278, guid: 6421f07ba20350841a661f15d0efa40e, type: 3}
+  towerExplosionPrefab: {fileID: 1493261097588810, guid: 081d4f7d3e990734aa02d1ae05832c11, type: 3}
   playerDiePrefab: {fileID: 1754327290503304, guid: 72e30d96d67923544a2820bd4664d16b, type: 3}
   boomEffectPrefab: {fileID: 1199880006629564, guid: 9d14b39c53aaa5b4cb09d71b418fc7e2, type: 3}
   boomHolePrefab: {fileID: 1640544441618374, guid: 7f8abf10707851749919f8a6bff913b0, type: 3}
@@ -4838,8 +4892,10 @@ MonoBehaviour:
   zomDies: []
   blockDestroys: []
   playerDie: {fileID: 0}
+  towerExplosionHole: {fileID: 0}
+  towerExplosion: {fileID: 0}
   container: {fileID: 1210177669}
-  amoutHoleBullet: 20
+  amoutHoleBullet: 100
   amoutZomeDie: 20
   amoutBoom: 20
   amoutBlockDestroy: 6
@@ -4866,6 +4922,8 @@ MonoBehaviour:
   poolWeapons: {fileID: 2079081491}
   poolBullets: {fileID: 1706001891}
   poolEnemies: {fileID: 449743393}
+  poolDynamics: {fileID: 1072457010}
+  poolPars: {fileID: 1210177669}
   defaultDir: {fileID: 7488597057755668538}
   timeSawDamage: 0.25
   timeFlameDamage: 0.25
@@ -5272,6 +5330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   energy: 2
   booster: {fileID: 1528667896}
   num: {fileID: 1271203551}
@@ -7679,7 +7738,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 258111
+    m_Bits: 249919
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -18951,7 +19010,7 @@ GameObject:
   - component: {fileID: 6516521703007312778}
   - component: {fileID: 7829467573033492310}
   - component: {fileID: 8381114512394016924}
-  m_Layer: 17
+  m_Layer: 14
   m_Name: collider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -22312,7 +22371,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8888338260891367203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -22433,7 +22492,7 @@ Transform:
   m_GameObject: {fileID: 7017647423100144153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26104,7 +26163,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 258111
+    m_Bits: 249919
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -31473,7 +31532,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 127039
+    m_Bits: 118847
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -36551,7 +36610,7 @@ MonoBehaviour:
   goldReward: {fileID: 1014038753}
   blockBuyer: {fileID: 359868812}
   energyUpgradee: {fileID: 614843853}
-  count: 5
+  count: 6
 --- !u!114 &8633404404523600023
 MonoBehaviour:
   m_ObjectHideFlags: 0

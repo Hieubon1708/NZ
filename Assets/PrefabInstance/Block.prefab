@@ -2423,7 +2423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4398772855133014
 Transform:
   m_ObjectHideFlags: 0
@@ -4761,11 +4761,11 @@ GameObject:
   - component: {fileID: 4689328177453823}
   - component: {fileID: 111116773769303830}
   - component: {fileID: -5646591483788929526}
-  - component: {fileID: -8420918965518664630}
   - component: {fileID: 2513861802699813261}
   - component: {fileID: 2957189971103572244}
   - component: {fileID: 24971306725054711}
   - component: {fileID: 8928951468721011795}
+  - component: {fileID: 8185997973660201778}
   m_Layer: 16
   m_Name: Block
   m_TagString: Block
@@ -4830,18 +4830,6 @@ MonoBehaviour:
   gold: 0
   blockUpgradeHandler: {fileID: 24971306725054711}
   addBlock: {fileID: 198757935441744764}
---- !u!114 &-8420918965518664630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1100216680222728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f980241647fc34596c6633ba3d2c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2513861802699813261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4891,6 +4879,7 @@ MonoBehaviour:
   frame: {fileID: 6737097860021179216}
   blockInfo: {fileID: -5646591483788929526}
   weaponBuyer: {fileID: 2276785880224036623}
+  blockHandler: {fileID: 2957189971103572244}
   weaponBuyButtons:
   - {fileID: 5093503683493936208}
   - {fileID: 1411778025174414651}
@@ -4956,6 +4945,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8185997973660201778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100216680222728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23d6fb7652e65e418bbdc854c257dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeBlock: {fileID: 198297926910592426}
 --- !u!1 &1139739807160430
 GameObject:
   m_ObjectHideFlags: 0
@@ -15960,6 +15962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   flameBuyHandler: {fileID: 1411778025174414651}
 --- !u!114 &1411778025174414651
 MonoBehaviour:
@@ -16411,6 +16414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   sawBuyHandler: {fileID: 5093503683493936208}
 --- !u!114 &5093503683493936208
 MonoBehaviour:
@@ -16923,6 +16927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   machineGunBuyHandler: {fileID: 7135567256935585298}
 --- !u!114 &7135567256935585298
 MonoBehaviour:
@@ -17580,6 +17585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   weaponUpgradeHandler: {fileID: 3294745045174629222}
 --- !u!1 &5927245879295130561
 GameObject:
@@ -17989,6 +17995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
+  currentObjectSelected: {fileID: 0}
   blockUpgradeHandler: {fileID: 24971306725054711}
 --- !u!1 &6921016930792136825
 GameObject:
@@ -19160,6 +19167,10 @@ PrefabInstance:
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 2558418903662857918, guid: b1546d0ce6960914a8c14574939e73c4, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19443,6 +19454,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 253740700779756033, guid: 973bff2e07d61df45b576a1a7043970d, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 8678498024285200104, guid: 973bff2e07d61df45b576a1a7043970d, type: 3}
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}
@@ -20031,6 +20046,10 @@ PrefabInstance:
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 436563795798938971, guid: 6a77372a30fcadc46bdb92d23b40e05d, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20477,6 +20496,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3180318961474217470, guid: 7e80fdc7e86fee04abd8c3272a041c25, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 8054970849024238764, guid: 7e80fdc7e86fee04abd8c3272a041c25, type: 3}
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}
@@ -20969,6 +20992,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6143810490326695201, guid: b81cc36e024c6cf4d8109e2271bae233, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21613,6 +21640,10 @@ PrefabInstance:
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 2625349773347159814, guid: 968f0a1dad4dc3c4fac8dc9944dc19fb, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21785,6 +21816,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3006807836884908753, guid: b4861ce74e22ab24bae672b803a94a99, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1100216680222728}
+    - target: {fileID: 4165991818409526605, guid: b4861ce74e22ab24bae672b803a94a99, type: 3}
       propertyPath: block
       value: 
       objectReference: {fileID: 1100216680222728}

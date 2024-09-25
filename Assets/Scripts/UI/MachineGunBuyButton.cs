@@ -15,6 +15,6 @@ public class MachineGunBuyButton : ButtonClicker
     {
         if (DataManager.instance.playerData.gold < DataManager.instance.machineGunData.price) return;
         base.OnPointerUp(eventData);
-        machineGunBuyHandler.Buy();
+        if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) machineGunBuyHandler.Buy();
     }
 }

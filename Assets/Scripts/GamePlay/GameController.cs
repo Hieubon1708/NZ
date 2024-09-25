@@ -14,14 +14,14 @@ public class GameController : MonoBehaviour
     public List<GameObject> listEnemies;
     public GameObject[] mapLevels;
 
-    public Dictionary<GameObject, int> listDamages = new Dictionary<GameObject, int>();
-
     public List<GameObject> listEVisible = new List<GameObject>();
 
     public Transform poolDamages;
     public Transform poolWeapons;
     public Transform poolBullets;
     public Transform poolEnemies;
+    public Transform poolDynamics;
+    public Transform poolPars;
 
     public Transform defaultDir;
 
@@ -120,18 +120,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddKeyDamage(GameObject obj, int damage)
-    {
-        if (!listDamages.ContainsKey(obj))
-        {
-            listDamages.Add(obj, damage);
-        }
-        else
-        {
-            listDamages[obj] = damage;
-        }
-    }
-
     public void StartGame()
     {
         menuCamera.SetActive(false);
@@ -144,11 +132,6 @@ public class GameController : MonoBehaviour
         EnemyTowerController.instance.NextTower();
         CarController.instance.multiplier = 1;
         isStart = true;
-    }
-
-    public void RemoveKeyDamage(GameObject obj)
-    {
-        listDamages.Remove(obj);
     }
 
     public enum WEAPON

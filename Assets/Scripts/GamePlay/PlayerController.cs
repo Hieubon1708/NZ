@@ -1,6 +1,3 @@
-using DG.Tweening;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -45,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < listBooms.Length; i++)
         {
-            listBooms[i].transform.SetParent(GameController.instance.poolWeapons);
+            listBooms[i].transform.SetParent(GameController.instance.poolDynamics);
         }
     }
 
@@ -55,7 +52,7 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = listBooms[boomIndex];
         b.SetActive(true);
         b.transform.position = startBoom.position;
-        rb.AddForce(new Vector2(Random.Range(2f, 2.5f), 7), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Random.Range(2f + (CarController.instance.multiplier * 2), 2.5f + (CarController.instance.multiplier * 2)), 7), ForceMode2D.Impulse);
         rb.AddTorque(0.75f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;
@@ -103,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         playerAni.SetBool("attack", true);
     }
-    
+
     public void DeathAni()
     {
         playerAni.SetTrigger("death");
