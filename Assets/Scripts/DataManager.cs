@@ -109,6 +109,7 @@ public class SawData
     public int price;
     public int[][] priceUpgrades;
     public int[][] damages;
+    public int[] damageBoosters;
 }
 
 [System.Serializable]
@@ -117,6 +118,7 @@ public class FlameData
     public int price;
     public int[][] priceUpgrades;
     public int[][] damages;
+    public int[] damageBoosters;
 }
 
 [System.Serializable]
@@ -125,6 +127,7 @@ public class MachineGunData
     public int price;
     public int[][] priceUpgrades;
     public int[][] damages;
+    public int[] damageBoosters;
 }
 
 [System.Serializable]

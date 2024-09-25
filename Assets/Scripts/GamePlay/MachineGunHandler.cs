@@ -138,4 +138,23 @@ public class MachineGunHandler : WeaponShoter
             if (shots[i] != null) StopCoroutine(shots[i]);
         }
     }
+
+    public override void SetDamage(int damage)
+    {
+        for (int i = 0; i < listBullets.Count; i++)
+        {
+            for (int j = 0; j < listBullets[i].Count; j++)
+            {
+                listBullets[i][j].name = damage.ToString();
+            }
+        }
+    }
+
+    public override void SetDamageBooster(int damage)
+    {
+        for(int i = 0;i < listBulletBoosters.Count; i++)
+        {
+            listBulletBoosters[i].name = damage.ToString();
+        }
+    }
 }

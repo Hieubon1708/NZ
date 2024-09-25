@@ -19,6 +19,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public GameObject weapon;
     public int[][] priceUpgrades;
     public int[][] damages;
+    public int[] damageBoosters;
 
     public void LoadData(int level, int levelUpgrade)
     {
@@ -53,21 +54,19 @@ public class WeaponUpgradeHandler : ButtonUpgradee
 
     public override void UpgradeHandle()
     {
-        weapon.name = damages[level][levelUpgrade].ToString();
-        if (levelUpgrade < boxProgress.Length)
-        {
-            textLv.text = "Lv" + (level + 1);
-            textDamage.text = damages[level][levelUpgrade].ToString();
-        }
+        blockUpgradeHandler.weaponShoter.SetDamageBooster(damageBoosters[level]);
+        blockUpgradeHandler.weaponShoter.SetDamage(damages[level][levelUpgrade]);
+
+        textLv.text = "Lv" + (level + 1);
+        textDamage.text = damages[level][levelUpgrade].ToString();
+
         textPriceUpgrade.text = priceUpgrades[level][levelUpgrade].ToString();
+
+        if (levelUpgrade == boxProgress.Length && level != priceUpgrades.Length - 1) ChangeTextUpgrade();
         for (int i = 0; i < boxProgress.Length; i++)
         {
-            if (i > levelUpgrade - 1) boxProgress[i].SetActive(false);
+            if (i > levelUpgrade - 1 || levelUpgrade == boxProgress.Length && level == priceUpgrades.Length - 1) boxProgress[i].SetActive(false);
             else boxProgress[i].SetActive(true);
-        }
-        if (levelUpgrade == boxProgress.Length)
-        {
-            if (level != priceUpgrades.Length - 1) ChangeTextUpgrade();
         }
     }
 
@@ -80,11 +79,8 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public override void CheckButtonState()
     {
         if (weapon == null) return;
-        /*Debug.Log(level);
-        Debug.Log(priceUpgrades.Length);*/
-        if (level == priceUpgrades.Length - 1 && levelUpgrade == priceUpgrades[level].Length - 1)
+        if (level == priceUpgrades.Length - 1 && levelUpgrade == boxProgress.Length - 1)
         {
-            DisableBox();
             UIHandler.instance.ChangeSpriteWeaponUpgradee(frame, textPriceUpgrade, textMax);
         }
         else if (DataManager.instance.playerData.gold < priceUpgrades[level][levelUpgrade])
@@ -96,14 +92,6 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         {
             if (levelUpgrade == boxProgress.Length) UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.ENOUGH_MONEY, frameLastUpgrade);
             else UIHandler.instance.ChangeSpriteWeaponUpgradee(UIHandler.Type.ENOUGH_MONEY, frame);
-        }
-    }
-
-    void DisableBox()
-    {
-        for (int i = 0; i < boxProgress.Length; i++)
-        {
-            boxProgress[i].SetActive(false);
         }
     }
 

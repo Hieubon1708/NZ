@@ -17358,7 +17358,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -20, y: 8}
-  m_SizeDelta: {x: 50, y: 30}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5991387676380329919
 CanvasRenderer:
@@ -17572,6 +17572,7 @@ MonoBehaviour:
   blockUpgradeHandler: {fileID: 24971306725054711}
   weaponType: 0
   weapon: {fileID: 0}
+  damageBoosters: 
 --- !u!114 &4923153368470539107
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class SawHandler : WeaponShoter
     public GameObject[] sawBoosters;
     public Transform container;
 
-    public void Start()
+    public void Awake()
     {
         sawBoosters = new GameObject[amout];
         for (int i = 0; i < amout; i++)
@@ -83,5 +83,18 @@ public class SawHandler : WeaponShoter
         {
             listS[i].SetActive(false);
         }
+    }
+
+    public override void SetDamageBooster(int damage)
+    {
+        for (int i = 0; i < sawBoosters.Length; i++)
+        {
+            sawBoosters[i].name = damage.ToString();
+        }
+    }
+
+    public override void SetDamage(int damage)
+    {
+        gameObject.name = damage.ToString();
     }
 }

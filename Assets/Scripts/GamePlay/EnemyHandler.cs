@@ -80,13 +80,18 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("MachineGun"))
         {
-            subtractHp = int.Parse(collision.attachedRigidbody.name);
+            subtractHp = int.Parse(collision.gameObject.name);
             collision.gameObject.SetActive(false);
+            SubtractHp(subtractHp);
+        }
+        if (collision.CompareTag("SawBooster"))
+        {
+            subtractHp = int.Parse(collision.attachedRigidbody.name);
             SubtractHp(subtractHp);
         }
         if (collision.CompareTag("Saw"))
         {
-            subtractHp = 50;
+            subtractHp = int.Parse(collision.gameObject.name);
             isTriggerSaw = true;
             while (isTriggerSaw && enemyInfo.hp > 0)
             {
@@ -96,7 +101,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            subtractHp = 50;
+            subtractHp = int.Parse(collision.gameObject.name);
             isTriggerFlame = true;
             while (isTriggerFlame && enemyInfo.hp > 0)
             {

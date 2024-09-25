@@ -82,18 +82,21 @@ public class BlockUpgradeHandler : ButtonUpgradee
             weapons = saws;
             weaponUpgradeHandler.priceUpgrades = DataManager.instance.sawData.priceUpgrades;
             weaponUpgradeHandler.damages = DataManager.instance.sawData.damages;
+            weaponUpgradeHandler.damageBoosters = DataManager.instance.sawData.damageBoosters;
         }
         if (weaponType == WEAPON.FLAME)
         {
             weapons = flames;
             weaponUpgradeHandler.priceUpgrades = DataManager.instance.flameData.priceUpgrades;
             weaponUpgradeHandler.damages = DataManager.instance.flameData.damages;
+            weaponUpgradeHandler.damageBoosters = DataManager.instance.flameData.damageBoosters;
         }
         if (weaponType == WEAPON.MACHINE_GUN)
         {
             weapons = machineGuns;
             weaponUpgradeHandler.priceUpgrades = DataManager.instance.machineGunData.priceUpgrades;
             weaponUpgradeHandler.damages = DataManager.instance.machineGunData.damages;
+            weaponUpgradeHandler.damageBoosters = DataManager.instance.machineGunData.damageBoosters;
         }
         weaponBuyer.SetActive(false);
         weaponUpgrade.SetActive(true);
@@ -145,7 +148,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
         spriteRenderer.sprite = DataManager.instance.blockSprites[blockInfo.level];
         int hp = DataManager.instance.blockData.hps[blockInfo.level];
         textHp.text = hp >= 1000 ? Mathf.Floor(hp / 100) / 10 + "K" : hp.ToString();
-        if(blockInfo.level < DataManager.instance.blockData.priceUpgrades.Length) textPriceUpgrade.text = DataManager.instance.blockData.priceUpgrades[blockInfo.level].ToString();
+        textPriceUpgrade.text = DataManager.instance.blockData.priceUpgrades[blockInfo.level].ToString();
     }
 
     public void ResetData()

@@ -9,7 +9,8 @@ public class FlameHandler : WeaponShoter
     public ParticleSystem flameSmokeParticleChild;
     public ParticleSystem flameBoosterSmokeParticle;
     public ParticleSystem flameOnceParticle;
-    public BoxCollider2D attackCollider;
+    public GameObject col;
+    public GameObject colBooster;
     public SpriteRenderer flameThrover;
     Coroutine shot;
     EmissionModule esmission;
@@ -46,7 +47,8 @@ public class FlameHandler : WeaponShoter
 
     IEnumerator Shot()
     {
-        attackCollider.transform.localScale = Vector3.one;
+        col.SetActive(true);
+        colBooster.SetActive(false);
         while (true)
         {
             ShotHandle(true, 1f, 0.25f);
@@ -59,9 +61,10 @@ public class FlameHandler : WeaponShoter
     void StartBooster()
     {
         if (shot != null) StopCoroutine(shot);
-        attackCollider.transform.localScale = Vector3.one * 2;
         esmission.enabled = false;
         esmissionChild.enabled = false;
+        col.SetActive(false);
+        colBooster.SetActive(true);
         ColNFlameThrover(true, 1f, 0.25f);
     }
 
@@ -76,7 +79,17 @@ public class FlameHandler : WeaponShoter
     void ColNFlameThrover(bool isActive, float alpha, float duration)
     {
         flameThrover.DOKill();
-        attackCollider.enabled = isActive;
+        col.SetActive(isActive);
         if (flameThrover != null) flameThrover.DOFade(alpha, duration);
+    }
+
+    public override void SetDamageBooster(int damage)
+    {
+        colBooster.name = damage.ToString();
+    }
+
+    public override void SetDamage(int damage)
+    {
+        col.name = damage.ToString();
     }
 }
