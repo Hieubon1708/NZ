@@ -5,6 +5,7 @@ public class MachineGunBulletHandler : MonoBehaviour
     public Rigidbody2D rb;
     int indexRoadCollider;
     public bool isGunBooster;
+    public CircleCollider2D colBooster;
 
     public void Shot(float speed, Vector2 dir)
     {
@@ -21,5 +22,12 @@ public class MachineGunBulletHandler : MonoBehaviour
             if(!isGunBooster) ParController.instance.PlayRoadBulletHoleParticle(transform.position);
             else ParController.instance.PlayGunHitOnRoadParticle(transform.position);
         }
+
+        if(colBooster != null && collision.CompareTag("Enemy")) colBooster.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+       if(colBooster != null) colBooster.enabled = false;
     }
 }
