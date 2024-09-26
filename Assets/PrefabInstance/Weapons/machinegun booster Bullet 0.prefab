@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4839298675131516}
   - component: {fileID: 212126418888321331}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: new_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4287223279367956}
   - component: {fileID: 212493444904381054}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4220293171893590}
   - component: {fileID: 212575015230707996}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 50596723870357204}
   - component: {fileID: 61373760221250555}
   - component: {fileID: 483379604081643640}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: machinegun booster Bullet 0
   m_TagString: MachineGun
   m_Icon: {fileID: 0}
@@ -374,3 +374,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 50596723870357204}
+  isGunBooster: 1

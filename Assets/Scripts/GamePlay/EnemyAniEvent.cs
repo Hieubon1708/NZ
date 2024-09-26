@@ -30,27 +30,23 @@ public class EnemyAniEvent : MonoBehaviour
 
     public void ShotEvent()
     {
-        force = 9;
         scBullets[index].gameObject.SetActive(false);
         scBullets[index].gameObject.SetActive(true);
         scBullets[index].transform.position = mouth.position;
-        float YUnder = -1, YAbove = -1, x = 0;
+        float YUnder = -1, YAbove = -1, x = PlayerController.instance.transform.position.x + 0.7f;
         if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y - 0.75f;
         else YUnder = PlayerController.instance.transform.position.y;
-        x = PlayerController.instance.transform.position.x;
-        YAbove = PlayerController.instance.transform.position.y + 0.75f;
+        YAbove = PlayerController.instance.transform.position.y + 0.7f;
         float randomTarget = Random.Range(YUnder, YAbove);
-        force += randomTarget;
+
         Vector2 target = new Vector2(x, randomTarget);
-        Vector2 dir = target - (Vector2)mouth.transform.position;
-        float distance = Vector2.Distance(target, mouth.transform.position);
-        //MakeAngle(target);
-        scBullets[index].target = target;
-        scBullets[index].transform.rotation = Quaternion.Euler(0, 0, EUtils.GetAngle(dir) - 90);
-        scBullets[index].rb.velocity = distance * dir;
+
+        scBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(new Vector2(target.x - mouth.position.x, target.y - mouth.position.y + 5f).normalized) - 90);
+        scBullets[index].rb.velocity = new Vector2(target.x - mouth.position.x, target.y - mouth.position.y + 5f);
+
         index++;
         if (index == scBullets.Length) index = 0;
-        Debug.DrawLine(mouth.position, new Vector2(x, randomTarget), Color.red, 0.5f);
+        Debug.DrawLine(mouth.position, target, Color.red, 0.5f);
     }
 
     public GameObject p;

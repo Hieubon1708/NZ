@@ -13,6 +13,12 @@ public class ParController : MonoBehaviour
     public GameObject playerDiePrefab;
     public GameObject boomEffectPrefab;
     public GameObject boomHolePrefab;
+    public GameObject gunHitOnRoadPrefab;
+    public GameObject gunHitOnEnemyPrefab;
+    public GameObject gunHitExplosionPrefab;
+    public GameObject[] gunHitOnRoads;
+    public GameObject[] gunHitExplosions;
+    public GameObject[] gunHitOnEnemies;
     public GameObject[] roadBulletHole;
     public GameObject[] boomHoles;
     public GameObject[] boomEffects;
@@ -26,10 +32,14 @@ public class ParController : MonoBehaviour
     public int amoutZomeDie;
     public int amoutBoom;
     public int amoutBlockDestroy;
+    public int amoutGunHitOnEnemy;
+    public int amoutGunHitOnRoad;
     int currentCount;
     int currentCountZomDie;
     int currentCountBlockDestroy;
     int currentCountBoom;
+    int currentCountGunHitOnRoad;
+    int currentCountGunHitOnEnemy;
 
     private void Awake()
     {
@@ -75,6 +85,21 @@ public class ParController : MonoBehaviour
         towerExplosion.SetActive(false);
         towerExplosionHole = Instantiate(towerExplosionHolePrefab, container);
         towerExplosionHole.SetActive(false);
+        gunHitExplosions = new GameObject[amoutGunHitOnRoad];
+        gunHitOnRoads = new GameObject[amoutGunHitOnRoad];
+        for (int i = 0; i < gunHitOnRoads.Length; i++)
+        {
+            gunHitExplosions[i] = Instantiate(gunHitExplosionPrefab, container);
+            gunHitExplosions[i].SetActive(false);
+            gunHitOnRoads[i] = Instantiate(gunHitOnRoadPrefab, container);
+            gunHitOnRoads[i].SetActive(false);
+        }
+        gunHitOnEnemies = new GameObject[amoutGunHitOnEnemy];
+        for (int i = 0; i < gunHitOnEnemies.Length; i++)
+        {
+            gunHitOnEnemies[i] = Instantiate(gunHitOnEnemyPrefab, container);
+            gunHitOnEnemies[i].SetActive(false);
+        }
     }
 
     public void PlayRoadBulletHoleParticle(Vector2 pos)
@@ -84,7 +109,7 @@ public class ParController : MonoBehaviour
         d.SetActive(true);
         currentCount++;
         if (currentCount == roadBulletHole.Length) currentCount = 0;
-        DOVirtual.DelayedCall(5f, delegate { d.SetActive(false); });
+        DOVirtual.DelayedCall(3f, delegate { d.SetActive(false); });
     }
 
     public void PlayPlayerDieParticle(Vector2 pos)
@@ -92,14 +117,14 @@ public class ParController : MonoBehaviour
         playerDie.transform.position = pos;
         playerDie.SetActive(true);
     }
-    
+
     public void PlayTowerExplosionParticle(Vector2 pos)
     {
         towerExplosion.transform.position = pos;
         towerExplosion.SetActive(true);
         towerExplosionHole.transform.position = pos;
         towerExplosionHole.SetActive(true);
-        DOVirtual.DelayedCall(5f, delegate { towerExplosion.SetActive(false); towerExplosionHole.SetActive(false); });
+        DOVirtual.DelayedCall(3f, delegate { towerExplosion.SetActive(false); towerExplosionHole.SetActive(false); });
     }
 
     public void PlayZomDieParticle(Vector2 pos)
@@ -131,6 +156,29 @@ public class ParController : MonoBehaviour
         b2.SetActive(true);
         currentCountBoom++;
         if (currentCountBoom == boomEffects.Length) currentCountBoom = 0;
-        DOVirtual.DelayedCall(5f, delegate { b1.SetActive(false); b2.SetActive(false); });
+        DOVirtual.DelayedCall(3f, delegate { b1.SetActive(false); b2.SetActive(false); });
+    }
+
+    public void PlayGunHitOnEnemyParticle(Vector2 pos)
+    {
+        GameObject g = gunHitOnEnemies[currentCountGunHitOnEnemy];
+        g.transform.position = pos;
+        g.SetActive(true);
+        currentCountGunHitOnEnemy++;
+        if (currentCountGunHitOnEnemy == gunHitOnEnemies.Length) currentCountGunHitOnEnemy = 0;
+        DOVirtual.DelayedCall(3f, delegate { g.SetActive(false); });
+    }
+
+    public void PlayGunHitOnRoadParticle(Vector2 pos)
+    {
+        GameObject g1 = gunHitOnRoads[currentCountGunHitOnRoad];
+        GameObject g2 = gunHitExplosions[currentCountGunHitOnRoad];
+        g1.transform.position = pos;
+        g2.transform.position = pos;
+        g1.SetActive(true);
+        g2.SetActive(true);
+        currentCountGunHitOnRoad++;
+        if (currentCountGunHitOnRoad == gunHitOnRoads.Length) currentCountGunHitOnRoad = 0;
+        DOVirtual.DelayedCall(3f, delegate { g1.SetActive(false); g2.SetActive(false); });
     }
 }

@@ -22,7 +22,7 @@ public class MachineGunHandler : WeaponShoter
     Coroutine shotBoosters;
     int currentCountBoosterBullet;
 
-    public void Start()
+    public void Awake()
     {
         Generate();
     }

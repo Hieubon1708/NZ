@@ -42,13 +42,12 @@ public class FlameHandler : WeaponShoter
 
     void FadeOut()
     {
-        ColNFlameThrover(false, 0f, 0.25f);
+        colBooster.SetActive(false);
+        FlameThrover(0f, 0.25f);
     }
 
     IEnumerator Shot()
     {
-        col.SetActive(true);
-        colBooster.SetActive(false);
         while (true)
         {
             ShotHandle(true, 1f, 0.25f);
@@ -61,11 +60,8 @@ public class FlameHandler : WeaponShoter
     void StartBooster()
     {
         if (shot != null) StopCoroutine(shot);
-        esmission.enabled = false;
-        esmissionChild.enabled = false;
-        col.SetActive(false);
+        ShotHandle(false, 1f, 0.25f);
         colBooster.SetActive(true);
-        ColNFlameThrover(true, 1f, 0.25f);
     }
 
     void ShotHandle(bool isActive, float alpha, float duration)
@@ -73,13 +69,13 @@ public class FlameHandler : WeaponShoter
         ani.SetBool("attack", isActive);
         esmission.enabled = isActive;
         esmissionChild.enabled = isActive;
-        ColNFlameThrover(isActive, alpha, duration);
+        col.SetActive(isActive);
+        FlameThrover(alpha, duration);
     }
 
-    void ColNFlameThrover(bool isActive, float alpha, float duration)
+    void FlameThrover(float alpha, float duration)
     {
         flameThrover.DOKill();
-        col.SetActive(isActive);
         if (flameThrover != null) flameThrover.DOFade(alpha, duration);
     }
 

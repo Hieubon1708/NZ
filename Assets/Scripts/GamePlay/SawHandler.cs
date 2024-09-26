@@ -11,16 +11,16 @@ public class SawHandler : WeaponShoter
     public int amout;
     int countBooster;
     int amoutSawFBooster = 1;
-    public GameObject[] sawBoosters;
+    public Rigidbody2D[] sawBoosters;
     public Transform container;
 
     public void Awake()
     {
-        sawBoosters = new GameObject[amout];
+        sawBoosters = new Rigidbody2D[amout];
         for (int i = 0; i < amout; i++)
         {
             GameObject s = Instantiate(sawBoosterPref, container);
-            sawBoosters[i] = s;
+            sawBoosters[i] = s.GetComponent<Rigidbody2D>();
             s.SetActive(false);
         }
     }
@@ -71,14 +71,15 @@ public class SawHandler : WeaponShoter
         GameObject[] listS = new GameObject[amoutSawFBooster];
         for (int i = 0; i < amoutSawFBooster; i++)
         {
-            listS[i] = sawBoosters[countBooster];
+            listS[i] = sawBoosters[countBooster].gameObject;
             listS[i].transform.position = transform.position;
             listS[i].SetActive(true);
+            sawBoosters[countBooster].velocity = new Vector2(25, sawBoosters[countBooster].velocity.y);
             countBooster++;
             if (countBooster == sawBoosters.Length) countBooster = 0;
             yield return new WaitForSeconds(0.25f);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.25f);
         for (int i = 0; i < listS.Length; i++)
         {
             listS[i].SetActive(false);

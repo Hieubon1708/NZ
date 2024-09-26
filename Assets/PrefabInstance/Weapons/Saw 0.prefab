@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ani: {fileID: 95565263955121269}
   target: {fileID: 0}
+  parent: {fileID: 0}
   sawAttackAni: {fileID: 111004637468825729}
   sawBlood: {fileID: 198610801345529849}
   sawBoosterPref: {fileID: 1005358720764400, guid: 03dd4cad9e08d8d468874226b52620ac, type: 3}
@@ -192,7 +193,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 17
-  m_Sprite: {fileID: 21300000, guid: 063a255da02e40c4a87f30b141b4c76c, type: 2}
+  m_Sprite: {fileID: 21300000, guid: e873848461c835247aeed5c9d81934f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -377,7 +378,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 928ca4f16bb6faf488334ef9561acf84, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 3320ea291d2bc524d9b1434c0023642c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

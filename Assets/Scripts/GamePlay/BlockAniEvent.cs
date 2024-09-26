@@ -6,6 +6,6 @@ public class BlockAniEvent : MonoBehaviour
 
     public void PlayUpgradeParticle()
     {
-        upgradeBlock.Play();
+        //upgradeBlock.Play();
     }
 }

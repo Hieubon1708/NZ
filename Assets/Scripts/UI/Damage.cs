@@ -19,8 +19,8 @@ public class Damage : MonoBehaviour
         isShowDamage = true;
         rb.isKinematic = false;
         textDamage.DOFade(1, 0);
-        rb.AddForce(new Vector2(Random.Range(-0.55f, 0.55f), 4.5f), ForceMode2D.Impulse);
-        textDamage.DOFade(0, 0.5f).SetDelay(0.35f).OnComplete(delegate
+        rb.AddForce(new Vector2(Random.Range(-0.55f, 0.55f), 4.25f), ForceMode2D.Impulse);
+        textDamage.DOFade(0, 0.25f).SetDelay(0.25f).OnComplete(delegate
         {
             canvas.SetParent(parent);
             isShowDamage = false;

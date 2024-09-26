@@ -576,7 +576,7 @@ MonoBehaviour:
   amoutLimit: 3
   col: {fileID: 1662500758019991}
   enemies:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
+  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
   amout: 01000000
   speed:
   - -2
@@ -886,12 +886,12 @@ SpriteRenderer:
   m_SortingLayerID: 1221242577
   m_SortingLayer: 4
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c9cbc45cdba9a5b4db3350264657438d, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 421ef420a18b250458acc3a2a12ba353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.72, y: 3.8}
+  m_Size: {x: 1.96, y: 2.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1248,7 +1248,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.26905948}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1259,7 +1259,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.01, y: 3.29}
+  m_Size: {x: 1.01, y: 2.7518811}
   m_EdgeRadius: 0
 --- !u!114 &2175960657933535299
 MonoBehaviour:
@@ -1346,12 +1346,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f15fdafd9c6923c488792e6fb63752a4, type: 2}
+  m_Sprite: {fileID: 21300000, guid: a052798639b142a4c8f9bfe5e7d455db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.84, y: 5.92}
+  m_Size: {x: 3.12, y: 2.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

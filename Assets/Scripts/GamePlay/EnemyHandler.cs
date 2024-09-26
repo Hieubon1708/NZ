@@ -102,6 +102,7 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
+            Debug.LogWarning(collision.gameObject.name);
             isTriggerFlame = true;
             while (isTriggerFlame && enemyInfo.hp > 0)
             {

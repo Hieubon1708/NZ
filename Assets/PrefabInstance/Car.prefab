@@ -1819,15 +1819,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d55c257ff0edf439f77e586149449a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockPools: []
+  scBlocks: []
+  blocks: []
+  tempBlocks: []
   startY: 0.37
+  startYPlayer: 0
   distance: 1.4
-  raycastDistance: 1
   container: {fileID: 2650826160722509841}
   player: {fileID: 6133805148336498480}
   preBlock: {fileID: 1100216680222728, guid: 94d7f8f0d07fa564cbd39f0e266ee403, type: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  goldReward: {fileID: 0}
+  blockBuyer: {fileID: 0}
+  energyUpgradee: {fileID: 0}
   count: 5
 --- !u!114 &8353014517574681123
 MonoBehaviour:
@@ -1842,7 +1846,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carAni: {fileID: 1790532363735528188}
-  effector: {fileID: 6614679870321214395}
+  isBump: 
+  backgroundSpeed: 0
+  partSpeed: 0
+  amoutCollison: 0
+  spawnY: []
+  isStop: 0
+  multiplier: 0
+  tent_part_3: {fileID: 0}
+  tent_part_2: {fileID: 0}
+  tent_part_1: {fileID: 0}
+  chassis: {fileID: 0}
+  wheelLeft: {fileID: 0}
+  wheelRight: {fileID: 0}
+  shadow: {fileID: 0}
 --- !u!61 &1084361585724917086
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2092,17 +2109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lines: 000000000000000000000000
-  spawnY:
-  - {fileID: 5248466597421601190}
-  - {fileID: 4858173447985970079}
-  - {fileID: 5401536351269893574}
-  zombiePart_1:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  zombiePart_2: []
-  zombiePart_3: []
-  zombiePart_4: []
+  enemyPools: []
   amoutLimit: 5
+  col: {fileID: 0}
+  enemies: []
+  amout: 
+  speed: []
+  listRandomEs: []
+  defaultDistance: 0
+  amoutEs: 
+  distances: []
+  startDistanceMultipliers: 
+  endDistanceMultipliers: 
+  temp: []
 --- !u!1 &7885161592287255901
 GameObject:
   m_ObjectHideFlags: 0

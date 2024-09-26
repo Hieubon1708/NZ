@@ -1136,7 +1136,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2192,7 +2192,7 @@ Transform:
   m_GameObject: {fileID: 958432118}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: -0.25, z: -10}
+  m_LocalPosition: {x: 1.25, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2886,7 +2886,7 @@ Transform:
   m_GameObject: {fileID: 1193953959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4886,6 +4886,12 @@ MonoBehaviour:
   playerDiePrefab: {fileID: 1754327290503304, guid: 72e30d96d67923544a2820bd4664d16b, type: 3}
   boomEffectPrefab: {fileID: 1199880006629564, guid: 9d14b39c53aaa5b4cb09d71b418fc7e2, type: 3}
   boomHolePrefab: {fileID: 1640544441618374, guid: 7f8abf10707851749919f8a6bff913b0, type: 3}
+  gunHitOnRoadPrefab: {fileID: 1712525411056750, guid: 7d5fe9a132e58384ab45d7c2f8ee2027, type: 3}
+  gunHitOnEnemyPrefab: {fileID: 1973262065895564, guid: 3ea95b61a88d7b74ea87fb31460dcbf1, type: 3}
+  gunHitExplosionPrefab: {fileID: 1926387955431850, guid: bfdc21e21a17723439f61ef1eb131492, type: 3}
+  gunHitOnRoads: []
+  gunHitExplosions: []
+  gunHitOnEnemies: []
   roadBulletHole: []
   boomHoles: []
   boomEffects: []
@@ -4899,6 +4905,8 @@ MonoBehaviour:
   amoutZomeDie: 20
   amoutBoom: 20
   amoutBlockDestroy: 6
+  amoutGunHitOnEnemy: 25
+  amoutGunHitOnRoad: 25
 --- !u!114 &1972759687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4948,7 +4956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockSpritesLv1:
-  - {fileID: 21300000, guid: 51f701428b3b27a488120e57fa8c15ed, type: 2}
+  - {fileID: 21300000, guid: 0e5a80d3e0d9a2c4b9ab7654fbd66005, type: 3}
   - {fileID: 21300000, guid: f1da03097a5763b4e9a6196535e09534, type: 2}
   - {fileID: 21300000, guid: 7f4de28807f0c6b42be1505fefec33c2, type: 2}
   - {fileID: 21300000, guid: c86697fb7e839ad4686ae316de484d11, type: 2}
@@ -4984,12 +4992,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1120a4b30afb4024f963f961fabefd0b, type: 2}
   - {fileID: 21300000, guid: 39c42db9cdbe61445a3282e441ae735e, type: 2}
   carSpritesLv1:
-  - {fileID: 21300000, guid: 1aad7e44667a8d9489b41afc3b7e9867, type: 2}
-  - {fileID: 21300000, guid: 4605c579405d86c45be283c7fa550676, type: 2}
-  - {fileID: 21300000, guid: fe968f39d1f45be46b4c8fe4d4e883c2, type: 2}
-  - {fileID: 21300000, guid: 4d8e3186eebc760479428edda831ff7b, type: 2}
-  - {fileID: 21300000, guid: 396126a634480344ab59d0aedf3d6515, type: 2}
-  - {fileID: 21300000, guid: 731f3b06725d24b40badd92d01b717b1, type: 2}
+  - {fileID: 21300000, guid: c83a0cedd7d57684e858a8db87f4505d, type: 3}
+  - {fileID: 21300000, guid: 43936d07fd542dd4197fe56050001590, type: 3}
+  - {fileID: 21300000, guid: 6de9be568df4cc347800f07961b0c4ae, type: 3}
+  - {fileID: 21300000, guid: 27f6881342d0e6f4f98761648a616d25, type: 3}
+  - {fileID: 21300000, guid: 627eb35f98da4474e8a70d22006476da, type: 3}
+  - {fileID: 21300000, guid: 5832feec3de114f4c8f8ca1c22b8f71c, type: 3}
   carSpritesLv2:
   - {fileID: 21300000, guid: 0796ec6abe8c45245bd4aa0038bb4786, type: 2}
   - {fileID: 21300000, guid: b03ea1b474e7b2048aad270c80154860, type: 2}
@@ -5032,10 +5040,13 @@ MonoBehaviour:
     priceUpgrades: 
   sawData:
     price: 0
+    damageBoosters: 
   flameData:
     price: 0
+    damageBoosters: 
   machineGunData:
     price: 0
+    damageBoosters: 
   energyData:
     times: []
     priceUpgrades: 

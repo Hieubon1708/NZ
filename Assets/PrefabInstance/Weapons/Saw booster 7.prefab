@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4277691285019701}
   - component: {fileID: 212197753670624761}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4103007408663012}
   - component: {fileID: 58200143237059747}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: attack area
-  m_TagString: Untagged
+  m_TagString: SawBooster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4575508434529565}
   - component: {fileID: 96958496686321658}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 204
   m_Time: 0.1
-  m_PreviewTimeScale: 0
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.6956505
@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4516431840512732}
   - component: {fileID: 50659054821922570}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Saw booster 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150554386108961}
   - component: {fileID: 111660123212850393}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: sawCirclePivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4482768229516022}
   - component: {fileID: 96312140553764260}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Trail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4587456120970806}
   - component: {fileID: 96308574637000544}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Trail (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

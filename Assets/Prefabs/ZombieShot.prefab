@@ -7100,8 +7100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 50748073098662442}
-  col: {fileID: 3825033437495340193}
-  target: {x: 0, y: 0}
   damage: 50
 --- !u!58 &3825033437495340193
 CircleCollider2D:
@@ -7110,7 +7108,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904040921391727}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
