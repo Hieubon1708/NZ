@@ -4,18 +4,21 @@ public class PlayerAniEvent : MonoBehaviour
 {
     public void ShotAniEvent()
     {
-        if (CarController.instance.multiplier == 0) return;
+        return;
         PlayerController.instance.ShotAni();
+        StartCoroutine(PlayerController.instance.StartFindTarget());
     }
     
     public void ShotEvent()
     {
         BulletController.instance.SetDefaultBullets();
         BulletController.instance.SetUpShot();
+        PlayerController.instance.isFindingTarget = false;
     }
     
     public void BulletAniEvent()
     {
         PlayerController.instance.bulletPar.Play();
-    }    
+        PlayerController.instance.FindTarget();
+    }
 }

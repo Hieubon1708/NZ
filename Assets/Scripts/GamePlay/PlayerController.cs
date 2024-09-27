@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     int boomIndex;
     public int boomCount;
     public Transform startBoom;
+    Transform target;
+    public bool isFindingTarget;
 
     private void Awake()
     {
@@ -22,9 +25,34 @@ public class PlayerController : MonoBehaviour
         BoomGenerate();
     }
 
+    public CapsuleCollider2D col;
+
     public void Start()
     {
         SetParentForBoom();
+    }
+
+    public IEnumerator StartFindTarget()
+    {
+        while (target != GameController.instance.defaultDir)
+        {
+            target = GameController.instance.GetENearest(transform.position);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    public void FindTarget()
+    {
+        if (isMouseDown) return;
+        if (GameController.instance.listEVisible.Contains(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col))
+        {
+            target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col.transform;
+        }
+        else
+        {
+            target = GameController.instance.GetENearest(transform.position);
+        }
+        isFindingTarget = true;
     }
 
     void BoomGenerate()
@@ -62,6 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         isMouseDown = true;
         traectory.SetActive(true);
+        isFindingTarget = false;
     }
 
     public void Update()
@@ -76,6 +105,12 @@ public class PlayerController : MonoBehaviour
             Vector2 dir = mousePos - (Vector2)gunPivot.position;
             float angle = Mathf.Clamp(Mathf.DeltaAngle(0f, EUtils.GetAngle(dir) - gunPivotForAni.localEulerAngles.z), -90f, 90f);
             gunPivot.localRotation = Quaternion.Euler(0, 0, angle);
+        }
+        if (isFindingTarget)
+        {
+            Vector2 dir = target.position - gunPivot.position;
+            float angle = Mathf.Clamp(Mathf.DeltaAngle(0f, EUtils.GetAngle(dir) - gunPivotForAni.localEulerAngles.z), -90f, 90f);
+            gunPivot.localRotation = Quaternion.Lerp(gunPivot.localRotation, Quaternion.Euler(0, 0, angle), 0.1f);
         }
     }
 

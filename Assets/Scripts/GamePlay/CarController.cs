@@ -53,12 +53,12 @@ public class CarController : MonoBehaviour
         carAni.SetTrigger("death");
     }
 
-    public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject ePush, EnemyHandler e)
+    public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject ePush, EnemyHandler e, float distance)
     {
         ePush.layer = layerBumping;
         colObj.layer = layerBumping;
         e.isBumping = true;
-        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= 0.5f && ePush.activeSelf && droping.activeSelf);
+        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance && ePush.activeSelf && droping.activeSelf);
         //Debug.LogWarning(Mathf.Abs(droping.transform.position.y - ePush.transform.position.y));
         ePush.layer = layerOrigin;
         colObj.layer = layerOrigin;

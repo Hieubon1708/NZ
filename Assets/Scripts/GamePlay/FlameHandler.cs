@@ -43,16 +43,16 @@ public class FlameHandler : WeaponShoter
     void FadeOut()
     {
         colBooster.SetActive(false);
-        FlameThrover(0f, 0.25f);
+        FlameThrover(0f, 0.35f);
     }
 
     IEnumerator Shot()
     {
         while (true)
         {
-            ShotHandle(true, 1f, 0.25f);
+            ShotHandle(true, 1f, 0.35f);
             yield return new WaitForSeconds(2.5f);
-            ShotHandle(false, 0f, 0.25f);
+            ShotHandle(false, 0f, 0.35f);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -60,7 +60,7 @@ public class FlameHandler : WeaponShoter
     void StartBooster()
     {
         if (shot != null) StopCoroutine(shot);
-        ShotHandle(false, 1f, 0.25f);
+        ShotHandle(false, 1f, 0.35f);
         colBooster.SetActive(true);
     }
 
