@@ -13,6 +13,7 @@ public class EnemyHandler : MonoBehaviour
     public Rigidbody2D rb;
     public SortingGroup sortingGroup;
     public GameObject colObj;
+    public CapsuleCollider2D col;
     public Animator animator;
     bool isTriggerSaw;
     bool isTriggerFlame;
@@ -211,7 +212,7 @@ public class EnemyHandler : MonoBehaviour
             && collision.contacts[0].normal.y <= -0.85f
             && !CarController.instance.isBump[lineIndex - 1])
         {
-            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, collision.collider.bounds.size.x));
+            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
         }
     }
 
