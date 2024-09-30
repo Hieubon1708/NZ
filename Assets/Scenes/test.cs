@@ -3,20 +3,19 @@
 public class test : MonoBehaviour
 {
     public Rigidbody2D rb;
-    Vector2 anglePrevious;
 
     public void Start()
     {
-        rb.AddForce(new Vector2(-1, 15), ForceMode2D.Impulse);
-    }
+        float g = 10.0f; 
+        float xTarget = 3.0f; 
+        float yTarget = 3.0f; 
+        float angle = 70.0f; 
 
-    private void FixedUpdate()
-    {
-        if(anglePrevious != null)
-        {
-            Vector2 dir = anglePrevious - (Vector2)transform.position;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, EUtils.GetAngle(dir)), 0.05f);
-        }
-        anglePrevious = transform.position;
+        float angleRad = angle * Mathf.PI / 180.0f;
+
+        float distance = Vector2.Distance(new Vector2(xTarget, yTarget), transform.position);
+
+        float v0 = Mathf.Sqrt((g * Mathf.Pow(distance, 2)) / (2 * (yTarget - Mathf.Tan(angleRad) * xTarget)));
+        rb.velocity = (new Vector2(xTarget, yTarget) - (Vector2)transform.position).normalized * v0;
     }
 }

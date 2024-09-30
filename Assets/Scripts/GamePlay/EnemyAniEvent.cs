@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAniEvent : MonoBehaviour
 {
@@ -7,9 +8,7 @@ public class EnemyAniEvent : MonoBehaviour
     public int count;
     public Transform mouth;
     public Enemy enemy;
-    float force;
     int index;
-    Vector2 dir;
 
     void Awake()
     {
@@ -39,40 +38,23 @@ public class EnemyAniEvent : MonoBehaviour
         YAbove = PlayerController.instance.transform.position.y + 0.7f;
         float randomTarget = Random.Range(YUnder, YAbove);
 
-        Vector2 target = new Vector2(x, randomTarget);
+        //Vector2 target = new Vector2(x, randomTarget);
+        Vector2 target = new Vector2(BlockController.instance.blocks[1].transform.position.x + 0.7f, BlockController.instance.blocks[1].transform.position.y);
 
-        scBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(new Vector2(target.x - mouth.position.x, target.y - mouth.position.y + 5f).normalized) - 90);
-        scBullets[index].rb.velocity = new Vector2(target.x - mouth.position.x, target.y - mouth.position.y + 5f);
+        Vector2 direction = (target - (Vector2)mouth.position).normalized;
+        float angle = EUtils.GetAngle(direction);
+        angle = angle > 90 ? 90 - (angle - 90) : angle;
+
+        float sinAngle = Mathf.Sin(angle * Mathf.Deg2Rad);
+        float distance = Mathf.Abs(mouth.position.x - target.x);
+        float V0Squared = distance * 9.81f / sinAngle;
+        float V0 = Mathf.Sqrt(V0Squared);
+
+        scBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(direction) - 90);
+        scBullets[index].rb.velocity = V0 * direction;
 
         index++;
         if (index == scBullets.Length) index = 0;
-        Debug.DrawLine(mouth.position, target, Color.red, 0.5f);
-    }
-
-    public GameObject p;
-
-    public void MakeAngle(Vector2 target)
-    {
-        for (float i = 100; i <= 130; i++)
-        {
-            dir = GetDir(i);
-            for (int j = 0; j < 100; j++)
-            {
-                Vector2 r = PointPosition(j * 0.025f);
-                //Instantiate(p, r, Quaternion.Euler(0,0, EUtils.GetAngle(dir)));
-                if (Vector2.Distance(r, target) <= 0.25f) return;
-            }
-        }
-    }
-
-    Vector2 GetDir(float angle)
-    {
-        float angleInRadians = angle * Mathf.Deg2Rad;
-        return new Vector2(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians));
-    }
-
-    Vector2 PointPosition(float t)
-    {
-        return (Vector2)mouth.position + (dir.normalized * force * t) + 0.5f * Physics2D.gravity * (t * t);
+        Debug.DrawLine(mouth.position, target, Color.red, 1);
     }
 }

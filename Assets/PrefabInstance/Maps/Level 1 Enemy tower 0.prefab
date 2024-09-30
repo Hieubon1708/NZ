@@ -577,8 +577,12 @@ MonoBehaviour:
   col: {fileID: 1662500758019991}
   enemies:
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
-  amout: 01000000
+  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
+  - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
+  amout: 010000000100000001000000
   speed:
+  - -2
+  - -2
   - -2
   listRandomEs: []
   defaultDistance: 0.75
