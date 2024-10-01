@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1221242577
   m_SortingLayer: 4
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 23ac4751ee361af4bb04864b6151f650, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 7e4618c664d9412409df79f4a33bb25f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -292,30 +292,31 @@ MonoBehaviour:
   - {fileID: 446788878540877375}
   - {fileID: 7318022337563596222}
   amoutLimit: 3
+  col: {fileID: 1854999101307730}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
   - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
-  amout: 0a0000000a0000000a000000
+  amout: 140000001400000014000000
   speed:
   - -3
-  - -2.5
+  - -2
   - -2
   listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
   distances:
-  - 0.55
-  - 0.45
   - 0.75
-  - 1.5
   - 0.75
-  - 1.5
   - 0.75
-  - 1.5
   - 0.75
-  startDistanceMultipliers: 040000000400000001000000
-  endDistanceMultipliers: 060000000600000001000000
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  startDistanceMultipliers: 010000000100000001000000
+  endDistanceMultipliers: 010000000100000001000000
   temp: []
 --- !u!114 &-4394416537802803902
 MonoBehaviour:
@@ -361,8 +362,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: -4394416537802803902}
+  view: {fileID: 2377124745728435780}
   healthHandler: {fileID: -8501794509877524660}
   damage: {fileID: 4386329509900324676}
+  towerPos: {fileID: 8885763055557346442}
   isVisible: 0
 --- !u!1 &1373411231433682
 GameObject:
@@ -660,7 +663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4023313493437745
 Transform:
   m_ObjectHideFlags: 0
@@ -1588,7 +1591,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 6e5101f78e9122246ad7471a32521550, type: 2}
+  m_Sprite: {fileID: 21300000, guid: b29571771841e5542a25e8f2d5e8146c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -12,9 +12,9 @@ public class GameController : MonoBehaviour
     public CarController carController;
 
     public List<GameObject> listEnemies;
-    public GameObject[] mapLevels;
-
     public List<GameObject> listEVisible = new List<GameObject>();
+
+    public GameObject[] mapLevels;
 
     public Transform poolDamages;
     public Transform poolWeapons;
@@ -22,12 +22,10 @@ public class GameController : MonoBehaviour
     public Transform poolEnemies;
     public Transform poolDynamics;
     public Transform poolPars;
-
     public Transform defaultDir;
 
     public float timeSawDamage;
     public float timeFlameDamage;
-
     public float backgroundSpeed;
 
     public GameObject menuCamera;
@@ -35,6 +33,7 @@ public class GameController : MonoBehaviour
     public GameObject booster;
     public GameObject buttonStart;
     public GameObject touchScreen;
+    public GameObject colDisplay;
 
     public bool isStart;
     public Camera cam;
@@ -45,6 +44,13 @@ public class GameController : MonoBehaviour
         DOTween.SetTweensCapacity(200, 1000);
         Resize();
         MapGenerate(dataManager.playerData.gameLevel);
+        GenerateColDisplay();
+    }
+
+    void GenerateColDisplay()
+    {
+        Vector2 sceenR = cam.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height / 2));
+        Instantiate(colDisplay, new Vector2(sceenR.x + gameCamera.transform.position.x, sceenR.y), Quaternion.identity, transform);
     }
 
     void MapGenerate(int index)
@@ -59,6 +65,17 @@ public class GameController : MonoBehaviour
         BlockController.instance.LoadData();
     }
 
+    public void EDeathAll(GameObject tower)
+    {
+        for (int i = 0; i < listEVisible.Count; i++)
+        {
+            if (listEVisible[i] != tower)
+            {
+                ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
+            }
+        }
+        listEVisible.Clear();
+    }
 
     public void Update()
     {

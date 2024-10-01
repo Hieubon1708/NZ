@@ -1,6 +1,4 @@
-﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -28,50 +26,33 @@ public class EnemyHandler : MonoBehaviour
     public bool isWalk;
     public bool isStunned;
     public bool isBumping;
-    public bool isDeath;
+    public bool isShot;
     public int amoutCollision;
     public int lineIndex;
-    public GameObject content;
+    public GameObject view;
     public GameObject frontalCollision;
-
-    public List<GameObject> listCollisions = new List<GameObject>();
-    public ContactPoint2D[] listContacts = new ContactPoint2D[10];
 
     Coroutine stunnedDelay;
     Coroutine jump;
-    LayerMask layerOrigin;
-    LayerMask layerBumping;
-    Coroutine bumping;
+    protected LayerMask layerOrigin;
+    protected LayerMask layerBumping;
 
-    public void Start()
+    public virtual void Start()
     {
         lineIndex = EUtils.GetIndexLine(gameObject);
         layerOrigin = gameObject.layer;
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && a)
-        {
-            //StartCoroutine(CarController.instance.Bump(lineIndex, gameObject, nameOrigin));
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            animator.SetFloat("velocityY", 3);
-            //Jump();
-        }
-    }
-    public bool b;
-
-    protected virtual void OnEnable()
+    void OnEnable()
     {
         healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
-    protected virtual IEnumerator OnTriggerEnter2D(Collider2D collision)
+    protected IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDeath) yield break;
+        if (collision.CompareTag("ColDisplay")) view.SetActive(true);
+        if (!view.activeSelf) yield break;
         int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
@@ -103,7 +84,6 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            Debug.LogWarning(collision.gameObject.name);
             isTriggerFlame = true;
             while (isTriggerFlame && enemyInfo.hp > 0)
             {
@@ -111,22 +91,20 @@ public class EnemyHandler : MonoBehaviour
                 yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
             }
         }
+        if (collision.CompareTag("Car") && name != "0") animator.SetBool("attack", true);
     }
 
-    protected virtual void OnTriggerExit2D(Collider2D collision)
+    protected void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDeath) return;
+        if (!view.activeSelf) return;
         if (collision.CompareTag("Saw")) isTriggerSaw = false;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
-        if (collision.CompareTag("Boom"))
-        {
-            SubtractHp(499);
-        }
+        if (collision.CompareTag("Boom")) SubtractHp(499);
+        if (collision.CompareTag("Car") && name != "0") animator.SetBool("attack", false);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDeath) return;
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
@@ -135,7 +113,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected void OnCollisionStay2D(Collision2D collision)
     {
-        if (isDeath) return;
+        if (!view.activeSelf) return;
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -153,7 +131,7 @@ public class EnemyHandler : MonoBehaviour
                 }
 
                 isStunned = true;
-                timeStunned = Random.Range(0.25f, 0.45f);
+                timeStunned = Random.Range(0.45f, 0.75f);
 
                 if (stunnedDelay != null) StopCoroutine(stunnedDelay);
                 stunnedDelay = StartCoroutine(SetFalseIsStunned(timeStunned));
@@ -178,7 +156,6 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if (isDeath) return;
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
@@ -195,28 +172,24 @@ public class EnemyHandler : MonoBehaviour
             && collision.gameObject.CompareTag("Enemy")
             && collision.contacts[0].normal.x >= 0.99f
             && !isStunned
-            && !isCollisionWithCar)
+            && !isCollisionWithCar
+            && !isShot)
         {
             jump = StartCoroutine(JumpStart(collision));
         }
-    }
-
-    public virtual void Jump()
-    {
     }
 
     void CheckBump(Collision2D collision)
     {
         if (isCollisionWithCar
             && isCollisionWithGround
-            && collision.contacts[0].normal.y <= -0.85f
-            && !CarController.instance.isBump[lineIndex - 1])
+            && collision.contacts[0].normal.y <= -0.85f)
         {
-            bumping = StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
+            StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
         }
     }
 
-    void CheckWalk()
+    protected virtual void FixedUpdate()
     {
         if (isCollisionWithCar
             || gameObject.layer == layerBumping
@@ -230,11 +203,6 @@ public class EnemyHandler : MonoBehaviour
             isWalk = true;
             rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        CheckWalk();
     }
 
     protected IEnumerator JumpStart(Collision2D collision)
@@ -260,14 +228,13 @@ public class EnemyHandler : MonoBehaviour
 
     void JumpEnd()
     {
-        //Debug.LogWarning("Jump end");
         animator.SetFloat("velocityY", 0);
         rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
     void SubtractHp(float subtractHp)
     {
-        if (isDeath) return;
+        if (!view.activeSelf) return;
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
@@ -277,11 +244,11 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void DeathHandle()
     {
-        isDeath = true;
-        //content.SetActive(false);
+        view.SetActive(false);
         healthHandler.SetDefaultInfo(enemyInfo);
         enemyInfo.gameObject.SetActive(false);
         healthBar.SetActive(false);
+        GameController.instance.listEVisible.Remove(gameObject);
         ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
         EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
     }
@@ -301,7 +268,6 @@ public class EnemyHandler : MonoBehaviour
         gameObject.layer = layerOrigin;
         colObj.layer = layerOrigin;
         colObj.SetActive(true);
-        DOVirtual.DelayedCall(0.1f, delegate { isDeath = false; });
     }
     IEnumerator SetFalseIsStunned(float time)
     {

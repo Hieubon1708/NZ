@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4525711921729195}
   - component: {fileID: 210317725344605170}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: counterable health bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4159027330941015}
   - component: {fileID: 212321916943604342}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4986174944477752}
   - component: {fileID: 61000232354765172}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: roofForParticlesCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4439688397467101}
   - component: {fileID: 61114709895363316}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: roofForParticlesCollider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 224856736562377871}
   - component: {fileID: 222157242876860240}
   - component: {fileID: 487100097146422759}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4004921333655552}
   - component: {fileID: 212302606196533654}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: white color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 2412087578246271838}
   - component: {fileID: 7429747303818238808}
   - component: {fileID: 7553810803082363552}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Level 2 Enemy tower 4
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -622,6 +622,7 @@ MonoBehaviour:
   towerInfo: {fileID: 1743894182911853957}
   healthHandler: {fileID: 114801264179300645}
   damage: {fileID: 1477398306270601920}
+  towerPos: {fileID: 0}
   isVisible: 0
 --- !u!114 &7429747303818238808
 MonoBehaviour:
@@ -637,6 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPools: []
   amoutLimit: 0
+  col: {fileID: 0}
   enemies: []
   amout: 
   speed: []
@@ -669,7 +671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4433356122993926}
   - component: {fileID: 61840742169668983}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: roofForEnemiesCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4889487061144340}
   - component: {fileID: 61159819827090357}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: collider
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -825,7 +827,7 @@ GameObject:
   - component: {fileID: 4348981777307372}
   - component: {fileID: 212301018796483831}
   - component: {fileID: 1397215595058738867}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Zombie_Base_Front
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -922,7 +924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4010887974474835}
   - component: {fileID: 212675140790713340}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: main color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4227201181458941}
   - component: {fileID: 111428640638325057}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: heal effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605596314489101}
   - component: {fileID: 61568600785260122}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: roofForParticlesCollider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1132,7 +1134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4508129334730915}
   - component: {fileID: 210747286702515024}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: tower back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1179,7 +1181,7 @@ GameObject:
   - component: {fileID: 224374657462480865}
   - component: {fileID: 222296516585222081}
   - component: {fileID: 223847789232954310}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: health Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1246,7 +1248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4596714382525434}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: content
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1280,7 +1282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974698389732152}
   - component: {fileID: 212245686595415310}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1364,7 +1366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4753338937434549}
   - component: {fileID: 212780325996944478}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4581572079173277}
   - component: {fileID: 212144728598290481}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: shadow
   m_TagString: Unflashable
   m_Icon: {fileID: 0}
@@ -1532,7 +1534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4864401278303838}
   - component: {fileID: 331558765898676723}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Sprite Mask
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1615,7 +1617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4687108770755339}
   - component: {fileID: 212557749878834213}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1698,7 +1700,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2147191417940232403}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Line_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1729,7 +1731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1089359766673036527}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Line_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1761,7 +1763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4133552402879943157}
   - component: {fileID: 1188484498978037162}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1814,7 +1816,7 @@ GameObject:
   - component: {fileID: 8543204315769906865}
   - component: {fileID: 6644847442865251380}
   - component: {fileID: 1177805208322929164}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1913,7 +1915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7792206323577055706}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Line_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1949,11 +1951,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2597407603152731815, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Layer
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3571161364059412704, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Layer
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4502626900472404923, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Mass

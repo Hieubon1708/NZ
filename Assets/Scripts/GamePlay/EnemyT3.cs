@@ -9,24 +9,11 @@ public class EnemyT3 : EnemyHandler
     public Vector2 targetPos;
     float yRandomAfterLevingCave;
 
-    protected override void OnEnable()
+    public override void Start()
     {
-        base.OnEnable();
+        base.Start();
         isWalk = true;
         yRandomAfterLevingCave = Random.Range(yMin, yMax);
-    }
-
-    protected override IEnumerator OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ColDisplay")) content.SetActive(true);
-        if (!content.activeSelf) yield break;
-        StartCoroutine(base.OnTriggerEnter2D(collision));
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Tower")) StartCoroutine(LevingCave());
     }
 
     protected override void FixedUpdate()

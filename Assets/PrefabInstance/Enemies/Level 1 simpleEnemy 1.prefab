@@ -1000,7 +1000,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 20534
+    m_Bits: 4150
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -1016,7 +1016,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &-5028497913313914360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,13 +1049,12 @@ MonoBehaviour:
   isWalk: 0
   isStunned: 0
   isBumping: 0
-  isDeath: 0
+  isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  content: {fileID: 2078466305346430152}
+  view: {fileID: 2078466305346430152}
   frontalCollision: {fileID: 0}
   listCollisions: []
-  b: 0
   a: 0
 --- !u!114 &7250182961572006772
 MonoBehaviour:

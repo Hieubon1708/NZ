@@ -1246,33 +1246,42 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817420996515325}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  amoutLimit: 3
   enemyPools:
   - {fileID: 3864315894276314506}
   - {fileID: 5807949710807994853}
   - {fileID: 5117969076533480513}
-  amoutEnemy: 060000000700000007000000
-  startRandomDistance: 050000000100000001000000
-  endRandomDistance: 070000000100000001000000
-  amoutEnemyType1: 
-  amoutEnemyType2: 
-  amoutEnemyType3: 
-  amoutEnemyType4: 
-  amoutEnemyType5: 
-  amoutEnemyType6: 
-  distance:
-  - 0.55
-  - 1
+  amoutLimit: 3
+  col: {fileID: 1722895468987070}
+  enemies:
+  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
+  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
+  - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
+  amout: 1e0000001e0000001e000000
+  speed:
+  - -3
+  - -2
+  - -2
+  listRandomEs: []
+  defaultDistance: 0.75
+  amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
+  distances:
   - 0.75
-  listEnemies: []
-  a: 0
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  startDistanceMultipliers: 010000000100000001000000
+  endDistanceMultipliers: 010000000100000001000000
+  temp: []
 --- !u!114 &-1820412646704109552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1301,6 +1310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer_1: {fileID: 212779562006764815}
   layer_2: {fileID: 212078446452516334}
+  startHp: 0
   timeSubtractHp_1: 0.25
   timeSubtractHp_2: 0.5
 --- !u!114 &5566360829073656754
@@ -1316,8 +1326,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: -1820412646704109552}
+  view: {fileID: 4512961800550642082}
   healthHandler: {fileID: -2387793983757160752}
   damage: {fileID: 3324013018094105357}
+  towerPos: {fileID: 4712296468290566281}
   isVisible: 0
 --- !u!1 &1818215257826071
 GameObject:

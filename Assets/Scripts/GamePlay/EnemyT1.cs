@@ -1,26 +1,8 @@
-using System.Collections;
-using UnityEngine;
-
 public class EnemyT1 : EnemyHandler
 {
-    protected override void OnEnable()
+    public override void Start()
     {
-        base.OnEnable();
-    }
-
-    protected override IEnumerator OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ColDisplay")) content.SetActive(true);
-        if (!content.activeSelf) yield break;
-        if (collision.CompareTag("Car")) animator.SetBool("attack", true);
-        StartCoroutine(base.OnTriggerEnter2D(collision));
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!content.activeSelf) return;
-        base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Car")) animator.SetBool("attack", false);
+        base.Start();
     }
 
     protected override void FixedUpdate()

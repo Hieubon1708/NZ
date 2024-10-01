@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyTowerHandler : MonoBehaviour
 {
     public Tower towerInfo;
+    public GameObject view;
     public HealthHandler healthHandler;
     public Damage damage;
     public Transform towerPos;
@@ -18,27 +19,31 @@ public class EnemyTowerHandler : MonoBehaviour
     public IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (!isVisible) yield break;
-        if (towerInfo.hp == 0) yield break;
-        int substractHp;
+        int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
-            substractHp = 70;
+            subtractHp = 70;
             collision.gameObject.SetActive(false);
-            SubstractHp(substractHp);
+            SubtractHp(subtractHp);
         }
         if (collision.CompareTag("MachineGun"))
         {
-            substractHp = 44;
+            subtractHp = int.Parse(collision.gameObject.name);
             collision.gameObject.SetActive(false);
-            SubstractHp(substractHp);
+            SubtractHp(subtractHp);
+        }
+        if (collision.CompareTag("SawBooster"))
+        {
+            subtractHp = int.Parse(collision.attachedRigidbody.name);
+            SubtractHp(subtractHp);
         }
         if (collision.CompareTag("Flame"))
         {
-            substractHp = 9;
+            subtractHp = int.Parse(collision.gameObject.name);
             isTriggerFlame = true;
             while (isTriggerFlame && towerInfo.hp > 0)
             {
-                SubstractHp(substractHp);
+                SubtractHp(subtractHp);
                 yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
             }
         }
@@ -46,10 +51,11 @@ public class EnemyTowerHandler : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!view.activeSelf) return;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
     }
 
-    void SubstractHp(float substractHp)
+    void SubtractHp(float substractHp)
     {
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
@@ -57,8 +63,9 @@ public class EnemyTowerHandler : MonoBehaviour
 
         if (hp == 0)
         {
-            EnemyTowerController.instance.NextTower();
+            GameController.instance.EDeathAll(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col);
             towerInfo.gameObject.SetActive(false);
+            EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(towerPos.transform.position.x + 1.5f, towerPos.transform.position.y));
         }
     }

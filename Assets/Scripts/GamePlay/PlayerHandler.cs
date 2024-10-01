@@ -19,6 +19,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void OnCollisionStay2D(Collision2D collision)
     {
+        Debug.LogWarning(collision.gameObject.name);
         GameObject enemy = collision.gameObject;
         if (!listEnemies.Contains(enemy))
         {

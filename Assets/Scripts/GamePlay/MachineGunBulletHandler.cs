@@ -23,7 +23,7 @@ public class MachineGunBulletHandler : MonoBehaviour
             else ParController.instance.PlayGunHitOnRoadParticle(transform.position);
         }
 
-        if(colBooster != null && collision.CompareTag("Enemy")) colBooster.enabled = true;
+        if(colBooster != null && (collision.CompareTag("Enemy") || collision.CompareTag("Tower"))) colBooster.enabled = true;
     }
 
     private void OnDisable()

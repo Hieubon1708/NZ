@@ -6,7 +6,6 @@ public class CarController : MonoBehaviour
     public static CarController instance;
 
     public Animator carAni;
-    public bool[] isBump;
     public float backgroundSpeed;
     public float partSpeed;
     public int amoutCollison;
@@ -59,7 +58,6 @@ public class CarController : MonoBehaviour
         colObj.layer = layerBumping;
         e.isBumping = true;
         yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance && ePush.activeSelf && droping.activeSelf);
-        //Debug.LogWarning(Mathf.Abs(droping.transform.position.y - ePush.transform.position.y));
         ePush.layer = layerOrigin;
         colObj.layer = layerOrigin;
         e.isBumping = false;

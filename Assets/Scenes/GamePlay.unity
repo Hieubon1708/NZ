@@ -4921,10 +4921,10 @@ MonoBehaviour:
   dataManager: {fileID: 1972759688}
   carController: {fileID: 1687838356783202593}
   listEnemies: []
+  listEVisible: []
   mapLevels:
   - {fileID: 7967148387835107803, guid: 626c375b5000d3c4cb43129c86f90557, type: 3}
   - {fileID: 1148497961413998, guid: d087b4238846b2e40b08eb31c5ac1f82, type: 3}
-  listEVisible: []
   poolDamages: {fileID: 1353833272}
   poolWeapons: {fileID: 2079081491}
   poolBullets: {fileID: 1706001891}
@@ -4940,6 +4940,7 @@ MonoBehaviour:
   booster: {fileID: 1528667894}
   buttonStart: {fileID: 78977791}
   touchScreen: {fileID: 258199982149005610}
+  colDisplay: {fileID: 431566763661507359, guid: 15487ee5d3f302644a020059fbba39a3, type: 3}
   isStart: 0
   cam: {fileID: 519420031}
 --- !u!114 &1972759688
@@ -13640,7 +13641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carAni: {fileID: 8961751812791349758}
-  isBump: 000000
   backgroundSpeed: 0
   partSpeed: 0
   amoutCollison: 0

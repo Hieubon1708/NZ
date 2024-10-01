@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 // con nhện treo
 public class EnemyT5 : EnemyHandler
@@ -8,23 +7,11 @@ public class EnemyT5 : EnemyHandler
     float targetX;
     float targetY;
 
-    protected override void OnEnable()
+    public override void Start()
     {
-        base.OnEnable();
-        targetX = Random.Range(xMin,xMax);
+        base.Start();
+        targetX = Random.Range(xMin, xMax);
         targetY = GameController.instance.cam.ScreenToWorldPoint(new Vector2(0, Random.Range(Screen.height * 0.75f, Screen.height))).y;
-    }
-
-    protected override IEnumerator OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ColDisplay")) content.SetActive(true);
-        if (!content.activeSelf) yield break;
-        StartCoroutine(base.OnTriggerEnter2D(collision));
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 
     protected override void FixedUpdate()

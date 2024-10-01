@@ -87,7 +87,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031862239864203}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
@@ -97,16 +97,31 @@ MonoBehaviour:
   - {fileID: 7682030778932675929}
   - {fileID: 4799778662649640033}
   amoutLimit: 3
+  col: {fileID: 1926481704132237}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  amout: 
-  speed: []
+  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
+  - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
+  amout: 190000001900000019000000
+  speed:
+  - -3
+  - -2
+  - -2
   listRandomEs: []
-  defaultDistance: 0
-  amoutEs: 
-  distances: []
-  startDistanceMultipliers: 
-  endDistanceMultipliers: 
+  defaultDistance: 0.75
+  amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
+  distances:
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  startDistanceMultipliers: 010000000100000001000000
+  endDistanceMultipliers: 010000000100000001000000
   temp: []
 --- !u!114 &3629959414831638030
 MonoBehaviour:
@@ -152,8 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: 3629959414831638030}
+  view: {fileID: 837763089870622417}
   healthHandler: {fileID: 6048409600045864600}
   damage: {fileID: 4975284391860908926}
+  towerPos: {fileID: 8304551484818923177}
   isVisible: 0
 --- !u!1 &1131045975130218
 GameObject:
@@ -424,7 +441,7 @@ SpriteRenderer:
   m_SortingLayerID: 1221242577
   m_SortingLayer: 4
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 8e4cbfcfee4cf404eb4ddeedf4cf31f2, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 7ee552b608866b840adad32e7a110b89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -892,7 +909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4320999851231864
 Transform:
   m_ObjectHideFlags: 0
@@ -1166,7 +1183,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: a4d2e951c4aa32c48ac40f6f2f718d26, type: 2}
+  m_Sprite: {fileID: 21300000, guid: e86c6c79ca8e25945882b7292624fcef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -52,9 +52,11 @@ public class EnemyController : MonoBehaviour
             for (int j = 0; j < amout[i]; j++)
             {
                 GameObject e = Instantiate(enemies[i], GameController.instance.poolEnemies);
-                e.GetComponent<EnemyHandler>().speed = speed[i];
-                listEs.Add(e);
+                EnemyHandler sc = e.GetComponent<EnemyHandler>();
+                sc.speed = speed[i];
+                sc.view.SetActive(false);
                 e.SetActive(false);
+                listEs.Add(e);
             }
             listTypeEs.Add(listEs);
         }
@@ -135,7 +137,7 @@ public class EnemyController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 

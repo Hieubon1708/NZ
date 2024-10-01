@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 50299818505382611}
   m_Layer: 17
   m_Name: Saw booster 1
-  m_TagString: Untagged
+  m_TagString: SawBooster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 254015
+    m_Bits: 254014
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -109,7 +109,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 258111
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 207
-  m_Sprite: {fileID: 21300000, guid: a328ebdd91f51fb45b8dd35805ceebd6, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 662f23a49b127384fb4574e6a47e78d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

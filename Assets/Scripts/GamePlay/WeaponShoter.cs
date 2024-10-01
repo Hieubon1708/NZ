@@ -16,18 +16,23 @@ public abstract class WeaponShoter : MonoBehaviour
     {
         while (true)
         {
-            parent.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - parent.position)), 0.05f);
+            if (target != null && GameController.instance.listEVisible.Contains(target.gameObject))
+            {
+                parent.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - parent.position)), 0.15f);
+            }
+            else
+            {
+                target = GameController.instance.GetENearest(parent.position);
+            }
             yield return new WaitForFixedUpdate();
         }
     }
-
     public IEnumerator FindTarget()
     {
         while (true)
         {
             target = GameController.instance.GetENearest(parent.position);
-            float time = target == GameController.instance.defaultDir ? 0.02f : 0.5f;
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

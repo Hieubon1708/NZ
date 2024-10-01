@@ -872,7 +872,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 28727
+    m_Bits: 4150
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -888,7 +888,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &410237897961624098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,16 +921,15 @@ MonoBehaviour:
   isWalk: 0
   isStunned: 0
   isBumping: 0
-  isDeath: 0
+  isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  content: {fileID: 6957286141607537267}
+  view: {fileID: 6957286141607537267}
   frontalCollision: {fileID: 0}
   listCollisions: []
-  b: 0
   a: 0
-  xMin: 1
-  xMax: 3
+  xMin: 4
+  xMax: 7
   targetX: 0
 --- !u!114 &2246718257229351700
 MonoBehaviour:
@@ -2586,6 +2585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567432021141285936}
   - component: {fileID: 3494351163943567998}
+  - component: {fileID: 5334075782769169277}
   m_Layer: 0
   m_Name: Zombie_1_1_Body_Up
   m_TagString: Untagged
@@ -2660,6 +2660,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &5334075782769169277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520266264476404795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8547895066930920774
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,29 +32,31 @@ public class EnemyAniEvent : MonoBehaviour
         scBullets[index].gameObject.SetActive(false);
         scBullets[index].gameObject.SetActive(true);
         scBullets[index].transform.position = mouth.position;
-        float YUnder = -1, YAbove = -1, x = PlayerController.instance.transform.position.x + 0.7f;
-        if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y - 0.75f;
-        else YUnder = PlayerController.instance.transform.position.y;
-        YAbove = PlayerController.instance.transform.position.y + 0.7f;
+        float YUnder = mouth.position.y;
+        float YAbove = PlayerController.instance.transform.position.y + 0.7f;
+        float x = PlayerController.instance.transform.position.x + 0.7f;
+
         float randomTarget = Random.Range(YUnder, YAbove);
 
-        //Vector2 target = new Vector2(x, randomTarget);
-        Vector2 target = new Vector2(BlockController.instance.blocks[1].transform.position.x + 0.7f, BlockController.instance.blocks[1].transform.position.y);
+        Vector2 target = new Vector2(x, randomTarget);
 
-        Vector2 direction = (target - (Vector2)mouth.position).normalized;
-        float angle = EUtils.GetAngle(direction);
-        angle = angle > 90 ? 90 - (angle - 90) : angle;
+        float angle = EUtils.GetAngle(target - (Vector2)mouth.position);
+        angle += 160 - angle;
+        angle = Mathf.Clamp(angle, 110, 180);
 
-        float sinAngle = Mathf.Sin(angle * Mathf.Deg2Rad);
-        float distance = Mathf.Abs(mouth.position.x - target.x);
-        float V0Squared = distance * 9.81f / sinAngle;
-        float V0 = Mathf.Sqrt(V0Squared);
+        float distanceX = target.x - mouth.position.x;
+        float distanceY = Mathf.Clamp(target.y - mouth.position.y, 0.01f, 100);
+        float time = distanceX / (Mathf.Cos(angle * Mathf.Deg2Rad) * (Mathf.Sqrt((distanceX * distanceX * Mathf.Abs(Physics2D.gravity.y)) / (2 * distanceX * Mathf.Tan(angle * Mathf.Deg2Rad) + distanceY))));
+        float velocityX = distanceX / time;
+        float velocityY = (distanceY + 0.5f * Mathf.Abs(Physics2D.gravity.y) * time * time) / time;
 
-        scBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(direction) - 90);
-        scBullets[index].rb.velocity = V0 * direction;
+        Vector2 velocity = new Vector2(velocityX, velocityY);
+
+        scBullets[index].transform.localRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(velocity.normalized) - 90);
+        scBullets[index].rb.velocity = velocity;
 
         index++;
         if (index == scBullets.Length) index = 0;
-        Debug.DrawLine(mouth.position, target, Color.red, 1);
+        //Debug.DrawLine(mouth.position, target, Color.red, 1);
     }
 }

@@ -26,12 +26,12 @@ public class EnemyTowerController : MonoBehaviour
 
     public void NextTower()
     {
-        indexTower++;
-        if(indexTower == towers.Length)
+        if (indexTower == towers.Length)
         {
             Debug.Log("Win");
             return;
         }
+        indexTower++;
         CarController.instance.multiplier = 1;
         scTowers[indexTower].EnableEs();
     }
