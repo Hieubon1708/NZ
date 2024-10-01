@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     int milestone;
     float spawnX;
     public GameObject col;
+    public EnemyTowerMovement enemyTowerMovement;
 
     public GameObject[] enemies;
     public int[] amout;
@@ -44,6 +45,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void DisableEs()
+    {
+        for (int i = 0; i < listRandomEs.Count; i++)
+        {
+            if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
+        }
+    }
+
     void Generate()
     {
         for (int i = 0; i < enemies.Length; i++)
@@ -63,6 +72,13 @@ public class EnemyController : MonoBehaviour
     }
 
     public List<GameObject> temp = new List<GameObject>();
+
+    public void Restart()
+    {
+        DisableEs();
+        SetPosition();
+        enemyTowerMovement.Restart();
+    }
 
     void RandomEs()
     {
@@ -171,7 +187,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void ERevival(GameObject e, EnemyHandler sc)
+    public void ERevival(GameObject e)
     {
         int index = -1;
         float xHighest = int.MinValue;
@@ -195,7 +211,6 @@ public class EnemyController : MonoBehaviour
         }
         if (x < GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1) x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
         e.transform.position = new Vector2(x, y);
-        sc.SetDefaultField();
     }
 
     void CheckAmoutEnemyEachLine()

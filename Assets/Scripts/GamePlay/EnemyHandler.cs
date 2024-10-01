@@ -248,9 +248,15 @@ public class EnemyHandler : MonoBehaviour
         healthHandler.SetDefaultInfo(enemyInfo);
         enemyInfo.gameObject.SetActive(false);
         healthBar.SetActive(false);
+        SetDefaultField();
         GameController.instance.listEVisible.Remove(gameObject);
         ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
-        EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
+        EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        SetDefaultField();
     }
 
     public void SetDefaultField()

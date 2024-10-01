@@ -97,6 +97,10 @@ public class GameController : MonoBehaviour
         {
             StartGame();
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Restart();
+        }
     }
 
     public void ChangeBlockSprites(int level)
@@ -125,6 +129,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        SetValue(false);
+        EnemyTowerController.instance.Restart();
+    }
+
     void Resize()
     {
         float defaultSize = cam.orthographicSize;
@@ -139,16 +149,21 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        menuCamera.SetActive(false);
-        gameCamera.SetActive(true);
-        touchScreen.SetActive(true);
-        buttonStart.SetActive(false);
-        booster.SetActive(true);
+        SetValue(true);
         BlockController.instance.StartGame();
-        BlockController.instance.SetActiveUI(false);
         EnemyTowerController.instance.NextTower();
-        CarController.instance.multiplier = 1;
-        isStart = true;
+    }
+
+    void SetValue(bool isActive)
+    {
+        menuCamera.SetActive(!isActive);
+        gameCamera.SetActive(isActive);
+        touchScreen.SetActive(isActive);
+        buttonStart.SetActive(!isActive);
+        booster.SetActive(isActive);
+        isStart = isActive;
+        BlockController.instance.SetActiveUI(!isActive);
+        CarController.instance.multiplier = isActive ? 1 : 0;
     }
 
     public enum WEAPON

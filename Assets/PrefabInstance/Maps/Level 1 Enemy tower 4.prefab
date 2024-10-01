@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 1303096257799111}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5900002, y: 1.8799999, z: 0}
+  m_LocalPosition: {x: 2.5900002, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -429,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 1674774471359463}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.04, y: 5.33, z: 0}
+  m_LocalPosition: {x: 1.4, y: 5.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -824,7 +824,7 @@ Transform:
   m_GameObject: {fileID: 1756356009417963}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.145, y: -0.4329999, z: 0}
+  m_LocalPosition: {x: 1.09, y: 2.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -871,7 +871,7 @@ SpriteRenderer:
   m_SortingLayerID: 1221242577
   m_SortingLayer: 4
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 4ff930625311ebc48b106757452cc42f, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 9101f5aa8112aac43b3619cea8371c3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1064,7 +1064,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 80f8a00eeceba7847b11ea39cd1ce165, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 15ee7aec36c681b4fb8ad97e58c51fa3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1257,6 +1257,7 @@ MonoBehaviour:
   - {fileID: 5117969076533480513}
   amoutLimit: 3
   col: {fileID: 1722895468987070}
+  enemyTowerMovement: {fileID: 7825589486333429504}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
@@ -1424,7 +1425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4089024861066097
 Transform:
   m_ObjectHideFlags: 0

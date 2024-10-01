@@ -25,4 +25,10 @@ public class BackgroundMovement : MonoBehaviour
         parts.Add(parts[0]);
         parts.RemoveAt(0);
     }
+
+    public void Restart()
+    {
+        transform.localPosition = new Vector2(0, transform.localPosition.y);
+        count = 1;
+    }
 }

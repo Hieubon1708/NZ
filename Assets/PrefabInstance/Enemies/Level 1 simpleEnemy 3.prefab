@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 454851524060210606}
   - component: {fileID: 8240552690552768193}
+  - component: {fileID: 5959648187280529712}
   m_Layer: 0
   m_Name: Zombie_1_1_Body_Up
   m_TagString: Untagged
@@ -168,6 +169,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &5959648187280529712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296499975096835380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &637545959544386333
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +672,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 28726
+    m_Bits: 20534
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

@@ -98,6 +98,7 @@ MonoBehaviour:
   - {fileID: 4799778662649640033}
   amoutLimit: 3
   col: {fileID: 1926481704132237}
+  enemyTowerMovement: {fileID: 1812236283579512796}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
@@ -358,7 +359,7 @@ Transform:
   m_GameObject: {fileID: 1210320907912935}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.862757, y: -2.6600008, z: 0}
+  m_LocalPosition: {x: -18.862757, y: -2.978, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -394,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 1265039997664634}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.393, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0.292, y: 1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -503,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 1281149285847537}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.886757, y: 1.8179994, z: 0}
+  m_LocalPosition: {x: -19.886757, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1221,7 +1222,7 @@ Transform:
   m_GameObject: {fileID: 1926481704132237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.542757, y: -1.7100005, z: 0}
+  m_LocalPosition: {x: -18.542757, y: -1.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1271,7 +1272,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.01, y: 5.9}
+  m_Size: {x: 1.01, y: 5.2}
   m_EdgeRadius: 0
 --- !u!114 &4071057538335128781
 MonoBehaviour:

@@ -56,6 +56,11 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+
+    }
+
     public void LoadData()
     {
         IngameData[] ingameDatas = DataManager.instance.ingameDatas;
@@ -89,7 +94,7 @@ public class BlockController : MonoBehaviour
         {
             Block scBlock = GetScBlock(blocks[i]);
             scBlock.blockUpgradeHandler.canvas.SetActive(isActive);
-            scBlock.blockUpgradeHandler.StartWeapon();
+            if(!isActive) scBlock.blockUpgradeHandler.StartWeapon();
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);
