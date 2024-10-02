@@ -13,7 +13,7 @@ public class BlockUpgradeController : MonoBehaviour
 
     public void Update()
     {
-        if(GameController.instance.touchScreen.activeSelf) return;
+        if(GameController.instance.isStart) return;
         if (Input.GetMouseButtonDown(0))
         {
             isDrag = true;

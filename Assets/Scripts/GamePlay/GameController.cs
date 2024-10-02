@@ -133,6 +133,7 @@ public class GameController : MonoBehaviour
     {
         SetValue(false);
         EnemyTowerController.instance.Restart();
+        BlockController.instance.Restart();
     }
 
     void Resize()
@@ -197,7 +198,8 @@ public class GameController : MonoBehaviour
             Block scBlock = BlockController.instance.blocks[i].GetComponent<Block>();
             int blockLevel = scBlock.level;
             int blockGold = scBlock.gold;
-            WEAPON weaponType = scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponType;
+            WEAPON weaponType = WEAPON.NONE;
+            if (scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) weaponType = scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType;
             int weaponLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.level;
             int weaponUpgradeLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.levelUpgrade;
 

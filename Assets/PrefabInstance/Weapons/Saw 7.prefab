@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 1492466395081669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.095, y: 0, z: 0}
+  m_LocalPosition: {x: 0.089, y: -0.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2580,7 +2580,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: dd8b9f1ed52d1344190d2ad167720a81, type: 2}
+  m_Sprite: {fileID: 21300000, guid: bb24e24eadbec5a41a3f5f02ad9e0880, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2697,7 +2697,7 @@ Transform:
   m_GameObject: {fileID: 1736418818177647}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.343, y: 0.022, z: 0}
+  m_LocalPosition: {x: 0.286, y: -0.007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2744,7 +2744,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 81ebabb6f325e6c44b8b59527dc4601d, type: 2}
+  m_Sprite: {fileID: 21300000, guid: bfac0b39545859b4886b50dc8017aee9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2782,7 +2782,7 @@ Transform:
   m_GameObject: {fileID: 1872879602643062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.079, y: -0.043, z: 0}
+  m_LocalPosition: {x: 0.089, y: -0.043, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2835,8 +2835,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110a103c68797fc46a89334ef6fd3253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
   ani: {fileID: 95782428940921102}
   target: {fileID: 0}
+  parent: {fileID: 4983762818522644}
   sawAttackAni: {fileID: 111186751492731627}
   sawBlood: {fileID: 198140261105212829}
   sawBoosterPref: {fileID: 1457540487133477, guid: da5002b3ab921d64faa78aeb009b94cc, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
+using static Unity.Collections.AllocatorManager;
 
 public class BlockController : MonoBehaviour
 {
@@ -58,7 +59,16 @@ public class BlockController : MonoBehaviour
 
     public void Restart()
     {
-
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, startY + distance * i);
+            BlockUpgradeHandler blockUpgradeHandler = GetScBlock(blocks[i]).blockUpgradeHandler;
+            blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.Restart();
+            if (!blocks[i].activeSelf) blocks[i].SetActive(true);
+        }
+        player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
+        energyUpgradee.LoadData();
+        CheckButtonStateAll();
     }
 
     public void LoadData()
@@ -71,7 +81,6 @@ public class BlockController : MonoBehaviour
             block.transform.localPosition = new Vector2(block.transform.localPosition.x, startY + distance * blocks.Count);
             blocks.Add(block);
             block.SetActive(true);
-            player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
             Block scBlock = GetScBlock(block);
             scBlock.gold = ingameDatas[i].blockGold;
 
@@ -84,6 +93,7 @@ public class BlockController : MonoBehaviour
 
             blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
         }
+        player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
         energyUpgradee.LoadData();
         CheckButtonStateAll();
     }
@@ -94,7 +104,7 @@ public class BlockController : MonoBehaviour
         {
             Block scBlock = GetScBlock(blocks[i]);
             scBlock.blockUpgradeHandler.canvas.SetActive(isActive);
-            if(!isActive) scBlock.blockUpgradeHandler.StartWeapon();
+            if (!isActive) scBlock.blockUpgradeHandler.weaponUpgradeHandler.StartGame();
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);
@@ -138,17 +148,17 @@ public class BlockController : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             Block sc = GetScBlock(blocks[i]);
-            if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponShoter is SawHandler)
+            if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler)
             {
-                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
             }
-            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponShoter is FlameHandler)
+            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler)
             {
-                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
             }
-            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponShoter is MachineGunHandler)
+            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is MachineGunHandler)
             {
-                sc.blockUpgradeHandler.weaponShoter.UseBooster();
+                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
             }
         }
     }

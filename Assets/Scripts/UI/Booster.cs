@@ -54,9 +54,9 @@ public class Booster : MonoBehaviour
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
             Block sc = BlockController.instance.GetScBlock(BlockController.instance.blocks[i]);
-            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponType == GameController.WEAPON.SAW) sawBooster.SetActive(true);
-            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponType == GameController.WEAPON.FLAME) flameBooster.SetActive(true);
-            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponType == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(true);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.SAW) sawBooster.SetActive(true);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.FLAME) flameBooster.SetActive(true);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(true);
         }
     }
 

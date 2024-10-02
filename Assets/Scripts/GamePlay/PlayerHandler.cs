@@ -11,7 +11,7 @@ public class PlayerHandler : MonoBehaviour
     public List<GameObject> listEnemies = new List<GameObject>();
 
 
-    public void OnEnable()
+    public void Start()
     {
         playerInfo.hp = DataManager.instance.playerData.playerHp;
         healthHandler.SetTotalHp(playerInfo.hp);

@@ -7,6 +7,7 @@ public class SawHandler : WeaponShoter
     public Animation sawAttackAni;
     public ParticleSystem sawBlood;
     Coroutine blood;
+    Coroutine sawBooster;
     public GameObject sawBoosterPref;
     public int amout;
     int countBooster;
@@ -43,10 +44,23 @@ public class SawHandler : WeaponShoter
             if (count == 0)
             {
                 //blood = null;
-                StopCoroutine(blood);
+                if (blood != null) StopCoroutine(blood);
                 sawAttackAni.Stop();
             }
         }
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        sawAttackAni.Stop();
+        if (blood != null) StopCoroutine(blood);
+        if (sawBooster != null) StopCoroutine(sawBooster);
+        for (int i = 0; i < sawBoosters.Length; i++)
+        {
+            if (sawBoosters[i].gameObject.activeSelf) sawBoosters[i].gameObject.SetActive(false);
+        }
+        count = 0;
     }
 
     IEnumerator SawBlood()
@@ -63,7 +77,7 @@ public class SawHandler : WeaponShoter
     public override void UseBooster()
     {
         ani.SetTrigger("booster");
-        StartCoroutine(ThrowSaw());
+        sawBooster = StartCoroutine(ThrowSaw());
     }
 
     IEnumerator ThrowSaw()

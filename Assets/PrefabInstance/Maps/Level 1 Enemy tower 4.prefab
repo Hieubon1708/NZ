@@ -530,89 +530,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.0550137, y: 3.174509}
   m_EdgeRadius: 0
---- !u!1 &1684626873790991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4834886134822532}
-  - component: {fileID: 331086562928231409}
-  m_Layer: 0
-  m_Name: Sprite Mask
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4834886134822532
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684626873790991}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.0844, y: 4.54, z: 0}
-  m_LocalScale: {x: 82.97499, y: 50.3, z: 32.069}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4712296468290566281}
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
---- !u!331 &331086562928231409
-SpriteMask:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684626873790991}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 13
-  m_Sprite: {fileID: 21300000, guid: fa497b6d320559840a63ceb5cef33237, type: 2}
-  m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
-  m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
-  m_BackSortingLayer: 0
-  m_FrontSortingOrder: 0
-  m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1702430653721121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1174,6 @@ MonoBehaviour:
   - {fileID: 5117969076533480513}
   amoutLimit: 3
   col: {fileID: 1722895468987070}
-  enemyTowerMovement: {fileID: 7825589486333429504}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
@@ -1704,7 +1620,6 @@ Transform:
   m_Children:
   - {fileID: 4276804371504235}
   - {fileID: 4456953246502352}
-  - {fileID: 4834886134822532}
   - {fileID: 4191276310191432}
   - {fileID: 4731164686562391}
   - {fileID: 4822662037210025}

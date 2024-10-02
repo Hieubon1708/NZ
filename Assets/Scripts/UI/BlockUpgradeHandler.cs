@@ -22,7 +22,6 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public GameObject weaponUpgrade;
     public GameObject canvas;
     public WeaponUpgradeHandler weaponUpgradeHandler;
-    public WeaponShoter weaponShoter;
 
     public void Update()
     {
@@ -36,17 +35,17 @@ public class BlockUpgradeHandler : ButtonUpgradee
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (DataManager.instance.playerData.gold < DataManager.instance.sawData.price) return;
+            if (DataManager.instance.playerData.gold < DataManager.instance.GetPriceWeaponConfig(WEAPON.SAW)) return;
             BuyWeapon(WEAPON.SAW, 0);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (DataManager.instance.playerData.gold < DataManager.instance.flameData.price) return;
+            if (DataManager.instance.playerData.gold < DataManager.instance.GetPriceWeaponConfig(WEAPON.FLAME)) return;
             BuyWeapon(WEAPON.FLAME, 0);
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (DataManager.instance.playerData.gold < DataManager.instance.machineGunData.price) return;
+            if (DataManager.instance.playerData.gold < DataManager.instance.GetPriceWeaponConfig(WEAPON.MACHINE_GUN)) return;
             BuyWeapon(WEAPON.MACHINE_GUN, 0);
         }
         if (Input.GetKeyDown(KeyCode.R))
@@ -76,43 +75,18 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public void BuyWeapon(WEAPON weaponType, int weaponLevel)
     {
         GameObject[] weapons = null;
-        weaponUpgradeHandler.weaponType = weaponType;
-        if (weaponType == WEAPON.SAW)
-        {
-            weapons = saws;
-            weaponUpgradeHandler.priceUpgrades = DataManager.instance.sawData.priceUpgrades;
-            weaponUpgradeHandler.damages = DataManager.instance.sawData.damages;
-            weaponUpgradeHandler.damageBoosters = DataManager.instance.sawData.damageBoosters;
-        }
-        if (weaponType == WEAPON.FLAME)
-        {
-            weapons = flames;
-            weaponUpgradeHandler.priceUpgrades = DataManager.instance.flameData.priceUpgrades;
-            weaponUpgradeHandler.damages = DataManager.instance.flameData.damages;
-            weaponUpgradeHandler.damageBoosters = DataManager.instance.flameData.damageBoosters;
-        }
-        if (weaponType == WEAPON.MACHINE_GUN)
-        {
-            weapons = machineGuns;
-            weaponUpgradeHandler.priceUpgrades = DataManager.instance.machineGunData.priceUpgrades;
-            weaponUpgradeHandler.damages = DataManager.instance.machineGunData.damages;
-            weaponUpgradeHandler.damageBoosters = DataManager.instance.machineGunData.damageBoosters;
-        }
+
+        if (weaponType == WEAPON.SAW) weapons = saws;
+        if (weaponType == WEAPON.FLAME) weapons = flames;
+        if (weaponType == WEAPON.MACHINE_GUN) weapons = machineGuns;
+
         weaponBuyer.SetActive(false);
         weaponUpgrade.SetActive(true);
+
         if (weaponLevel > 0) weapons[weaponLevel - 1].SetActive(false);
-        weaponShoter = weapons[weaponLevel].GetComponentInChildren<WeaponShoter>();
         weapons[weaponLevel].SetActive(true);
-        weaponUpgradeHandler.weapon = weapons[weaponLevel];
-        weaponUpgradeHandler.UpgradeHandle();
-    }
-    public void StartWeapon()
-    {
-        if (weaponShoter != null)
-        {
-            weaponShoter.ani.SetBool("startGame", true);
-            weaponShoter.StartGame();
-        }
+
+        weaponUpgradeHandler.SetWeaponShoterNConfig(weapons[weaponLevel].GetComponentInChildren<WeaponShoter>());
     }
 
     public override void Upgrade()

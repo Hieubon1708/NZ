@@ -9,7 +9,6 @@ public class EnemyController : MonoBehaviour
     int milestone;
     float spawnX;
     public GameObject col;
-    public EnemyTowerMovement enemyTowerMovement;
 
     public GameObject[] enemies;
     public int[] amout;
@@ -31,9 +30,14 @@ public class EnemyController : MonoBehaviour
     public void Start()
     {
         milestone = amoutLimit;
-        spawnX = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
         RandomEs();
+        AssignSpanwX();
         SetPosition();
+    }
+
+    void AssignSpanwX()
+    {
+        spawnX = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
     }
 
     public void EnableEs()
@@ -76,8 +80,9 @@ public class EnemyController : MonoBehaviour
     public void Restart()
     {
         DisableEs();
+        remainingLines = new List<int>() { 0, 1, 2 };
+        AssignSpanwX();
         SetPosition();
-        enemyTowerMovement.Restart();
     }
 
     void RandomEs()
@@ -162,7 +167,7 @@ public class EnemyController : MonoBehaviour
             EnemyHandler scE = e.GetComponent<EnemyHandler>();
             e.transform.SetParent(enemyPools[randomLine]);
 
-            float y = CarController.instance.spawnY[randomLine].position.y;
+            float y = CarController.instance.spawnY[randomLine].position.y + 0.5f;
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
                 if (spawnX > transform.position.x - 0.5f) y += Random.Range(1f, 2f);
@@ -176,11 +181,12 @@ public class EnemyController : MonoBehaviour
 
             e.transform.position = new Vector2(spawnX, y);
 
-            SetLayer(randomLine, listRandomEs[count]);
+            SetLayer(randomLine, e);
             SetLayer(randomLine, scE.colObj);
 
+            scE.rb.excludeLayers = 0;
             scE.sortingGroup.sortingLayerName = "Line_" + indexLine;
-            scE.rb.excludeLayers |= (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8); ;
+            scE.rb.excludeLayers |= (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8);
 
             spawnX += randomDistance * distance;
             count++;

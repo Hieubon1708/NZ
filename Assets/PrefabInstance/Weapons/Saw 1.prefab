@@ -2483,7 +2483,7 @@ Transform:
   m_GameObject: {fileID: 1317882287431984}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.351, y: 0.012, z: 0}
+  m_LocalPosition: {x: 0.337, y: 0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2651,12 +2651,12 @@ Transform:
   m_GameObject: {fileID: 1490487496483096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.004, y: -0.004, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4049114014085062}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 42}
 --- !u!212 &212573763979143149
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2821,7 +2821,7 @@ Transform:
   m_GameObject: {fileID: 1711561503101102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.079, y: -0.043, z: 0}
+  m_LocalPosition: {x: 0.158, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2874,9 +2874,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110a103c68797fc46a89334ef6fd3253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
   ani: {fileID: 95944292546024306}
   target: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 4708699233875885}
   sawAttackAni: {fileID: 111974256618156514}
   sawBlood: {fileID: 198391738484936160}
   sawBoosterPref: {fileID: 1106291111016258, guid: b467c4a0954d59b44b8ff7aba2a5be3b, type: 3}
@@ -2956,7 +2957,7 @@ Transform:
   m_GameObject: {fileID: 1812912826440160}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.095, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

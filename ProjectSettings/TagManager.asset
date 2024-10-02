@@ -20,6 +20,11 @@ TagManager:
   - ColDisplay
   - Tower
   - ColStopTower
+  - Block
+  - Boom
+  - EnemyBullet
+  - SawBooster
+  - Weapon
   - FxTemporaire
   - Unflashable
   layers:
@@ -39,8 +44,8 @@ TagManager:
   - Bullet
   - Player
   - Boom
-  - 
-  - 
+  - Block
+  - Weapon
   - 
   - 
   - 
@@ -82,4 +87,10 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2545700297
+    locked: 0
+  - name: Bullet
+    uniqueID: 2504532037
+    locked: 0
+  - name: Effect
+    uniqueID: 2790197057
     locked: 0

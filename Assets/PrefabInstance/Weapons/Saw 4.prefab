@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1004641104153295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.325, y: -0.036, z: 0}
+  m_LocalPosition: {x: 0.269, y: 0.059, z: 0}
   m_LocalScale: {x: 1.0896513, y: 1.0896513, z: 1.0896513}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 77a269bfd754c0e4ab7547e00c1adb90, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 6004bb6a637881944be85f729c6238b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f71c9d27f4713f240a9305cf0d8aabb5, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 84946f828813e7847bd677064617220f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -240,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 1185038261627296}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.095, y: 0, z: 0}
+  m_LocalPosition: {x: 0.108, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -407,7 +407,7 @@ Transform:
   m_GameObject: {fileID: 1577854232110383}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.079, y: -0.043, z: 0}
+  m_LocalPosition: {x: 0.108, y: -0.043, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -460,8 +460,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110a103c68797fc46a89334ef6fd3253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
   ani: {fileID: 95730799012250251}
   target: {fileID: 0}
+  parent: {fileID: 4273884649036109}
   sawAttackAni: {fileID: 111527075121000270}
   sawBlood: {fileID: 198464099956926886}
   sawBoosterPref: {fileID: 1713520016362703, guid: dd9ce6bd92d4b214e9d75e1b36d93aa0, type: 3}

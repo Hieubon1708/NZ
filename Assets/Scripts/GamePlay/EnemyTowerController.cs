@@ -7,6 +7,7 @@ public class EnemyTowerController : MonoBehaviour
     public GameObject[] towers;
     public EnemyController[] scTowers;
     public BackgroundMovement[] backgroundMovements;
+    public EnemyTowerMovement[] enemyTowerMovements;
     public float distanceTower;
     public int indexTower = -1;
 
@@ -19,15 +20,18 @@ public class EnemyTowerController : MonoBehaviour
     void Generate()
     {
         scTowers = new EnemyController[towers.Length];
+        enemyTowerMovements = new EnemyTowerMovement[towers.Length];
         for (int i = 0; i < towers.Length; i++)
         {
-            scTowers[i] = Instantiate(towers[i], new Vector2(GameController.instance.carController.transform.position.x + (distanceTower * (i + 1)), GameController.instance.carController.transform.position.y - 0.25f), Quaternion.identity, transform).GetComponent<EnemyController>();
+            GameObject t = Instantiate(towers[i], new Vector2(GameController.instance.carController.transform.position.x + (distanceTower * (i + 1)), GameController.instance.carController.transform.position.y - 0.25f), Quaternion.identity, transform);
+            scTowers[i] = t.GetComponent<EnemyController>();
+            enemyTowerMovements[i] = t.GetComponentInChildren<EnemyTowerMovement>();
         }
     }
 
     public void NextTower()
     {
-        if (indexTower == towers.Length - 1)
+        if (indexTower == towers.Length)
         {
             Debug.Log("Win");
             return;
@@ -48,6 +52,10 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < backgroundMovements.Length; i++)
         {
             backgroundMovements[i].Restart();
+        }
+        for (int i = 0; i < enemyTowerMovements.Length; i++)
+        {
+            enemyTowerMovements[i].Restart();
         }
     }
 }

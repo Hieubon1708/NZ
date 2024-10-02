@@ -8409,8 +8409,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towers:
-  - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
   - {fileID: 1740088135779993, guid: a1d3b1b878886484f9364b997d7623dc, type: 3}
+  - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
   - {fileID: 1345099119009694, guid: fec5100b05ded1541a1933b88e5748b4, type: 3}
   - {fileID: 1031862239864203, guid: 041032813e5433c44bc1a6cebbad3b46, type: 3}
   - {fileID: 1817420996515325, guid: b382f86cd47872a43a24b7632a59b425, type: 3}
@@ -8421,6 +8421,7 @@ MonoBehaviour:
   - {fileID: 1903971443055931677}
   - {fileID: 8802961595582142297}
   - {fileID: 4387113376618253829}
+  enemyTowerMovements: []
   distanceTower: 20
   indexTower: -1
 --- !u!114 &7009180778381774957

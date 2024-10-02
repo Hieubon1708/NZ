@@ -21,8 +21,16 @@ public class FlameHandler : WeaponShoter
         esmission = flameSmokeParticle.emission;
         esmissionChild = flameSmokeParticleChild.emission;
         shot = StartCoroutine(Shot());
-        StartCoroutine(FindTarget());
-        StartCoroutine(Rotate());
+        findTarget = StartCoroutine(FindTarget());
+        rotate = StartCoroutine(Rotate());
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        if (shot != null) StopCoroutine(shot);
+        ShotHandle(false, 0f, 0.0f);
+        if(colBooster.activeSelf) colBooster.SetActive(false);
     }
 
     public void FlameOnceParticle()

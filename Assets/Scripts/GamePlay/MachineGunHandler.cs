@@ -30,8 +30,16 @@ public class MachineGunHandler : WeaponShoter
     public override void StartGame()
     {
         ShotAll();
-        StartCoroutine(FindTarget());
-        StartCoroutine(Rotate());
+        findTarget = StartCoroutine(FindTarget());
+        rotate = StartCoroutine(Rotate());
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        ani.SetBool("attack", false);
+        if (shotBoosters != null) StopCoroutine(shotBoosters);
+        StopAll();
     }
 
     void ShotAll()
@@ -152,7 +160,7 @@ public class MachineGunHandler : WeaponShoter
 
     public override void SetDamageBooster(int damage)
     {
-        for(int i = 0;i < listBulletBoosters.Count; i++)
+        for (int i = 0; i < listBulletBoosters.Count; i++)
         {
             listBulletBoosters[i].name = damage.ToString();
         }
