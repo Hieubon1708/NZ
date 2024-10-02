@@ -20,6 +20,7 @@ public class MachineGunHandler : WeaponShoter
     public int amoutLine;
     Coroutine[] shots;
     Coroutine shotBoosters;
+    Coroutine endBooster;
     int currentCountBoosterBullet;
 
     public void Awake()
@@ -128,11 +129,17 @@ public class MachineGunHandler : WeaponShoter
 
     void StartBooster()
     {
+        if (endBooster != null) StopCoroutine(endBooster);
         StopAll();
         shotBoosters = StartCoroutine(BoosterShot(listBulletBoosters, listScBulletBoosters, 0, timeDistanceBooster));
     }
 
-    IEnumerator EndBooster()
+    void EndBooster()
+    {
+        endBooster = StartCoroutine(EndBoosterHandle());
+    }
+
+    IEnumerator EndBoosterHandle()
     {
         if (shotBoosters != null) StopCoroutine(shotBoosters);
         yield return new WaitForSeconds(1);

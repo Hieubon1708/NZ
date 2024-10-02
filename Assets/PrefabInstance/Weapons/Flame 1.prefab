@@ -17023,6 +17023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54411ca53620c3348890e28f8a7521e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 2
   ani: {fileID: 95080726805271084}
   target: {fileID: 0}
   parent: {fileID: 4075911761227169}
@@ -17058,7 +17059,7 @@ Transform:
   m_GameObject: {fileID: 1994668073482281}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.93399996, y: 0.076, z: 0}
+  m_LocalPosition: {x: 0.948, y: 0.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19433,7 +19434,7 @@ Transform:
   m_GameObject: {fileID: 893686011804358273}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.451, y: -0.034999996, z: 0}
+  m_LocalPosition: {x: 0.451, y: -0.16, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []

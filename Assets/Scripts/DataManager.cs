@@ -155,6 +155,18 @@ public class DataManager : MonoBehaviour
 
         weaponConfigs.Add(new WeaponConfig(WEAPON.SAW, 90, 2, sawLevelConfigs));
         
+        List<WeaponLevelConfig> flameLevelConfigs = new List<WeaponLevelConfig>();
+
+        flameLevelConfigs.Add(SetWeaponLevelConfig(400, 500, 1.03f, 50, 9, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(564, 700, 1.03f, 111, 20, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(795, 1000, 1.03f, 256, 46, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(1121, 1500, 1.03f, 572, 103, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(1581, 2000, 1.03f, 1283, 231, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(2229, 3000, 1.03f, 2884, 519, 0.2f, 1.5f, 1.11f, 2, 1));
+        flameLevelConfigs.Add(SetWeaponLevelConfig(3143, 0, 1.03f, 6489, 1168, 0.2f, 1.5f, 1.11f, 2, 1));
+
+        weaponConfigs.Add(new WeaponConfig(WEAPON.FLAME, 360, 2, flameLevelConfigs));
+        
         List<WeaponLevelConfig> machineGunLevelConfigs = new List<WeaponLevelConfig>();
 
         machineGunLevelConfigs.Add(SetWeaponLevelConfig(500, 600, 1.03f, 300, 40, 0.2f, 1.5f, 1.11f, 2, 1));
