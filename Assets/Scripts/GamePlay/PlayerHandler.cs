@@ -19,16 +19,18 @@ public class PlayerHandler : MonoBehaviour
 
     public void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.LogWarning(collision.gameObject.name);
-        GameObject enemy = collision.gameObject;
-        if (!listEnemies.Contains(enemy))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            listEnemies.Add(enemy);
-            SubtractHp(int.Parse(collision.gameObject.name));
-            DOVirtual.DelayedCall(0.5f, delegate
+            GameObject enemy = collision.gameObject;
+            if (!listEnemies.Contains(enemy))
             {
-                listEnemies.Remove(enemy);
-            });
+                listEnemies.Add(enemy);
+                SubtractHp(int.Parse(collision.gameObject.name));
+                DOVirtual.DelayedCall(0.5f, delegate
+                {
+                    listEnemies.Remove(enemy);
+                });
+            }
         }
     }
 
@@ -49,7 +51,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EnemyBullet"))
+        if (collision.CompareTag("EnemyBullet") || collision.CompareTag("Enemy"))
         {
             SubtractHp(int.Parse(collision.gameObject.name));
         }

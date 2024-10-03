@@ -8354,6 +8354,7 @@ GameObject:
   - component: {fileID: 7920777270787124881}
   - component: {fileID: 8564156273966617754}
   - component: {fileID: 7009180778381774957}
+  - component: {fileID: 729454814644193020}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -8410,10 +8411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towers:
   - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
-  - {fileID: 1740088135779993, guid: a1d3b1b878886484f9364b997d7623dc, type: 3}
-  - {fileID: 1345099119009694, guid: fec5100b05ded1541a1933b88e5748b4, type: 3}
-  - {fileID: 1031862239864203, guid: 041032813e5433c44bc1a6cebbad3b46, type: 3}
-  - {fileID: 1817420996515325, guid: b382f86cd47872a43a24b7632a59b425, type: 3}
   scTowers: []
   backgroundMovements:
   - {fileID: 8482091236433487076}
@@ -8442,6 +8439,21 @@ MonoBehaviour:
   zomHitOnHeros: []
   amoutZomHitOnRoad: 20
   amoutZomHitOnHero: 20
+--- !u!114 &729454814644193020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967148387835107803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8eb299f99f9f62449ea91873e4dc991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiderHitOnBlockOHeroPrefab: {fileID: 1983612765404812, guid: 09c775d2ad3c47b4a821e3bbabd09e42, type: 3}
+  spiderHitOnBlockOHeros: []
+  amoutSpiderHitOnBlockOHero: 5
 --- !u!1 &7974610830401044293
 GameObject:
   m_ObjectHideFlags: 0

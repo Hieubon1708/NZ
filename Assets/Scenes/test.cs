@@ -2,23 +2,28 @@
 
 public class test : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public bool isDrop;
+    float time;
+    public float speed;
+    public float angleTarget;
+    public bool firstPush;
 
-    public float angle = 60;
-    public Vector2 start = new Vector2(0f, 0f);
-    public Vector2 target = new Vector2(10f, 3f);
-    public float gravity = 9.81f;
-
-    void Start()
+    public void FixedUpdate()
     {
-        float distanceX = target.x - start.x;
-        float distanceY = target.y - start.y;
-        float time = distanceX / (Mathf.Cos(angle * Mathf.Deg2Rad) * (Mathf.Sqrt((distanceX * distanceX * gravity) / (2 * distanceX * Mathf.Tan(angle * Mathf.Deg2Rad) + distanceY))));
-        float velocityX = distanceX / time;
-        float velocityY = (distanceY + 0.5f * gravity * time * time) / time;
+        if (isDrop)
+        {
+            time += Time.fixedDeltaTime;
+            transform.Translate(Vector2.up * time * speed);
+            if (!firstPush) transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, 0, angleTarget), 0.1f);
+            if (firstPush) transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, 0.05f);
+            if (transform.localEulerAngles.z >= angleTarget * 0.75f) firstPush = true;
+        }
+    }
 
-        Vector2 velocity = new Vector2(velocityX, velocityY);
-        rb.velocity = velocity;
-        Debug.Log("Velocity: " + velocity);
+    public void Restart()
+    {
+        time = 0;
+        isDrop = false;
+        firstPush = false;
     }
 }

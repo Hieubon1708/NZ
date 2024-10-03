@@ -3,14 +3,29 @@
 // con bắn đạn ở dưới
 public class EnemyT2 : EnemyHandler
 {
-    public float xMin;
-    public float xMax;
     public float targetX;
+    public float xPlus1, xPlus2;
 
     public override void Start()
     {
         base.Start();
-        targetX = GetTargetX();
+        SetDamage();
+        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+    }
+
+    public override void SetDamage()
+    {
+        base.SetDamage();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
     }
 
     protected override void FixedUpdate()
@@ -36,7 +51,7 @@ public class EnemyT2 : EnemyHandler
             {
                 isShot = false;
                 animator.SetBool("attack", false);
-                targetX = GetTargetX();
+                targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
             }
             rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
@@ -45,11 +60,6 @@ public class EnemyT2 : EnemyHandler
     protected override void DeathHandle()
     {
         base.DeathHandle();
-        targetX = GetTargetX();
-    }
-
-    float GetTargetX()
-    {
-        return Random.Range(xMin, xMax);
+        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
     }
 }

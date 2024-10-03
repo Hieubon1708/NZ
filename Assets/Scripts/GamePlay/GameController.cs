@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour
     public bool isStart;
     public Camera cam;
 
+    public GameObject v;
+
     private void Awake()
     {
         instance = this;
@@ -63,6 +65,8 @@ public class GameController : MonoBehaviour
         ChangeBlockSprites(dataManager.playerData.gameLevel);
         ChangeCarSprites(dataManager.playerData.gameLevel);
         BlockController.instance.LoadData();
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3, CarController.instance.transform.position.y + 7), Quaternion.identity);
     }
 
     public void EDeathAll(GameObject tower)

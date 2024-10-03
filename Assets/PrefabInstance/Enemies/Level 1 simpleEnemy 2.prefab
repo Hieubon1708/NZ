@@ -910,7 +910,7 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   col: {fileID: 6943277198851427297}
   animator: {fileID: 8697987506082482330}
-  forceJump: 4
+  forceJump: 3
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -926,11 +926,10 @@ MonoBehaviour:
   lineIndex: 0
   view: {fileID: 6957286141607537267}
   frontalCollision: {fileID: 0}
-  listCollisions: []
   a: 0
-  xMin: 4
-  xMax: 7
   targetX: 0
+  xPlus1: 3
+  xPlus2: 7
 --- !u!114 &2246718257229351700
 MonoBehaviour:
   m_ObjectHideFlags: 0

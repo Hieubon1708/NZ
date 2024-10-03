@@ -4,6 +4,7 @@ using UnityEngine;
 public class ParLv1 : MonoBehaviour
 {
     public static ParLv1 instance;
+
     public GameObject zomHitOnRoadPrefab;
     public GameObject zomHitOnHeroPrefab;
     public GameObject[] zomHitOnRoads;
@@ -55,6 +56,4 @@ public class ParLv1 : MonoBehaviour
         if (currentCountZomHitOnHero == zomHitOnHeros.Length) currentCountZomHitOnHero = 0;
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
-
-
 }

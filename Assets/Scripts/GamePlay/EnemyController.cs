@@ -163,15 +163,15 @@ public class EnemyController : MonoBehaviour
             int randomDistance = Random.Range(startDistance, endDistance);
 
             GameObject e = listRandomEs[count];
-            e.name = count.ToString();
             EnemyHandler scE = e.GetComponent<EnemyHandler>();
             e.transform.SetParent(enemyPools[randomLine]);
 
             float y = CarController.instance.spawnY[randomLine].position.y + 0.5f;
+
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
-                if (spawnX > transform.position.x - 0.5f) y += Random.Range(1f, 2f);
-                else y = Random.Range(0f, 4f);
+                if (spawnX < transform.position.x - 1) y = EUtils.RandomYDistanceByCar(1f, 3f);
+                else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 1f, CarController.instance.spawnY[randomLine].position.y + 3f);
             }
             if (e.name.Contains("Level 2 simpleEnemy 5 el"))
             {

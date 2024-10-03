@@ -5203,6 +5203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1000
+  damage: 0
 --- !u!50 &423895774582120813
 Rigidbody2D:
   serializedVersion: 4
@@ -5276,27 +5277,26 @@ MonoBehaviour:
   healthHandler: {fileID: 6902570907861161827}
   damage: {fileID: 6454594894029689683}
   rb: {fileID: 423895774582120813}
-  col: {fileID: 1612306808775884}
+  sortingGroup: {fileID: 0}
+  colObj: {fileID: 0}
+  col: {fileID: 3212402677617147322}
+  animator: {fileID: 95014849291628623}
   forceJump: 0
   multiplier: 1
   speed: -2
   timeStunned: 0
   timeJump: 0
-  animator: {fileID: 95014849291628623}
   isCollisionWithCar: 0
   isCollisionWithGround: 0
-  isCollisionWithBump: 0
   isJump: 0
   isWalk: 0
   isStunned: 0
+  isBumping: 0
+  isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  content: {fileID: 1127267536555870}
-  enemyCollisionToJump: {fileID: 0}
-  listCollisions: []
-  listNormals: []
+  view: {fileID: 0}
   frontalCollision: {fileID: 0}
-  d: {fileID: 0}
   a: 0
   body: {fileID: 1612306808775884}
   timeRevive: 0

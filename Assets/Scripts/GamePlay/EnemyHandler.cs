@@ -44,15 +44,20 @@ public class EnemyHandler : MonoBehaviour
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
     }
 
+    public virtual void SetDamage()
+    {
+        name = enemyInfo.damage.ToString();
+    }
+
     void OnEnable()
     {
         healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
-    protected IEnumerator OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("ColDisplay")) view.SetActive(true);
-        if (!view.activeSelf) yield break;
+        if (!view.activeSelf) return;
         int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
@@ -74,33 +79,41 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Saw"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            isTriggerSaw = true;
-            while (isTriggerSaw && enemyInfo.hp > 0)
-            {
-                SubtractHp(subtractHp);
-                yield return new WaitForSeconds(GameController.instance.timeSawDamage);
-            }
+            if (!isTriggerSaw) StartCoroutine(SawTriggerHandle(subtractHp));
         }
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            isTriggerFlame = true;
-            while (isTriggerFlame && enemyInfo.hp > 0)
-            {
-                SubtractHp(subtractHp);
-                yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
-            }
+            if (!isTriggerSaw) StartCoroutine(FlamewTriggerHandle(subtractHp));
         }
-        if (collision.CompareTag("Car") && name != "0") animator.SetBool("attack", true);
     }
 
-    protected void OnTriggerExit2D(Collider2D collision)
+    IEnumerator SawTriggerHandle(int subtractHp)
+    {
+        isTriggerSaw = true;
+        while (isTriggerSaw && enemyInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeSawDamage);
+        }
+    }
+    
+    IEnumerator FlamewTriggerHandle(int subtractHp)
+    {
+        isTriggerFlame = true;
+        while (isTriggerFlame && enemyInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (!view.activeSelf) return;
         if (collision.CompareTag("Saw")) isTriggerSaw = false;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
         if (collision.CompareTag("Boom")) SubtractHp(499);
-        if (collision.CompareTag("Car") && name != "0") animator.SetBool("attack", false);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -250,7 +263,7 @@ public class EnemyHandler : MonoBehaviour
         healthBar.SetActive(false);
         SetDefaultField();
         GameController.instance.listEVisible.Remove(gameObject);
-        ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
+        if(enemyInfo.hp == 0) ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
         EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
     }
 
