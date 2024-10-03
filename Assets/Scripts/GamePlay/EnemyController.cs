@@ -158,7 +158,7 @@ public class EnemyController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 
@@ -170,8 +170,10 @@ public class EnemyController : MonoBehaviour
 
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
-                if (spawnX < transform.position.x - 1) y = EUtils.RandomYDistanceByCar(1f, 3f);
-                else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 1f, CarController.instance.spawnY[randomLine].position.y + 3f);
+                Debug.LogWarning(spawnX);
+                Debug.LogWarning(transform.position.x);
+                if (spawnX < col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
+                else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 0.5f, CarController.instance.spawnY[randomLine].position.y + 1f);
             }
             if (e.name.Contains("Level 2 simpleEnemy 5 el"))
             {

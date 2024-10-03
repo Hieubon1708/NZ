@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
 
-public class EnemyAniEvent : MonoBehaviour
+public class EnemyShotT2 : MonoBehaviour
 {
     public GameObject preBullet;
     public EnemyBulletHandler[] scBullets;
@@ -29,10 +28,10 @@ public class EnemyAniEvent : MonoBehaviour
 
     public void ShotEvent()
     {
-        scBullets[index].gameObject.SetActive(false);
         scBullets[index].gameObject.SetActive(true);
         scBullets[index].transform.position = mouth.position;
-        float YUnder = mouth.position.y;
+        float YUnder = PlayerController.instance.transform.position.y;
+        if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y;
         float YAbove = PlayerController.instance.transform.position.y + 0.7f;
         float x = PlayerController.instance.transform.position.x + 0.7f;
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4675859110402867}
   - component: {fileID: 95748952385554567}
+  - component: {fileID: 4019866486158101942}
   m_Layer: 0
   m_Name: content
   m_TagString: Untagged
@@ -55,6 +56,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4019866486158101942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032697105334496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2967226c1c777034297a91675ab59d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preBullet: {fileID: 1630107590413180, guid: 31130c7e19851ff43946c80ef4710b24, type: 3}
+  scBullets: []
+  count: 3
+  tail: {fileID: 4439838192978769}
+  enemy: {fileID: 208738402794813826}
 --- !u!1 &1062452169644463
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +864,7 @@ MonoBehaviour:
   frontalCollision: {fileID: 0}
   a: 0
   targetPos: {x: 0, y: 0}
-  xPlus1: 3
+  xPlus1: 2.5
   xPlus2: 7
   yPlus1: 3
   yPlus2: 7

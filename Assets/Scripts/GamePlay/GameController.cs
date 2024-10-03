@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
         ChangeCarSprites(dataManager.playerData.gameLevel);
         BlockController.instance.LoadData();
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3, CarController.instance.transform.position.y + 7), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
     }
 
     public void EDeathAll(GameObject tower)

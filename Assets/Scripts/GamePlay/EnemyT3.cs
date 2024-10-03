@@ -15,16 +15,10 @@ public class EnemyT3 : EnemyHandler
     public override void Start()
     {
         base.Start();
-        SetDamage();
 
         yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(yPlus1, yPlus2);
-        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2); 
-        Debug.DrawLine(transform.position, new Vector2(targetX, transform.position.y), Color.red, 5f);
-    }
-
-    public override void SetDamage()
-    {
-        base.SetDamage();
+        targetX = CarController.instance.transform.position.x + xPlus2;
+        if (transform.position.y >= CarController.instance.transform.position.y + yPlus1) isLevingCave = true;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -40,13 +34,19 @@ public class EnemyT3 : EnemyHandler
 
     protected override void FixedUpdate()
     {
-        if (transform.position.x <= targetX && !isLevingCave)
+        if (transform.position.x <= targetX)
         {
-            if (rb.velocity != Vector2.zero) rb.velocity = Vector2.zero;
+            if (!animator.GetBool("attack")) animator.SetBool("attack", true);
+            if (!isLevingCave) return;
+            if (rb.velocity != Vector2.zero)
+            {
+                rb.velocity = Vector2.zero;
+                targetPos = RandomTarget();
+            }
             if (Vector2.Distance(transform.position, targetPos) > 0.1f)
             {
                 transform.position = Vector2.Lerp(transform.position, targetPos, 0.1f);
-                Debug.DrawLine(transform.position, targetPos, Color.red, 2);
+                //Debug.DrawLine(transform.position, targetPos, Color.red, 2);
             }
             else
             {
@@ -70,14 +70,14 @@ public class EnemyT3 : EnemyHandler
         float x = Random.Range(-1f, 1f);
         float y = Random.Range(-1f, 1f);
         Vector2 dir = new Vector2(x, y);
-        
+
         return EUtils.ClampXYDistanceByCar(transform.position, dir, xPlus1, xPlus2, yPlus1, yPlus2);
     }
 
     IEnumerator LevingCave()
     {
-        isLevingCave = false;
-        rb.velocity = new Vector2(rb.velocity.x, 1.5f);
+        rb.velocity = new Vector2(rb.velocity.x, 3.5f);
+        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomXDistanceByCar(yPlus1, yPlus2 / 2);
         yield return new WaitWhile(() => transform.position.y <= yRandomAfterLevingCave);
         rb.velocity = new Vector2(rb.velocity.x, 0);
         isLevingCave = true;
