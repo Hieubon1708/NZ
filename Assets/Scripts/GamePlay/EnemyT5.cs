@@ -53,7 +53,7 @@ public class EnemyT5 : EnemyHandler
         }
         else if (transform.position.x <= targetX)
         {
-            if (!view.activeSelf) view.SetActive(true);
+            if (!content.activeSelf) content.SetActive(true);
             rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
         }
         else

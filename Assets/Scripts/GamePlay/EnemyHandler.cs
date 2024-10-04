@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,24 +14,26 @@ public class EnemyHandler : MonoBehaviour
     public GameObject colObj;
     public CapsuleCollider2D col;
     public Animator animator;
-    bool isTriggerSaw;
-    bool isTriggerFlame;
+    public GameObject content;
+    public GameObject view;
+    public GameObject frontalCollision;
+
     public float forceJump;
     public float multiplier;
     public float speed;
     public float timeStunned;
     public float timeJump;
+
     public bool isCollisionWithCar;
     public bool isCollisionWithGround;
     public bool isJump;
-    public bool isWalk;
     public bool isStunned;
     public bool isBumping;
     public bool isShot;
+    public bool isTriggerSaw;
+    public bool isTriggerFlame;
     public int amoutCollision;
     public int lineIndex;
-    public GameObject view;
-    public GameObject frontalCollision;
 
     Coroutine stunnedDelay;
     Coroutine jump;
@@ -42,6 +45,7 @@ public class EnemyHandler : MonoBehaviour
         lineIndex = EUtils.GetIndexLine(gameObject);
         layerOrigin = gameObject.layer;
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
+        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     public virtual void SetDamage()
@@ -49,15 +53,10 @@ public class EnemyHandler : MonoBehaviour
         name = enemyInfo.damage.ToString();
     }
 
-    void OnEnable()
-    {
-        healthHandler.SetTotalHp(enemyInfo.hp);
-    }
-
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ColDisplay")) view.SetActive(true);
-        if (!view.activeSelf) return;
+        if (collision.CompareTag("ColDisplay")) content.SetActive(true);
+        if (!content.activeSelf) return;
         int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
@@ -110,7 +109,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (!view.activeSelf) return;
+        if (!content.activeSelf) return;
         if (collision.CompareTag("Saw")) isTriggerSaw = false;
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
         if (collision.CompareTag("Boom")) SubtractHp(499);
@@ -126,7 +125,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected void OnCollisionStay2D(Collision2D collision)
     {
-        if (!view.activeSelf) return;
+        if (!content.activeSelf) return;
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -208,21 +207,20 @@ public class EnemyHandler : MonoBehaviour
             || gameObject.layer == layerBumping
             || frontalCollision != null)
         {
-            isWalk = false;
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
         else
         {
-            isWalk = true;
             rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
+        animator.SetFloat("velocityY", rb.velocity.y);
+        animator.SetFloat("walkSpeed", Mathf.Abs(speed * multiplier));
     }
 
     protected IEnumerator JumpStart(Collision2D collision)
     {
         isJump = true;
         Collider2D col = collision.collider;
-        animator.SetFloat("velocityY", 3);
         rb.velocity = new Vector2(rb.velocity.x, forceJump);
         float maxY = rb.position.y + col.bounds.size.y;
         Vector2 target = GetPositionTopBound(col);
@@ -241,13 +239,11 @@ public class EnemyHandler : MonoBehaviour
 
     void JumpEnd()
     {
-        animator.SetFloat("velocityY", 0);
         rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
     void SubtractHp(float subtractHp)
     {
-        if (!view.activeSelf) return;
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
@@ -257,14 +253,51 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void DeathHandle()
     {
-        view.SetActive(false);
+        SetColNKinematicNRevival(false);
+
+        int deathRandomizer = Random.Range(0, 10);
+
+        SetDeathAni(deathRandomizer);
         healthHandler.SetDefaultInfo(enemyInfo);
-        enemyInfo.gameObject.SetActive(false);
         healthBar.SetActive(false);
-        SetDefaultField();
+
         GameController.instance.listEVisible.Remove(gameObject);
         if(enemyInfo.hp == 0) ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
-        EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject);
+
+        DOVirtual.DelayedCall(deathRandomizer == 0 ? 1 : 0, delegate
+        {
+            EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
+        });
+    }
+
+    public void SetDeathAni(int deathRandomizer)
+    {
+        animator.SetInteger("deathRandomizer", deathRandomizer);
+        animator.SetTrigger("death");
+        SetLayerWeight(0);
+    }
+
+    public void SetColNKinematicNRevival(bool isEnable)
+    {
+        rb.isKinematic = !isEnable;
+        col.enabled = isEnable;
+    }
+
+    public void SetActiveContentNView(bool isActive)
+    {
+        view.SetActive(isActive);
+        content.SetActive(!isActive);
+    }
+
+    public void ResetBone()
+    {
+        enemyInfo.bone.ResetBone();
+    }
+
+    public void SetLayerWeight(int weight)
+    {
+        animator.SetLayerWeight(1, weight);
+        animator.SetLayerWeight(2, weight);
     }
 
     private void OnDisable()
@@ -274,12 +307,12 @@ public class EnemyHandler : MonoBehaviour
 
     public void SetDefaultField()
     {
+        col.enabled = true;
+        rb.isKinematic = false;
         isCollisionWithCar = false;
-        isCollisionWithGround = true;
         isStunned = false;
         isTriggerFlame = false;
         isTriggerSaw = false;
-        isWalk = false;
         isJump = false;
         frontalCollision = null;
         if (stunnedDelay != null) StopCoroutine(stunnedDelay);

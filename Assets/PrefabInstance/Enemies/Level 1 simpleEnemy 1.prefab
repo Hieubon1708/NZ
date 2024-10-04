@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 3438151689352656486}
   - component: {fileID: -5028497913313914360}
   - component: {fileID: 7250182961572006772}
+  - component: {fileID: 7825448298857881008}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 1
   m_TagString: Enemy
@@ -959,8 +960,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 11
   damage: 50
+  bone: {fileID: 7825448298857881008}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1038,7 +1040,10 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   col: {fileID: 6943277198851427297}
   animator: {fileID: 6307429596205432657}
-  forceJump: 3
+  content: {fileID: 2078466305346430152}
+  view: {fileID: 845423974221102740}
+  frontalCollision: {fileID: 0}
+  forceJump: 5
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -1046,14 +1051,13 @@ MonoBehaviour:
   isCollisionWithCar: 0
   isCollisionWithGround: 0
   isJump: 0
-  isWalk: 0
   isStunned: 0
   isBumping: 0
   isShot: 0
+  isTriggerSaw: 0
+  isTriggerFlame: 0
   amoutCollision: 0
   lineIndex: 0
-  view: {fileID: 2078466305346430152}
-  frontalCollision: {fileID: 0}
   a: 0
 --- !u!114 &7250182961572006772
 MonoBehaviour:
@@ -1067,7 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   face: {fileID: 2783849717978133849}
   bodyUp: {fileID: 7513844658712173236}
   bodyDown: {fileID: 5621911484681888871}
@@ -1100,6 +1104,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0442ab49a211fab49b48a56579e853ab, type: 2}
   - {fileID: 21300000, guid: 33f17d099002af14db25cdb52d1a483c, type: 2}
   - {fileID: 21300000, guid: 03b907cd258e5ee48933f052c7d0e65b, type: 2}
+--- !u!114 &7825448298857881008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc59f11872e0cc14d8857fa9e1495585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 349404438150848101}
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0

@@ -792,6 +792,7 @@ GameObject:
   - component: {fileID: 3438151689352656486}
   - component: {fileID: 410237897961624098}
   - component: {fileID: 2246718257229351700}
+  - component: {fileID: 5921879975765136479}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 2
   m_TagString: Enemy
@@ -833,6 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 500
   damage: 0
+  bone: {fileID: 5921879975765136479}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +912,10 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   col: {fileID: 6943277198851427297}
   animator: {fileID: 8697987506082482330}
-  forceJump: 3
+  content: {fileID: 6957286141607537267}
+  view: {fileID: 5808542746942574269}
+  frontalCollision: {fileID: 0}
+  forceJump: 5
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -918,17 +923,16 @@ MonoBehaviour:
   isCollisionWithCar: 0
   isCollisionWithGround: 0
   isJump: 0
-  isWalk: 0
   isStunned: 0
   isBumping: 0
   isShot: 0
+  isTriggerSaw: 0
+  isTriggerFlame: 0
   amoutCollision: 0
   lineIndex: 0
-  view: {fileID: 6957286141607537267}
-  frontalCollision: {fileID: 0}
   a: 0
   targetX: 0
-  xPlus1: 3
+  xPlus1: 5
   xPlus2: 7
 --- !u!114 &2246718257229351700
 MonoBehaviour:
@@ -942,7 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   face: {fileID: 7946886885808856377}
   bodyUp: {fileID: 3494351163943567998}
   bodyDown: {fileID: 364951002953512608}
@@ -964,6 +968,21 @@ MonoBehaviour:
   legs:
   - {fileID: 21300000, guid: 38fefd09e6133cd44a039315e40cde1b, type: 2}
   - {fileID: 21300000, guid: e34948d0303726a458a8a737167372c6, type: 2}
+--- !u!114 &5921879975765136479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc59f11872e0cc14d8857fa9e1495585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 498761216673969338}
+  bones: []
+  spriteInfoOrigin: []
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0

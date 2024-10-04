@@ -16,7 +16,11 @@ public class EnemyT1 : EnemyHandler
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if (collision.CompareTag("Car")) animator.SetBool("attack", true);
+        if (collision.CompareTag("Car"))
+        {
+            animator.SetInteger("attackRandomizer", Random.Range(0, 2));
+            animator.SetBool("attack", true);
+        }
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)

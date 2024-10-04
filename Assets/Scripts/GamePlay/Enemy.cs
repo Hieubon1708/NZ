@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     public float hp;
     public float damage;
+    public Bone bone;
 
     public float SubtractHp(float hp)
     {

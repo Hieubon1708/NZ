@@ -43,7 +43,7 @@ public class EnemyT2 : EnemyHandler
                 isShot = true;
                 animator.SetBool("attack", true);
             }
-            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
         else
         {

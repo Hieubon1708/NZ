@@ -37,15 +37,17 @@ public class EnemyShotT2 : MonoBehaviour
 
         float randomTarget = Random.Range(YUnder, YAbove);
 
-        Vector2 target = new Vector2(x, randomTarget);
+        Vector2 target = new Vector2(x, mouth.position.y -1f);
 
-        float angle = EUtils.GetAngle(target - (Vector2)mouth.position);
+        float angle = Quaternion.Euler(new Vector3(0, 0, EUtils.GetAngle(target - (Vector2)mouth.position))).eulerAngles.z;
         angle += 160 - angle;
         angle = Mathf.Clamp(angle, 110, 180);
+        Debug.LogWarning("s " + angle);
 
         float distanceX = target.x - mouth.position.x;
-        float distanceY = Mathf.Clamp(target.y - mouth.position.y, 0.01f, 100);
+        float distanceY = target.y - mouth.position.y - 1f;
         float time = distanceX / (Mathf.Cos(angle * Mathf.Deg2Rad) * (Mathf.Sqrt((distanceX * distanceX * Mathf.Abs(Physics2D.gravity.y)) / (2 * distanceX * Mathf.Tan(angle * Mathf.Deg2Rad) + distanceY))));
+        Debug.LogWarning(time);
         float velocityX = distanceX / time;
         float velocityY = (distanceY + 0.5f * Mathf.Abs(Physics2D.gravity.y) * time * time) / time;
 
@@ -56,6 +58,7 @@ public class EnemyShotT2 : MonoBehaviour
 
         index++;
         if (index == scBullets.Length) index = 0;
-        //Debug.DrawLine(mouth.position, target, Color.red, 1);
+        Debug.DrawLine(mouth.position, target, Color.red, 1);
+        Debug.DrawLine(mouth.position, target - (Vector2)mouth.position * 3, Color.yellow, 1);
     }
 }

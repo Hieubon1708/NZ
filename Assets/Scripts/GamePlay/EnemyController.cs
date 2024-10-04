@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public int[] amout;
     public float[] speed;
     public List<List<GameObject>> listTypeEs = new List<List<GameObject>>();
+    public List<EnemyHandler> listScRandomEs = new List<EnemyHandler>();
     public List<GameObject> listRandomEs;
     public float defaultDistance;
 
@@ -45,7 +47,8 @@ public class EnemyController : MonoBehaviour
         if (listRandomEs.Count == 0) return;
         for (int i = 0; i < listRandomEs.Count; i++)
         {
-            listRandomEs[i].SetActive(true);
+            if (!listRandomEs[i].activeSelf) listRandomEs[i].SetActive(true);
+            if (!listScRandomEs[i].view.activeSelf) listScRandomEs[i].view.SetActive(true);
         }
     }
 
@@ -53,6 +56,7 @@ public class EnemyController : MonoBehaviour
     {
         for (int i = 0; i < listRandomEs.Count; i++)
         {
+            if (listScRandomEs[i].content.activeSelf) listScRandomEs[i].content.SetActive(false);
             if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
         }
     }
@@ -67,7 +71,7 @@ public class EnemyController : MonoBehaviour
                 GameObject e = Instantiate(enemies[i], GameController.instance.poolEnemies);
                 EnemyHandler sc = e.GetComponent<EnemyHandler>();
                 sc.speed = speed[i];
-                sc.view.SetActive(false);
+                sc.content.SetActive(false);
                 e.SetActive(false);
                 listEs.Add(e);
             }
@@ -164,14 +168,15 @@ public class EnemyController : MonoBehaviour
 
             GameObject e = listRandomEs[count];
             EnemyHandler scE = e.GetComponent<EnemyHandler>();
+
+            if (!listScRandomEs.Contains(scE)) listScRandomEs.Add(scE);
+
             e.transform.SetParent(enemyPools[randomLine]);
 
-            float y = CarController.instance.spawnY[randomLine].position.y + 0.5f;
+            float y = CarController.instance.spawnY[randomLine].position.y;
 
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
-                Debug.LogWarning(spawnX);
-                Debug.LogWarning(transform.position.x);
                 if (spawnX < col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
                 else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 0.5f, CarController.instance.spawnY[randomLine].position.y + 1f);
             }
@@ -186,39 +191,44 @@ public class EnemyController : MonoBehaviour
             SetLayer(randomLine, e);
             SetLayer(randomLine, scE.colObj);
 
-            scE.rb.excludeLayers = 0;
             scE.sortingGroup.sortingLayerName = "Line_" + indexLine;
-            scE.rb.excludeLayers |= (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8);
+            scE.rb.excludeLayers = (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8);
 
             spawnX += randomDistance * distance;
             count++;
         }
     }
 
-    public void ERevival(GameObject e)
+    public void ERevival(GameObject e, EnemyHandler eSc)
     {
         int index = -1;
         float xHighest = int.MinValue;
         for (int i = 0; i < listRandomEs.Count; i++)
         {
             if (listRandomEs[i] == e) continue;
-            if (xHighest < listRandomEs[i].transform.position.x)
+            float xE = listRandomEs[i].transform.position.x;
+            if (xHighest < xE)
             {
-                xHighest = listRandomEs[i].transform.position.x;
+                xHighest = xE;
                 index = i;
             }
         }
-        e.SetActive(true);
+
         int indexLine = EUtils.GetIndexLine(e);
-        float x = index == -1 ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : listRandomEs[index].transform.position.x + defaultDistance;
+
+        float x = xHighest < col.transform.position.x ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : xHighest + defaultDistance;
         float y = CarController.instance.spawnY[indexLine - 1].position.y;
+
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
         {
-            if (spawnX > transform.position.x - 0.5f) y += Random.Range(1f, 2f);
-            else y = Random.Range(0f, 4f);
+            y = Random.Range(CarController.instance.spawnY[indexLine - 1].position.y + 0.5f, CarController.instance.spawnY[indexLine - 1].position.y + 1f);
         }
-        if (x < GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1) x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
+
         e.transform.position = new Vector2(x, y);
+
+        eSc.SetColNKinematicNRevival(true);
+        eSc.SetActiveContentNView(true);
+        eSc.ResetBone();
     }
 
     void CheckAmoutEnemyEachLine()

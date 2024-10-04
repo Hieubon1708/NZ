@@ -846,6 +846,9 @@ MonoBehaviour:
   colObj: {fileID: 1169068507940460}
   col: {fileID: 70449314905778797}
   animator: {fileID: 95748952385554567}
+  content: {fileID: 1032697105334496}
+  view: {fileID: 1797049829019114}
+  frontalCollision: {fileID: 0}
   forceJump: 3
   multiplier: 1
   speed: -2
@@ -854,14 +857,15 @@ MonoBehaviour:
   isCollisionWithCar: 0
   isCollisionWithGround: 0
   isJump: 0
-  isWalk: 1
   isStunned: 0
   isBumping: 0
   isShot: 0
+  isTriggerSaw: 0
+  isTriggerFlame: 0
+  isRevival: 0
   amoutCollision: 0
   lineIndex: 0
-  view: {fileID: 1032697105334496}
-  frontalCollision: {fileID: 0}
+  ePre: {fileID: 0}
   a: 0
   targetPos: {x: 0, y: 0}
   xPlus1: 2.5

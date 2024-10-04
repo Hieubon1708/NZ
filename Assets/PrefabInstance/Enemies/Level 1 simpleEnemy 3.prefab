@@ -592,6 +592,7 @@ GameObject:
   - component: {fileID: 3438151689352656486}
   - component: {fileID: 629573409863836213}
   - component: {fileID: 4321627747312284488}
+  - component: {fileID: 7099280852617269894}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 3
   m_TagString: Enemy
@@ -633,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 2000
   damage: 100
+  bone: {fileID: 7099280852617269894}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +712,10 @@ MonoBehaviour:
   colObj: {fileID: 6321465562159464689}
   col: {fileID: 6943277198851427297}
   animator: {fileID: 4481301843861227183}
-  forceJump: 3
+  content: {fileID: 5665526574945122214}
+  view: {fileID: 1206677596049799295}
+  frontalCollision: {fileID: 0}
+  forceJump: 5
   multiplier: 1
   speed: -2
   timeStunned: 0
@@ -718,14 +723,13 @@ MonoBehaviour:
   isCollisionWithCar: 0
   isCollisionWithGround: 0
   isJump: 0
-  isWalk: 0
   isStunned: 0
   isBumping: 0
   isShot: 0
+  isTriggerSaw: 0
+  isTriggerFlame: 0
   amoutCollision: 0
   lineIndex: 0
-  view: {fileID: 5665526574945122214}
-  frontalCollision: {fileID: 0}
   a: 0
 --- !u!114 &4321627747312284488
 MonoBehaviour:
@@ -781,6 +785,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7ac3f0f72d46c334a9fa6e97eac704bf, type: 2}
   - {fileID: 21300000, guid: 4fda365f7bf6d5948b586e28ebcb5bb1, type: 2}
   - {fileID: 21300000, guid: 0dca6f0b83be39c47b54fef050d74f2e, type: 2}
+--- !u!114 &7099280852617269894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc59f11872e0cc14d8857fa9e1495585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 6915357791159878373}
+  bones: []
+  spriteInfoOrigin: []
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0
