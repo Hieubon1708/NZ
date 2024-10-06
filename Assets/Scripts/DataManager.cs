@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using static GameController;
@@ -24,11 +23,12 @@ public class DataManager : MonoBehaviour
 
     public Sprite[] blockSprites;
 
-    public BlockData blockData;
-    public EnergyData energyData;
-    public PlayerData playerData;
-    public IngameData[] ingameDatas;
-    public List<WeaponConfig> weaponConfigs;
+    public DataStorage dataStorage;
+    public BlockConfig blockConfig;
+    public PLayerConfig playerConfig;
+    public EnergyConfig energyConfig;
+
+    public WeaponConfig[] weaponConfigs;
 
     public void Awake()
     {
@@ -60,43 +60,31 @@ public class DataManager : MonoBehaviour
 
     void DataReader()
     {
-        TextAsset jsBlock = Resources.Load<TextAsset>("Datas/BlockData");
-        TextAsset jsEnergy = Resources.Load<TextAsset>("Datas/EnergyData");
+        TextAsset blockConfigJs = Resources.Load<TextAsset>("Datas/BlockConfig");
+        TextAsset energyConfigJs = Resources.Load<TextAsset>("Datas/EnergyConfig");
+        TextAsset weaponConfigJs = Resources.Load<TextAsset>("Datas/WeaponConfig");
+        TextAsset playerConfigJs = Resources.Load<TextAsset>("Datas/PlayerConfig");
 
-        blockData = JsonConvert.DeserializeObject<BlockData>(jsBlock.text);
-        energyData = JsonConvert.DeserializeObject<EnergyData>(jsEnergy.text);
+        playerConfig = JsonConvert.DeserializeObject<PLayerConfig>(playerConfigJs.text);
+        blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
+        energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
+        weaponConfigs = JsonConvert.DeserializeObject<WeaponConfig[]>(weaponConfigJs.text);
 
-        string jsIngame = Path.Combine(Application.persistentDataPath, "IngameData.json");
-        if (File.Exists(jsIngame))
+        string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
+        if (File.Exists(dataStorageJs))
         {
-            string jsonContent = File.ReadAllText(jsIngame);
-            ingameDatas = JsonConvert.DeserializeObject<IngameData[]>(jsonContent);
-        }
-        else Debug.LogWarning("File not found: " + jsIngame);
-
-        string jsPlayer = Path.Combine(Application.persistentDataPath, "PlayerData.json");
-        if (File.Exists(jsPlayer))
-        {
-            string jsonContent = File.ReadAllText(jsPlayer);
-            playerData = JsonConvert.DeserializeObject<PlayerData>(jsonContent);
+            string DataStorageContent = File.ReadAllText(dataStorageJs);
+            dataStorage = JsonConvert.DeserializeObject<DataStorage>(DataStorageContent);
         }
         else
         {
-            Debug.LogWarning("File not found: " + jsPlayer);
-            playerData = new PlayerData(4500, 0, 0, 0);
+            Debug.LogWarning("File not found: " + dataStorageJs);
         }
-        string weaponConfigJs = Path.Combine(Application.dataPath, "Resources/Datas/WeaponConfig.json");
-        if (!File.Exists(weaponConfigJs))
-        {
-            GenerateWeaponConfigs();
-        }
-        string weaponConfigContent = File.ReadAllText(weaponConfigJs);
-        weaponConfigs = JsonConvert.DeserializeObject<List<WeaponConfig>>(weaponConfigContent);
     }
 
     public WeaponConfig FindWeaponConfigByType(WEAPON type)
     {
-        for (int i = 0; i < weaponConfigs.Count; i++)
+        for (int i = 0; i < weaponConfigs.Length; i++)
         {
             if (weaponConfigs[i].weaponType == type)
             {
@@ -125,7 +113,7 @@ public class DataManager : MonoBehaviour
 
     public int GetLengthUpgradePriceWeaponConfig(int level, WeaponConfig weaponConfig)
     {
-        return weaponConfig.weaponLevelConfigs.Count;
+        return weaponConfig.weaponLevelConfigs.Length;
     }
 
     public int GetDamageWeaponConfig(int level, int levelUpgrade, WeaponConfig weaponConfig)
@@ -133,51 +121,61 @@ public class DataManager : MonoBehaviour
         AttackConfig attackConfig = weaponConfig.weaponLevelConfigs[level].attackConfig;
         return Mathf.RoundToInt(attackConfig.startAttackPower * Mathf.Pow(attackConfig.upgradeCoef, levelUpgrade));
     }
-    
+
     public int GetDamageBoosterWeaponConfig(int level, WeaponConfig weaponConfig)
     {
         return weaponConfig.weaponLevelConfigs[level].attackConfig.damageBooster;
     }
 
+    public int GetPriceUpgradeEnergyConfig(int level)
+    {
+        return Mathf.RoundToInt(energyConfig.startPrice * (energyConfig.upgradePriceCoef * (level + 1)));
+    }
+
+    public float GetSecondsUpgradeEnergyConfig(int level)
+    {
+        return Mathf.RoundToInt(energyConfig.startSeconds * (energyConfig.upgradeSecondsCoef * (level + 1)));
+    }
+
     void GenerateWeaponConfigs()
     {
-        List<WeaponConfig> weaponConfigs = new List<WeaponConfig>();
+        WeaponConfig[] weaponConfigs = new WeaponConfig[3];
 
-        List<WeaponLevelConfig> sawLevelConfigs = new List<WeaponLevelConfig>();
+        WeaponLevelConfig[] sawLevelConfigs = new WeaponLevelConfig[7];
 
-        sawLevelConfigs.Add(SetWeaponLevelConfig(200, 250, 1.03f, 600, 7, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(310, 400, 1.03f, 1286, 15, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(481, 600, 1.03f, 2914, 34, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(746, 900, 1.03f, 6429, 75, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(1156, 1400, 1.03f, 14057, 164, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(1792, 2250, 1.03f, 30943, 361, 0.2f, 1.5f, 1.11f, 2, 1));
-        sawLevelConfigs.Add(SetWeaponLevelConfig(2778, 0, 1.03f, 68057, 794, 0.2f, 1.5f, 1.11f, 2, 1));
+        sawLevelConfigs[0] = SetWeaponLevelConfig(200, 250, 1.03f, 600, 7, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[1] = SetWeaponLevelConfig(310, 400, 1.03f, 1286, 15, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[2] = SetWeaponLevelConfig(481, 600, 1.03f, 2914, 34, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[3] = SetWeaponLevelConfig(746, 900, 1.03f, 6429, 75, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[4] = SetWeaponLevelConfig(1156, 1400, 1.03f, 14057, 164, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[5] = SetWeaponLevelConfig(1792, 2250, 1.03f, 30943, 361, 0.2f, 1.5f, 1.11f, 2, 1);
+        sawLevelConfigs[6] = SetWeaponLevelConfig(2778, 0, 1.03f, 68057, 794, 0.2f, 1.5f, 1.11f, 2, 1);
 
-        weaponConfigs.Add(new WeaponConfig(WEAPON.SAW, 90, 2, sawLevelConfigs));
-        
-        List<WeaponLevelConfig> flameLevelConfigs = new List<WeaponLevelConfig>();
+        weaponConfigs[0] = new WeaponConfig(WEAPON.SAW, 90, 2, sawLevelConfigs);
 
-        flameLevelConfigs.Add(SetWeaponLevelConfig(400, 500, 1.03f, 50, 9, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(564, 700, 1.03f, 111, 20, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(795, 1000, 1.03f, 256, 46, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(1121, 1500, 1.03f, 572, 103, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(1581, 2000, 1.03f, 1283, 231, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(2229, 3000, 1.03f, 2884, 519, 0.2f, 1.5f, 1.11f, 2, 1));
-        flameLevelConfigs.Add(SetWeaponLevelConfig(3143, 0, 1.03f, 6489, 1168, 0.2f, 1.5f, 1.11f, 2, 1));
+        WeaponLevelConfig[] flameLevelConfigs = new WeaponLevelConfig[7];
 
-        weaponConfigs.Add(new WeaponConfig(WEAPON.FLAME, 360, 2, flameLevelConfigs));
-        
-        List<WeaponLevelConfig> machineGunLevelConfigs = new List<WeaponLevelConfig>();
+        flameLevelConfigs[0] = SetWeaponLevelConfig(400, 500, 1.03f, 50, 9, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[1] = SetWeaponLevelConfig(564, 700, 1.03f, 111, 20, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[2] = SetWeaponLevelConfig(795, 1000, 1.03f, 256, 46, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[3] = SetWeaponLevelConfig(1121, 1500, 1.03f, 572, 103, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[4] = SetWeaponLevelConfig(1581, 2000, 1.03f, 1283, 231, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[5] = SetWeaponLevelConfig(2229, 3000, 1.03f, 2884, 519, 0.2f, 1.5f, 1.11f, 2, 1);
+        flameLevelConfigs[6] = SetWeaponLevelConfig(3143, 0, 1.03f, 6489, 1168, 0.2f, 1.5f, 1.11f, 2, 1);
 
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(500, 600, 1.03f, 300, 40, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(700, 800, 1.03f, 705, 94, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(980, 1200, 1.03f, 1658, 221, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(1372, 1800, 1.03f, 3892, 519, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(1921, 2250, 1.03f, 9150, 1220, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(2689, 3250, 1.03f, 21502, 2867, 0.2f, 1.5f, 1.11f, 2, 1));
-        machineGunLevelConfigs.Add(SetWeaponLevelConfig(3765, 0, 1.03f, 50528, 6737, 0.2f, 1.5f, 1.11f, 2, 1));
+        weaponConfigs[1] = new WeaponConfig(WEAPON.FLAME, 360, 2, flameLevelConfigs);
 
-        weaponConfigs.Add(new WeaponConfig(WEAPON.MACHINE_GUN, 750, 2, machineGunLevelConfigs));
+        WeaponLevelConfig[] machineGunLevelConfigs = new WeaponLevelConfig[7];
+
+        machineGunLevelConfigs[0] = SetWeaponLevelConfig(500, 600, 1.03f, 300, 40, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[1] = SetWeaponLevelConfig(700, 800, 1.03f, 705, 94, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[2] = SetWeaponLevelConfig(980, 1200, 1.03f, 1658, 221, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[3] = SetWeaponLevelConfig(1372, 1800, 1.03f, 3892, 519, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[4] = SetWeaponLevelConfig(1921, 2250, 1.03f, 9150, 1220, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[5] = SetWeaponLevelConfig(2689, 3250, 1.03f, 21502, 2867, 0.2f, 1.5f, 1.11f, 2, 1);
+        machineGunLevelConfigs[6] = SetWeaponLevelConfig(3765, 0, 1.03f, 50528, 6737, 0.2f, 1.5f, 1.11f, 2, 1);
+
+        weaponConfigs[2] = new WeaponConfig(WEAPON.MACHINE_GUN, 750, 2, machineGunLevelConfigs);
 
         string js = JsonConvert.SerializeObject(weaponConfigs);
         string path = Path.Combine(Application.dataPath, "Resources/Datas/WeaponConfig.json");
@@ -194,10 +192,17 @@ public class DataManager : MonoBehaviour
 }
 
 [System.Serializable]
-public class BlockData
+public class PLayerConfig
 {
-    public int price;
-    public int[] hps;
+    public int hp;
+}
+
+
+[System.Serializable]
+public class BlockConfig
+{
+    public int startPrice;
+    public int[] hpUpgrades;
     public int[] priceUpgrades;
 }
 
@@ -207,9 +212,9 @@ public class WeaponConfig
     public WEAPON weaponType;
     public int price;
     public float distanceType;
-    public List<WeaponLevelConfig> weaponLevelConfigs;
+    public WeaponLevelConfig[] weaponLevelConfigs;
 
-    public WeaponConfig(WEAPON weaponType, int price, float distanceType, List<WeaponLevelConfig> weaponLevelConfigs)
+    public WeaponConfig(WEAPON weaponType, int price, float distanceType, WeaponLevelConfig[] weaponLevelConfigs)
     {
         this.weaponType = weaponType;
         this.price = price;
@@ -267,45 +272,85 @@ public class AttackConfig
 }
 
 [System.Serializable]
-public class EnergyData
+public class EnergyConfig
 {
-    public float[] times;
-    public int[] priceUpgrades;
+    public float startPrice;
+    public float startSeconds;
+    public float upgradePriceCoef;
+    public float upgradeSecondsCoef;
 }
 
 [System.Serializable]
-public class PlayerData
+public class DataStorage
 {
-    public float playerHp;
-    public int gameLevel;
-    public int gold;
-    public int indexEnergy;
+    public int level;
 
-    public PlayerData(float playerHp, int gameLevel, int gold, int indexEnergy)
+    public PLayerDataStorage pLayerDataStorage;
+    public BlockDataStorage[] blockDataStorage;
+    public EnergyDataStorage energyDataStorage;
+
+    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage)
     {
-        this.playerHp = playerHp;
-        this.gameLevel = gameLevel;
-        this.gold = gold;
-        this.indexEnergy = indexEnergy;
+        this.level = level;
+        this.pLayerDataStorage = pLayerDataStorage;
+        this.blockDataStorage = blockDataStorage;
+        this.energyDataStorage = energyDataStorage;
     }
 }
 
-[System.Serializable]
-public class IngameData
+public class PLayerDataStorage
 {
-    public int blockLevel;
-    public int blockGold;
+    public int gold;
+
+    public PLayerDataStorage(int gold)
+    {
+        this.gold = gold;
+    }
+}
+
+public class EnergyDataStorage
+{
+    public int level;
+
+    public EnergyDataStorage(int level)
+    {
+        this.level = level;
+    }
+}
+
+public class BlockDataStorage
+{
+    public int level;
+    public int sellingPrice;
+    public WeaponDataStorage weaponDataStorage;
+
+    public BlockDataStorage(int level, int sellingPrice, WeaponDataStorage weaponDataStorage)
+    {
+        this.level = level;
+        this.sellingPrice = sellingPrice;
+        this.weaponDataStorage = weaponDataStorage;
+    }
+}
+
+public class WeaponDataStorage
+{
     public WEAPON weaponType;
     public int weaponLevel;
     public int weaponLevelUpgrade;
+    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
 
-    public IngameData(int blockLevel, int blockGold, WEAPON weaponType, int weaponLevel, int weaponLevelUpgrade)
+    public WeaponDataStorage(WEAPON weaponType, int weaponLevel, int weaponLevelUpgrade, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
     {
-        this.blockLevel = blockLevel;
-        this.blockGold = blockGold;
         this.weaponType = weaponType;
         this.weaponLevel = weaponLevel;
         this.weaponLevelUpgrade = weaponLevelUpgrade;
+        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
     }
 }
+
+public class WeaponEvolutionDataStorge
+{
+
+}
+
 

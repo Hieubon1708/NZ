@@ -27,21 +27,6 @@ public class BlockController : MonoBehaviour
         Generate();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            AddBlock();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            /*foreach (KeyValuePair<GameObject, int> item in GameController.instance.listDamages)
-            {
-                Debug.LogWarning(item.Value);
-            }*/
-        }
-    }
-
     public void StartGame()
     {
         tempBlocks = new List<GameObject>(blocks);
@@ -72,25 +57,28 @@ public class BlockController : MonoBehaviour
 
     public void LoadData()
     {
-        IngameData[] ingameDatas = DataManager.instance.ingameDatas;
-        for (int i = 0; i < ingameDatas.Length; i++)
+        DataStorage dataStorage = DataManager.instance.dataStorage;
+        if (dataStorage.blockDataStorage != null)
         {
-            GameObject block = blockPools[0];
-            blockPools.Remove(block);
-            block.transform.localPosition = new Vector2(block.transform.localPosition.x, startY + distance * blocks.Count);
-            blocks.Add(block);
-            block.SetActive(true);
-            Block scBlock = GetScBlock(block);
-            scBlock.gold = ingameDatas[i].blockGold;
+            for (int i = 0; i < dataStorage.blockDataStorage.Length; i++)
+            {
+                GameObject block = blockPools[0];
+                blockPools.Remove(block);
+                block.transform.localPosition = new Vector2(block.transform.localPosition.x, startY + distance * blocks.Count);
+                blocks.Add(block);
+                block.SetActive(true);
+                Block scBlock = GetScBlock(block);
+                scBlock.sellingPrice = dataStorage.blockDataStorage[i].sellingPrice;
 
-            BlockUpgradeHandler blockUpgradeHandler = GetScBlock(block).blockUpgradeHandler;
+                BlockUpgradeHandler blockUpgradeHandler = GetScBlock(block).blockUpgradeHandler;
 
-            int blockLevel = ingameDatas[i].blockLevel;
-            WEAPON weaponType = ingameDatas[i].weaponType;
-            int weaponLevel = ingameDatas[i].weaponLevel;
-            int weaponLevelUpgrade = ingameDatas[i].weaponLevelUpgrade;
+                int blockLevel = dataStorage.blockDataStorage[i].level;
+                WEAPON weaponType = dataStorage.blockDataStorage[i].weaponDataStorage.weaponType;
+                int weaponLevel = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevel;
+                int weaponLevelUpgrade = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevelUpgrade;
 
-            blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
+                blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
+            }
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
         energyUpgradee.LoadData();
@@ -138,7 +126,7 @@ public class BlockController : MonoBehaviour
             CarController.instance.AddBookAni();
             PlayerController.instance.AddBookAni();
             CheckButtonStateAll();
-            scBlock.PlusGold(DataManager.instance.blockData.price);
+            scBlock.PlusGold(DataManager.instance.blockConfig.startPrice);
         }
     }
 

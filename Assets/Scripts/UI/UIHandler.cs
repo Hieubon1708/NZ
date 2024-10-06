@@ -20,19 +20,14 @@ public class UIHandler : MonoBehaviour
         instance = this;
     }
 
-    public void Start()
-    {
-        LoadData();
-    }
-
-    void LoadData()
+    public void LoadData()
     {
         GoldUpdatee();
     }
 
     public void GoldUpdatee()
     {
-        textGold.text = DataManager.instance.playerData.gold.ToString();
+        textGold.text = PlayerHandler.instance.playerInfo.gold.ToString();
     }
 
     public enum Type

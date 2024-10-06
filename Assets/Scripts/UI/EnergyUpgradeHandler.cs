@@ -4,22 +4,19 @@ using UnityEngine.UI;
 
 public class EnergyUpgradeHandler : ButtonUpgradee
 {
+    public int level;
     public TextMeshProUGUI textTime;
     public Image lightling;
 
-    public void Start()
-    {
-        LoadData();
-    }
-
     public void LoadData()
     {
+        level = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.dataStorage.energyDataStorage.level : 0;
         UpgradeHandle();
     }
 
     public override void CheckButtonState()
     {
-        if (DataManager.instance.playerData.gold < DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy])
+        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceUpgradeEnergyConfig(level))
         {
             UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frame);
             lightling.color = new Color(1, 1, 1, 0.5f);
@@ -33,14 +30,14 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public override void Upgrade()
     {
-        DataManager.instance.playerData.gold -= DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy];
-        DataManager.instance.playerData.indexEnergy++;
+        PlayerHandler.instance.playerInfo.gold -= DataManager.instance.GetPriceUpgradeEnergyConfig(level);
+        level++;
         UpgradeHandle();
     }
 
     public override void UpgradeHandle()
     {
-        textPriceUpgrade.text = DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy].ToString();
-        textTime.text = DataManager.instance.energyData.times[DataManager.instance.playerData.indexEnergy].ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + "/s";
+        textPriceUpgrade.text = DataManager.instance.GetPriceUpgradeEnergyConfig(level).ToString();
+        textTime.text = DataManager.instance.GetPriceUpgradeEnergyConfig(level).ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + "/s";
     }
 }

@@ -36,6 +36,10 @@ public class EnemyT2 : EnemyHandler
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
+        else if (isStunByWeapon)
+        {
+            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
+        }
         else if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
         {
             if (!animator.GetBool("attack"))
@@ -43,7 +47,7 @@ public class EnemyT2 : EnemyHandler
                 isShot = true;
                 animator.SetBool("attack", true);
             }
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
         }
         else
         {
@@ -55,6 +59,8 @@ public class EnemyT2 : EnemyHandler
             }
             rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
+        animator.SetFloat("velocityY", rb.velocity.y);
+        animator.SetFloat("walkSpeed", Mathf.Abs(!isStunByWeapon || !(Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX) ? speed * multiplier : 0));
     }
 
     protected override void DeathHandle()

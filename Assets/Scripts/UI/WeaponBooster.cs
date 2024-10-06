@@ -9,6 +9,18 @@ public class WeaponBooster : ButtonClicker
     public Booster booster;
     public TextMeshProUGUI num;
     public Image frame;
+    public TextMeshProUGUI textEnergy;
+
+    public void UpdateTextEnergy()
+    {
+        textEnergy.text = energy.ToString();
+    }
+
+    public void SubtractEnergy(float percentage)
+    {
+        energy -= Mathf.RoundToInt(energy * 100 / percentage);
+        UpdateTextEnergy();
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {

@@ -926,10 +926,14 @@ MonoBehaviour:
   isStunned: 0
   isBumping: 0
   isShot: 0
-  isTriggerSaw: 0
-  isTriggerFlame: 0
   amoutCollision: 0
   lineIndex: 0
+  layerOrigin:
+    serializedVersion: 2
+    m_Bits: 0
+  layerBumping:
+    serializedVersion: 2
+    m_Bits: 0
   a: 0
   targetX: 0
   xPlus1: 5

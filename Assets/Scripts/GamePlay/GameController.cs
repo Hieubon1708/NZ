@@ -8,8 +8,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    public DataManager dataManager;
-    public CarController carController;
+    public int level;
 
     public List<GameObject> listEnemies;
     public List<GameObject> listEVisible = new List<GameObject>();
@@ -24,6 +23,7 @@ public class GameController : MonoBehaviour
     public Transform poolPars;
     public Transform defaultDir;
 
+    public float timeBlockNPlayerDamage;
     public float timeSawDamage;
     public float timeFlameDamage;
     public float backgroundSpeed;
@@ -45,7 +45,6 @@ public class GameController : MonoBehaviour
         instance = this;
         DOTween.SetTweensCapacity(200, 1000);
         Resize();
-        MapGenerate(dataManager.playerData.gameLevel);
         GenerateColDisplay();
     }
 
@@ -62,11 +61,21 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
-        ChangeBlockSprites(dataManager.playerData.gameLevel);
-        ChangeCarSprites(dataManager.playerData.gameLevel);
+        LoadData();
+        MapGenerate(level);
+        ChangeBlockSprites(level);
+        ChangeCarSprites(level);
+        PlayerHandler.instance.LoadData();
         BlockController.instance.LoadData();
+        UpgradeEvolutionController.instance.LoadData();
+        UIHandler.instance.LoadData();
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
+    }
+
+    void LoadData()
+    {
+        level = DataManager.instance.dataStorage.level;
     }
 
     public void EDeathAll(GameObject tower)
@@ -85,16 +94,16 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            DataManager.instance.playerData.gameLevel = Mathf.Clamp(++DataManager.instance.playerData.gameLevel, 0, 5);
-            ChangeBlockSprites(DataManager.instance.playerData.gameLevel);
-            ChangeCarSprites(DataManager.instance.playerData.gameLevel);
+            level = Mathf.Clamp(++level, 0, 5);
+            ChangeBlockSprites(level);
+            ChangeCarSprites(level);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            DataManager.instance.playerData.gameLevel = Mathf.Clamp(--DataManager.instance.playerData.gameLevel, 0, 5);
-            ChangeBlockSprites(DataManager.instance.playerData.gameLevel);
-            ChangeCarSprites(DataManager.instance.playerData.gameLevel);
+            level = Mathf.Clamp(++level, 0, 5);
+            ChangeBlockSprites(level);
+            ChangeCarSprites(level);
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -109,23 +118,23 @@ public class GameController : MonoBehaviour
 
     public void ChangeBlockSprites(int level)
     {
-        dataManager.SetBlockSprites(level);
+        DataManager.instance.SetBlockSprites(level);
         BlockController.instance.ResetBlockSprites();
     }
 
     public void ChangeCarSprites(int level)
     {
-        Sprite[] carSprites = dataManager.GetCarSprites(level);
+        Sprite[] carSprites = DataManager.instance.GetCarSprites(level);
 
         if (carSprites != null)
         {
-            carController.tent_part_3.sprite = carSprites[0];
-            carController.tent_part_2.sprite = carSprites[1];
-            carController.tent_part_1.sprite = carSprites[2];
-            carController.chassis.sprite = carSprites[3];
-            carController.wheelLeft.sprite = carSprites[4];
-            carController.wheelRight.sprite = carSprites[4];
-            carController.shadow.sprite = carSprites[5];
+            CarController.instance.tent_part_3.sprite = carSprites[0];
+            CarController.instance.tent_part_2.sprite = carSprites[1];
+            CarController.instance.tent_part_1.sprite = carSprites[2];
+            CarController.instance.chassis.sprite = carSprites[3];
+            CarController.instance.wheelLeft.sprite = carSprites[4];
+            CarController.instance.wheelRight.sprite = carSprites[4];
+            CarController.instance.shadow.sprite = carSprites[5];
         }
         else
         {
@@ -196,33 +205,35 @@ public class GameController : MonoBehaviour
 
     public void OnDestroy()
     {
-        List<IngameData> listData = new List<IngameData>();
+        BlockDataStorage[] blockDataStorages = new BlockDataStorage[BlockController.instance.blocks.Count];
+
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
+
             Block scBlock = BlockController.instance.blocks[i].GetComponent<Block>();
+
             int blockLevel = scBlock.level;
-            int blockGold = scBlock.gold;
+            int blockGold = scBlock.sellingPrice;
+
             WEAPON weaponType = WEAPON.NONE;
+
             if (scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) weaponType = scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType;
+
             int weaponLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.level;
             int weaponUpgradeLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.levelUpgrade;
 
-            /*Debug.LogWarning(blockLevel);
-            Debug.LogWarning(weaponType);
-            Debug.LogWarning(weaponLevel);
-            Debug.LogWarning(weaponUpgradeLevel);
-            Debug.LogWarning("--------------------");*/
-
-            IngameData ingameData = new IngameData(blockLevel, blockGold, weaponType, weaponLevel, weaponUpgradeLevel);
-            listData.Add(ingameData);
+            WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge();
+            WeaponDataStorage weaponDataStorage = new WeaponDataStorage(weaponType, weaponLevel, weaponUpgradeLevel, weaponEvolutionDataStorge);
+            blockDataStorages[i] = new BlockDataStorage(blockLevel, blockGold, weaponDataStorage);
         }
 
-        string jsIngame = JsonConvert.SerializeObject(listData);
-        string filePathIngame = Path.Combine(Application.persistentDataPath, "IngameData.json");
-        File.WriteAllText(filePathIngame, jsIngame);
+        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold);
+        EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
 
-        string jsPlayer = JsonConvert.SerializeObject(DataManager.instance.playerData);
-        string filePathPlayer = Path.Combine(Application.persistentDataPath, "PLayerData.json");
-        File.WriteAllText(filePathPlayer, jsPlayer);
+        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage);
+
+        string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
+        string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");
+        File.WriteAllText(path, dataStorageJs);
     }
 }

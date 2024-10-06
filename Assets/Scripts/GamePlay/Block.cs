@@ -5,7 +5,8 @@ public class Block : MonoBehaviour
     public int level;
     public float hp;
     public Animation ani;
-    public int gold;
+    public int sellingPrice;
+    public BlockHandler blockHandler;
     public BlockUpgradeHandler blockUpgradeHandler;
 
     AnimationClip[] animationClips = new AnimationClip[3];
@@ -27,15 +28,15 @@ public class Block : MonoBehaviour
 
     public void PlusGold(int gold)
     {
-        this.gold += gold;
-        DataManager.instance.playerData.gold -= gold;
+        sellingPrice += gold;
+        PlayerHandler.instance.playerInfo.gold -= gold;
         UIHandler.instance.GoldUpdatee();
     }
 
     public void SubtractGold()
     {
-        DataManager.instance.playerData.gold += gold;
-        gold = 0;
+        PlayerHandler.instance.playerInfo.gold += sellingPrice;
+        sellingPrice = 0;
         UIHandler.instance.GoldUpdatee();
     }
 

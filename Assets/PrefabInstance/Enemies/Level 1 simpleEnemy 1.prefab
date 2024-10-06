@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 11
+  hp: 500
   damage: 50
   bone: {fileID: 7825448298857881008}
 --- !u!114 &9144352815958860949
@@ -1117,6 +1117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 349404438150848101}
+  bones: []
+  spriteInfoOrigin: []
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0

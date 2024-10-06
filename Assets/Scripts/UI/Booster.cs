@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Booster : MonoBehaviour
 {
+    public static Booster instance;
+
     public Image energyBar;
     public int amoutEnergy;
     public TextMeshProUGUI textAmoutEnergy;
@@ -12,6 +14,11 @@ public class Booster : MonoBehaviour
     public GameObject flameBooster;
     public GameObject machineGunBooster;
     public WeaponBooster[] weaponBoosters;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void OnEnable()
     {
@@ -38,6 +45,7 @@ public class Booster : MonoBehaviour
         for (int i = 0; i < weaponBoosters.Length; i++)
         {
             weaponBoosters[i].CheckBooterState();
+            weaponBoosters[i].UpdateTextEnergy();
         }
         textAmoutEnergy.text = amoutEnergy.ToString();
     }

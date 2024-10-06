@@ -10,6 +10,7 @@ public class ParController : MonoBehaviour
     public GameObject blockDestroyPrefab;
     public GameObject towerExplosionHolePrefab;
     public GameObject towerExplosionPrefab;
+    public GameObject stunOnEnemyPrefab;
     public GameObject playerDiePrefab;
     public GameObject boomEffectPrefab;
     public GameObject boomHolePrefab;
@@ -17,6 +18,7 @@ public class ParController : MonoBehaviour
     public GameObject gunHitOnEnemyPrefab;
     public GameObject gunHitExplosionPrefab;
     public GameObject[] gunHitOnRoads;
+    public GameObject[] stunOnEnemies;
     public GameObject[] gunHitExplosions;
     public GameObject[] gunHitOnEnemies;
     public GameObject[] roadBulletHole;
@@ -33,6 +35,7 @@ public class ParController : MonoBehaviour
     public int amoutBoom;
     public int amoutBlockDestroy;
     public int amoutGunHitOnEnemy;
+    public int amoutStunOnEnemy;
     public int amoutGunHitOnRoad;
     int currentCount;
     int currentCountZomDie;
@@ -40,6 +43,7 @@ public class ParController : MonoBehaviour
     int currentCountBoom;
     int currentCountGunHitOnRoad;
     int currentCountGunHitOnEnemy;
+    int currentCountStunOnEnemy;
 
     private void Awake()
     {
@@ -100,6 +104,23 @@ public class ParController : MonoBehaviour
             gunHitOnEnemies[i] = Instantiate(gunHitOnEnemyPrefab, container);
             gunHitOnEnemies[i].SetActive(false);
         }
+        stunOnEnemies = new GameObject[amoutStunOnEnemy];
+        for (int i = 0; i < stunOnEnemies.Length; i++)
+        {
+            stunOnEnemies[i] = Instantiate(stunOnEnemyPrefab, container);
+            stunOnEnemies[i].SetActive(false);
+        }
+    }
+
+    public void PlayStunOnEnemyParticle(Vector2 pos, float time, Transform e)
+    {
+        GameObject d = stunOnEnemies[currentCountStunOnEnemy];
+        d.transform.position = pos;
+        d.transform.SetParent(e);
+        d.SetActive(true);
+        currentCountStunOnEnemy++;
+        if (currentCountStunOnEnemy == stunOnEnemies.Length) currentCountStunOnEnemy = 0;
+        DOVirtual.DelayedCall(time, delegate { d.SetActive(false); d.transform.SetParent(container); });
     }
 
     public void PlayRoadBulletHoleParticle(Vector2 pos)

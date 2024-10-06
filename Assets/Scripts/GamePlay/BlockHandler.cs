@@ -24,21 +24,7 @@ public class BlockHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison--;
     }
 
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        GameObject enemy = collision.gameObject;
-        if (!listEnemies.Contains(enemy))
-        {
-            listEnemies.Add(enemy);
-            SubtractHp(int.Parse(collision.gameObject.name));
-            DOVirtual.DelayedCall(0.5f, delegate
-            {
-                listEnemies.Remove(enemy);
-            });
-        }
-    }
-
-    void SubtractHp(int subtractHp)
+    public void SubtractHp(int subtractHp)
     {
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = blockInfo.SubtractHp(subtractHp);

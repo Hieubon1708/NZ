@@ -4,37 +4,27 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
+    public static PlayerHandler instance;
+
     public Player playerInfo;
     public HealthHandler healthHandler;
     public GameObject healthBar;
     public BoxCollider2D boxCollider;
     public List<GameObject> listEnemies = new List<GameObject>();
 
-
-    public void Start()
+    private void Awake()
     {
-        playerInfo.hp = DataManager.instance.playerData.playerHp;
+        instance = this;
+    }
+
+    public void LoadData()
+    {
+        playerInfo.hp = DataManager.instance.playerConfig.hp;
+        playerInfo.gold = DataManager.instance.dataStorage.pLayerDataStorage != null ? DataManager.instance.dataStorage.pLayerDataStorage.gold : 0;
         healthHandler.SetTotalHp(playerInfo.hp);
     }
 
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            GameObject enemy = collision.gameObject;
-            if (!listEnemies.Contains(enemy))
-            {
-                listEnemies.Add(enemy);
-                SubtractHp(int.Parse(collision.gameObject.name));
-                DOVirtual.DelayedCall(0.5f, delegate
-                {
-                    listEnemies.Remove(enemy);
-                });
-            }
-        }
-    }
-
-    void SubtractHp(int subtractHp)
+    public void SubtractHp(int subtractHp)
     {
         float hp = playerInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);

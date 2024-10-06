@@ -27,18 +27,23 @@ public class EnemyHandler : MonoBehaviour
     public bool isCollisionWithCar;
     public bool isCollisionWithGround;
     public bool isJump;
+    public bool isStunByWeapon;
     public bool isStunned;
     public bool isBumping;
+    public bool isAttack;
     public bool isShot;
-    public bool isTriggerSaw;
-    public bool isTriggerFlame;
     public int amoutCollision;
     public int lineIndex;
 
+    public Coroutine stunByWeapon;
     Coroutine stunnedDelay;
     Coroutine jump;
-    protected LayerMask layerOrigin;
-    protected LayerMask layerBumping;
+    Coroutine sawTrigger;
+    Coroutine flameTrigger;
+    Coroutine blockCollision;
+    Coroutine playerCollision;
+    public LayerMask layerOrigin;
+    public LayerMask layerBumping;
 
     public virtual void Start()
     {
@@ -78,29 +83,47 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Saw"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            if (!isTriggerSaw) StartCoroutine(SawTriggerHandle(subtractHp));
+            sawTrigger = StartCoroutine(SawTriggerHandle(subtractHp));
         }
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            if (!isTriggerSaw) StartCoroutine(FlamewTriggerHandle(subtractHp));
+            flameTrigger = StartCoroutine(FlamewTriggerHandle(subtractHp));
+        }
+    }
+
+    IEnumerator PlayerCollisionHandle(int subtractHp)
+    {
+        while (PlayerHandler.instance.playerInfo.hp > 0 && !isStunByWeapon)
+        {
+            PlayerHandler.instance.SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeBlockNPlayerDamage);
+        }
+    }
+
+    IEnumerator BlockCollisionHandle(GameObject b, int subtractHp)
+    {
+        BlockHandler scB = BlockController.instance.GetScBlock(b).blockHandler;
+        if (scB == null) yield break;
+        while (scB.blockInfo.hp > 0 && !isStunByWeapon)
+        {
+            scB.SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeBlockNPlayerDamage);
         }
     }
 
     IEnumerator SawTriggerHandle(int subtractHp)
     {
-        isTriggerSaw = true;
-        while (isTriggerSaw && enemyInfo.hp > 0)
+        while (enemyInfo.hp > 0)
         {
             SubtractHp(subtractHp);
             yield return new WaitForSeconds(GameController.instance.timeSawDamage);
         }
     }
-    
+
     IEnumerator FlamewTriggerHandle(int subtractHp)
     {
-        isTriggerFlame = true;
-        while (isTriggerFlame && enemyInfo.hp > 0)
+        while (enemyInfo.hp > 0)
         {
             SubtractHp(subtractHp);
             yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
@@ -110,14 +133,36 @@ public class EnemyHandler : MonoBehaviour
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (!content.activeSelf) return;
-        if (collision.CompareTag("Saw")) isTriggerSaw = false;
-        if (collision.CompareTag("Flame")) isTriggerFlame = false;
+        if (collision.CompareTag("Saw"))
+        {
+            if (sawTrigger != null) StopCoroutine(sawTrigger);
+        }
+        if (collision.CompareTag("Flame"))
+        {
+            if (flameTrigger != null) StopCoroutine(flameTrigger);
+        }
         if (collision.CompareTag("Boom")) SubtractHp(499);
+    }
+
+    public IEnumerator StunByWeapon(float time)
+    {
+        isStunByWeapon = true;
+        yield return new WaitForSeconds(time);
+        isStunByWeapon = false;
+        if(isAttack) animator.SetBool("attack", true);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (playerCollision == null) StartCoroutine(PlayerCollisionHandle(int.Parse(name)));
+        }
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
+        {
+            isCollisionWithCar = true;
+            if (blockCollision == null) StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
+        }
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
 
@@ -168,7 +213,15 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (playerCollision != null) StopCoroutine(playerCollision);
+        }
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
+        {
+            isCollisionWithCar = false;
+            if(blockCollision != null) StopCoroutine (blockCollision);
+        }
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
         {
@@ -209,12 +262,16 @@ public class EnemyHandler : MonoBehaviour
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
+        else if (isStunByWeapon)
+        {
+            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed, rb.velocity.y);
+        }
         else
         {
             rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
         animator.SetFloat("velocityY", rb.velocity.y);
-        animator.SetFloat("walkSpeed", Mathf.Abs(speed * multiplier));
+        animator.SetFloat("walkSpeed", Mathf.Abs(!isStunByWeapon ? speed * multiplier : 0));
     }
 
     protected IEnumerator JumpStart(Collision2D collision)
@@ -232,7 +289,7 @@ public class EnemyHandler : MonoBehaviour
         JumpEnd();
     }
 
-    Vector2 GetPositionTopBound(Collider2D col)
+    public Vector2 GetPositionTopBound(Collider2D col)
     {
         return new Vector2(col.bounds.max.x - col.bounds.extents.x, col.bounds.max.y);
     }
@@ -262,7 +319,7 @@ public class EnemyHandler : MonoBehaviour
         healthBar.SetActive(false);
 
         GameController.instance.listEVisible.Remove(gameObject);
-        if(enemyInfo.hp == 0) ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
+        if (enemyInfo.hp == 0) ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
 
         DOVirtual.DelayedCall(deathRandomizer == 0 ? 1 : 0, delegate
         {
@@ -311,12 +368,18 @@ public class EnemyHandler : MonoBehaviour
         rb.isKinematic = false;
         isCollisionWithCar = false;
         isStunned = false;
-        isTriggerFlame = false;
-        isTriggerSaw = false;
         isJump = false;
+        isStunByWeapon = false;
+        isShot = false;
         frontalCollision = null;
-        if (stunnedDelay != null) StopCoroutine(stunnedDelay);
+
         if (jump != null) StopCoroutine(jump);
+        if (sawTrigger != null) StopCoroutine(sawTrigger);
+        if (flameTrigger != null) StopCoroutine(flameTrigger);
+        if (stunnedDelay != null) StopCoroutine(stunnedDelay);
+        if (blockCollision != null) StopCoroutine(blockCollision);
+        if (playerCollision != null) StopCoroutine(playerCollision);
+
         gameObject.layer = layerOrigin;
         colObj.layer = layerOrigin;
         colObj.SetActive(true);

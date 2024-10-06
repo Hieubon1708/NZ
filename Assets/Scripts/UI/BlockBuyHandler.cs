@@ -9,12 +9,12 @@ public class BlockBuyHandler : ButtonBuyer
 
     public override void LoadData()
     {
-        textPrice.text = DataManager.instance.blockData.price.ToString();
+        textPrice.text = DataManager.instance.blockConfig.startPrice.ToString();
     }
 
     public override void CheckButtonState()
     {
-        if (DataManager.instance.playerData.gold < DataManager.instance.blockData.price) UIHandler.instance.ChangeSpriteBlockUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton);
+        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.startPrice) UIHandler.instance.ChangeSpriteBlockUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton);
         else UIHandler.instance.ChangeSpriteBlockUpgradee(UIHandler.Type.ENOUGH_MONEY, frameButton);
     }
 }

@@ -29,8 +29,7 @@ public abstract class WeaponShoter : MonoBehaviour
         {
             if (target != null && GameController.instance.listEVisible.Contains(target.gameObject) || target == GameController.instance.defaultDir)
             {
-                float time = target == GameController.instance.defaultDir ? 0.025f : 0.1f;
-                parent.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - parent.position)), time);
+                parent.localRotation = Quaternion.RotateTowards(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, EUtils.GetAngle(target.position - parent.position)), 1.5f);
             }
             else
             {

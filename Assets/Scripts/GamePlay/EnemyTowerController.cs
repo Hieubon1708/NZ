@@ -23,10 +23,20 @@ public class EnemyTowerController : MonoBehaviour
         enemyTowerMovements = new EnemyTowerMovement[towers.Length];
         for (int i = 0; i < towers.Length; i++)
         {
-            GameObject t = Instantiate(towers[i], new Vector2(GameController.instance.carController.transform.position.x + (distanceTower * (i + 1)), GameController.instance.carController.transform.position.y - 0.25f), Quaternion.identity, transform);
+            GameObject t = Instantiate(towers[i], new Vector2(CarController.instance.transform.position.x + (distanceTower * (i + 1)), CarController.instance.transform.position.y - 0.25f), Quaternion.identity, transform);
             scTowers[i] = t.GetComponent<EnemyController>();
             enemyTowerMovements[i] = t.GetComponentInChildren<EnemyTowerMovement>();
         }
+    }
+
+    public EnemyHandler GetScEInTower(GameObject e)
+    {
+        return scTowers[indexTower].GetScE(e);
+    }
+
+    public EnemyController GetTower()
+    {
+        return scTowers[indexTower];
     }
 
     public void NextTower()

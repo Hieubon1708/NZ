@@ -44,9 +44,9 @@ public class PlayerController : MonoBehaviour
     public void FindTarget()
     {
         if (isMouseDown) return;
-        if (GameController.instance.listEVisible.Contains(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col))
+        if (GameController.instance.listEVisible.Contains(EnemyTowerController.instance.GetTower().col))
         {
-            target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col.transform;
+            target = EnemyTowerController.instance.GetTower().col.transform;
         }
         else
         {

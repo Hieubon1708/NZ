@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float hp;
+    public int gold;
 
     public float SubtractHp(float hp)
     {

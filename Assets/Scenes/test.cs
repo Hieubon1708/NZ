@@ -2,28 +2,18 @@
 
 public class test : MonoBehaviour
 {
-    public bool isDrop;
-    float time;
-    public float speed;
-    public float angleTarget;
-    public bool firstPush;
-
-    public void FixedUpdate()
+    private void Start()
     {
-        if (isDrop)
-        {
-            time += Time.fixedDeltaTime;
-            transform.Translate(Vector2.up * time * speed);
-            if (!firstPush) transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, 0, angleTarget), 0.1f);
-            if (firstPush) transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, 0.05f);
-            if (transform.localEulerAngles.z >= angleTarget * 0.75f) firstPush = true;
-        }
-    }
+        Vector2 target = new Vector2(10f, -1f);
+        Transform mouth = transform; // Assuming you are calculating this from the current object's transform
+        float angle = 45f; // Set your desired launch angle here
 
-    public void Restart()
-    {
-        time = 0;
-        isDrop = false;
-        firstPush = false;
+        float distanceX = target.x - mouth.position.x;
+        float distanceY = target.y - mouth.position.y - 1f;
+        float time = distanceX / (Mathf.Cos(angle * Mathf.Deg2Rad) * Mathf.Sqrt(distanceX * distanceX * Mathf.Abs(Physics2D.gravity.y) / (2 * distanceX * Mathf.Tan(angle * Mathf.Deg2Rad) + distanceY)));
+        float velocityX = distanceX / time;
+        float velocityY = (distanceY + 0.5f * Mathf.Abs(Physics2D.gravity.y) * time * time) / time;
+
+        Vector2 velocity = new Vector2(velocityX, velocityY);
     }
 }

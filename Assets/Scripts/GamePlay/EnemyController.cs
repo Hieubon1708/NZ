@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +39,12 @@ public class EnemyController : MonoBehaviour
     void AssignSpanwX()
     {
         spawnX = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
+    }
+
+    public EnemyHandler GetScE(GameObject e)
+    {
+        int indexOf = listRandomEs.IndexOf(e);
+        return listScRandomEs[indexOf];
     }
 
     public void EnableEs()

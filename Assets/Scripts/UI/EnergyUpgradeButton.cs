@@ -6,13 +6,13 @@ public class EnergyUpgradeButton : ButtonClicker
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if (DataManager.instance.playerData.gold < DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy]) return;
+        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level)) return;
         base.OnPointerDown(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        if (DataManager.instance.playerData.gold < DataManager.instance.energyData.priceUpgrades[DataManager.instance.playerData.indexEnergy]) return;
+        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level)) return;
         base.OnPointerUp(eventData);
         if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) energyUpgradeHandler.Upgrade();
     }
