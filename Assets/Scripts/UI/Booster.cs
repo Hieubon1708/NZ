@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UpgradeEvolutionController;
 
 public class Booster : MonoBehaviour
 {
@@ -20,8 +21,12 @@ public class Booster : MonoBehaviour
         instance = this;
     }
 
-    private void OnEnable()
+    public void StartGame()
     {
+        for (int i = 0; i < weaponBoosters.Length; i++)
+        {
+            weaponBoosters[i].gameObject.SetActive(true);
+        }
         ResetBooster();
         EnableBooster();
         CheckBoosterState();
@@ -65,6 +70,60 @@ public class Booster : MonoBehaviour
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.SAW) sawBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.FLAME) flameBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(true);
+        }
+    }
+
+    public void DecreaseEnergySaw()
+    {
+        if (UpgradeEvolutionController.instance.saws.Contains(SAWEVO.DECREASEENERGY))
+        {
+            for (int i = 0; i < weaponBoosters.Length; i++)
+            {
+                if (weaponBoosters[i] is SawBooster)
+                {
+                    weaponBoosters[i].SubtractEnergy(25f);
+                }
+            }
+        }
+    }
+
+    public void DecreaseEnergyFlame()
+    {
+        if (UpgradeEvolutionController.instance.flames.Contains(FLAMEEVO.DECREASEENERGY))
+        {
+            int level = UpgradeEvolutionController.instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS);
+            int percentage = 0;
+
+            if (level == 1) percentage = 15;
+            else if (level == 2) percentage = 30;
+
+            for (int i = 0; i < weaponBoosters.Length; i++)
+            {
+                if (weaponBoosters[i] is FlameBooster)
+                {
+                    weaponBoosters[i].SubtractEnergy(percentage);
+                }
+            }
+        }
+    }
+
+    public void DecreaseEnergyMachineGun()
+    {
+        if (UpgradeEvolutionController.instance.machineGuns.Contains(MACHINEGUNEVO.DECREASEENERGY))
+        {
+            int level = UpgradeEvolutionController.instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.DECREASEENERGY);
+            int percentage = 0;
+
+            if (level == 1) percentage = 10;
+            else if (level == 2) percentage = 20;
+
+            for (int i = 0; i < weaponBoosters.Length; i++)
+            {
+                if (weaponBoosters[i] is MachineGunBooster)
+                {
+                    weaponBoosters[i].SubtractEnergy(percentage);
+                }
+            }
         }
     }
 

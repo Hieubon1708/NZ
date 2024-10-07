@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 using static UpgradeEvolutionController;
@@ -43,32 +42,19 @@ public class FlameHandler : WeaponShoter
         }
 
         AttackRadiusChange();
+        AttackCooldownChange();
+        AttackDurationChange();
+        SetBurning();
+        Booster.instance.DecreaseEnergyFlame();
     }
 
     public void SetBurning()
     {
         if (instance.flames.Contains(FLAMEEVO.BURNING))
         {
-
-        }
-    }
-
-    public void DecreaseEnergy()
-    {
-        if (instance.flames.Contains(FLAMEEVO.DECREASEENERGY))
-        {
-            int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS);
-            int percentage = 0;
-
-            if (level == 1) percentage = 15;
-            else if (level == 2) percentage = 30;
-
-            for (int i = 0; i < Booster.instance.weaponBoosters.Length; i++)
+            for (int i = 0; i < ParController.instance.flameThrowers.Length; i++)
             {
-                if (Booster.instance.weaponBoosters[i] is FlameBooster)
-                {
-                    Booster.instance.weaponBoosters[i].SubtractEnergy(percentage);
-                }
+                ParController.instance.flameThrowers[i].name = "50";
             }
         }
     }

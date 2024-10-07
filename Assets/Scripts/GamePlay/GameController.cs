@@ -31,7 +31,6 @@ public class GameController : MonoBehaviour
 
     public GameObject menuCamera;
     public GameObject gameCamera;
-    public GameObject booster;
     public GameObject buttonStart;
     public GameObject touchScreen;
     public GameObject colDisplay;
@@ -166,6 +165,7 @@ public class GameController : MonoBehaviour
     {
         SetValue(true);
         BlockController.instance.StartGame();
+        Booster.instance.StartGame();
         EnemyTowerController.instance.NextTower();
     }
 
@@ -175,7 +175,6 @@ public class GameController : MonoBehaviour
         gameCamera.SetActive(isActive);
         touchScreen.SetActive(isActive);
         buttonStart.SetActive(!isActive);
-        booster.SetActive(isActive);
         isStart = isActive;
         BlockController.instance.SetActiveUI(!isActive);
         CarController.instance.multiplier = isActive ? 1 : 0;

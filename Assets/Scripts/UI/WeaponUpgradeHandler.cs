@@ -50,11 +50,11 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             lastUpgrade.SetActive(false);
+            if (weaponShoter.weaponType == GameController.WEAPON.SAW) UIUpgradeEvolution.instance.ShowPanelSawEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UIUpgradeEvolution.instance.ShowPanelFlameEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UIUpgradeEvolution.instance.ShowPanelMachineGunEvo();
         }
-        else
-        {
-            UpgradeHandle();
-        }
+        UpgradeHandle();
     }
 
     public override void UpgradeHandle()

@@ -1,31 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UpgradeEvolutionController;
 
 public class MachineGunHandler : WeaponShoter
 {
     public GameObject preBullet;
     public GameObject preBulletBooster;
-    public int count;
-    public float timeDistance;
-    public float timeDistanceBooster;
-    public float speedBullet;
-    public float turnTimeDelay;
     public List<List<GameObject>> listBullets = new List<List<GameObject>>();
     public List<List<MachineGunBulletHandler>> listScBullets = new List<List<MachineGunBulletHandler>>();
     public List<GameObject> listBulletBoosters = new List<GameObject>();
     public List<MachineGunBulletHandler> listScBulletBoosters = new List<MachineGunBulletHandler>();
     public Transform[] containers;
     public GameObject block;
+
+    public int startAmoutLine = 1;
     public int amoutLine;
+    public int count;
+
     Coroutine[] shots;
     Coroutine shotBoosters;
     Coroutine endBooster;
     int currentCountBoosterBullet;
+    int currentCountBullet;
+
+    public float timeDistance;
+    public float timeDistanceBooster;
+    public float speedBullet;
+    public float cooldown;
+    float startCooldown = 1;
+    public float attackDuration;
+    float startAttackDuration = 2;
 
     public void Awake()
     {
         Generate();
+    }
+
+    public override void LoadData()
+    {
+        AddBullet();
+        AttackDurationChange();
+        AttackCooldownChange();
+        Booster.instance.DecreaseEnergyMachineGun();
+    }
+
+    public void AddBullet()
+    {
+        if (instance.machineGuns.Contains(MACHINEGUNEVO.ADDBULLET))
+        {
+            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ADDBULLET);
+            amoutLine = startAmoutLine + amout;
+        }
+    }
+
+    public void AttackDurationChange()
+    {
+        float multiplier = 1;
+        if (instance.machineGuns.Contains(MACHINEGUNEVO.ATTACKDURATION))
+        {
+            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION);
+
+            if (level == 1) multiplier = 0.75f;
+            else if (level == 2) multiplier = 0.5f;
+            else if (level == 3) multiplier = 0.25f;
+        }
+        attackDuration = startAttackDuration * multiplier;
+    }
+
+    public void AttackCooldownChange()
+    {
+        float multiplier = 1;
+        if (instance.machineGuns.Contains(MACHINEGUNEVO.ATTACKCOOLDOWN))
+        {
+            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKCOOLDOWN);
+
+            if (level == 1) multiplier = 0.7f;
+            else if (level == 2) multiplier = 0.5f;
+            else if (level == 3) multiplier = 0.3f;
+        }
+        cooldown = startCooldown * multiplier;
     }
 
     public override void StartGame()
@@ -45,7 +99,7 @@ public class MachineGunHandler : WeaponShoter
 
     void ShotAll()
     {
-        for (int i = 0; i < listBullets.Count; i++)
+        for (int i = 0; i < amoutLine; i++)
         {
             shots[i] = StartCoroutine(Shot(listBullets[i], listScBullets[i], i, timeDistance));
         }
@@ -53,8 +107,8 @@ public class MachineGunHandler : WeaponShoter
 
     void Generate()
     {
-        shots = new Coroutine[amoutLine];
-        for (int j = 0; j < amoutLine; j++)
+        shots = new Coroutine[3];
+        for (int j = 0; j < 3; j++)
         {
             List<GameObject> listB = new List<GameObject>();
             List<MachineGunBulletHandler> listScB = new List<MachineGunBulletHandler>();
@@ -92,17 +146,21 @@ public class MachineGunHandler : WeaponShoter
     {
         while (true)
         {
+            float time = 0;
             ani.SetBool("attack", true);
-            for (int i = 0; i < listB.Count; i++)
+            while (time <= attackDuration)
             {
-                SetDefaultBullet(listB[i], listScB[i], index);
-                listB[i].transform.SetParent(GameController.instance.poolBullets);
-                listB[i].SetActive(true);
-                listScB[i].Shot(speedBullet, listB[i].transform.right);
+                time += timeDistance;
+                SetDefaultBullet(listB[currentCountBullet], listScB[currentCountBullet], index);
+                listB[currentCountBullet].transform.SetParent(GameController.instance.poolBullets);
+                listB[currentCountBullet].SetActive(true);
+                listScB[currentCountBullet].Shot(speedBullet, listB[currentCountBullet].transform.right);
+                currentCountBullet++;
+                if (currentCountBullet == listB.Count) currentCountBullet = 0;
                 yield return new WaitForSeconds(timeDistance);
             }
             ani.SetBool("attack", false);
-            yield return new WaitForSeconds(turnTimeDelay);
+            yield return new WaitForSeconds(cooldown);
         }
     }
 
@@ -156,11 +214,18 @@ public class MachineGunHandler : WeaponShoter
 
     public override void SetDamage(int damage)
     {
+        float multiplier = 1;
+        float decreaseDamage = 1;
+
+        IncreaseDamage(ref multiplier);
+
         for (int i = 0; i < listBullets.Count; i++)
         {
+            if (i == 1) decreaseDamage = 0.4f;
+            else if (i == 2) decreaseDamage = 0.5f;
             for (int j = 0; j < listBullets[i].Count; j++)
             {
-                listBullets[i][j].name = damage.ToString();
+                listBullets[i][j].name = (damage * multiplier * decreaseDamage).ToString();
             }
         }
     }
@@ -173,8 +238,15 @@ public class MachineGunHandler : WeaponShoter
         }
     }
 
-    public override void LoadData()
+    void IncreaseDamage(ref float multiplier)
     {
-        throw new System.NotImplementedException();
+        if (instance.machineGuns.Contains(MACHINEGUNEVO.INCREASEDAMAGE))
+        {
+            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.INCREASEDAMAGE);
+
+            if (level == 1) multiplier = 1.2f;
+            else if (level == 2) multiplier = 1.4f;
+            else if (level == 3) multiplier = 1.6f;
+        }
     }
 }

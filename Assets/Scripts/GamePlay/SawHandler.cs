@@ -32,7 +32,7 @@ public class SawHandler : WeaponShoter
     public override void LoadData()
     {
         AddSawBooster();
-        DecreaseEnergy();
+        Booster.instance.DecreaseEnergySaw();
     }
 
     public void AddSawBooster()
@@ -40,20 +40,6 @@ public class SawHandler : WeaponShoter
         if (instance.saws.Contains(SAWEVO.ADDFROMBOOSTER))
         {
             amoutSawFBooster++;
-        }
-    }
-
-    public void DecreaseEnergy()
-    {
-        if (instance.saws.Contains(SAWEVO.DECREASEENERGY))
-        {
-            for (int i = 0; i < Booster.instance.weaponBoosters.Length; i++)
-            {
-                if (Booster.instance.weaponBoosters[i] is SawBooster)
-                {
-                    Booster.instance.weaponBoosters[i].SubtractEnergy(25f);
-                }
-            }
         }
     }
 
@@ -75,11 +61,10 @@ public class SawHandler : WeaponShoter
     {
         if (collision.CompareTag("Enemy"))
         {
-            if (listEs.Contains(collision.gameObject))
+            if (listEs.Contains(collision.attachedRigidbody.gameObject))
             {
                 EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(collision.attachedRigidbody.gameObject);
-                eSc.gameObject.layer = eSc.layerOrigin;
-                eSc.colObj.layer = eSc.layerBumping;
+                eSc.EndBumpByWeapon();
                 listEs.Remove(collision.attachedRigidbody.gameObject);
             }
             count--;
@@ -123,8 +108,7 @@ public class SawHandler : WeaponShoter
                     for (int i = 0; i < listEs.Count; i++)
                     {
                         EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(listEs[i]);
-                        eSc.gameObject.layer = eSc.layerBumping;
-                        eSc.colObj.layer = eSc.layerBumping;
+                        eSc.StartBumpByWeapon();
                     }
                 }
             }
@@ -148,7 +132,12 @@ public class SawHandler : WeaponShoter
                     percentage = 30;
                     time = 2.5f;
                 }
-                Stun(percentage, time);
+                int random = Random.Range(0, 100);
+
+                if (random <= percentage)
+                {
+                    Stun(percentage, time);
+                }
             }
 
             sawBlood.Play();
@@ -164,12 +153,7 @@ public class SawHandler : WeaponShoter
             for (int i = 0; i < listEs.Count; i++)
             {
                 EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(listEs[i]);
-
-                if (eSc.stunByWeapon != null) StopCoroutine(eSc.stunByWeapon);
-                eSc.stunByWeapon = StartCoroutine(eSc.StunByWeapon(time));
-
-                if (eSc.animator.GetBool("attack")) eSc.animator.SetBool("attack", false);
-
+                eSc.Stun(time);
                 Vector2 topBound = eSc.GetPositionTopBound(eSc.col);
                 ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), time, eSc.transform);
             }

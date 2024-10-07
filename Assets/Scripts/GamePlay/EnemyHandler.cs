@@ -120,8 +120,8 @@ public class EnemyHandler : MonoBehaviour
 
     IEnumerator BlockCollisionHandle(GameObject b, int subtractHp)
     {
+        if (b == null) yield break;
         BlockHandler scB = BlockController.instance.GetScBlock(b).blockHandler;
-        if (scB == null) yield break;
         while (scB.blockInfo.hp > 0 && !isStunByWeapon)
         {
             scB.SubtractHp(subtractHp);
@@ -147,6 +147,20 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
+    public void StartBumpByWeapon()
+    {
+        isBumping = true;
+        gameObject.layer = layerBumping;
+        colObj.layer = layerBumping;
+    }
+
+    public void EndBumpByWeapon()
+    {
+        isBumping = false;
+        gameObject.layer = layerOrigin;
+        colObj.layer = layerOrigin;
+    }
+
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (!content.activeSelf) return;
@@ -161,6 +175,13 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Boom")) SubtractHp(499);
     }
 
+    public void Stun(float time)
+    {
+        if (animator.GetBool("attack")) animator.SetBool("attack", false);
+        if (stunByWeapon != null) StopCoroutine(stunByWeapon);
+        stunByWeapon = StartCoroutine(StunByWeapon(time));
+    }
+
     public IEnumerator StunByWeapon(float time)
     {
         isStunByWeapon = true;
@@ -171,15 +192,9 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (playerCollision == null) StartCoroutine(PlayerCollisionHandle(int.Parse(name)));
-        }
-        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
-        {
-            isCollisionWithCar = true;
-            if (blockCollision == null) StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
-        }
+        if (collision.gameObject.CompareTag("Player")) playerCollision = StartCoroutine(PlayerCollisionHandle(int.Parse(name)));
+        if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
 
@@ -234,11 +249,11 @@ public class EnemyHandler : MonoBehaviour
         {
             if (playerCollision != null) StopCoroutine(playerCollision);
         }
-        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
+        if (collision.gameObject.CompareTag("Block"))
         {
-            isCollisionWithCar = false;
             if (blockCollision != null) StopCoroutine(blockCollision);
         }
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
         {
@@ -251,6 +266,7 @@ public class EnemyHandler : MonoBehaviour
     public void CheckJump(Collision2D collision)
     {
         if (!isJump
+            && !isStunByWeapon
             && collision.gameObject.CompareTag("Enemy")
             && collision.contacts[0].normal.x >= 0.99f
             && !isStunned
@@ -263,7 +279,7 @@ public class EnemyHandler : MonoBehaviour
 
     void CheckBump(Collision2D collision)
     {
-        if (isCollisionWithCar
+        if (frontalCollision == null
             && isCollisionWithGround
             && collision.contacts[0].normal.y <= -0.85f)
         {
@@ -275,13 +291,10 @@ public class EnemyHandler : MonoBehaviour
     {
         if (isCollisionWithCar
             || gameObject.layer == layerBumping
-            || frontalCollision != null)
+            || frontalCollision != null
+            || isStunByWeapon)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
-        }
-        else if (isStunByWeapon)
-        {
-            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed, rb.velocity.y);
         }
         else
         {
@@ -328,6 +341,7 @@ public class EnemyHandler : MonoBehaviour
     protected virtual void DeathHandle()
     {
         SetColNKinematicNRevival(false);
+        StopCoroutines();
 
         int deathRandomizer = Random.Range(0, 10);
 
@@ -376,7 +390,11 @@ public class EnemyHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        SetDefaultField();
+        if (enemyInfo.hp > 0)
+        {
+            StopCoroutines();
+            SetDefaultField();
+        }
     }
 
     public void SetDefaultField()
@@ -390,18 +408,49 @@ public class EnemyHandler : MonoBehaviour
         isShot = false;
         frontalCollision = null;
 
-        if (jump != null) StopCoroutine(jump);
-        if (sawTrigger != null) StopCoroutine(sawTrigger);
-        if (flameTrigger != null) StopCoroutine(flameTrigger);
-        if (stunnedDelay != null) StopCoroutine(stunnedDelay);
-        if (blockCollision != null) StopCoroutine(blockCollision);
-        if (playerCollision != null) StopCoroutine(playerCollision);
-        if (flameBurningTrigger != null) StopCoroutine(playerCollision); flameBurningTrigger = null;
+        if (animator.GetBool("attack")) animator.SetBool("attack", false);
 
         gameObject.layer = layerOrigin;
         colObj.layer = layerOrigin;
         colObj.SetActive(true);
     }
+
+    void StopCoroutines()
+    {
+        if (jump != null)
+        {
+            StopCoroutine(jump); jump = null;
+        }
+        if (sawTrigger != null)
+        {
+            StopCoroutine(sawTrigger); sawTrigger = null;
+        }
+        if (flameTrigger != null)
+        {
+            StopCoroutine(flameTrigger); flameTrigger = null;
+        }
+        if (stunnedDelay != null)
+        {
+            StopCoroutine(stunnedDelay); stunnedDelay = null;
+        }
+        if (stunByWeapon != null)
+        {
+            StopCoroutine(stunByWeapon); stunByWeapon = null;
+        }
+        if (blockCollision != null)
+        {
+            StopCoroutine(blockCollision); blockCollision = null;
+        }
+        if (playerCollision != null)
+        {
+            StopCoroutine(playerCollision); playerCollision = null;
+        }
+        if (flameBurningTrigger != null)
+        {
+            StopCoroutine(flameBurningTrigger); flameBurningTrigger = null;
+        }
+    }
+
     IEnumerator SetFalseIsStunned(float time)
     {
         yield return new WaitForSeconds(time);

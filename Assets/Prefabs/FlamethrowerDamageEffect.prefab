@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 198926205939772909}
   - component: {fileID: 199032384947581394}
   - component: {fileID: 210474111524108133}
-  - component: {fileID: -1614233513589301687}
+  - component: {fileID: 3017091953890706381}
   m_Layer: 0
   m_Name: FlamethrowerDamageEffect
   m_TagString: Untagged
@@ -2381,7 +2381,7 @@ SortingGroup:
   m_SortingLayer: 10
   m_SortingOrder: 11
   m_SortAtRoot: 0
---- !u!114 &-1614233513589301687
+--- !u!114 &3017091953890706381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2390,6 +2390,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1396825472111115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63569484cb22ff044ba06536343a785d, type: 3}
+  m_Script: {fileID: 11500000, guid: 29ced58e722f219419cb05939911d1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 1396825472111115}

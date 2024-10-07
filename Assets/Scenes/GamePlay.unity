@@ -5773,7 +5773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &674470578
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7368,7 +7368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f27c34b666596a4fb4035dbce65b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 3
   maxLevel: 1
   textAmout: {fileID: 12777269}
 --- !u!1 &936067794
@@ -7973,7 +7973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f27c34b666596a4fb4035dbce65b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   maxLevel: 1
   textAmout: {fileID: 669760125}
 --- !u!1 &972273450
@@ -8844,7 +8844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f27c34b666596a4fb4035dbce65b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   maxLevel: 3
   textAmout: {fileID: 138218849}
 --- !u!1 &1042387268
@@ -11933,7 +11933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1528667895
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13207,7 +13207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1658376235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15925,7 +15925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saws: 
-  flames: 0000000000000000
+  flames: 
   machineGuns: 
 --- !u!1 &1972759679
 GameObject:
@@ -16044,14 +16044,13 @@ MonoBehaviour:
   poolDynamics: {fileID: 1072457010}
   poolPars: {fileID: 1210177669}
   defaultDir: {fileID: 7488597057755668538}
-  timeBlockNPlayerDamage: 0.25
+  timeBlockNPlayerDamage: 0.5
   timeSawDamage: 0.25
   timeFlameDamage: 0.25
   timeFlameBurningDamage: 0.5
   backgroundSpeed: 1.15
   menuCamera: {fileID: 1193953959}
   gameCamera: {fileID: 958432118}
-  booster: {fileID: 1528667894}
   buttonStart: {fileID: 78977791}
   touchScreen: {fileID: 258199982149005610}
   colDisplay: {fileID: 431566763661507359, guid: 15487ee5d3f302644a020059fbba39a3, type: 3}
@@ -16892,7 +16891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2113893545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17195,7 +17194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f27c34b666596a4fb4035dbce65b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 4
   maxLevel: 3
   textAmout: {fileID: 1361823937}
 --- !u!1 &2145900591

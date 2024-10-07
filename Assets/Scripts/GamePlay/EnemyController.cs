@@ -231,6 +231,7 @@ public class EnemyController : MonoBehaviour
 
         e.transform.position = new Vector2(x, y);
 
+        eSc.SetDefaultField();
         eSc.SetColNKinematicNRevival(true);
         eSc.SetActiveContentNView(true);
         eSc.ResetBone();

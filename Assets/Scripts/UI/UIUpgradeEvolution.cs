@@ -441,7 +441,7 @@ public class UIUpgradeEvolution : MonoBehaviour
         }
 
         panelSawEvo.SetActive(true);
-        UIEffect.instance.FadeAll(sawCanvasGroup, 1, 0.25f);
+        UIEffect.instance.FadeAll(sawCanvasGroup, 1, 0.15f);
     }
 
     public void ShowPanelFlameEvo()
@@ -478,7 +478,7 @@ public class UIUpgradeEvolution : MonoBehaviour
         }
 
         panelFlameEvo.SetActive(true);
-        UIEffect.instance.FadeAll(flameCanvasGroup, 1, 0.25f);
+        UIEffect.instance.FadeAll(flameCanvasGroup, 1, 0.15f);
     }
 
     public void ShowPanelMachineGunEvo()
@@ -515,7 +515,7 @@ public class UIUpgradeEvolution : MonoBehaviour
         }
 
         panelMachineGunEvo.SetActive(true);
-        UIEffect.instance.FadeAll(machineGunCanvasGroup, 1, 0.25f);
+        UIEffect.instance.FadeAll(machineGunCanvasGroup, 1, 0.15f);
     }
 
     public void HidePanelSawEvo()
