@@ -2,9 +2,9 @@ using TMPro;
 using UnityEngine;
 using static UpgradeEvolutionController;
 
-public class SawEvo : MonoBehaviour
+public class MachineGunEvo : MonoBehaviour
 {
-    public SAWEVO type;
+    public MACHINEGUNEVO type;
     public int maxLevel;
     public TextMeshProUGUI content;
 }

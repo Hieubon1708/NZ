@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public float timeBlockNPlayerDamage;
     public float timeSawDamage;
     public float timeFlameDamage;
+    public float timeFlameBurningDamage;
     public float backgroundSpeed;
 
     public GameObject menuCamera;
@@ -65,9 +66,9 @@ public class GameController : MonoBehaviour
         MapGenerate(level);
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
+        UpgradeEvolutionController.instance.LoadData();
         PlayerHandler.instance.LoadData();
         BlockController.instance.LoadData();
-        UpgradeEvolutionController.instance.LoadData();
         UIHandler.instance.LoadData();
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
@@ -222,15 +223,15 @@ public class GameController : MonoBehaviour
             int weaponLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.level;
             int weaponUpgradeLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.levelUpgrade;
 
-            WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge();
-            WeaponDataStorage weaponDataStorage = new WeaponDataStorage(weaponType, weaponLevel, weaponUpgradeLevel, weaponEvolutionDataStorge);
+            WeaponDataStorage weaponDataStorage = new WeaponDataStorage(weaponType, weaponLevel, weaponUpgradeLevel);
             blockDataStorages[i] = new BlockDataStorage(blockLevel, blockGold, weaponDataStorage);
         }
 
         PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
+        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
 
-        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage);
+        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

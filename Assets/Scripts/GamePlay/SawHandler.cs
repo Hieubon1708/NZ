@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +26,34 @@ public class SawHandler : WeaponShoter
             GameObject s = Instantiate(sawBoosterPref, container);
             sawBoosters[i] = s.GetComponent<Rigidbody2D>();
             s.SetActive(false);
+        }
+    }
+
+    public override void LoadData()
+    {
+        AddSawBooster();
+        DecreaseEnergy();
+    }
+
+    public void AddSawBooster()
+    {
+        if (instance.saws.Contains(SAWEVO.ADDFROMBOOSTER))
+        {
+            amoutSawFBooster++;
+        }
+    }
+
+    public void DecreaseEnergy()
+    {
+        if (instance.saws.Contains(SAWEVO.DECREASEENERGY))
+        {
+            for (int i = 0; i < Booster.instance.weaponBoosters.Length; i++)
+            {
+                if (Booster.instance.weaponBoosters[i] is SawBooster)
+                {
+                    Booster.instance.weaponBoosters[i].SubtractEnergy(25f);
+                }
+            }
         }
     }
 
@@ -149,25 +176,7 @@ public class SawHandler : WeaponShoter
         }
     }
 
-    public override void StartGame()
-    {
-        if (instance.saws.Contains(SAWEVO.ADDFROMBOOSTER))
-        {
-            amoutSawFBooster++;
-        }
-        if (instance.saws.Contains(SAWEVO.DECREASEENERGY))
-        {
-            for (int i = 0; i < Booster.instance.weaponBoosters.Length; i++)
-            {
-                if (Booster.instance.weaponBoosters[i] is SawBooster)
-                {
-                    Booster.instance.weaponBoosters[i].SubtractEnergy(25f);
-                }
-            }
-        }
-        SetDamageBooster(int.Parse(sawBoosters[0].name));
-        SetDamage(int.Parse(gameObject.name));
-    }
+    public override void StartGame() { }
 
     public override void UseBooster()
     {

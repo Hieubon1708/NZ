@@ -78,6 +78,7 @@ public class BlockController : MonoBehaviour
                 int weaponLevelUpgrade = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevelUpgrade;
 
                 blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
+                if(blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.LoadData();
             }
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);

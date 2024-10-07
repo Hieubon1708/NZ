@@ -23,6 +23,8 @@ public abstract class WeaponShoter : MonoBehaviour
         target = null;
     }
 
+    public abstract void LoadData();  
+
     public IEnumerator Rotate()
     {
         while (true)

@@ -40,8 +40,10 @@ public class EnemyHandler : MonoBehaviour
     Coroutine jump;
     Coroutine sawTrigger;
     Coroutine flameTrigger;
+    Coroutine flameBurningTrigger;
     Coroutine blockCollision;
     Coroutine playerCollision;
+
     public LayerMask layerOrigin;
     public LayerMask layerBumping;
 
@@ -88,7 +90,22 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
+            if (flameBurningTrigger == null && UpgradeEvolutionController.instance.flames.Contains(UpgradeEvolutionController.FLAMEEVO.BURNING))
+            {
+                int damageBurning;
+                ParController.instance.PlayFlameThrowerParticle(transform.position, transform, out damageBurning);
+                flameBurningTrigger = StartCoroutine(FlameBurningTriggerHandle(damageBurning));
+            }
             flameTrigger = StartCoroutine(FlamewTriggerHandle(subtractHp));
+        }
+    }
+
+    IEnumerator FlameBurningTriggerHandle(int subtractHp)
+    {
+        while (enemyInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeFlameBurningDamage);
         }
     }
 
@@ -149,7 +166,7 @@ public class EnemyHandler : MonoBehaviour
         isStunByWeapon = true;
         yield return new WaitForSeconds(time);
         isStunByWeapon = false;
-        if(isAttack) animator.SetBool("attack", true);
+        if (isAttack) animator.SetBool("attack", true);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -220,7 +237,7 @@ public class EnemyHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
         {
             isCollisionWithCar = false;
-            if(blockCollision != null) StopCoroutine (blockCollision);
+            if (blockCollision != null) StopCoroutine(blockCollision);
         }
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
         if (collision.gameObject == frontalCollision)
@@ -379,6 +396,7 @@ public class EnemyHandler : MonoBehaviour
         if (stunnedDelay != null) StopCoroutine(stunnedDelay);
         if (blockCollision != null) StopCoroutine(blockCollision);
         if (playerCollision != null) StopCoroutine(playerCollision);
+        if (flameBurningTrigger != null) StopCoroutine(playerCollision); flameBurningTrigger = null;
 
         gameObject.layer = layerOrigin;
         colObj.layer = layerOrigin;

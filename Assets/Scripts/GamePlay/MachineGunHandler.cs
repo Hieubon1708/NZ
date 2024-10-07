@@ -172,4 +172,9 @@ public class MachineGunHandler : WeaponShoter
             listBulletBoosters[i].name = damage.ToString();
         }
     }
+
+    public override void LoadData()
+    {
+        throw new System.NotImplementedException();
+    }
 }

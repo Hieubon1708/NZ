@@ -91,7 +91,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3487846816066549902}
   - {fileID: 4894484301797843}
@@ -417,6 +417,19 @@ MonoBehaviour:
   col: {fileID: 1663853724686801}
   colBooster: {fileID: 1118204054984539111}
   flameThrover: {fileID: 212707374628013382}
+  flameEvos:
+  - {fileID: 6407423368650806151}
+  - {fileID: 5825348439485311066}
+  - {fileID: 6196856881015142773}
+  - {fileID: 5441392327585667003}
+  - {fileID: 5479327610178859917}
+  - {fileID: 6244513295490211297}
+  - {fileID: 6994744346885523049}
+  colEvos:
+  - {fileID: 61172323965377666}
+  - {fileID: 8246348983522097439}
+  cooldown: 1
+  attackDuration: 2
 --- !u!1 &1878955347753520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10001,7 +10014,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.006, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4849455382580179669}
   - {fileID: 6251256253071691620}

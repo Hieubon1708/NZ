@@ -10,6 +10,7 @@ public class ParController : MonoBehaviour
     public GameObject blockDestroyPrefab;
     public GameObject towerExplosionHolePrefab;
     public GameObject towerExplosionPrefab;
+    public GameObject flameThrowerPrefab;
     public GameObject stunOnEnemyPrefab;
     public GameObject playerDiePrefab;
     public GameObject boomEffectPrefab;
@@ -18,6 +19,7 @@ public class ParController : MonoBehaviour
     public GameObject gunHitOnEnemyPrefab;
     public GameObject gunHitExplosionPrefab;
     public GameObject[] gunHitOnRoads;
+    public GameObject[] flameThrowers;
     public GameObject[] stunOnEnemies;
     public GameObject[] gunHitExplosions;
     public GameObject[] gunHitOnEnemies;
@@ -32,12 +34,14 @@ public class ParController : MonoBehaviour
     public Transform container;
     public int amoutHoleBullet;
     public int amoutZomeDie;
+    public int amoutFlameThrower;
     public int amoutBoom;
     public int amoutBlockDestroy;
     public int amoutGunHitOnEnemy;
     public int amoutStunOnEnemy;
     public int amoutGunHitOnRoad;
     int currentCount;
+    int currentCountFlameThrower;
     int currentCountZomDie;
     int currentCountBlockDestroy;
     int currentCountBoom;
@@ -110,6 +114,24 @@ public class ParController : MonoBehaviour
             stunOnEnemies[i] = Instantiate(stunOnEnemyPrefab, container);
             stunOnEnemies[i].SetActive(false);
         }
+        flameThrowers = new GameObject[amoutFlameThrower];
+        for (int i = 0; i < flameThrowers.Length; i++)
+        {
+            flameThrowers[i] = Instantiate(flameThrowerPrefab, container);
+            flameThrowers[i].SetActive(false);
+        }
+    }
+
+    public void PlayFlameThrowerParticle(Vector2 pos, Transform e, out int damage)
+    {
+        GameObject f = flameThrowers[currentCountFlameThrower];
+        f.name = "50";
+        damage = int.Parse(f.name);
+        f.transform.position = pos;
+        f.transform.SetParent(e);
+        f.SetActive(true);
+        currentCountFlameThrower++;
+        if (currentCountFlameThrower == flameThrowers.Length) currentCountFlameThrower = 0;
     }
 
     public void PlayStunOnEnemyParticle(Vector2 pos, float time, Transform e)

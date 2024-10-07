@@ -2,6 +2,7 @@
 using System.IO;
 using UnityEngine;
 using static GameController;
+using static UpgradeEvolutionController;
 
 public class DataManager : MonoBehaviour
 {
@@ -288,13 +289,15 @@ public class DataStorage
     public PLayerDataStorage pLayerDataStorage;
     public BlockDataStorage[] blockDataStorage;
     public EnergyDataStorage energyDataStorage;
+    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
 
-    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage)
+    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
     {
         this.level = level;
         this.pLayerDataStorage = pLayerDataStorage;
         this.blockDataStorage = blockDataStorage;
         this.energyDataStorage = energyDataStorage;
+        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
     }
 }
 
@@ -337,20 +340,26 @@ public class WeaponDataStorage
     public WEAPON weaponType;
     public int weaponLevel;
     public int weaponLevelUpgrade;
-    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
 
-    public WeaponDataStorage(WEAPON weaponType, int weaponLevel, int weaponLevelUpgrade, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
+    public WeaponDataStorage(WEAPON weaponType, int weaponLevel, int weaponLevelUpgrade)
     {
         this.weaponType = weaponType;
         this.weaponLevel = weaponLevel;
         this.weaponLevelUpgrade = weaponLevelUpgrade;
-        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
     }
 }
 
 public class WeaponEvolutionDataStorge
 {
+    public SAWEVO[] sawEvos;
+    public FLAMEEVO[] flameEvos;
+    public MACHINEGUNEVO[] machineGunEvos;
 
+    public WeaponEvolutionDataStorge(SAWEVO[] sawEvos, FLAMEEVO[] flameEvos, MACHINEGUNEVO[] machineGunEvos)
+    {
+        this.sawEvos = sawEvos;
+        this.flameEvos = flameEvos;
+        this.machineGunEvos = machineGunEvos;
+    }
 }
-
 
