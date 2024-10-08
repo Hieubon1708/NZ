@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class MachineGunBuyButton : ButtonClicker
+public class MachineGunBuyButton : ButtonState
 {
     public MachineGunBuyHandler machineGunBuyHandler;
 

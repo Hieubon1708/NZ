@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class EnergyUpgradeButton : ButtonClicker
+public class EnergyUpgradeButton : ButtonState
 {
     public EnergyUpgradeHandler energyUpgradeHandler;
 

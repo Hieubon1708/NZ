@@ -28,6 +28,7 @@ public class DataManager : MonoBehaviour
     public BlockConfig blockConfig;
     public PLayerConfig playerConfig;
     public EnergyConfig energyConfig;
+    public ChanceConfig chanceConfig;
 
     public WeaponConfig[] weaponConfigs;
 
@@ -65,10 +66,12 @@ public class DataManager : MonoBehaviour
         TextAsset energyConfigJs = Resources.Load<TextAsset>("Datas/EnergyConfig");
         TextAsset weaponConfigJs = Resources.Load<TextAsset>("Datas/WeaponConfig");
         TextAsset playerConfigJs = Resources.Load<TextAsset>("Datas/PlayerConfig");
+        TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
 
         playerConfig = JsonConvert.DeserializeObject<PLayerConfig>(playerConfigJs.text);
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
+        chanceConfig = JsonConvert.DeserializeObject<ChanceConfig>(chanceConfigJs.text);
         weaponConfigs = JsonConvert.DeserializeObject<WeaponConfig[]>(weaponConfigJs.text);
 
         string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
@@ -208,6 +211,13 @@ public class BlockConfig
 }
 
 [System.Serializable]
+public class ChanceConfig
+{
+    //public int[] amoutUpgrades;
+    public float[][] chances;
+}
+
+[System.Serializable]
 public class WeaponConfig
 {
     public WEAPON weaponType;
@@ -289,15 +299,29 @@ public class DataStorage
     public PLayerDataStorage pLayerDataStorage;
     public BlockDataStorage[] blockDataStorage;
     public EnergyDataStorage energyDataStorage;
+    public ChanceDataStorage chanceDataStorage;
     public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
 
-    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
+    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
     {
         this.level = level;
         this.pLayerDataStorage = pLayerDataStorage;
         this.blockDataStorage = blockDataStorage;
         this.energyDataStorage = energyDataStorage;
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
+        this.chanceDataStorage = chanceDataStorage;
+    }
+}
+
+public class ChanceDataStorage
+{
+    public int level;
+    public int amout;
+
+    public ChanceDataStorage(int level, int amout)
+    {
+        this.level = level;
+        this.amout = amout;
     }
 }
 

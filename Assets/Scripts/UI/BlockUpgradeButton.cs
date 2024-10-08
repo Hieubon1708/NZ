@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class BlockUpgradeButton : ButtonClicker
+public class BlockUpgradeButton : ButtonState
 {
     public BlockUpgradeHandler blockUpgradeHandler;
 

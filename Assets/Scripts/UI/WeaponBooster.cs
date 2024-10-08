@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponBooster : ButtonClicker
+public class WeaponBooster : ButtonState
 {
     public int energy;
     public Booster booster;

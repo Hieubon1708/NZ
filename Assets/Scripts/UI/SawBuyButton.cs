@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class SawBuyButton : ButtonClicker
+public class SawBuyButton : ButtonState
 {
     public SawBuyHandler sawBuyHandler;
 

@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class FlameBuyButton : ButtonClicker
+public class FlameBuyButton : ButtonState
 {
     public FrameBuyHandler flameBuyHandler;
 

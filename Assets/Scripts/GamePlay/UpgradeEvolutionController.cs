@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static GameController;
-using static Unity.Collections.AllocatorManager;
 
 public class UpgradeEvolutionController : MonoBehaviour
 {

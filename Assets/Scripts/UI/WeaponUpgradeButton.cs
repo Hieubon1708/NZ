@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class WeaponUpgradeButton : ButtonClicker
+public class WeaponUpgradeButton : ButtonState
 {
     public WeaponUpgradeHandler weaponUpgradeHandler;
 

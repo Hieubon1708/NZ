@@ -65,10 +65,13 @@ public class GameController : MonoBehaviour
         MapGenerate(level);
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
-        UpgradeEvolutionController.instance.LoadData();
+
         PlayerHandler.instance.LoadData();
         BlockController.instance.LoadData();
         UIHandler.instance.LoadData();
+        SummonEquipment.instance.LoadData();
+        UpgradeEvolutionController.instance.LoadData();
+
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
     }
@@ -209,7 +212,6 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
-
             Block scBlock = BlockController.instance.blocks[i].GetComponent<Block>();
 
             int blockLevel = scBlock.level;
@@ -229,8 +231,9 @@ public class GameController : MonoBehaviour
         PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
+        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(SummonEquipment.instance.level, SummonEquipment.instance.amout);
 
-        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge);
+        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

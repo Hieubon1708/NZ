@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-public class BlockBuyButton : ButtonClicker
+public class BlockBuyButton : ButtonState
 {
     public BlockBuyHandler blockBuyHandler;
 
