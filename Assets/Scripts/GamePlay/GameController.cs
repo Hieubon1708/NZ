@@ -66,10 +66,11 @@ public class GameController : MonoBehaviour
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
 
+        UIHandler.instance.LoadData();
         PlayerHandler.instance.LoadData();
         BlockController.instance.LoadData();
-        UIHandler.instance.LoadData();
         SummonEquipment.instance.LoadData();
+        EquipmentController.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
 
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
@@ -228,7 +229,14 @@ public class GameController : MonoBehaviour
             blockDataStorages[i] = new BlockDataStorage(blockLevel, blockGold, weaponDataStorage);
         }
 
-        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold);
+        EquipmentDataStorage[] equipmentConfigs = new EquipmentDataStorage[EquipmentController.instance.amoutEquip];
+
+        for (int i = 0; i < equipmentConfigs.Length; i++)
+        {
+            equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
+        }
+
+        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, EquipmentController.instance.indexGun, EquipmentController.instance.indexBoom, EquipmentController.instance.indexCap, EquipmentController.instance.indexClothes, equipmentConfigs);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(SummonEquipment.instance.level, SummonEquipment.instance.amout);

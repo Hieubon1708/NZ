@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     public float hp;
     public int gold;
+    public PlayerSkiner playerSkiner;
 
     public float SubtractHp(float hp)
     {

@@ -77,4 +77,20 @@ public class UIHandler : MonoBehaviour
         if (type == Type.NOT_ENOUGH_MONEY) index = 1;
         frame.sprite = frameButtonBlockUpgradees[index];
     }
+
+    public string ConvertNumberAbbreviation(int number)
+    {
+        if (number >= 1000000)
+        {
+            return (number / 1000000f).ToString(number >= 1100000 ? "F1" : "F0") + " M";
+        }
+        else if (number >= 1000)
+        {
+            return (number / 1000f).ToString(number >= 1100 ? "F1" : "F0") + " K";
+        }
+        else
+        {
+            return number.ToString();
+        }
+    }
 }

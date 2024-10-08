@@ -29,6 +29,7 @@ public class DataManager : MonoBehaviour
     public PLayerConfig playerConfig;
     public EnergyConfig energyConfig;
     public ChanceConfig chanceConfig;
+    public EquipmentConfig equipmentConfig;
 
     public WeaponConfig[] weaponConfigs;
 
@@ -67,11 +68,13 @@ public class DataManager : MonoBehaviour
         TextAsset weaponConfigJs = Resources.Load<TextAsset>("Datas/WeaponConfig");
         TextAsset playerConfigJs = Resources.Load<TextAsset>("Datas/PlayerConfig");
         TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
+        TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
 
         playerConfig = JsonConvert.DeserializeObject<PLayerConfig>(playerConfigJs.text);
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
         chanceConfig = JsonConvert.DeserializeObject<ChanceConfig>(chanceConfigJs.text);
+        equipmentConfig = JsonConvert.DeserializeObject<EquipmentConfig>(equipmentConfigJs.text);
         weaponConfigs = JsonConvert.DeserializeObject<WeaponConfig[]>(weaponConfigJs.text);
 
         string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
@@ -101,7 +104,7 @@ public class DataManager : MonoBehaviour
     public int GetUpgradePriceWeaponConfig(int level, int levelUpgrade, WeaponConfig weaponConfig)
     {
         PriceConfig priceConfig = weaponConfig.weaponLevelConfigs[level].priceConfig;
-        return (int)(priceConfig.startPrice * Mathf.Pow(priceConfig.upgradeCoef, levelUpgrade));
+        return Mathf.RoundToInt(priceConfig.startPrice * Mathf.Pow(priceConfig.upgradeCoef, levelUpgrade));
     }
 
     public int GetEvolutionPriceWeaponConfig(int level, WeaponConfig weaponConfig)
@@ -218,6 +221,45 @@ public class ChanceConfig
 }
 
 [System.Serializable]
+public class EquipmentConfig
+{
+    public int[] dushUpgrades;
+    public int[] desginUpgrades;
+    public int dushStep;
+    public int designStep;
+
+    public GunConfig gunConfig;
+    public BoomConfig boomConfig;
+    public CapConfig capConfig;
+    public ClothesConfig clothesConfig;
+}
+
+public class GunConfig
+{
+    public int startDamage;
+    public float coef;
+}
+
+public class BoomConfig
+{
+    public int startDamage;
+    public float coef;
+}
+
+public class CapConfig
+{
+    public int startHp;
+    public float coef;
+}
+
+public class ClothesConfig
+{
+    public int startHp;
+    public float coef;
+}
+
+
+[System.Serializable]
 public class WeaponConfig
 {
     public WEAPON weaponType;
@@ -325,13 +367,37 @@ public class ChanceDataStorage
     }
 }
 
+public class EquipmentDataStorage
+{
+    public int type;
+    public int level;
+
+    public EquipmentDataStorage(int type, int level)
+    {
+        this.type = type;
+        this.level = level;
+    }
+}
+
 public class PLayerDataStorage
 {
     public int gold;
 
-    public PLayerDataStorage(int gold)
+    public int gunLevel;
+    public int boomLevel;
+    public int capLevel;
+    public int clothesLevel;
+
+    public EquipmentDataStorage[] equipmentDataStorages;
+
+    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages)
     {
         this.gold = gold;
+        this.gunLevel = gunLevel;
+        this.boomLevel = boomLevel;
+        this.capLevel = capLevel;
+        this.clothesLevel = clothesLevel;
+        this.equipmentDataStorages = equipmentDataStorages;
     }
 }
 

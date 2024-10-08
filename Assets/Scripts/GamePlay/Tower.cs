@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public float hp;
+    public int hp;
     public TextMeshProUGUI textHp;
 
     public void Start()
@@ -13,10 +13,10 @@ public class Tower : MonoBehaviour
 
     void ChangeTextHp()
     {
-        textHp.text = hp >= 1000 ? Mathf.Floor(hp / 100) / 10 + " K" : hp.ToString();
+        textHp.text = UIHandler.instance.ConvertNumberAbbreviation(hp).ToString();
     }
 
-    public float SubstractHp(float hp)
+    public float SubstractHp(int hp)
     {
         this.hp -= hp;
         if (this.hp < 0) this.hp = 0;

@@ -13,19 +13,19 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem bulletPar;
     public GameObject boomPref;
     public Rigidbody2D[] listBooms;
+    public SpriteRenderer[] boomSpriteRenderers;
     int boomIndex;
     public int boomCount;
     public Transform startBoom;
     Transform target;
     public bool isFindingTarget;
+    public CapsuleCollider2D col;
 
     private void Awake()
     {
         instance = this;
         BoomGenerate();
     }
-
-    public CapsuleCollider2D col;
 
     public void Start()
     {
@@ -58,11 +58,21 @@ public class PlayerController : MonoBehaviour
     void BoomGenerate()
     {
         listBooms = new Rigidbody2D[boomCount];
+        boomSpriteRenderers = new SpriteRenderer[boomCount];
         for (int i = 0; i < listBooms.Length; i++)
         {
             GameObject b = Instantiate(boomPref, transform);
             listBooms[i] = b.GetComponent<Rigidbody2D>();
+            boomSpriteRenderers[i] = b.GetComponent<SpriteRenderer>();
             b.SetActive(false);
+        }
+    }
+
+    public void BoomSkinChange()
+    {
+        for (int i = 0;i < boomSpriteRenderers.Length; i++)
+        {
+            boomSpriteRenderers[i].sprite = PlayerHandler.instance.playerInfo.playerSkiner.booms[EquipmentController.instance.indexBoom];
         }
     }
 

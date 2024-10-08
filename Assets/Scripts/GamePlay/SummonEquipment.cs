@@ -8,7 +8,7 @@ public class SummonEquipment : MonoBehaviour
     public static SummonEquipment instance;
 
     public Image panelChances;
-    public RectTransform chancesPopup;
+    public RectTransform chancePopup;
 
     public float[][] chancesData;
 
@@ -51,7 +51,7 @@ public class SummonEquipment : MonoBehaviour
 
         panelChances.gameObject.SetActive(true);
 
-        PanelNPopupChange(1f, 0.1f, 1f, 0.5f);
+        UIEffect.instance.ScalePopup(panelChances, chancePopup, 1f, 0.1f, 1f, 0.5f);
     }
 
     void LoadChances(int level)
@@ -78,17 +78,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void HideChances()
     {
-        panelChances.DOKill();
-        chancesPopup.DOKill();
-
-        PanelNPopupChange(0f, 0f, 0.8f, 0f);
-
+        UIEffect.instance.ScalePopup(panelChances, chancePopup, 0f, 0f, 0.8f, 0f);
         panelChances.gameObject.SetActive(false);
-    }
-
-    void PanelNPopupChange(float alpha, float durationAlpha, float scale, float durationScale)
-    {
-        panelChances.DOFade(alpha, durationAlpha);
-        chancesPopup.DOScale(scale, durationScale).SetEase(Ease.OutBack);
     }
 }
