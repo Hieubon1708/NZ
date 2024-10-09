@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0;i < boomSpriteRenderers.Length; i++)
         {
-            boomSpriteRenderers[i].sprite = PlayerHandler.instance.playerInfo.playerSkiner.booms[EquipmentController.instance.boomLevel];
+            boomSpriteRenderers[i].sprite = PlayerHandler.instance.playerInfo.playerSkiner.booms[PlayerInventory.instance.boomLevel];
         }
     }
 

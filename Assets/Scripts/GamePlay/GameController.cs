@@ -66,8 +66,9 @@ public class GameController : MonoBehaviour
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
 
-        UIHandler.instance.LoadData();
+        PlayerInventory.instance.LoadData();
         PlayerHandler.instance.LoadData();
+        UIHandler.instance.LoadData();
         BlockController.instance.LoadData();
         SummonEquipment.instance.LoadData();
         EquipmentController.instance.LoadData();
@@ -236,8 +237,9 @@ public class GameController : MonoBehaviour
             equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
         }
 
-        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.gunLevelUpgrade, EquipmentController.instance.boomLevelUpgrade, EquipmentController.instance.capLevelUpgrade, EquipmentController.instance.clothesLevelUpgrade);
-        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, EquipmentController.instance.gunLevel, EquipmentController.instance.boomLevel, EquipmentController.instance.clothesLevel, EquipmentController.instance.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage);
+        DesignDataStorage designDataStorage = new DesignDataStorage(PlayerInventory.instance.amoutGunDesign, PlayerInventory.instance.amoutCapDesign, PlayerInventory.instance.amoutBoomDesign, PlayerInventory.instance.amoutClothesDesign);
+        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(PlayerInventory.instance.gunLevelUpgrade, PlayerInventory.instance.boomLevelUpgrade, PlayerInventory.instance.capLevelUpgrade, PlayerInventory.instance.clothesLevelUpgrade);
+        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, PlayerInventory.instance.gunLevel, PlayerInventory.instance.boomLevel, PlayerInventory.instance.clothesLevel, PlayerInventory.instance.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(SummonEquipment.instance.level, SummonEquipment.instance.amout);

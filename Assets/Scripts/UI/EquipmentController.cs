@@ -46,17 +46,17 @@ public class EquipmentController : MonoBehaviour
     public TextMeshProUGUI currentLevelUpgrade;
     public TextMeshProUGUI currentslotUpgrade;
     public TextMeshProUGUI contentUpgrade;
+    public TextMeshProUGUI textGunDesign;
+    public TextMeshProUGUI textBoomDesign;
+    public TextMeshProUGUI textCapDesign;
+    public TextMeshProUGUI textClothesDesign;
+    public GameObject gunDesign;
+    public GameObject boomDesign;
+    public GameObject capDesign;
+    public GameObject clothesDesign;
+    public TextMeshProUGUI dush;
+    public TextMeshProUGUI desgin;
     public TextMeshProUGUI[] equipCurrentLevels;
-
-    public int capLevel;
-    public int clothesLevel;
-    public int gunLevel;
-    public int boomLevel;
-
-    public int capLevelUpgrade;
-    public int clothesLevelUpgrade;
-    public int gunLevelUpgrade;
-    public int boomLevelUpgrade;
 
     public EquipmentInfo equipMain;
     public EquipmentInfo equipSelected;
@@ -73,10 +73,14 @@ public class EquipmentController : MonoBehaviour
     public Sprite hp;
     public Sprite upArrow;
     public Sprite downArrow;
+    public Sprite buttonOk;
+    public Sprite buttonNok;
+
+    public Image maxLevel;
+    public Image levelUp;
 
     public Color upColor;
     public Color downColor;
-    public Color designNDushNok;
     public Color[] colorEquipLevels;
 
     public void Awake()
@@ -102,15 +106,10 @@ public class EquipmentController : MonoBehaviour
 
     public void LoadData()
     {
-        gunLevel = DataManager.instance.dataStorage.pLayerDataStorage.gunLevel;
-        boomLevel = DataManager.instance.dataStorage.pLayerDataStorage.boomLevel;
-        capLevel = DataManager.instance.dataStorage.pLayerDataStorage.capLevel;
-        clothesLevel = DataManager.instance.dataStorage.pLayerDataStorage.clothesLevel;
-
-        gunLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
-        boomLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
-        capLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
-        clothesLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
+        textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutGunDesign);
+        textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutBoomDesign);
+        textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutCapDesign);
+        textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutClothesDesign);
 
         for (int i = 0; i < DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages.Length; i++)
         {
@@ -125,10 +124,10 @@ public class EquipmentController : MonoBehaviour
         {
             int level = 0;
 
-            if (i == 0) level = gunLevel;
-            else if (i == 1) level = boomLevel;
-            else if (i == 2) level = capLevel;
-            else level = clothesLevel;
+            if (i == 0) level = PlayerInventory.instance.gunLevel;
+            else if (i == 1) level = PlayerInventory.instance.boomLevel;
+            else if (i == 2) level = PlayerInventory.instance.capLevel;
+            else level = PlayerInventory.instance.clothesLevel;
 
             SetEquip(i, level, equipMains[i]);
             equipCurrentLevels[i].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(equipMains[i].type) + 1);
@@ -136,6 +135,18 @@ public class EquipmentController : MonoBehaviour
 
         UpdateDamage();
         UpdateHealth();
+    }
+
+    void CheckDisplayDesign()
+    {
+        if (PlayerInventory.instance.amoutClothesDesign == 0) clothesDesign.SetActive(false);
+        else clothesDesign.SetActive(true);
+        if (PlayerInventory.instance.amoutCapDesign == 0) capDesign.SetActive(false);
+        else capDesign.SetActive(true);
+        if (PlayerInventory.instance.amoutBoomDesign == 0) boomDesign.SetActive(false);
+        else boomDesign.SetActive(true);
+        if (PlayerInventory.instance.amoutGunDesign == 0) gunDesign.SetActive(false);
+        else gunDesign.SetActive(true);
     }
 
     void UpdateDamage()
@@ -301,8 +312,113 @@ public class EquipmentController : MonoBehaviour
             contentUpgrade.text = "Casual apocalypse outfit";
         }
 
+        bool isNok = false;
+
+        int levelUpgrade = GetLevelUpgrade(eq.type);
+        int du = GetDush(levelUpgrade);
+        int de = GetDesign(levelUpgrade);
+
+        int amoutDesgin = GetAmoutDesign(eq.type);
+
+        if (PlayerInventory.instance.dush < du)
+        {
+            isNok = true;
+            dush.text = "<color=red>" + PlayerInventory.instance.dush + "</color>" + "/" + du;
+        }
+        else
+        {
+            dush.color = Vector4.one;
+            dush.text = PlayerInventory.instance.dush + "/" + du;
+        }
+
+        if (PlayerInventory.instance.dush < du)
+        {
+            isNok = true;
+            desgin.text = "<color=red>" + amoutDesgin + "</color>" + "/" + de;
+        }
+        else
+        {
+            desgin.text = amoutDesgin + "/" + de;
+        }
+
+        if (isNok)
+        {
+            levelUp.sprite = buttonNok;
+            maxLevel.sprite = buttonNok;
+            levelUp.raycastTarget = false;
+            maxLevel.raycastTarget = false;
+
+        }
+        else
+        {
+            levelUp.sprite = buttonOk;
+            maxLevel.sprite = buttonOk;
+            levelUp.raycastTarget = true;
+            maxLevel.raycastTarget = true;
+        }
+
         panelUpgradeEquip.gameObject.SetActive(true);
         UIEffect.instance.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 222f / 255f, 0.1f, 1f, 0.5f);
+    }
+
+    int GetDush(int levelUpgrade)
+    {
+        int length = DataManager.instance.equipmentConfig.dushUpgrades.Length;
+        if (levelUpgrade < length)
+        {
+            return DataManager.instance.equipmentConfig.dushUpgrades[levelUpgrade];
+        }
+        else
+        {
+            int count = 0;
+            int previousValue = 0;
+
+            for (int i = length - 1; i < levelUpgrade; i++)
+            {
+                previousValue = DataManager.instance.equipmentConfig.dushUpgrades[i];
+                count++;
+                if (count == DataManager.instance.equipmentConfig.dushStep) count = 0;
+            }
+
+            if (count == 0)
+            {
+                return previousValue + DataManager.instance.equipmentConfig.designUpgradeStep;
+            }
+            else
+            {
+                return previousValue;
+            }
+        }
+    }
+
+    int GetDesign(int levelUpgrade)
+    {
+        int length = DataManager.instance.equipmentConfig.desginUpgrades.Length;
+        if (levelUpgrade < length)
+        {
+            return DataManager.instance.equipmentConfig.dushUpgrades[levelUpgrade];
+        }
+        else
+        {
+            int count = 0;
+            int previousValue = 0;
+
+            for (int i = length - 1; i < levelUpgrade; i++)
+            {
+                previousValue = DataManager.instance.equipmentConfig.desginUpgrades[i];
+                count++;
+                if (count == DataManager.instance.equipmentConfig.designStep) count = 0;
+            }
+
+            if (count == 0)
+            {
+                return previousValue + DataManager.instance.equipmentConfig.designUpgradeStep;
+            }
+            else
+            {
+                return previousValue;
+            }
+        }
     }
 
     void UpdateLevelUpgrade()
@@ -312,10 +428,18 @@ public class EquipmentController : MonoBehaviour
 
     int GetLevelUpgrade(EQUIPMENTTYPE type)
     {
-        if (type == EQUIPMENTTYPE.SHOTGUN) return gunLevelUpgrade;
-        else if (type == EQUIPMENTTYPE.GRENADE) return boomLevelUpgrade;
-        else if (type == EQUIPMENTTYPE.CAP) return capLevelUpgrade;
-        else return clothesLevelUpgrade;
+        if (type == EQUIPMENTTYPE.SHOTGUN) return PlayerInventory.instance.gunLevelUpgrade;
+        else if (type == EQUIPMENTTYPE.GRENADE) return PlayerInventory.instance.boomLevelUpgrade;
+        else if (type == EQUIPMENTTYPE.CAP) return PlayerInventory.instance.capLevelUpgrade;
+        else return PlayerInventory.instance.clothesLevelUpgrade;
+    }
+
+    int GetAmoutDesign(EQUIPMENTTYPE type)
+    {
+        if (type == EQUIPMENTTYPE.SHOTGUN) return PlayerInventory.instance.amoutGunDesign;
+        else if (type == EQUIPMENTTYPE.GRENADE) return PlayerInventory.instance.amoutBoomDesign;
+        else if (type == EQUIPMENTTYPE.CAP) return PlayerInventory.instance.amoutCapDesign;
+        else return PlayerInventory.instance.amoutClothesDesign;
     }
 
     public void HidePopupUpgrade()

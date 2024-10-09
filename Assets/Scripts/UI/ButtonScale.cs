@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonScale : MonoBehaviour
+public class ButtonScale : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public float localScale;
 

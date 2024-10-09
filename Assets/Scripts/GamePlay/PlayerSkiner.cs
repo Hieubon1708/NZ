@@ -13,16 +13,16 @@ public class PlayerSkiner : MonoBehaviour
 
     public void CapChange()
     {
-        cap.sprite = caps[EquipmentController.instance.capLevel];
+        cap.sprite = caps[PlayerInventory.instance.capLevel];
     }
 
     public void ClothesChange()
     {
-        clothes.sprite = clothess[EquipmentController.instance.clothesLevel];
+        clothes.sprite = clothess[PlayerInventory.instance.clothesLevel];
     }
 
     public void GunChange()
     {
-        gun.sprite = guns[EquipmentController.instance.gunLevel];
+        gun.sprite = guns[PlayerInventory.instance.gunLevel];
     }
 }

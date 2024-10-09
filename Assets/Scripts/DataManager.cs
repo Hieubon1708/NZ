@@ -402,19 +402,38 @@ public class EquipmentUpgradeDataStorage
     }
 }
 
+public class DesignDataStorage
+{
+    public int gunAmout;
+    public int capAmout;
+    public int boomAmout;
+    public int clothesAmout;
+
+    public DesignDataStorage(int gunAmout, int capAmout, int boomAmout, int clothesAmout)
+    {
+        this.boomAmout = boomAmout;
+        this.capAmout = capAmout;
+        this.gunAmout = gunAmout;
+        this.clothesAmout = clothesAmout;
+    }
+}
+
 public class PLayerDataStorage
 {
     public int gold;
+    public int gem;
+    public int dush;
+
     public int gunLevel;
     public int boomLevel;
     public int capLevel;
     public int clothesLevel;
 
+    public DesignDataStorage designDataStorage;
     public EquipmentUpgradeDataStorage equipmentUpgradeDataStorages;
-
     public EquipmentDataStorage[] equipmentDataStorages;
 
-    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages)
+    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
     {
         this.gold = gold;
         this.gunLevel = gunLevel;
@@ -423,6 +442,7 @@ public class PLayerDataStorage
         this.clothesLevel = clothesLevel;
         this.equipmentDataStorages = equipmentDataStorages;
         this.equipmentUpgradeDataStorages = equipmentUpgradeDataStorages;
+        this.designDataStorage = designDataStorage;
     }
 }
 
