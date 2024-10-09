@@ -85,6 +85,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
+            dataStorage = new DataStorage();
             Debug.LogWarning("File not found: " + dataStorageJs);
         }
     }
@@ -227,6 +228,8 @@ public class EquipmentConfig
     public int[] desginUpgrades;
     public int dushStep;
     public int designStep;
+    public int dushUpgradeStep;
+    public int designUpgradeStep;
 
     public GunConfig gunConfig;
     public BoomConfig boomConfig;
@@ -237,25 +240,29 @@ public class EquipmentConfig
 public class GunConfig
 {
     public int startDamage;
-    public float coef;
+    public float coefBylevel;
+    public float coefByRarity;
 }
 
 public class BoomConfig
 {
     public int startDamage;
-    public float coef;
+    public float coefBylevel;
+    public float coefByRarity;
 }
 
 public class CapConfig
 {
     public int startHp;
-    public float coef;
+    public float coefBylevel;
+    public float coefByRarity;
 }
 
 public class ClothesConfig
 {
     public int startHp;
-    public float coef;
+    public float coefBylevel;
+    public float coefByRarity;
 }
 
 
@@ -343,7 +350,7 @@ public class DataStorage
     public EnergyDataStorage energyDataStorage;
     public ChanceDataStorage chanceDataStorage;
     public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
-
+    public DataStorage() { }
     public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
     {
         this.level = level;
@@ -379,18 +386,35 @@ public class EquipmentDataStorage
     }
 }
 
+public class EquipmentUpgradeDataStorage
+{
+    public int gunLevelUpgrade;
+    public int boomLevelUpgrade;
+    public int capLevelUpgrade;
+    public int clothesLevelUpgrade;
+
+    public EquipmentUpgradeDataStorage(int gunLevelUpgrade, int boomLevelUpgrade, int capLevelUpgrade, int clothesLevelUpgrade)
+    {
+        this.gunLevelUpgrade = gunLevelUpgrade;
+        this.boomLevelUpgrade = boomLevelUpgrade;
+        this.capLevelUpgrade = capLevelUpgrade;
+        this.clothesLevelUpgrade = clothesLevelUpgrade;
+    }
+}
+
 public class PLayerDataStorage
 {
     public int gold;
-
     public int gunLevel;
     public int boomLevel;
     public int capLevel;
     public int clothesLevel;
 
+    public EquipmentUpgradeDataStorage equipmentUpgradeDataStorages;
+
     public EquipmentDataStorage[] equipmentDataStorages;
 
-    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages)
+    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages)
     {
         this.gold = gold;
         this.gunLevel = gunLevel;
@@ -398,6 +422,7 @@ public class PLayerDataStorage
         this.capLevel = capLevel;
         this.clothesLevel = clothesLevel;
         this.equipmentDataStorages = equipmentDataStorages;
+        this.equipmentUpgradeDataStorages = equipmentUpgradeDataStorages;
     }
 }
 

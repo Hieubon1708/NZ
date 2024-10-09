@@ -55,7 +55,7 @@ public class EnemyTowerHandler : MonoBehaviour
         if (collision.CompareTag("Flame")) isTriggerFlame = false;
     }
 
-    void SubtractHp(float substractHp)
+    void SubtractHp(int substractHp)
     {
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);

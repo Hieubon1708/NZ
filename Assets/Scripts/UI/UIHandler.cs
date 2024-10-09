@@ -82,11 +82,11 @@ public class UIHandler : MonoBehaviour
     {
         if (number >= 1000000)
         {
-            return (number / 1000000f).ToString(number >= 1100000 ? "F1" : "F0") + " M";
+            return (number / 1000000f).ToString(number >= 1100000 ? "F1" : "F0") + "M";
         }
         else if (number >= 1000)
         {
-            return (number / 1000f).ToString(number >= 1100 ? "F1" : "F0") + " K";
+            return (number / 1000f).ToString(number >= 1100 ? "F1" : "F0") + "K";
         }
         else
         {

@@ -1,0 +1,40 @@
+{
+    "dushUpgrades": [
+        100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        900,
+        1000
+    ],
+    "desginUpgrades": [ 1, 2, 4, 6, 8, 10 ],
+    "dushStep": 5,
+    "designStep": 3,
+    "dushUpgradeStep": 500,
+    "designUpgradeStep": 5,
+
+    "gunConfig": {
+        "startDamage": 70,
+        "coefBylevel": 1.035,
+        "coefByRarity": 1.25
+    },
+    "boomConfig": {
+        "startDamage": 400,
+        "coefBylevel": 1.11,
+        "coefByRarity": 1.2
+    },
+    "capConfig": {
+        "startHp": 400,
+        "coefBylevel": 1.025,
+        "coefByRarity": 1.35
+    },
+    "clothesConfig": {
+        "startHp": 600,
+        "coefBylevel": 1.025,
+        "coefByRarity": 1.35
+    }
+}

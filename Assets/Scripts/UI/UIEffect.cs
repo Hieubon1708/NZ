@@ -24,4 +24,11 @@ public class UIEffect : MonoBehaviour
         panel.DOFade(alpha, durationAlpha);
         popup.DOScale(scale, durationScale).SetEase(Ease.OutBack);
     }
+    
+    public void ScalePopup(RectTransform popup,float scale, float durationScale)
+    {
+        popup.DOKill();
+
+        popup.DOScale(scale, durationScale).SetEase(Ease.OutBack);
+    }
 }

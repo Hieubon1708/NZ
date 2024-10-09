@@ -10,7 +10,7 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public void LoadData()
     {
-        level = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.dataStorage.energyDataStorage.level : 0;
+        level = DataManager.instance.dataStorage.energyDataStorage.level;
         UpgradeHandle();
     }
 

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,15 +26,10 @@ public class SummonEquipment : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        /*if (Input.GetKeyDown(KeyCode.S))
         {
             ShowChances();
-        }
-    }
-
-    public void Start()
-    {
-        chancesData = DataManager.instance.chanceConfig.chances;
+        }*/
     }
 
     public void LoadData()
@@ -51,7 +45,7 @@ public class SummonEquipment : MonoBehaviour
 
         panelChances.gameObject.SetActive(true);
 
-        UIEffect.instance.ScalePopup(panelChances, chancePopup, 1f, 0.1f, 1f, 0.5f);
+        UIEffect.instance.ScalePopup(panelChances, chancePopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
 
     void LoadChances(int level)

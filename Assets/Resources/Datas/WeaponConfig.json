@@ -1,1 +1,359 @@
-[{"weaponType":1,"price":90,"distanceType":2.0,"weaponLevelConfigs":[{"priceConfig":{"startPrice":200,"evolutionPrice":250,"upgradeCoef":1.03},"attackConfig":{"damageBooster":600,"startAttackPower":7,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":310,"evolutionPrice":400,"upgradeCoef":1.03},"attackConfig":{"damageBooster":1286,"startAttackPower":15,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":481,"evolutionPrice":600,"upgradeCoef":1.03},"attackConfig":{"damageBooster":2914,"startAttackPower":34,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":746,"evolutionPrice":900,"upgradeCoef":1.03},"attackConfig":{"damageBooster":6429,"startAttackPower":75,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1156,"evolutionPrice":1400,"upgradeCoef":1.03},"attackConfig":{"damageBooster":14057,"startAttackPower":164,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1792,"evolutionPrice":2250,"upgradeCoef":1.03},"attackConfig":{"damageBooster":30943,"startAttackPower":361,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":2778,"evolutionPrice":0,"upgradeCoef":1.03},"attackConfig":{"damageBooster":68057,"startAttackPower":794,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}}]},{"weaponType":2,"price":360,"distanceType":2.0,"weaponLevelConfigs":[{"priceConfig":{"startPrice":400,"evolutionPrice":500,"upgradeCoef":1.03},"attackConfig":{"damageBooster":50,"startAttackPower":9,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":564,"evolutionPrice":700,"upgradeCoef":1.03},"attackConfig":{"damageBooster":111,"startAttackPower":20,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":795,"evolutionPrice":1000,"upgradeCoef":1.03},"attackConfig":{"damageBooster":256,"startAttackPower":46,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1121,"evolutionPrice":1500,"upgradeCoef":1.03},"attackConfig":{"damageBooster":572,"startAttackPower":103,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1581,"evolutionPrice":2000,"upgradeCoef":1.03},"attackConfig":{"damageBooster":1283,"startAttackPower":231,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":2229,"evolutionPrice":3000,"upgradeCoef":1.03},"attackConfig":{"damageBooster":2884,"startAttackPower":519,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":3143,"evolutionPrice":0,"upgradeCoef":1.03},"attackConfig":{"damageBooster":6489,"startAttackPower":1168,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}}]},{"weaponType":3,"price":750,"distanceType":2.0,"weaponLevelConfigs":[{"priceConfig":{"startPrice":500,"evolutionPrice":600,"upgradeCoef":1.03},"attackConfig":{"damageBooster":300,"startAttackPower":40,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":700,"evolutionPrice":800,"upgradeCoef":1.03},"attackConfig":{"damageBooster":705,"startAttackPower":94,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":980,"evolutionPrice":1200,"upgradeCoef":1.03},"attackConfig":{"damageBooster":1658,"startAttackPower":221,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1372,"evolutionPrice":1800,"upgradeCoef":1.03},"attackConfig":{"damageBooster":3892,"startAttackPower":519,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":1921,"evolutionPrice":2250,"upgradeCoef":1.03},"attackConfig":{"damageBooster":9150,"startAttackPower":1220,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":2689,"evolutionPrice":3250,"upgradeCoef":1.03},"attackConfig":{"damageBooster":21502,"startAttackPower":2867,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}},{"priceConfig":{"startPrice":3765,"evolutionPrice":0,"upgradeCoef":1.03},"attackConfig":{"damageBooster":50528,"startAttackPower":6737,"critChance":0.2,"critDamageScale":1.5,"upgradeCoef":1.11,"attackTime":2.0,"reloadTime":1.0}}]}]
+[
+    {
+        "weaponType": 1,
+        "price": 90,
+        "distanceType": 2.0,
+        "weaponLevelConfigs": [
+            {
+                "priceConfig": {
+                    "startPrice": 200,
+                    "evolutionPrice": 250,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 600,
+                    "startAttackPower": 7,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 310,
+                    "evolutionPrice": 400,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 1286,
+                    "startAttackPower": 15,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 481,
+                    "evolutionPrice": 600,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 2914,
+                    "startAttackPower": 34,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 746,
+                    "evolutionPrice": 900,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 6429,
+                    "startAttackPower": 75,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1156,
+                    "evolutionPrice": 1400,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 14057,
+                    "startAttackPower": 164,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1792,
+                    "evolutionPrice": 2250,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 30943,
+                    "startAttackPower": 361,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 2778,
+                    "evolutionPrice": 0,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 68057,
+                    "startAttackPower": 794,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            }
+        ]
+    },
+    {
+        "weaponType": 2,
+        "price": 360,
+        "distanceType": 2.0,
+        "weaponLevelConfigs": [
+            {
+                "priceConfig": {
+                    "startPrice": 400,
+                    "evolutionPrice": 500,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 50,
+                    "startAttackPower": 9,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 564,
+                    "evolutionPrice": 700,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 111,
+                    "startAttackPower": 20,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 795,
+                    "evolutionPrice": 1000,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 256,
+                    "startAttackPower": 46,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1121,
+                    "evolutionPrice": 1500,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 572,
+                    "startAttackPower": 103,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1581,
+                    "evolutionPrice": 2000,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 1283,
+                    "startAttackPower": 231,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 2229,
+                    "evolutionPrice": 3000,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 2884,
+                    "startAttackPower": 519,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 3143,
+                    "evolutionPrice": 0,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 6489,
+                    "startAttackPower": 1168,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            }
+        ]
+    },
+    {
+        "weaponType": 3,
+        "price": 750,
+        "distanceType": 2.0,
+        "weaponLevelConfigs": [
+            {
+                "priceConfig": {
+                    "startPrice": 500,
+                    "evolutionPrice": 600,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 300,
+                    "startAttackPower": 40,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 700,
+                    "evolutionPrice": 800,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 705,
+                    "startAttackPower": 94,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 980,
+                    "evolutionPrice": 1200,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 1658,
+                    "startAttackPower": 221,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1372,
+                    "evolutionPrice": 1800,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 3892,
+                    "startAttackPower": 519,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 1921,
+                    "evolutionPrice": 2250,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 9150,
+                    "startAttackPower": 1220,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 2689,
+                    "evolutionPrice": 3250,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 21502,
+                    "startAttackPower": 2867,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            },
+            {
+                "priceConfig": {
+                    "startPrice": 3765,
+                    "evolutionPrice": 0,
+                    "upgradeCoef": 1.03
+                },
+                "attackConfig": {
+                    "damageBooster": 50528,
+                    "startAttackPower": 6737,
+                    "critChance": 0.2,
+                    "critDamageScale": 1.5,
+                    "upgradeCoef": 1.11,
+                    "attackTime": 2.0,
+                    "reloadTime": 1.0
+                }
+            }
+        ]
+    }
+]

@@ -236,7 +236,8 @@ public class GameController : MonoBehaviour
             equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
         }
 
-        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, EquipmentController.instance.indexGun, EquipmentController.instance.indexBoom, EquipmentController.instance.indexCap, EquipmentController.instance.indexClothes, equipmentConfigs);
+        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.gunLevelUpgrade, EquipmentController.instance.boomLevelUpgrade, EquipmentController.instance.capLevelUpgrade, EquipmentController.instance.clothesLevelUpgrade);
+        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, EquipmentController.instance.gunLevel, EquipmentController.instance.boomLevel, EquipmentController.instance.clothesLevel, EquipmentController.instance.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(SummonEquipment.instance.level, SummonEquipment.instance.amout);
