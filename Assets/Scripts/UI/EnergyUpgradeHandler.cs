@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine;
 
 public class EnergyUpgradeHandler : ButtonUpgradee
 {
@@ -7,13 +8,13 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public void LoadData()
     {
-        level = DataManager.instance.dataStorage.energyDataStorage.level;
+        if (DataManager.instance.dataStorage.energyDataStorage != null) level = DataManager.instance.dataStorage.energyDataStorage.level;
         UpgradeHandle();
     }
 
     public override void CheckButtonState()
     {
-        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceUpgradeEnergyConfig(level))
+        if (PlayerHandler.instance.playerInfo.gold < (DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice))
         {
             UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice);
         }
@@ -25,14 +26,16 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public override void Upgrade()
     {
-        PlayerHandler.instance.playerInfo.gold -= DataManager.instance.GetPriceUpgradeEnergyConfig(level);
+        PlayerHandler.instance.playerInfo.gold -= DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice;
         level++;
         UpgradeHandle();
     }
 
     public override void UpgradeHandle()
     {
+        Debug.LogWarning(level);
+        Debug.LogWarning(DataManager.instance.GetSecondsUpgradeEnergyConfig(level));
         textPriceUpgrade.text = DataManager.instance.GetPriceUpgradeEnergyConfig(level).ToString();
-        textTime.text = DataManager.instance.GetPriceUpgradeEnergyConfig(level).ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + "/s";
+        textTime.text = DataManager.instance.GetSecondsUpgradeEnergyConfig(level).ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + "/s";
     }
 }

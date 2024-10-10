@@ -15,6 +15,9 @@ public class UIHandler : MonoBehaviour
     public Sprite[] frameButtonBlockUpgradees;
     public Sprite[] frameButtonEnergyUpgradees;
 
+    public Sprite[] frameButtonBooster;
+    public Sprite[] frameButtonBoomBooster;
+
     public Color framePriceNok;
     public Color framePriceOk;
     public Color framePriceMax;
@@ -52,6 +55,21 @@ public class UIHandler : MonoBehaviour
             boxes[i].color = color;
         }
     }
+
+    public void BoosterButtonChangeState(Image frame, bool isOk, bool isBoom)
+    {
+        if (isBoom)
+        {
+            if(isOk) frame.sprite = frameButtonBoomBooster[0];
+            else frame.sprite = frameButtonBoomBooster[1];
+        }
+        else
+        {
+            if (isOk) frame.sprite = frameButtonBooster[0];
+            else frame.sprite = frameButtonBooster[1];
+        }
+    }
+
     public void WeaponEvoButtonChangeState(Type type, Image frame, Image framePrice, Image arrow)
     {
         int index;

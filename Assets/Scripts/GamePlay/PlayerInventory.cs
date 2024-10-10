@@ -29,19 +29,22 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadData()
     {
-        gunLevel = DataManager.instance.dataStorage.pLayerDataStorage.gunLevel;
-        boomLevel = DataManager.instance.dataStorage.pLayerDataStorage.boomLevel;
-        capLevel = DataManager.instance.dataStorage.pLayerDataStorage.capLevel;
-        clothesLevel = DataManager.instance.dataStorage.pLayerDataStorage.clothesLevel;
+        if(DataManager.instance.dataStorage.pLayerDataStorage != null)
+        {
+            gunLevel = DataManager.instance.dataStorage.pLayerDataStorage.gunLevel;
+            boomLevel = DataManager.instance.dataStorage.pLayerDataStorage.boomLevel;
+            capLevel = DataManager.instance.dataStorage.pLayerDataStorage.capLevel;
+            clothesLevel = DataManager.instance.dataStorage.pLayerDataStorage.clothesLevel;
 
-        gunLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
-        boomLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
-        capLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
-        clothesLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
+            gunLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
+            boomLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
+            capLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
+            clothesLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
 
-        amoutGunDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.gunAmout;
-        amoutBoomDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.boomAmout;
-        amoutCapDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.capAmout;
-        amoutClothesDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.clothesAmout;
+            amoutGunDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.gunAmout;
+            amoutBoomDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.boomAmout;
+            amoutCapDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.capAmout;
+            amoutClothesDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.clothesAmout;
+        }
     }
 }

@@ -85,7 +85,6 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            dataStorage = new DataStorage();
             Debug.LogWarning("File not found: " + dataStorageJs);
         }
     }
@@ -137,12 +136,12 @@ public class DataManager : MonoBehaviour
 
     public int GetPriceUpgradeEnergyConfig(int level)
     {
-        return Mathf.RoundToInt(energyConfig.startPrice * (energyConfig.upgradePriceCoef * (level + 1)));
+        return Mathf.RoundToInt(energyConfig.startPrice * Mathf.Pow(energyConfig.upgradePriceCoef, level));
     }
 
     public float GetSecondsUpgradeEnergyConfig(int level)
     {
-        return Mathf.RoundToInt(energyConfig.startSeconds * (energyConfig.upgradeSecondsCoef * (level + 1)));
+        return energyConfig.startSeconds + (energyConfig.upgradeSecondsCoef * level);
     }
 
     void GenerateWeaponConfigs()
@@ -217,7 +216,6 @@ public class BlockConfig
 [System.Serializable]
 public class ChanceConfig
 {
-    //public int[] amoutUpgrades;
     public float[][] chances;
 }
 
@@ -334,7 +332,7 @@ public class AttackConfig
 [System.Serializable]
 public class EnergyConfig
 {
-    public float startPrice;
+    public int startPrice;
     public float startSeconds;
     public float upgradePriceCoef;
     public float upgradeSecondsCoef;

@@ -74,13 +74,13 @@ public class GameController : MonoBehaviour
         EquipmentController.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
 
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
+        //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
+        //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
     }
 
     void LoadData()
     {
-        level = DataManager.instance.dataStorage.level;
+        level = DataManager.instance.dataStorage != null ? DataManager.instance.dataStorage.level : 0;
     }
 
     public void EDeathAll(GameObject tower)
@@ -152,6 +152,7 @@ public class GameController : MonoBehaviour
         SetValue(false);
         EnemyTowerController.instance.Restart();
         BlockController.instance.Restart();
+        Booster.instance.ResetBooster();
     }
 
     void Resize()
@@ -181,6 +182,10 @@ public class GameController : MonoBehaviour
         touchScreen.SetActive(isActive);
         buttonStart.SetActive(!isActive);
         isStart = isActive;
+        Booster.instance.energyAds.SetActive(isActive);
+        Booster.instance.energy.SetActive(isActive);
+        Booster.instance.boom.SetActive(isActive);
+        BlockUpgradeController.instance.recyleClose.SetActive(!isActive);
         BlockController.instance.SetActiveUI(!isActive);
         CarController.instance.multiplier = isActive ? 1 : 0;
     }

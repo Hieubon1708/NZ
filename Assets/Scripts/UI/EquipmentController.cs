@@ -111,13 +111,17 @@ public class EquipmentController : MonoBehaviour
         textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutCapDesign);
         textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutClothesDesign);
 
-        for (int i = 0; i < DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages.Length; i++)
+        if (DataManager.instance.dataStorage.pLayerDataStorage != null)
+
         {
-            if (amoutEquip == equipments.Count - 1) Generate();
-            equipments[i].gameObject.SetActive(true);
-            EquipmentDataStorage eq = DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages[i];
-            SetEquip(eq.type, eq.level, equipments[i]);
-            amoutEquip++;
+            for (int i = 0; i < DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages.Length; i++)
+            {
+                if (amoutEquip == equipments.Count - 1) Generate();
+                equipments[i].gameObject.SetActive(true);
+                EquipmentDataStorage eq = DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages[i];
+                SetEquip(eq.type, eq.level, equipments[i]);
+                amoutEquip++;
+            }
         }
 
         for (int i = 0; i < equipMains.Length; i++)
@@ -132,6 +136,7 @@ public class EquipmentController : MonoBehaviour
             SetEquip(i, level, equipMains[i]);
             equipCurrentLevels[i].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(equipMains[i].type) + 1);
         }
+
 
         UpdateDamage();
         UpdateHealth();

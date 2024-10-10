@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BlockUpgradeController : MonoBehaviour
 {
+    public static BlockUpgradeController instance;
+
     public float raycastDistance;
     public LayerMask layerMask;
     public GameObject frame1;
@@ -13,6 +15,11 @@ public class BlockUpgradeController : MonoBehaviour
     GameObject blockSelected;
     bool isDrag;
     bool isHold;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Update()
     {
@@ -28,7 +35,7 @@ public class BlockUpgradeController : MonoBehaviour
             if (blockSelected != null)
             {
                 Block scBlock = BlockController.instance.GetScBlock(blockSelected);
-                if (Vector2.Distance(blockSelected.transform.position, recyleOpen.transform.position) <= 1f)
+                if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyleOpen.transform.position)) <= 1.5f)
                 {
                     scBlock.SubtractGold();
                     BlockController.instance.DeleteBlock(blockSelected);

@@ -7,7 +7,6 @@ public class WeaponBooster : ButtonState
 {
     public int energy;
     public Booster booster;
-    public TextMeshProUGUI num;
     public Image frame;
     public TextMeshProUGUI textEnergy;
 
@@ -47,13 +46,11 @@ public class WeaponBooster : ButtonState
     {
         if (booster.amoutEnergy < energy)
         {
-            frame.color = new Vector4(0.5f, 0.5f, 0.5f, 1);
-            num.color = new Vector4(0.5f, 0.5f, 0.5f, 1);
+            UIHandler.instance.BoosterButtonChangeState(frame, false, this is BoomBooster);
         }
         else
         {
-            frame.color = Vector4.one;
-            num.color = Vector4.one;
+            UIHandler.instance.BoosterButtonChangeState(frame, true, this is BoomBooster);
         }
     }
 }

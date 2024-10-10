@@ -8,6 +8,9 @@ public class Booster : MonoBehaviour
 {
     public static Booster instance;
 
+    public GameObject energy;
+    public GameObject energyAds;
+    public GameObject boom;
     public Image energyBar;
     public int amoutEnergy;
     public TextMeshProUGUI textAmoutEnergy;
@@ -23,11 +26,6 @@ public class Booster : MonoBehaviour
 
     public void StartGame()
     {
-        for (int i = 0; i < weaponBoosters.Length; i++)
-        {
-            weaponBoosters[i].gameObject.SetActive(true);
-        }
-        ResetBooster();
         EnableBooster();
         CheckBoosterState();
         DoFill();
@@ -35,8 +33,9 @@ public class Booster : MonoBehaviour
 
     void DoFill()
     {
-        //1f / DataManager.instance.energyData.times[DataManager.instance.playerData.indexEnergy]
-        energyBar.DOFillAmount(1, 0.3f).SetEase(Ease.Linear).OnComplete(delegate
+        float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
+        Debug.LogWarning(time);
+        energyBar.DOFillAmount(1, 1f / time).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
             energyBar.fillAmount = 0;
@@ -55,7 +54,7 @@ public class Booster : MonoBehaviour
         textAmoutEnergy.text = amoutEnergy.ToString();
     }
 
-    void ResetBooster()
+    public void ResetBooster()
     {
         if (sawBooster.activeSelf) sawBooster.SetActive(false);
         if (flameBooster.activeSelf) flameBooster.SetActive(false);
