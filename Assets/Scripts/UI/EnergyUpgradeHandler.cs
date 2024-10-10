@@ -1,12 +1,9 @@
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class EnergyUpgradeHandler : ButtonUpgradee
 {
     public int level;
     public TextMeshProUGUI textTime;
-    public Image lightling;
 
     public void LoadData()
     {
@@ -18,13 +15,11 @@ public class EnergyUpgradeHandler : ButtonUpgradee
     {
         if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceUpgradeEnergyConfig(level))
         {
-            UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frame);
-            lightling.color = new Color(1, 1, 1, 0.5f);
+            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice);
         }
         else
         {
-            UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.ENOUGH_MONEY, frame);
-            lightling.color = Vector4.one;
+            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frame, framePrice);
         }
     }
 

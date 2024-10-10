@@ -6,6 +6,7 @@ public abstract class ButtonUpgradee : MonoBehaviour
 {
     public TextMeshProUGUI textPriceUpgrade;
     public Image frame;
+    public Image framePrice;
 
     public abstract void Upgrade();
     public abstract void UpgradeHandle();

@@ -9,11 +9,21 @@ public class UIHandler : MonoBehaviour
     public TextMeshProUGUI textGold;
 
     public Sprite[] frameButtonWeaponBuyers;
-    public Sprite[] frameGoldWeaponBuyers;
+    public Sprite[] frameButtonWeaponUpgradees;
+    public Sprite[] frameButtonWeaponEvoUpgradees;
 
     public Sprite[] frameButtonBlockUpgradees;
-    public Sprite[] frameButtonWeaponUpgradees;
-    public Sprite[] frameButtonWeaponLastUpgradees;
+    public Sprite[] frameButtonEnergyUpgradees;
+
+    public Color framePriceNok;
+    public Color framePriceOk;
+    public Color framePriceMax;
+    public Color textOk;
+    public Color textNOk;
+    public Color boxOk;
+    public Color boxNOk;
+    public Color arrowOk;
+    public Color arrowNOk;
 
     public void Awake()
     {
@@ -27,7 +37,7 @@ public class UIHandler : MonoBehaviour
 
     public void GoldUpdatee()
     {
-        textGold.text = PlayerHandler.instance.playerInfo.gold.ToString();
+        textGold.text = ConvertNumberAbbreviation(PlayerHandler.instance.playerInfo.gold);
     }
 
     public enum Type
@@ -35,47 +45,129 @@ public class UIHandler : MonoBehaviour
         ENOUGH_MONEY, NOT_ENOUGH_MONEY
     }
 
-    public void ChangeSpriteWeaponBuyer(Type type, Image frame, Image frameGold)
+    void BoxColorChange(Image[] boxes, Color color)
     {
-        int index = 0;
-        if (type == Type.NOT_ENOUGH_MONEY) index = 1;
-        frame.sprite = frameButtonWeaponBuyers[index];
-        frameGold.sprite = frameGoldWeaponBuyers[index];
+        for (int i = 0; i < boxes.Length; i++)
+        {
+            boxes[i].color = color;
+        }
     }
-    
-    public void ChangeSpriteWeaponUpgradee(Type type, Image frame)
+    public void WeaponEvoButtonChangeState(Type type, Image frame, Image framePrice, Image arrow)
     {
-        int index = 0;
-        if (type == Type.NOT_ENOUGH_MONEY) index = 1;
-        frame.sprite = frameButtonWeaponUpgradees[index];
-    }
-    
-    public void ChangeSpriteWeaponLastUpgradee(Type type, Image frame)
-    {
-        int index = 0;
-        if (type == Type.NOT_ENOUGH_MONEY) index = 1;
-        frame.sprite = frameButtonWeaponLastUpgradees[index];
+        int index;
+        GetIndexNSetColorNAlpha(type, out index, framePrice);
+        if (type == Type.NOT_ENOUGH_MONEY) arrow.color = arrowNOk;
+        else arrow.color = arrowNOk;
+        frame.sprite = frameButtonWeaponEvoUpgradees[index];
     }
 
-    public void ChangeSpriteWeaponUpgradee(Image frame, TextMeshProUGUI textPrice, TextMeshProUGUI textMax)
+    public void WeaponButtonChangeState(Type type, Image frame, Image framePrice)
+    {
+        int index = 0;
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            index = 1;
+            framePrice.color = framePriceNok;
+        }
+        else
+        {
+            framePrice.color = framePriceOk;
+        }
+        frame.sprite = frameButtonWeaponBuyers[index];
+    }
+
+    public void WeaponButtonChangeState(Type type, Image frame, Image framePrice, TextMeshProUGUI textLv, TextMeshProUGUI textDamageL, TextMeshProUGUI textDamageR, Image[] boxes, Image arrow)
+    {
+        int index;
+        GetIndexNSetColorNAlpha(type, out index, framePrice);
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            TextChangeColor(textLv, textDamageL, textDamageR, textNOk);
+            BoxColorChange(boxes, boxNOk);
+            arrow.color = arrowNOk;
+        }
+        else
+        {
+            TextChangeColor(textLv, textDamageL, textDamageR, textOk);
+            BoxColorChange(boxes, boxOk);
+            arrow.color = arrowOk;
+        }
+        frame.sprite = frameButtonWeaponUpgradees[index];
+    }
+
+    public void WeaponButtonChangeState(Image frame, TextMeshProUGUI textPrice, TextMeshProUGUI textMax)
     {
         textPrice.gameObject.SetActive(false);
         textMax.gameObject.SetActive(true);
         frame.sprite = frameButtonWeaponUpgradees[2];
     }
 
-    public void ChangeSpriteBlockUpgradee(Image frame, TextMeshProUGUI textPrice, TextMeshProUGUI textMax)
+    public void BlockButtonChangeState(Image frame, Image framePrice, TextMeshProUGUI textPrice, TextMeshProUGUI textMax, Image iconGold, TextMeshProUGUI textLv, TextMeshProUGUI textHpL, TextMeshProUGUI textHpR)
     {
         textPrice.gameObject.SetActive(false);
+        iconGold.gameObject.SetActive(false);
         textMax.gameObject.SetActive(true);
+
         frame.sprite = frameButtonBlockUpgradees[2];
+
+        framePrice.color = framePriceMax;
+
+        TextChangeColor(textLv, textHpL, textHpR, textNOk);
     }
 
-    public void ChangeSpriteBlockUpgradee(Type type, Image frame)
+    public void BlockButtonChangeState(Type type, Image frame, Image framePrice)
     {
-        int index = 0;
-        if (type == Type.NOT_ENOUGH_MONEY) index = 1;
+        int index;
+        GetIndexNSetColorNAlpha(type, out index, framePrice);
         frame.sprite = frameButtonBlockUpgradees[index];
+    }
+
+    public void BlockButtonChangeState(Type type, Image frame, Image framePrice, TextMeshProUGUI textLv, TextMeshProUGUI textHpL, TextMeshProUGUI textHpR)
+    {
+        int index;
+        GetIndexNSetColorNAlpha(type, out index, framePrice);
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            TextChangeColor(textLv, textHpL, textHpR, textNOk);
+        }
+        else
+        {
+            TextChangeColor(textLv, textHpL, textHpR, textOk);
+        }
+        frame.sprite = frameButtonBlockUpgradees[index];
+    }
+
+    public void EnergyButtonChangeState(Type type, Image frame, Image framePrice)
+    {
+        int index;
+        GetIndexNSetColorNAlpha(type, out index, framePrice);
+        frame.sprite = frameButtonEnergyUpgradees[index];
+    }
+
+    void GetIndexNSetColorNAlpha(Type type, out int index, Image framePrice)
+    {
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            index = 1;
+            framePrice.color = framePriceNok;
+        }
+        else
+        {
+            index = 0;
+            framePrice.color = framePriceOk;
+        }
+    }
+
+    void TextColorChange(TextMeshProUGUI text, Color color)
+    {
+        text.color = new Vector4(color.r, color.g, color.b, text.color.a);
+    }
+
+    void TextChangeColor(TextMeshProUGUI textLv, TextMeshProUGUI textHpL, TextMeshProUGUI textHpR, Color color)
+    {
+        TextColorChange(textLv, color);
+        TextColorChange(textHpL, color);
+        TextColorChange(textHpR, color);
     }
 
     public string ConvertNumberAbbreviation(int number)

@@ -1,12 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class BlockUpgradeController : MonoBehaviour
 {
-    public RectTransform recyle;
     public float raycastDistance;
     public LayerMask layerMask;
     public GameObject frame1;
     public GameObject frame2;
+    public GameObject recyleClose;
+    public GameObject recyleOpen;
+    public TextMeshProUGUI goldInRecyle;
     GameObject blockSelected;
     bool isDrag;
     bool isHold;
@@ -25,15 +28,17 @@ public class BlockUpgradeController : MonoBehaviour
             if (blockSelected != null)
             {
                 Block scBlock = BlockController.instance.GetScBlock(blockSelected);
-                if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyle.position)) <= 1f)
+                if (Vector2.Distance(blockSelected.transform.position, recyleOpen.transform.position) <= 1f)
                 {
                     scBlock.SubtractGold();
                     BlockController.instance.DeleteBlock(blockSelected);
                     scBlock.blockUpgradeHandler.ResetData();
+                    BlockController.instance.CheckButtonStateAll();
                 }
                 blockSelected.transform.position = frame1.transform.position;
                 scBlock.blockUpgradeHandler.DeSelected();
                 SetActiveFrame(false);
+                RecyleChange(true);
                 blockSelected = null;
             }
         }
@@ -55,12 +60,21 @@ public class BlockUpgradeController : MonoBehaviour
                     blockSelected = hit.rigidbody.gameObject;
                     frame1.transform.position = blockSelected.transform.position;
                     frame2.transform.position = blockSelected.transform.position;
-                    BlockController.instance.GetScBlock(blockSelected).blockUpgradeHandler.Selected();
+                    Block block = BlockController.instance.GetScBlock(blockSelected);
+                    block.blockUpgradeHandler.Selected();
                     SetActiveFrame(true);
+                    RecyleChange(false);
+                    goldInRecyle.text = UIHandler.instance.ConvertNumberAbbreviation(block.sellingPrice);
                     isHold = true;
                 }
             }
         }
+    }
+
+    void RecyleChange(bool isActive)
+    {
+        recyleClose.SetActive(isActive);
+        recyleOpen.SetActive(!isActive);
     }
 
     void SetActiveFrame(bool isActive)

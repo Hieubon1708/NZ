@@ -126,7 +126,6 @@ public class BlockController : MonoBehaviour
             scBlock.AddBlockAni();
             CarController.instance.AddBookAni();
             PlayerController.instance.AddBookAni();
-            CheckButtonStateAll();
             scBlock.PlusGold(DataManager.instance.blockConfig.startPrice);
         }
     }

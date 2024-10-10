@@ -6,6 +6,7 @@ public abstract class ButtonBuyer : MonoBehaviour
 {
     public TextMeshProUGUI textPrice;
     public Image frameButton;
+    public Image framePrice;
 
     public abstract void Buy();
 

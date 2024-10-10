@@ -13,9 +13,12 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public SpriteRenderer spriteRenderer;
     public SortingGroup sortingGroup;
     public TextMeshProUGUI textLv;
-    public TextMeshProUGUI textHp;
+    public TextMeshProUGUI textHpR;
+    public TextMeshProUGUI textHpL;
     public TextMeshProUGUI textMax;
     public Image frameButton;
+    public Image framePrice;
+    public Image iconGold;
     public GameObject[] saws;
     public GameObject[] flames;
     public GameObject[] machineGuns;
@@ -78,19 +81,19 @@ public class BlockUpgradeHandler : ButtonUpgradee
 
     public override void CheckButtonState()
     {
-        if (blockInfo.level == DataManager.instance.blockConfig.hpUpgrades.Length - 1) UIHandler.instance.ChangeSpriteBlockUpgradee(frameButton, textPriceUpgrade, textMax);
-        else if (DataManager.instance.dataStorage.pLayerDataStorage.gold < DataManager.instance.blockConfig.priceUpgrades[blockInfo.level]) UIHandler.instance.ChangeSpriteBlockUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton);
-        else UIHandler.instance.ChangeSpriteBlockUpgradee(UIHandler.Type.ENOUGH_MONEY, frameButton);
+        if (blockInfo.level == DataManager.instance.blockConfig.hpUpgrades.Length - 1) UIHandler.instance.BlockButtonChangeState(frameButton, framePrice, textPriceUpgrade, textMax, iconGold, textLv, textHpL, textHpR);
+        else if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.priceUpgrades[blockInfo.level]) UIHandler.instance.BlockButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton, framePrice, textLv, textHpL, textHpR);
+        else UIHandler.instance.BlockButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frameButton, framePrice, textLv, textHpL, textHpR);
     }
 
     public override void UpgradeHandle()
     {
-        textLv.text = "Lv" + (blockInfo.level + 1);
+        textLv.text = "Lv " + (blockInfo.level + 1);
         blockInfo.hp = DataManager.instance.blockConfig.hpUpgrades[blockInfo.level];
         blockHandler.SetTotalHp();
         spriteRenderer.sprite = DataManager.instance.blockSprites[blockInfo.level];
         int hp = DataManager.instance.blockConfig.hpUpgrades[blockInfo.level];
-        textHp.text = hp >= 1000 ? Mathf.Floor(hp / 100) / 10 + "K" : hp.ToString();
+        textHpR.text = UIHandler.instance.ConvertNumberAbbreviation(hp);
         textPriceUpgrade.text = DataManager.instance.blockConfig.priceUpgrades[blockInfo.level].ToString();
     }
 
@@ -98,6 +101,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     {
         blockInfo.level = 0;
         weaponBuyer.SetActive(true);
+        iconGold.gameObject.SetActive(true);
         weaponUpgrade.SetActive(false);
         textPriceUpgrade.gameObject.SetActive(true);
         textMax.gameObject.SetActive(false);

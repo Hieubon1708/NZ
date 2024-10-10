@@ -13,4 +13,15 @@ public class Player : MonoBehaviour
         if (this.hp < 0) this.hp = 0;
         return this.hp;
     }
+
+    public void SubtractGold(int gold)
+    {
+        this.gold -= gold;
+        Debug.LogWarning(this.gold);
+    }
+    
+    public void PlusGold(int gold)
+    {
+        this.gold += gold;
+    }
 }

@@ -7,11 +7,14 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public int level;
     public int levelUpgrade;
     public TextMeshProUGUI textLv;
-    public TextMeshProUGUI textDamage;
-    public Image frameLastUpgrade;
+    public TextMeshProUGUI textDamageR;
+    public TextMeshProUGUI textDamageL;
+    public Image frameEvoUpgrade;
+    public Image arrow;
+    public Image[] boxes;
     public TextMeshProUGUI textMax;
-    public TextMeshProUGUI textLastUpgrade;
-    public GameObject lastUpgrade;
+    public TextMeshProUGUI textEvoUpgrade;
+    public GameObject evoUpgrade;
     public GameObject[] boxProgress;
     public BlockUpgradeHandler blockUpgradeHandler;
     public WeaponShoter weaponShoter;
@@ -44,12 +47,12 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     {
         blockUpgradeHandler.blockInfo.PlusGold(DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig));
         levelUpgrade++;
-        if (lastUpgrade.activeSelf)
+        if (evoUpgrade.activeSelf)
         {
             level++;
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
-            lastUpgrade.SetActive(false);
+            evoUpgrade.SetActive(false);
             if (weaponShoter.weaponType == GameController.WEAPON.SAW) UIUpgradeEvolution.instance.ShowPanelSawEvo();
             if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UIUpgradeEvolution.instance.ShowPanelFlameEvo();
             if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UIUpgradeEvolution.instance.ShowPanelMachineGunEvo();
@@ -70,8 +73,8 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         if (levelUpgrade == boxProgress.Length && level != lengthPriceUpgrade - 1) ChangeTextUpgrade();
         else
         {
-            textLv.text = "Lv" + (level + 1);
-            textDamage.text = damage.ToString();
+            textLv.text = "Lv " + (level + 1);
+            textDamageR.text = damage.ToString();
             textPriceUpgrade.text = priceUpgrade.ToString();
         }
 
@@ -84,8 +87,8 @@ public class WeaponUpgradeHandler : ButtonUpgradee
 
     void ChangeTextUpgrade()
     {
-        lastUpgrade.SetActive(true);
-        textLastUpgrade.text = "Lv" + (level + 1) + " > " + "Lv" + (level + 2) + " UPGRADE";
+        evoUpgrade.SetActive(true);
+        textEvoUpgrade.text = "Lv" + (level + 1) + " > " + "Lv" + (level + 2) + " EVOLUTION";
         textPriceUpgrade.text = DataManager.instance.GetEvolutionPriceWeaponConfig(level, weaponConfig).ToString();
     }
 
@@ -94,17 +97,17 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         if (weaponShoter == null) return;
         if (level == DataManager.instance.GetLengthUpgradePriceWeaponConfig(level, weaponConfig) - 1 && levelUpgrade == boxProgress.Length - 1)
         {
-            UIHandler.instance.ChangeSpriteWeaponUpgradee(frame, textPriceUpgrade, textMax);
+            UIHandler.instance.WeaponButtonChangeState(frame, textPriceUpgrade, textMax);
         }
         else if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig))
         {
-            if (levelUpgrade == boxProgress.Length) UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frameLastUpgrade);
-            else UIHandler.instance.ChangeSpriteWeaponUpgradee(UIHandler.Type.NOT_ENOUGH_MONEY, frame);
+            if (levelUpgrade == boxProgress.Length) UIHandler.instance.WeaponEvoButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameEvoUpgrade, framePrice, arrow);
+            else UIHandler.instance.WeaponButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice, textLv, textDamageL, textDamageR, boxes, arrow);
         }
         else
         {
-            if (levelUpgrade == boxProgress.Length) UIHandler.instance.ChangeSpriteWeaponLastUpgradee(UIHandler.Type.ENOUGH_MONEY, frameLastUpgrade);
-            else UIHandler.instance.ChangeSpriteWeaponUpgradee(UIHandler.Type.ENOUGH_MONEY, frame);
+            if (levelUpgrade == boxProgress.Length) UIHandler.instance.WeaponEvoButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frameEvoUpgrade, framePrice, arrow);
+            else UIHandler.instance.WeaponButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frame, framePrice, textLv, textDamageL, textDamageR, boxes, arrow);
         }
     }
 
@@ -116,6 +119,6 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         weaponConfig = null;
         level = 0;
         levelUpgrade = 0;
-        lastUpgrade.SetActive(false);
+        evoUpgrade.SetActive(false);
     }
 }

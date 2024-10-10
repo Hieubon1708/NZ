@@ -13,7 +13,7 @@ public class SawBuyButton : ButtonState
     public override void OnPointerUp(PointerEventData eventData)
     {
         if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.SAW)) return;
-        base.OnPointerUp(eventData);
         if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) sawBuyHandler.Buy();
+        base.OnPointerUp(eventData);
     }
 }
