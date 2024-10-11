@@ -29,13 +29,13 @@ public class Block : MonoBehaviour
     public void PlusGold(int gold)
     {
         sellingPrice += gold;
-        PlayerHandler.instance.playerInfo.gold -= gold;
+        PlayerController.instance.player.gold -= gold;
         UIHandler.instance.GoldUpdatee();
     }
 
     public void SubtractGold()
     {
-        PlayerHandler.instance.playerInfo.gold += sellingPrice;
+        PlayerController.instance.player.gold += sellingPrice;
         sellingPrice = 0;
         UIHandler.instance.GoldUpdatee();
     }

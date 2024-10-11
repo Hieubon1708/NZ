@@ -7,6 +7,8 @@ public class EquipmentController : MonoBehaviour
 {
     public static EquipmentController instance;
 
+    public PlayerInventory playerInventory;
+
     public GameObject equipmentPrefab;
     public List<EquipmentInfo> equipments = new List<EquipmentInfo>();
     public EquipmentInfo[] equipMains;
@@ -106,10 +108,10 @@ public class EquipmentController : MonoBehaviour
 
     public void LoadData()
     {
-        textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutGunDesign);
-        textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutBoomDesign);
-        textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutCapDesign);
-        textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(PlayerInventory.instance.amoutClothesDesign);
+        textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
+        textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutBoomDesign);
+        textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutCapDesign);
+        textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutClothesDesign);
 
         if (DataManager.instance.dataStorage.pLayerDataStorage != null)
 
@@ -128,10 +130,10 @@ public class EquipmentController : MonoBehaviour
         {
             int level = 0;
 
-            if (i == 0) level = PlayerInventory.instance.gunLevel;
-            else if (i == 1) level = PlayerInventory.instance.boomLevel;
-            else if (i == 2) level = PlayerInventory.instance.capLevel;
-            else level = PlayerInventory.instance.clothesLevel;
+            if (i == 0) level = playerInventory.gunLevel;
+            else if (i == 1) level = playerInventory.boomLevel;
+            else if (i == 2) level = playerInventory.capLevel;
+            else level = playerInventory.clothesLevel;
 
             SetEquip(i, level, equipMains[i]);
             equipCurrentLevels[i].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(equipMains[i].type) + 1);
@@ -144,13 +146,13 @@ public class EquipmentController : MonoBehaviour
 
     void CheckDisplayDesign()
     {
-        if (PlayerInventory.instance.amoutClothesDesign == 0) clothesDesign.SetActive(false);
+        if (playerInventory.amoutClothesDesign == 0) clothesDesign.SetActive(false);
         else clothesDesign.SetActive(true);
-        if (PlayerInventory.instance.amoutCapDesign == 0) capDesign.SetActive(false);
+        if (playerInventory.amoutCapDesign == 0) capDesign.SetActive(false);
         else capDesign.SetActive(true);
-        if (PlayerInventory.instance.amoutBoomDesign == 0) boomDesign.SetActive(false);
+        if (playerInventory.amoutBoomDesign == 0) boomDesign.SetActive(false);
         else boomDesign.SetActive(true);
-        if (PlayerInventory.instance.amoutGunDesign == 0) gunDesign.SetActive(false);
+        if (playerInventory.amoutGunDesign == 0) gunDesign.SetActive(false);
         else gunDesign.SetActive(true);
     }
 
@@ -325,18 +327,18 @@ public class EquipmentController : MonoBehaviour
 
         int amoutDesgin = GetAmoutDesign(eq.type);
 
-        if (PlayerInventory.instance.dush < du)
+        if (playerInventory.dush < du)
         {
             isNok = true;
-            dush.text = "<color=red>" + PlayerInventory.instance.dush + "</color>" + "/" + du;
+            dush.text = "<color=red>" + playerInventory.dush + "</color>" + "/" + du;
         }
         else
         {
             dush.color = Vector4.one;
-            dush.text = PlayerInventory.instance.dush + "/" + du;
+            dush.text = playerInventory.dush + "/" + du;
         }
 
-        if (PlayerInventory.instance.dush < du)
+        if (playerInventory.dush < du)
         {
             isNok = true;
             desgin.text = "<color=red>" + amoutDesgin + "</color>" + "/" + de;
@@ -433,18 +435,18 @@ public class EquipmentController : MonoBehaviour
 
     int GetLevelUpgrade(EQUIPMENTTYPE type)
     {
-        if (type == EQUIPMENTTYPE.SHOTGUN) return PlayerInventory.instance.gunLevelUpgrade;
-        else if (type == EQUIPMENTTYPE.GRENADE) return PlayerInventory.instance.boomLevelUpgrade;
-        else if (type == EQUIPMENTTYPE.CAP) return PlayerInventory.instance.capLevelUpgrade;
-        else return PlayerInventory.instance.clothesLevelUpgrade;
+        if (type == EQUIPMENTTYPE.SHOTGUN) return playerInventory.gunLevelUpgrade;
+        else if (type == EQUIPMENTTYPE.GRENADE) return playerInventory.boomLevelUpgrade;
+        else if (type == EQUIPMENTTYPE.CAP) return playerInventory.capLevelUpgrade;
+        else return playerInventory.clothesLevelUpgrade;
     }
 
     int GetAmoutDesign(EQUIPMENTTYPE type)
     {
-        if (type == EQUIPMENTTYPE.SHOTGUN) return PlayerInventory.instance.amoutGunDesign;
-        else if (type == EQUIPMENTTYPE.GRENADE) return PlayerInventory.instance.amoutBoomDesign;
-        else if (type == EQUIPMENTTYPE.CAP) return PlayerInventory.instance.amoutCapDesign;
-        else return PlayerInventory.instance.amoutClothesDesign;
+        if (type == EQUIPMENTTYPE.SHOTGUN) return playerInventory.amoutGunDesign;
+        else if (type == EQUIPMENTTYPE.GRENADE) return playerInventory.amoutBoomDesign;
+        else if (type == EQUIPMENTTYPE.CAP) return playerInventory.amoutCapDesign;
+        else return playerInventory.amoutClothesDesign;
     }
 
     public void HidePopupUpgrade()

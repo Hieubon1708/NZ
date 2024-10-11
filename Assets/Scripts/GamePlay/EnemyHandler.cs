@@ -111,9 +111,9 @@ public class EnemyHandler : MonoBehaviour
 
     IEnumerator PlayerCollisionHandle(int subtractHp)
     {
-        while (PlayerHandler.instance.playerInfo.hp > 0 && !isStunByWeapon)
+        while (PlayerController.instance.player.hp > 0 && !isStunByWeapon)
         {
-            PlayerHandler.instance.SubtractHp(subtractHp);
+            PlayerController.instance.playerHandler.SubtractHp(subtractHp);
             yield return new WaitForSeconds(GameController.instance.timeBlockNPlayerDamage);
         }
     }

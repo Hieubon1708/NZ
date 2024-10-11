@@ -7,13 +7,13 @@ public class BlockBuyButton : ButtonState
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.startPrice) return;
+        if (PlayerController.instance.player.gold < DataManager.instance.blockConfig.startPrice) return;
         base.OnPointerDown(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.startPrice) return;
+        if (PlayerController.instance.player.gold < DataManager.instance.blockConfig.startPrice) return;
         if(eventData.pointerCurrentRaycast.gameObject == currentObjectSelected) blockBuyHandler.Buy();
         base.OnPointerUp(eventData);
     }

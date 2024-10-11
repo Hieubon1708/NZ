@@ -14,27 +14,26 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public override void CheckButtonState()
     {
-        if (PlayerHandler.instance.playerInfo.gold < (DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice))
+        if (PlayerController.instance.player.gold < (DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice))
         {
-            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice);
+            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice, arrow);
         }
         else
         {
-            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frame, framePrice);
+            UIHandler.instance.EnergyButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frame, framePrice, arrow);
         }
     }
 
     public override void Upgrade()
     {
-        PlayerHandler.instance.playerInfo.gold -= DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice;
+        PlayerController.instance.player.gold -= DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice;
+        UIHandler.instance.GoldUpdatee();
         level++;
         UpgradeHandle();
     }
 
     public override void UpgradeHandle()
     {
-        Debug.LogWarning(level);
-        Debug.LogWarning(DataManager.instance.GetSecondsUpgradeEnergyConfig(level));
         textPriceUpgrade.text = DataManager.instance.GetPriceUpgradeEnergyConfig(level).ToString();
         textTime.text = DataManager.instance.GetSecondsUpgradeEnergyConfig(level).ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + "/s";
     }

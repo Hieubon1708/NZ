@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class SummonEquipment : MonoBehaviour
 {
-    public static SummonEquipment instance;
-
     public Image panelChances;
     public RectTransform chancePopup;
 
@@ -18,11 +16,6 @@ public class SummonEquipment : MonoBehaviour
     public int level;
     public int leveInPopUp;
     public int amout;
-
-    public void Awake()
-    {
-        instance = this;
-    }
 
     public void Update()
     {

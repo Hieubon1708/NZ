@@ -6,6 +6,10 @@ public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance;
 
+    public ProgressHandler progressHandler;
+    public SummonEquipment summonEquipment;
+
+    public GameObject gold;
     public TextMeshProUGUI textGold;
 
     public Sprite[] frameButtonWeaponBuyers;
@@ -38,9 +42,14 @@ public class UIHandler : MonoBehaviour
         GoldUpdatee();
     }
 
+    public void Restart()
+    {
+
+    }
+
     public void GoldUpdatee()
     {
-        textGold.text = ConvertNumberAbbreviation(PlayerHandler.instance.playerInfo.gold);
+        textGold.text = ConvertNumberAbbreviation(PlayerController.instance.player.gold);
     }
 
     public enum Type
@@ -155,10 +164,18 @@ public class UIHandler : MonoBehaviour
         frame.sprite = frameButtonBlockUpgradees[index];
     }
 
-    public void EnergyButtonChangeState(Type type, Image frame, Image framePrice)
+    public void EnergyButtonChangeState(Type type, Image frame, Image framePrice, Image arrow)
     {
         int index;
         GetIndexNSetColorNAlpha(type, out index, framePrice);
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            arrow.color = arrowNOk;
+        }
+        else
+        {
+            arrow.color = arrowOk;
+        }
         frame.sprite = frameButtonEnergyUpgradees[index];
     }
 

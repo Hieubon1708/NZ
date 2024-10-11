@@ -3,18 +3,11 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
-    public static PlayerHandler instance;
-
     public Player playerInfo;
     public HealthHandler healthHandler;
     public GameObject healthBar;
     public BoxCollider2D boxCollider;
     public List<GameObject> listEnemies = new List<GameObject>();
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public void LoadData()
     {

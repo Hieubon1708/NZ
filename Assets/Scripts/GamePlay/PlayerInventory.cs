@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public static PlayerInventory instance;
-
     public int gem;
     public int dush;
 
@@ -21,11 +19,6 @@ public class PlayerInventory : MonoBehaviour
     public int amoutBoomDesign;
     public int amoutCapDesign;
     public int amoutClothesDesign;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public void LoadData()
     {

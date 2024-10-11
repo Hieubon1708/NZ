@@ -5,7 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    bool isMouseDown;
+    public Player player;
+    public PlayerHandler playerHandler;
+
     public GameObject traectory;
     public Transform gunPivot;
     public Transform gunPivotForAni;
@@ -14,12 +16,14 @@ public class PlayerController : MonoBehaviour
     public GameObject boomPref;
     public Rigidbody2D[] listBooms;
     public SpriteRenderer[] boomSpriteRenderers;
+    public Transform startBoom;
+    public CapsuleCollider2D col;
+    Transform target;
+
     int boomIndex;
     public int boomCount;
-    public Transform startBoom;
-    Transform target;
     public bool isFindingTarget;
-    public CapsuleCollider2D col;
+    bool isMouseDown;
 
     private void Awake()
     {
@@ -72,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0;i < boomSpriteRenderers.Length; i++)
         {
-            boomSpriteRenderers[i].sprite = PlayerHandler.instance.playerInfo.playerSkiner.booms[PlayerInventory.instance.boomLevel];
+            boomSpriteRenderers[i].sprite = PlayerController.instance.player.playerSkiner.booms[EquipmentController.instance.playerInventory.boomLevel];
         }
     }
 

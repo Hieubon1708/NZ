@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     public GameObject buttonStart;
     public GameObject touchScreen;
     public GameObject colDisplay;
+    public GameObject menu;
 
     public bool isStart;
     public Camera cam;
@@ -66,11 +67,11 @@ public class GameController : MonoBehaviour
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
 
-        PlayerInventory.instance.LoadData();
-        PlayerHandler.instance.LoadData();
+        EquipmentController.instance.playerInventory.LoadData();
+        PlayerController.instance.playerHandler.LoadData();
         UIHandler.instance.LoadData();
         BlockController.instance.LoadData();
-        SummonEquipment.instance.LoadData();
+        UIHandler.instance.summonEquipment.LoadData();
         EquipmentController.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
 
@@ -172,6 +173,7 @@ public class GameController : MonoBehaviour
         SetValue(true);
         BlockController.instance.StartGame();
         Booster.instance.StartGame();
+        UIHandler.instance.progressHandler.StartGame();
         EnemyTowerController.instance.NextTower();
     }
 
@@ -181,12 +183,13 @@ public class GameController : MonoBehaviour
         gameCamera.SetActive(isActive);
         touchScreen.SetActive(isActive);
         buttonStart.SetActive(!isActive);
+        menu.SetActive(!isActive);
         isStart = isActive;
-        Booster.instance.energyAds.SetActive(isActive);
-        Booster.instance.energy.SetActive(isActive);
-        Booster.instance.boom.SetActive(isActive);
+        Booster.instance.SetActiveBooster(isActive);
         BlockUpgradeController.instance.recyleClose.SetActive(!isActive);
         BlockController.instance.SetActiveUI(!isActive);
+        UIHandler.instance.progressHandler.parent.SetActive(isActive);
+        UIHandler.instance.gold.SetActive(!isActive);
         CarController.instance.multiplier = isActive ? 1 : 0;
     }
 
@@ -242,12 +245,12 @@ public class GameController : MonoBehaviour
             equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
         }
 
-        DesignDataStorage designDataStorage = new DesignDataStorage(PlayerInventory.instance.amoutGunDesign, PlayerInventory.instance.amoutCapDesign, PlayerInventory.instance.amoutBoomDesign, PlayerInventory.instance.amoutClothesDesign);
-        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(PlayerInventory.instance.gunLevelUpgrade, PlayerInventory.instance.boomLevelUpgrade, PlayerInventory.instance.capLevelUpgrade, PlayerInventory.instance.clothesLevelUpgrade);
-        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerHandler.instance.playerInfo.gold, PlayerInventory.instance.gunLevel, PlayerInventory.instance.boomLevel, PlayerInventory.instance.clothesLevel, PlayerInventory.instance.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
+        DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
+        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
+        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
-        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(SummonEquipment.instance.level, SummonEquipment.instance.amout);
+        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.leveInPopUp, UIHandler.instance.summonEquipment.amout);
 
         DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
 

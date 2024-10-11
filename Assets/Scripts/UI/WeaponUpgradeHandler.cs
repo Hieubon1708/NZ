@@ -10,7 +10,6 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public TextMeshProUGUI textDamageR;
     public TextMeshProUGUI textDamageL;
     public Image frameEvoUpgrade;
-    public Image arrow;
     public Image[] boxes;
     public TextMeshProUGUI textMax;
     public TextMeshProUGUI textEvoUpgrade;
@@ -53,9 +52,9 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             evoUpgrade.SetActive(false);
-            if (weaponShoter.weaponType == GameController.WEAPON.SAW) UIUpgradeEvolution.instance.ShowPanelSawEvo();
-            if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UIUpgradeEvolution.instance.ShowPanelFlameEvo();
-            if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UIUpgradeEvolution.instance.ShowPanelMachineGunEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.SAW) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelSawEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelFlameEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo();
         }
         UpgradeHandle();
     }
@@ -99,7 +98,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         {
             UIHandler.instance.WeaponButtonChangeState(frame, textPriceUpgrade, textMax);
         }
-        else if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig))
+        else if (PlayerController.instance.player.gold < DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig))
         {
             if (levelUpgrade == boxProgress.Length) UIHandler.instance.WeaponEvoButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameEvoUpgrade, framePrice, arrow);
             else UIHandler.instance.WeaponButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frame, framePrice, textLv, textDamageL, textDamageR, boxes, arrow);

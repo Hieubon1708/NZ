@@ -16,7 +16,7 @@ public class BlockBuyHandler : ButtonBuyer
 
     public override void CheckButtonState()
     {
-        if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.startPrice) UIHandler.instance.BlockButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton, framePrice);
+        if (PlayerController.instance.player.gold < DataManager.instance.blockConfig.startPrice) UIHandler.instance.BlockButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton, framePrice);
         else UIHandler.instance.BlockButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frameButton, framePrice);
     }
 }

@@ -17,7 +17,6 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public TextMeshProUGUI textHpL;
     public TextMeshProUGUI textMax;
     public Image frameButton;
-    public Image framePrice;
     public Image iconGold;
     public GameObject[] saws;
     public GameObject[] flames;
@@ -82,7 +81,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public override void CheckButtonState()
     {
         if (blockInfo.level == DataManager.instance.blockConfig.hpUpgrades.Length - 1) UIHandler.instance.BlockButtonChangeState(frameButton, framePrice, textPriceUpgrade, textMax, iconGold, textLv, textHpL, textHpR);
-        else if (PlayerHandler.instance.playerInfo.gold < DataManager.instance.blockConfig.priceUpgrades[blockInfo.level]) UIHandler.instance.BlockButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton, framePrice, textLv, textHpL, textHpR);
+        else if (PlayerController.instance.player.gold < DataManager.instance.blockConfig.priceUpgrades[blockInfo.level]) UIHandler.instance.BlockButtonChangeState(UIHandler.Type.NOT_ENOUGH_MONEY, frameButton, framePrice, textLv, textHpL, textHpR);
         else UIHandler.instance.BlockButtonChangeState(UIHandler.Type.ENOUGH_MONEY, frameButton, framePrice, textLv, textHpL, textHpR);
     }
 

@@ -6,6 +6,8 @@ public class UpgradeEvolutionController : MonoBehaviour
 {
     public static UpgradeEvolutionController instance;
 
+    public UIUpgradeEvolution uIUpgradeEvolution;
+
     public List<SAWEVO> saws;
     public List<FLAMEEVO> flames;
     public List<MACHINEGUNEVO> machineGuns;
@@ -34,15 +36,15 @@ public class UpgradeEvolutionController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            UIUpgradeEvolution.instance.ShowPanelSawEvo();
+            uIUpgradeEvolution.ShowPanelSawEvo();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            UIUpgradeEvolution.instance.ShowPanelFlameEvo();
+            uIUpgradeEvolution.ShowPanelFlameEvo();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            UIUpgradeEvolution.instance.ShowPanelMachineGunEvo();
+            uIUpgradeEvolution.ShowPanelMachineGunEvo();
         }
     }
 
@@ -52,9 +54,9 @@ public class UpgradeEvolutionController : MonoBehaviour
         flames = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.flameEvos.ToList() : new List<FLAMEEVO>();
         machineGuns = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.machineGunEvos.ToList() : new List<MACHINEGUNEVO>();
 
-        UIUpgradeEvolution.instance.UpdateSawEvo();
-        UIUpgradeEvolution.instance.UpdateFlameEvo();
-        UIUpgradeEvolution.instance.UpdateMachineGunEvo();
+        uIUpgradeEvolution.UpdateSawEvo();
+        uIUpgradeEvolution.UpdateFlameEvo();
+        uIUpgradeEvolution.UpdateMachineGunEvo();
     }
 
     public void SawAddEvolution(int type)
@@ -76,8 +78,8 @@ public class UpgradeEvolutionController : MonoBehaviour
                 }
             }
         }
-        UIUpgradeEvolution.instance.UpdateSawEvo();
-        UIUpgradeEvolution.instance.HidePanelSawEvo();
+        uIUpgradeEvolution.UpdateSawEvo();
+        uIUpgradeEvolution.HidePanelSawEvo();
     }
 
     public void FlameAddEvolution(int type)
@@ -111,8 +113,8 @@ public class UpgradeEvolutionController : MonoBehaviour
                 }
             }
         }
-        UIUpgradeEvolution.instance.UpdateFlameEvo();
-        UIUpgradeEvolution.instance.HidePanelFlameEvo();
+        uIUpgradeEvolution.UpdateFlameEvo();
+        uIUpgradeEvolution.HidePanelFlameEvo();
     }
 
     public void MachineGunAddEvolution(int type)
@@ -142,8 +144,8 @@ public class UpgradeEvolutionController : MonoBehaviour
                 }
             }
         }
-        UIUpgradeEvolution.instance.UpdateMachineGunEvo();
-        UIUpgradeEvolution.instance.HidePanelMachineGunEvo();
+        uIUpgradeEvolution.UpdateMachineGunEvo();
+        uIUpgradeEvolution.HidePanelMachineGunEvo();
     }
 
     public int GetAmoutSawEvo(SAWEVO type)

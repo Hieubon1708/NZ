@@ -11,7 +11,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public bool isVisible;
     bool isTriggerFlame;
 
-    public void OnEnable()
+    public void Start()
     {
         healthHandler.SetTotalHp(towerInfo.hp);
     }

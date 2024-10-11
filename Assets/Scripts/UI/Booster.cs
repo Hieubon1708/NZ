@@ -34,7 +34,6 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
-        Debug.LogWarning(time);
         energyBar.DOFillAmount(1, 1f / time).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
@@ -52,6 +51,13 @@ public class Booster : MonoBehaviour
             weaponBoosters[i].UpdateTextEnergy();
         }
         textAmoutEnergy.text = amoutEnergy.ToString();
+    }
+
+    public void SetActiveBooster(bool isActive)
+    {
+        energyAds.SetActive(isActive);
+        energy.SetActive(isActive);
+        boom.SetActive(isActive);
     }
 
     public void ResetBooster()
