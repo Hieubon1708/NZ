@@ -890,7 +890,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 1
+  m_SortAtRoot: 0
 --- !u!114 &410237897961624098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,7 +917,7 @@ MonoBehaviour:
   frontalCollision: {fileID: 0}
   forceJump: 5
   multiplier: 1
-  speed: -2
+  startSpeed: 0
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -930,16 +930,10 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  layerOrigin:
-    serializedVersion: 2
-    m_Bits: 0
-  layerBumping:
-    serializedVersion: 2
-    m_Bits: 0
   a: 0
   targetX: 0
-  xPlus1: 5
-  xPlus2: 7
+  xPlus1: 6
+  xPlus2: 9
 --- !u!114 &2246718257229351700
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour
             {
                 GameObject e = Instantiate(enemies[i], GameController.instance.poolEnemies);
                 EnemyHandler sc = e.GetComponent<EnemyHandler>();
-                sc.speed = speed[i];
+                sc.startSpeed = speed[i];
                 sc.content.SetActive(false);
                 e.SetActive(false);
                 listEs.Add(e);
@@ -167,7 +167,7 @@ public class EnemyController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 

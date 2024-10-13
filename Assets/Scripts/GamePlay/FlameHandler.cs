@@ -87,9 +87,9 @@ public class FlameHandler : WeaponShoter
         {
             int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKDURATION);
 
-            if (level == 1) multiplier = 0.7f;
-            else if (level == 2) multiplier = 0.5f;
-            else if (level == 3) multiplier = 0.3f;
+            if (level == 1) multiplier = 1.7f;
+            else if (level == 2) multiplier = 1.5f;
+            else if (level == 3) multiplier = 1.3f;
         }
         attackDuration = startAttackDuration * multiplier;
     }
@@ -113,7 +113,6 @@ public class FlameHandler : WeaponShoter
         esmission = flameSmokeParticle.emission;
         esmissionChild = flameSmokeParticleChild.emission;
         shot = StartCoroutine(Shot());
-        findTarget = StartCoroutine(FindTarget());
         rotate = StartCoroutine(Rotate());
     }
 
@@ -194,7 +193,7 @@ public class FlameHandler : WeaponShoter
 
         IncreaseDamage(ref multiplier);
 
-        colBooster.name = (damage * multiplier).ToString();
+        colBooster.name = ((int)(damage * multiplier)).ToString();
     }
 
     public override void SetDamage(int damage)
@@ -203,7 +202,7 @@ public class FlameHandler : WeaponShoter
 
         IncreaseDamage(ref multiplier);
 
-        col.name = (damage * multiplier).ToString();
+        col.name = ((int)(damage * multiplier)).ToString();
     }
 
     void IncreaseDamage(ref float multiplier)

@@ -52,7 +52,13 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             evoUpgrade.SetActive(false);
-            if (weaponShoter.weaponType == GameController.WEAPON.SAW) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelSawEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.SAW)
+            {
+                if (level > UpgradeEvolutionController.instance.saws.Count)
+                {
+                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelSawEvo();
+                }
+            }
             if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelFlameEvo();
             if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo();
         }

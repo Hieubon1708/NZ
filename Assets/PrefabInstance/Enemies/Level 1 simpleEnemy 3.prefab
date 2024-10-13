@@ -632,8 +632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2000
-  damage: 100
+  hp: 1230
+  damage: 10
   bone: {fileID: 7099280852617269894}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
@@ -717,7 +717,7 @@ MonoBehaviour:
   frontalCollision: {fileID: 0}
   forceJump: 5
   multiplier: 1
-  speed: -2
+  startSpeed: 0
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -730,12 +730,6 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  layerOrigin:
-    serializedVersion: 2
-    m_Bits: 0
-  layerBumping:
-    serializedVersion: 2
-    m_Bits: 0
   a: 0
 --- !u!114 &4321627747312284488
 MonoBehaviour:

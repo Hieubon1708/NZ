@@ -33,6 +33,7 @@ public class BlockHandler : MonoBehaviour
         {
             BlockController.instance.DeleteBlockInGame(blockInfo.gameObject);
             ParController.instance.PlayBlockDestroyParticle(blockInfo.transform.position);
+            Booster.instance.CheckButtonState(blockInfo.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType);
         }
     }
 

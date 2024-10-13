@@ -3664,7 +3664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localScale: 0
   currentObjectSelected: {fileID: 0}
-  energy: 3
+  energy: 4
   booster: {fileID: 1528667896}
   frame: {fileID: 173683858}
   textEnergy: {fileID: 1963775076}
@@ -26274,7 +26274,7 @@ GameObject:
   - component: {fileID: 1528667895}
   - component: {fileID: 1528667896}
   m_Layer: 5
-  m_Name: EnergyNUltimate
+  m_Name: EnergyNBooster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33755,8 +33755,8 @@ MonoBehaviour:
   poolPars: {fileID: 1210177669}
   defaultDir: {fileID: 7488597057755668538}
   timeBlockNPlayerDamage: 0.5
-  timeSawDamage: 0.25
-  timeFlameDamage: 0.25
+  timeSawDamage: 0.035
+  timeFlameDamage: 0.032
   timeFlameBurningDamage: 0.5
   backgroundSpeed: 1.15
   menuCamera: {fileID: 1193953959}

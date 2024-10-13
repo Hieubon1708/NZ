@@ -959,8 +959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2000
-  damage: 50
+  hp: 420
+  damage: 8
   bone: {fileID: 7825448298857881008}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
@@ -1017,7 +1017,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 1
+  m_SortAtRoot: 0
 --- !u!114 &-5028497913313914360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   frontalCollision: {fileID: 0}
   forceJump: 5
   multiplier: 1
-  speed: -2
+  startSpeed: 0
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -1057,12 +1057,6 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
-  layerOrigin:
-    serializedVersion: 2
-    m_Bits: 0
-  layerBumping:
-    serializedVersion: 2
-    m_Bits: 0
   a: 0
 --- !u!114 &7250182961572006772
 MonoBehaviour:

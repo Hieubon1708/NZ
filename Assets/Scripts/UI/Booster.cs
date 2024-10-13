@@ -69,12 +69,31 @@ public class Booster : MonoBehaviour
 
     void EnableBooster()
     {
-        for (int i = 0; i < BlockController.instance.blocks.Count; i++)
+        for (int i = 0; i < BlockController.instance.tempBlocks.Count; i++)
         {
-            Block sc = BlockController.instance.GetScBlock(BlockController.instance.blocks[i]);
+            Block sc = BlockController.instance.GetScBlock(BlockController.instance.tempBlocks[i]);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.SAW) sawBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.FLAME) flameBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(true);
+        }
+    }
+
+    public void CheckButtonState(GameController.WEAPON type)
+    {
+        bool isRemaining = false;
+        for (int i = 0; i < BlockController.instance.tempBlocks.Count; i++)
+        {
+            Block sc = BlockController.instance.GetScBlock(BlockController.instance.tempBlocks[i]);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == type)
+            {
+                isRemaining = true;
+            }
+        }
+        if(!isRemaining)
+        {
+            if (type == GameController.WEAPON.SAW) sawBooster.SetActive(false);
+            if (type == GameController.WEAPON.FLAME) flameBooster.SetActive(false);
+            if (type == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(false);
         }
     }
 
@@ -96,7 +115,7 @@ public class Booster : MonoBehaviour
     {
         if (UpgradeEvolutionController.instance.flames.Contains(FLAMEEVO.DECREASEENERGY))
         {
-            int level = UpgradeEvolutionController.instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS);
+            int level = UpgradeEvolutionController.instance.GetAmoutFlameEvo(FLAMEEVO.DECREASEENERGY);
             int percentage = 0;
 
             if (level == 1) percentage = 15;

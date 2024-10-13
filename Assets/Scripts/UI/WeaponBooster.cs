@@ -17,7 +17,7 @@ public class WeaponBooster : ButtonState
 
     public void SubtractEnergy(float percentage)
     {
-        energy -= Mathf.RoundToInt(energy * 100 / percentage);
+        energy -= Mathf.RoundToInt(energy * percentage / 100);
         UpdateTextEnergy();
     }
 

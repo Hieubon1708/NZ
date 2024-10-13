@@ -58,7 +58,7 @@ public class EnemyT5 : EnemyHandler
         }
         else
         {
-            rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
+            rb.velocity = new Vector2(startSpeed * multiplier, rb.velocity.y);
         }
     }
 

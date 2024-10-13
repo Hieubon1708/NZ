@@ -61,9 +61,9 @@ public class MachineGunHandler : WeaponShoter
         {
             int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION);
 
-            if (level == 1) multiplier = 0.75f;
-            else if (level == 2) multiplier = 0.5f;
-            else if (level == 3) multiplier = 0.25f;
+            if (level == 1) multiplier = 1.75f;
+            else if (level == 2) multiplier = 1.5f;
+            else if (level == 3) multiplier = 1.25f;
         }
         attackDuration = startAttackDuration * multiplier;
     }
@@ -85,7 +85,6 @@ public class MachineGunHandler : WeaponShoter
     public override void StartGame()
     {
         ShotAll();
-        findTarget = StartCoroutine(FindTarget());
         rotate = StartCoroutine(Rotate());
     }
 
@@ -225,16 +224,20 @@ public class MachineGunHandler : WeaponShoter
             else if (i == 2) decreaseDamage = 0.5f;
             for (int j = 0; j < listBullets[i].Count; j++)
             {
-                listBullets[i][j].name = (damage * multiplier * decreaseDamage).ToString();
+                listBullets[i][j].name = ((int)(damage * multiplier * decreaseDamage)).ToString();
             }
         }
     }
 
     public override void SetDamageBooster(int damage)
     {
+        float multiplier = 1;
+
+        IncreaseDamage(ref multiplier);
+
         for (int i = 0; i < listBulletBoosters.Count; i++)
         {
-            listBulletBoosters[i].name = damage.ToString();
+            listBulletBoosters[i].name = ((int)(damage * multiplier)).ToString();
         }
     }
 

@@ -11,6 +11,7 @@ public class HealthHandler : MonoBehaviour
     public float timeSubtractHp_2;
     Tween delayCallLayer_1;
     Tween delayCallLayer_2;
+    bool isCompleted = true;
 
     public void Awake()
     {
@@ -32,16 +33,18 @@ public class HealthHandler : MonoBehaviour
 
     public void SubtractHp(float currentHp)
     {
-        KillDelay();
+        delayCallLayer_2.Kill();
         float percentage = GetPercentageOfTotal(currentHp, startHp);
         float value = GetValueOfPercentage(percentage, startWidth);
         delayCallLayer_2 = DOVirtual.Float(layer_2.size.x, value, timeSubtractHp_2, (x) =>
         {
             layer_2.size = new Vector2(x, layer_2.size.y);
         });
-        delayCallLayer_1 = DOVirtual.DelayedCall(0.25f, delegate
+
+        DOVirtual.DelayedCall(0.1f, delegate
         {
-            DOVirtual.Float(layer_1.size.x, value, timeSubtractHp_1, (x) =>
+            delayCallLayer_1.Kill();
+            delayCallLayer_1 = DOVirtual.Float(layer_1.size.x, value, timeSubtractHp_1, (x) =>
             {
                 layer_1.size = new Vector2(x, layer_1.size.y);
             });
@@ -60,8 +63,8 @@ public class HealthHandler : MonoBehaviour
 
     void KillDelay()
     {
-        delayCallLayer_1.Kill();
         delayCallLayer_2.Kill();
+        delayCallLayer_1.Kill();
     }
 
     private void OnDisable()

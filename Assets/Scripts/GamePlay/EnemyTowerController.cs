@@ -41,7 +41,7 @@ public class EnemyTowerController : MonoBehaviour
 
     public void NextTower()
     {
-        if (indexTower == towers.Length)
+        if (indexTower == towers.Length - 1)
         {
             Debug.Log("Win");
             return;

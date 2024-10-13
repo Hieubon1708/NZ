@@ -171,10 +171,11 @@ public class SawHandler : WeaponShoter
     IEnumerator ThrowSaw()
     {
         GameObject[] listS = new GameObject[amoutSawFBooster];
+        Vector2 startPos = transform.position;
         for (int i = 0; i < amoutSawFBooster; i++)
         {
             listS[i] = sawBoosters[countBooster].gameObject;
-            listS[i].transform.position = transform.position;
+            listS[i].transform.position = startPos;
             listS[i].SetActive(true);
             sawBoosters[countBooster].velocity = new Vector2(25, sawBoosters[countBooster].velocity.y);
             countBooster++;
@@ -191,7 +192,7 @@ public class SawHandler : WeaponShoter
 
         for (int i = 0; i < sawBoosters.Length; i++)
         {
-            sawBoosters[i].name = (damage * multiplier).ToString();
+            sawBoosters[i].name = ((int)(damage * multiplier)).ToString();
         }
     }
 
@@ -201,7 +202,7 @@ public class SawHandler : WeaponShoter
 
         GetPercentageIncreaseDamage(ref multiplier);
 
-        gameObject.name = (damage * multiplier).ToString();
+        gameObject.name = ((int)(damage * multiplier)).ToString();
     }
 
     void GetPercentageIncreaseDamage(ref float multiplier)

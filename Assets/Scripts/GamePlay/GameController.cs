@@ -70,13 +70,28 @@ public class GameController : MonoBehaviour
         EquipmentController.instance.playerInventory.LoadData();
         PlayerController.instance.playerHandler.LoadData();
         UIHandler.instance.LoadData();
-        BlockController.instance.LoadData();
-        UIHandler.instance.summonEquipment.LoadData();
         EquipmentController.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
+        BlockController.instance.LoadData();
+        UIHandler.instance.summonEquipment.LoadData();
 
         //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
         //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
+    }
+
+    public GameObject EBlockNearest(LayerMask layer)
+    {
+        float min = float.MaxValue;
+        GameObject e = null;
+        for (int i = 0; i < listEVisible.Count; i++)
+        {
+            if (listEVisible[i].layer == layer && listEVisible[i].transform.position.x < min)
+            {
+                min = listEVisible[i].transform.position.x;
+                e = listEVisible[i];
+            }
+        }
+        return e;
     }
 
     void LoadData()

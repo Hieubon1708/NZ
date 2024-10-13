@@ -30,24 +30,34 @@ public class EnemyT2 : EnemyHandler
 
     protected override void FixedUpdate()
     {
+        float walkSpeed = 0f;
+        float speed = startSpeed;
+
+        if (isCollisionWithCar)
+        {
+            walkSpeed = -GameController.instance.backgroundSpeed * multiplier;
+        }
+        else
+        {
+            walkSpeed = -(rb.velocity.x - GameController.instance.backgroundSpeed) * multiplier;
+        }
+
         if (isCollisionWithCar
             || gameObject.layer == layerBumping
-            || frontalCollision != null)
+            || frontalCollision != null
+            || isStunByWeapon)
         {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            speed = 0;
         }
-        else if (isStunByWeapon)
-        {
-            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
-        }
-        else if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
+        
+        if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
         {
             if (!animator.GetBool("attack"))
             {
                 isShot = true;
                 animator.SetBool("attack", true);
             }
-            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
+            speed = 0;
         }
         else
         {
@@ -57,10 +67,11 @@ public class EnemyT2 : EnemyHandler
                 animator.SetBool("attack", false);
                 targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
             }
-            rb.velocity = new Vector2(speed * multiplier, rb.velocity.y);
         }
+
+        rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
         animator.SetFloat("velocityY", rb.velocity.y);
-        animator.SetFloat("walkSpeed", Mathf.Abs(!isStunByWeapon || !(Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX) ? speed * multiplier : 0));
+        animator.SetFloat("walkSpeed", walkSpeed);
     }
 
     protected override void DeathHandle()
