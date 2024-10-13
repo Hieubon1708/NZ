@@ -22,6 +22,8 @@ public class PlayerHandler : MonoBehaviour
         healthHandler.SubtractHp(hp);
         if (hp == 0)
         {
+            GameController.instance.isLose = true;
+            Booster.instance.KillEnergyNBoosterButton();
             PlayerController.instance.DeathAni();
             CarController.instance.DeathAni();
             ParController.instance.PlayPlayerDieParticle(PlayerController.instance.transform.position);
@@ -33,7 +35,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EnemyBullet") || collision.CompareTag("Enemy"))
+        if (collision.CompareTag("EnemyBullet"))
         {
             SubtractHp(int.Parse(collision.gameObject.name));
         }

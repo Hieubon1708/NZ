@@ -42,6 +42,11 @@ public class WeaponBooster : ButtonState
 
     public virtual void UseBooster() { }
 
+    public void ButtonActive(bool isActive)
+    {
+        frame.raycastTarget = isActive;
+    }
+
     public void CheckBooterState()
     {
         if (booster.amoutEnergy < energy)

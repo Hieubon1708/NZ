@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
 
     public int level;
 
+    public bool isLose;
+
     public List<GameObject> listEnemies;
     public List<GameObject> listEVisible = new List<GameObject>();
 

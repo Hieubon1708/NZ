@@ -98,6 +98,7 @@ public class EnemyHandler : MonoBehaviour
             }
             flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
+        if (collision.CompareTag("Player")) playerCollision = StartCoroutine(PlayerTriggerHandle(int.Parse(name)));
     }
 
     IEnumerator FlameBurningTriggerHandle(int subtractHp)
@@ -109,7 +110,7 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
-    IEnumerator PlayerCollisionHandle(int subtractHp)
+    IEnumerator PlayerTriggerHandle(int subtractHp)
     {
         while (PlayerController.instance.player.hp > 0 && !isStunByWeapon)
         {
@@ -192,7 +193,6 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) playerCollision = StartCoroutine(PlayerCollisionHandle(int.Parse(name)));
         if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = true;
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
@@ -254,7 +254,7 @@ public class EnemyHandler : MonoBehaviour
             if (blockCollision != null) StopCoroutine(blockCollision);
         }
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
-        if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
+        if (collision.gameObject.CompareTag("Ground") ) isCollisionWithGround = false;
 
         if (collision.gameObject == frontalCollision)
         {

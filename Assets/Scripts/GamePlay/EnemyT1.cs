@@ -16,7 +16,7 @@ public class EnemyT1 : EnemyHandler
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if (collision.CompareTag("Car") && !isStunByWeapon)
+        if (collision.CompareTag("Car") && !isStunByWeapon && !GameController.instance.isLose)
         {
             animator.SetInteger("attackRandomizer", Random.Range(0, 2));
             animator.SetBool("attack", true);
@@ -24,10 +24,36 @@ public class EnemyT1 : EnemyHandler
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (GameController.instance.isLose && collision.CompareTag("Car") && !isStunByWeapon)
+        {
+            if (BlockController.instance.tempBlocks.Count != 0)
+            {
+                if (enemyInfo.transform.position.y > PlayerController.instance.transform.position.y && animator.GetBool("attack"))
+                {
+                    animator.SetBool("attack", false);
+                    isAttack = false;
+                }
+                else if (!animator.GetBool("attack"))
+                {
+                    animator.SetInteger("attackRandomizer", Random.Range(0, 2));
+                    animator.SetBool("attack", true);
+                    isAttack = true;
+                }
+            }
+            else
+            {
+                animator.SetBool("attack", false);
+                isAttack = false;
+            }
+        }
+    }
+
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Car") && !isStunByWeapon)
+        if (collision.CompareTag("Car") && !isStunByWeapon && !GameController.instance.isLose)
         {
             animator.SetBool("attack", false);
             isAttack = false;

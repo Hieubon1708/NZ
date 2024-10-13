@@ -31,6 +31,20 @@ public class Booster : MonoBehaviour
         DoFill();
     }
 
+    public void KillEnergyNBoosterButton()
+    {
+        energyBar.DOKill();
+        ActiveBoosterButton(false);
+    }
+
+    public void ActiveBoosterButton(bool isActive)
+    {
+        for (int i = 0; i < weaponBoosters.Length; i++)
+        {
+            weaponBoosters[i].ButtonActive(isActive);
+        }
+    }
+
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
@@ -62,9 +76,11 @@ public class Booster : MonoBehaviour
 
     public void ResetBooster()
     {
+        energyBar.fillAmount = 0;
         if (sawBooster.activeSelf) sawBooster.SetActive(false);
         if (flameBooster.activeSelf) flameBooster.SetActive(false);
         if (machineGunBooster.activeSelf) machineGunBooster.SetActive(false);
+        ActiveBoosterButton(true);
     }
 
     void EnableBooster()
@@ -89,7 +105,7 @@ public class Booster : MonoBehaviour
                 isRemaining = true;
             }
         }
-        if(!isRemaining)
+        if (!isRemaining)
         {
             if (type == GameController.WEAPON.SAW) sawBooster.SetActive(false);
             if (type == GameController.WEAPON.FLAME) flameBooster.SetActive(false);

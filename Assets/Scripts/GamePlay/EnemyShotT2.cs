@@ -33,7 +33,7 @@ public class EnemyShotT2 : MonoBehaviour
         float YUnder = PlayerController.instance.transform.position.y;
         if (BlockController.instance.blocks.Count > 0) YUnder = BlockController.instance.blocks[0].transform.position.y;
         float YAbove = PlayerController.instance.transform.position.y + 0.7f;
-        float x = PlayerController.instance.transform.position.x + 0.7f;
+        float x = PlayerController.instance.transform.position.x;
 
         float randomTarget = Random.Range(YUnder, YAbove);
 

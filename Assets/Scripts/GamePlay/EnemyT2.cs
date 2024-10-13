@@ -49,26 +49,37 @@ public class EnemyT2 : EnemyHandler
         {
             speed = 0;
         }
-        
-        if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
-        {
-            if (!animator.GetBool("attack"))
-            {
-                isShot = true;
-                animator.SetBool("attack", true);
-            }
-            speed = 0;
-        }
-        else
+
+        if(GameController.instance.isLose && BlockController.instance.tempBlocks.Count == 0)
         {
             if (animator.GetBool("attack"))
             {
                 isShot = false;
                 animator.SetBool("attack", false);
-                targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
             }
         }
-
+        else
+        {
+            if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
+            {
+                if (!animator.GetBool("attack"))
+                {
+                    isShot = true;
+                    animator.SetBool("attack", true);
+                }
+                speed = 0;
+            }
+            else
+            {
+                if (animator.GetBool("attack"))
+                {
+                    isShot = false;
+                    animator.SetBool("attack", false);
+                    targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+                }
+            }
+        }
+        
         rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
         animator.SetFloat("velocityY", rb.velocity.y);
         animator.SetFloat("walkSpeed", walkSpeed);
