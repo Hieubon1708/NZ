@@ -40,7 +40,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 {
                     if (sawEvos[j].type == SAWEVO.STUNENEMY)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY, instance.saws.Count - 1) + 1;
                         int percentage = 0; float time = 0;
                         if (level == 1)
                         {
@@ -65,7 +65,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (sawEvos[j].type == SAWEVO.PUSHESENEMIES)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES, instance.saws.Count - 1) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 5;
@@ -79,7 +79,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (sawEvos[j].type == SAWEVO.INCREASEDAMAGE)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE, instance.saws.Count - 1) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 20;
@@ -313,7 +313,7 @@ public class UIUpgradeEvolution : MonoBehaviour
     public bool IsSawMaxType(SAWEVO type)
     {
         SawEvo sawEvo = GetSawEvo(type);
-        return instance.GetAmoutSawEvo(type) == sawEvo.maxLevel;
+        return instance.GetAmoutSawEvo(type, instance.saws.Count - 1) == sawEvo.maxLevel;
     }
 
     public bool IsFlameMaxType(FLAMEEVO type)
@@ -412,7 +412,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 sawSlotEvo.gameObject.SetActive(true);
                 sawSlotEvo.transform.SetAsLastSibling();
             }
-            sawSlotEvo.SetAmout(instance.GetAmoutSawEvo(instance.saws[i]));
+            sawSlotEvo.SetAmout(instance.GetAmoutSawEvo(instance.saws[i], instance.saws.Count - 1));
         }
 
         List<SAWEVO> temp = new List<SAWEVO>(sawEvoTypes);

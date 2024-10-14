@@ -6,6 +6,7 @@ using static UpgradeEvolutionController;
 public class SawHandler : WeaponShoter
 {
     int count;
+    public int level;
     public Animation sawAttackAni;
     public ParticleSystem sawBlood;
     Coroutine blood;
@@ -32,12 +33,12 @@ public class SawHandler : WeaponShoter
     public override void LoadData()
     {
         AddSawBooster();
-        Booster.instance.DecreaseEnergySaw();
+        Booster.instance.DecreaseEnergySaw(level);
     }
 
     public void AddSawBooster()
     {
-        if (instance.saws.Contains(SAWEVO.ADDFROMBOOSTER))
+        if (instance.IsSawContains(SAWEVO.ADDFROMBOOSTER, level))
         {
             amoutSawFBooster++;
         }
@@ -93,14 +94,14 @@ public class SawHandler : WeaponShoter
     {
         while (true)
         {
-            if (instance.saws.Contains(SAWEVO.PUSHESENEMIES))
+            if (instance.IsSawContains(SAWEVO.PUSHESENEMIES, level))
             {
-                int level = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES);
+                int amout = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES, level);
 
                 int percentage = 0;
-                if (level == 1) percentage = 5;
-                else if (level == 2) percentage = 10;
-                else if (level == 3) percentage = 15;
+                if (amout == 1) percentage = 5;
+                else if (amout == 2) percentage = 10;
+                else if (amout == 3) percentage = 15;
 
                 int random = Random.Range(0, 100);
                 if (random <= percentage)
@@ -113,21 +114,21 @@ public class SawHandler : WeaponShoter
                 }
             }
 
-            if (instance.saws.Contains(SAWEVO.STUNENEMY))
+            if (instance.IsSawContains(SAWEVO.STUNENEMY, level))
             {
-                int level = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY);
+                int amout = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY, level);
                 int percentage = 0; float time = 0f;
-                if (level == 1)
+                if (amout == 1)
                 {
                     percentage = 20;
                     time = 1.5f;
                 }
-                else if (level == 2)
+                else if (amout == 2)
                 {
                     percentage = 25;
                     time = 2f;
                 }
-                else if (level == 3)
+                else if (amout == 3)
                 {
                     percentage = 30;
                     time = 2.5f;
@@ -155,7 +156,7 @@ public class SawHandler : WeaponShoter
                 EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(listEs[i]);
                 eSc.Stun(time);
                 Vector2 topBound = eSc.GetPositionTopBound(eSc.col);
-                ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), time, eSc.transform);
+                ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), time, eSc.healthBar.transform);
             }
         }
     }
@@ -207,13 +208,13 @@ public class SawHandler : WeaponShoter
 
     void GetPercentageIncreaseDamage(ref float multiplier)
     {
-        if (instance.saws.Contains(SAWEVO.INCREASEDAMAGE))
+        if (instance.IsSawContains(SAWEVO.INCREASEDAMAGE, level))
         {
-            int level = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE);
+            int amout = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE, level);
 
-            if (level == 1) multiplier = 1.2f;
-            else if (level == 2) multiplier = 1.4f;
-            else if (level == 3) multiplier = 1.6f;
+            if (amout == 1) multiplier = 1.2f;
+            else if (amout == 2) multiplier = 1.4f;
+            else if (amout == 3) multiplier = 1.6f;
         }
     }
 }

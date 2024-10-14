@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour
     {
         SetValue(false);
         EnemyTowerController.instance.Restart();
+        PlayerController.instance.Restart();
         BlockController.instance.Restart();
         Booster.instance.ResetBooster();
     }
@@ -262,6 +263,7 @@ public class GameController : MonoBehaviour
             equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
         }
 
+        PlayerController.instance.player.gold += UIHandler.instance.progressHandler.gold;
         DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
         PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);

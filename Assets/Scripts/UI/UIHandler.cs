@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
@@ -44,7 +45,13 @@ public class UIHandler : MonoBehaviour
 
     public void Restart()
     {
+        SceneManager.LoadScene(0);
+    }
 
+    public void AddGold()
+    {
+        PlayerController.instance.player.gold += 100000;
+        GoldUpdatee();
     }
 
     public void GoldUpdatee()
@@ -69,7 +76,7 @@ public class UIHandler : MonoBehaviour
     {
         if (isBoom)
         {
-            if(isOk) frame.sprite = frameButtonBoomBooster[0];
+            if (isOk) frame.sprite = frameButtonBoomBooster[0];
             else frame.sprite = frameButtonBoomBooster[1];
         }
         else
@@ -207,7 +214,11 @@ public class UIHandler : MonoBehaviour
 
     public string ConvertNumberAbbreviation(int number)
     {
-        if (number >= 1000000)
+        if (number >= 1000000000)
+        {
+            return (number / 1000000f).ToString(number >= 1100000 ? "F1" : "F0") + "G";
+        }
+        else if (number >= 1000000)
         {
             return (number / 1000000f).ToString(number >= 1100000 ? "F1" : "F0") + "M";
         }

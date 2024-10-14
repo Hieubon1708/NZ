@@ -59,6 +59,18 @@ public class UpgradeEvolutionController : MonoBehaviour
         uIUpgradeEvolution.UpdateMachineGunEvo();
     }
 
+    public bool IsSawContains(SAWEVO type, int level)
+    {
+        for (int i = 0; i < saws.Count; i++)
+        {
+            if (saws[i] == type && i < level)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void SawAddEvolution(int type)
     {
         saws.Add((SAWEVO)type);
@@ -68,14 +80,7 @@ public class UpgradeEvolutionController : MonoBehaviour
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler)
             {
                 SawHandler sawHandler = (SawHandler)sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter;
-                if (type == 1)
-                {
-                    sawHandler.AddSawBooster();
-                }
-                else if (type == 2)
-                {
-                    Booster.instance.DecreaseEnergySaw();
-                }
+                sawHandler.LoadData();
             }
         }
         uIUpgradeEvolution.UpdateSawEvo();
@@ -148,12 +153,12 @@ public class UpgradeEvolutionController : MonoBehaviour
         uIUpgradeEvolution.HidePanelMachineGunEvo();
     }
 
-    public int GetAmoutSawEvo(SAWEVO type)
+    public int GetAmoutSawEvo(SAWEVO type, int level)
     {
         int count = 0;
         for (int i = 0; i < saws.Count; i++)
         {
-            if (saws[i] == type)
+            if (saws[i] == type && i < level)
             {
                 count++;
             }

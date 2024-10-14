@@ -138,8 +138,8 @@ public class ParController : MonoBehaviour
     {
         GameObject d = stunOnEnemies[currentCountStunOnEnemy];
         d.transform.position = pos;
-        d.transform.SetParent(e);
         d.SetActive(true);
+        d.transform.SetParent(e);
         currentCountStunOnEnemy++;
         if (currentCountStunOnEnemy == stunOnEnemies.Length) currentCountStunOnEnemy = 0;
         DOVirtual.DelayedCall(time, delegate { d.SetActive(false); d.transform.SetParent(container); });

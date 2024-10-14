@@ -32,6 +32,7 @@ public class EnemyHandler : MonoBehaviour
     public bool isBumping;
     public bool isAttack;
     public bool isShot;
+    public bool isDeath;
     public int amoutCollision;
     public int lineIndex;
 
@@ -173,7 +174,7 @@ public class EnemyHandler : MonoBehaviour
         {
             if (flameTrigger != null) StopCoroutine(flameTrigger);
         }
-        if (collision.CompareTag("Boom")) SubtractHp(499);
+        if (collision.CompareTag("Boom")) SubtractHp(400);
     }
 
     public void Stun(float time)
@@ -254,7 +255,7 @@ public class EnemyHandler : MonoBehaviour
             if (blockCollision != null) StopCoroutine(blockCollision);
         }
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
-        if (collision.gameObject.CompareTag("Ground") ) isCollisionWithGround = false;
+        if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
 
         if (collision.gameObject == frontalCollision)
         {
@@ -348,21 +349,27 @@ public class EnemyHandler : MonoBehaviour
 
     void SubtractHp(float subtractHp)
     {
+        if (isDeath) return;
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         damage.ShowDamage(subtractHp.ToString());
         if (hp == 0)
         {
+            isDeath = true;
             ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
             DeathHandle();
         }
     }
 
+    public Tween delayRevival;
+
     protected virtual void DeathHandle()
     {
         SetColNKinematicNRevival(false);
         StopCoroutines();
+
+        UIHandler.instance.progressHandler.PlusGold(2);
 
         int deathRandomizer = Random.Range(0, 10);
 
@@ -372,7 +379,7 @@ public class EnemyHandler : MonoBehaviour
 
         GameController.instance.listEVisible.Remove(gameObject);
 
-        DOVirtual.DelayedCall(1f, delegate
+        delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
             EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
         });
@@ -388,7 +395,7 @@ public class EnemyHandler : MonoBehaviour
     public void SetColNKinematicNRevival(bool isEnable)
     {
         rb.isKinematic = !isEnable;
-        col.enabled = isEnable;
+        colObj.SetActive(isEnable);
     }
 
     public void SetActiveContentNView(bool isActive)
@@ -433,6 +440,8 @@ public class EnemyHandler : MonoBehaviour
         gameObject.layer = layerOrigin;
         colObj.layer = layerOrigin;
         colObj.SetActive(true);
+
+        isDeath = false;
     }
 
     void StopCoroutines()

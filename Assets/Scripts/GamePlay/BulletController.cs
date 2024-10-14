@@ -14,6 +14,7 @@ public class BulletController : MonoBehaviour
     public Transform container;
     public int count;
     public float speedBullet;
+    public Coroutine shot;
 
     private void Awake()
     {
@@ -48,6 +49,11 @@ public class BulletController : MonoBehaviour
         }
     }
 
+    public void EndShot()
+    {
+        if(shot != null) StopCoroutine(shot);
+    }
+
     public void SetUpShot()
     {
         int start = listBullets.Length / 2;
@@ -62,7 +68,7 @@ public class BulletController : MonoBehaviour
             float randomAngle = startAngle;
             if (randomAngle != 0) randomAngle = Random.Range(startAngle, endAngle);
 
-            StartCoroutine(Shot(RandomTime(times), i, randomAngle));
+            shot = StartCoroutine(Shot(RandomTime(times), i, randomAngle));
         }
     }
 

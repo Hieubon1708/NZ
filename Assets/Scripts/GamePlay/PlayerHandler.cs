@@ -6,7 +6,7 @@ public class PlayerHandler : MonoBehaviour
     public Player playerInfo;
     public HealthHandler healthHandler;
     public GameObject healthBar;
-    public BoxCollider2D boxCollider;
+    public GameObject boxCollider;
     public List<GameObject> listEnemies = new List<GameObject>();
 
     public void LoadData()
@@ -28,7 +28,7 @@ public class PlayerHandler : MonoBehaviour
             CarController.instance.DeathAni();
             ParController.instance.PlayPlayerDieParticle(PlayerController.instance.transform.position);
             CarController.instance.multiplier = 0;
-            boxCollider.enabled = false;
+            boxCollider.SetActive(false);
             healthBar.SetActive(false);
         }
     }

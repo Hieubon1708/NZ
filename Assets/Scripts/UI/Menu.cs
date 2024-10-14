@@ -31,7 +31,7 @@ public class Menu : MonoBehaviour
         startSizeY = options[0].sizeDelta.y;
 
         bigSizeX = startSizeX * 1.2f;
-        bigSizeY = startSizeY * 1.2f;
+        bigSizeY = startSizeY * 1f;
 
         minSizeX = (Screen.width - bigSizeX) / (options.Length - 1);
 

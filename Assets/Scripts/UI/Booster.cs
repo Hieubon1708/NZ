@@ -48,7 +48,7 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
-        energyBar.DOFillAmount(1, 1f / time).SetEase(Ease.Linear).OnComplete(delegate
+        energyBar.DOFillAmount(1, 0.5f).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
             energyBar.fillAmount = 0;
@@ -113,9 +113,9 @@ public class Booster : MonoBehaviour
         }
     }
 
-    public void DecreaseEnergySaw()
+    public void DecreaseEnergySaw(int level)
     {
-        if (UpgradeEvolutionController.instance.saws.Contains(SAWEVO.DECREASEENERGY))
+        if (UpgradeEvolutionController.instance.IsSawContains(SAWEVO.DECREASEENERGY, level))
         {
             for (int i = 0; i < weaponBoosters.Length; i++)
             {

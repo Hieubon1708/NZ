@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer[] boomSpriteRenderers;
     public Transform startBoom;
     public CapsuleCollider2D col;
-    Transform target;
+    public Transform target;
 
     int boomIndex;
     public int boomCount;
@@ -38,11 +38,20 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator StartFindTarget()
     {
-        while (target != GameController.instance.defaultDir)
+        while (target == null || target == GameController.instance.defaultDir)
         {
             target = GameController.instance.GetENearest(transform.position);
             yield return new WaitForFixedUpdate();
         }
+        isFindingTarget = true;
+        ShotAni();
+    }
+
+    public void Restart()
+    {
+        playerAni.SetBool("attack", false);
+        playerHandler.boxCollider.SetActive(true);
+        BulletController.instance.EndShot();
     }
 
     public void FindTarget()

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,6 +64,7 @@ public class EnemyController : MonoBehaviour
         {
             if (listScRandomEs[i].content.activeSelf) listScRandomEs[i].content.SetActive(false);
             if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
+            listScRandomEs[i].delayRevival.Kill();
         }
     }
 

@@ -10,6 +10,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public Transform towerPos;
     public bool isVisible;
     bool isTriggerFlame;
+    int damageTaken;
 
     public void Start()
     {
@@ -19,7 +20,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (!isVisible) yield break;
-        int subtractHp;
+        int subtractHp = 0;
         if (collision.CompareTag("Bullet"))
         {
             subtractHp = 70;
@@ -47,6 +48,12 @@ public class EnemyTowerHandler : MonoBehaviour
                 yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
             }
         }
+        damageTaken += subtractHp;
+        if(damageTaken >= 100)
+        {
+            UIHandler.instance.progressHandler.PlusGold(1);
+            damageTaken -= 100;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -63,6 +70,8 @@ public class EnemyTowerHandler : MonoBehaviour
 
         if (hp == 0)
         {
+            damageTaken = 0;
+            UIHandler.instance.progressHandler.PlusGold(100);
             GameController.instance.EDeathAll(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col);
             towerInfo.gameObject.SetActive(false);
             EnemyTowerController.instance.NextTower();

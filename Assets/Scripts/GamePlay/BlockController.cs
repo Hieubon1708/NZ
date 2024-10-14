@@ -55,6 +55,20 @@ public class BlockController : MonoBehaviour
         CheckButtonStateAll();
     }
 
+    public bool IsWeaponExistBlock(WEAPON type)
+    {
+        bool isExist = false;
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block sc = GetScBlock(blocks[i]);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == type)
+            {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+
     public void LoadData()
     {
         DataStorage dataStorage = DataManager.instance.dataStorage;
@@ -78,7 +92,7 @@ public class BlockController : MonoBehaviour
                 int weaponLevelUpgrade = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevelUpgrade;
 
                 blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
-                if(blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.LoadData();
+                if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.LoadData();
             }
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
@@ -135,18 +149,9 @@ public class BlockController : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             Block sc = GetScBlock(blocks[i]);
-            if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler)
-            {
-                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
-            }
-            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler)
-            {
-                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
-            }
-            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is MachineGunHandler)
-            {
-                sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
-            }
+            if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
+            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
+            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is MachineGunHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
         }
     }
 

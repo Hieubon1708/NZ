@@ -52,15 +52,31 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             evoUpgrade.SetActive(false);
+
+            bool isEvoContains = false;
+
             if (weaponShoter.weaponType == GameController.WEAPON.SAW)
             {
                 if (level > UpgradeEvolutionController.instance.saws.Count)
                 {
-                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelSawEvo();
+                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelSawEvo(); isEvoContains = true;
                 }
             }
-            if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelFlameEvo();
-            if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo();
+            if (weaponShoter.weaponType == GameController.WEAPON.FLAME)
+            {
+                if (level > UpgradeEvolutionController.instance.flames.Count)
+                {
+                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelFlameEvo(); isEvoContains = true;
+                }
+            }
+            if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN)
+            {
+                if (level > UpgradeEvolutionController.instance.flames.Count)
+                {
+                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo(); isEvoContains = true;
+                }
+            }
+            if (!isEvoContains) weaponShoter.LoadData();
         }
         UpgradeHandle();
     }
@@ -119,6 +135,14 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public void ResetData()
     {
         if (weaponShoter == null) return;
+
+        if (!BlockController.instance.IsWeaponExistBlock(weaponShoter.weaponType))
+        {
+            if (weaponShoter.weaponType == GameController.WEAPON.SAW) UpgradeEvolutionController.instance.saws.Clear();
+            else if (weaponShoter.weaponType == GameController.WEAPON.FLAME) UpgradeEvolutionController.instance.flames.Clear();
+            else if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) UpgradeEvolutionController.instance.machineGuns.Clear();
+        }
+
         weaponShoter.parent.gameObject.SetActive(false);
         weaponShoter = null;
         weaponConfig = null;

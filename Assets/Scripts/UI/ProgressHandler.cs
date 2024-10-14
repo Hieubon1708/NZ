@@ -7,11 +7,13 @@ public class ProgressHandler : MonoBehaviour
 {
     public GameObject parent;
     public Image progress;
-    public TextMeshProUGUI gold;
+    public int gold;
+    public TextMeshProUGUI textGold;
 
     public void StartGame()
     {
-        gold.text = "0";
+        gold = 0;
+        textGold.text = gold.ToString();
         progress.fillAmount = 0;
         Transform target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.towers.Length - 1].col.transform;
         float distance = Mathf.Abs(PlayerController.instance.transform.position.x - target.position.x);
@@ -29,5 +31,11 @@ public class ProgressHandler : MonoBehaviour
             progress.fillAmount = Mathf.Lerp(progress.fillAmount, percentage, 0.1f);
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    public void PlusGold(int gold)
+    {
+        this.gold += gold;
+        textGold.text = this.gold.ToString();
     }
 }
