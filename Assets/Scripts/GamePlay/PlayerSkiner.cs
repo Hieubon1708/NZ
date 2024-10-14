@@ -1,28 +1,51 @@
+using System;
 using UnityEngine;
 
 public class PlayerSkiner : MonoBehaviour
 {
     public Sprite[] caps;
     public Sprite[] clothess;
-    public Sprite[] guns;
+    public Sprite[] guns1;
+    public Sprite[] guns2;
+    public Sprite[] guns3;
     public Sprite[] booms;
 
     public SpriteRenderer cap;
     public SpriteRenderer clothes;
-    public SpriteRenderer gun;
+    public SpriteRenderer gun1;
+    public SpriteRenderer gun2;
+    public SpriteRenderer gun3;
 
-    public void CapChange()
+    public void LoadData()
     {
-        cap.sprite = caps[EquipmentController.instance.playerInventory.capLevel];
+        int indexCap = EquipmentController.instance.playerInventory.capLevel;
+        int indexClothes = EquipmentController.instance.playerInventory.clothesLevel;
+        int indexGun = EquipmentController.instance.playerInventory.gunLevel;
+
+        cap.sprite = caps[indexCap];
+        clothes.sprite = clothess[indexClothes];
+
+        gun1.sprite = guns1[indexGun];
+        gun2.sprite = guns2[indexGun];
+        gun3.sprite = guns3[indexGun];
+
+        PlayerController.instance.BoomSkinChange();
     }
 
-    public void ClothesChange()
+    public void CapChange(int index)
     {
-        clothes.sprite = clothess[EquipmentController.instance.playerInventory.clothesLevel];
+        cap.sprite = caps[index];
     }
 
-    public void GunChange()
+    public void ClothesChange(int index)
     {
-        gun.sprite = guns[EquipmentController.instance.playerInventory.gunLevel];
+        clothes.sprite = clothess[index];
+    }
+
+    public void GunChange(int index)
+    {
+        gun1.sprite = guns1[index];
+        gun2.sprite = guns2[index];
+        gun3.sprite = guns3[index];
     }
 }

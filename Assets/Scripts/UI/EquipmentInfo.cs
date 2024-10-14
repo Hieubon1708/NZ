@@ -23,6 +23,7 @@ public class EquipmentInfo : MonoBehaviour
     {
         this.bg.sprite = bg;
         this.eq.sprite = eq;
+        this.eq.SetNativeSize();
     }
 
     public void ShowPopupSwap()

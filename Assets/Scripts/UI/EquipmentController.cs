@@ -114,11 +114,10 @@ public class EquipmentController : MonoBehaviour
         textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutClothesDesign);
 
         if (DataManager.instance.dataStorage.pLayerDataStorage != null)
-
         {
             for (int i = 0; i < DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages.Length; i++)
             {
-                if (amoutEquip == equipments.Count - 1) Generate();
+                //if (amoutEquip == equipments.Count - 1) Generate();
                 equipments[i].gameObject.SetActive(true);
                 EquipmentDataStorage eq = DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages[i];
                 SetEquip(eq.type, eq.level, equipments[i]);
@@ -138,7 +137,6 @@ public class EquipmentController : MonoBehaviour
             SetEquip(i, level, equipMains[i]);
             equipCurrentLevels[i].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(equipMains[i].type) + 1);
         }
-
 
         UpdateDamage();
         UpdateHealth();
@@ -426,11 +424,6 @@ public class EquipmentController : MonoBehaviour
                 return previousValue;
             }
         }
-    }
-
-    void UpdateLevelUpgrade()
-    {
-
     }
 
     int GetLevelUpgrade(EQUIPMENTTYPE type)

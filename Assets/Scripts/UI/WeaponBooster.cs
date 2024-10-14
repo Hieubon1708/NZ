@@ -23,21 +23,15 @@ public class WeaponBooster : ButtonState
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if (booster.amoutEnergy < energy) return;
-        currentObjectSelected = eventData.pointerCurrentRaycast.gameObject;
         ScaleButton(localScale * 0.95f, 0.05f);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        if (booster.amoutEnergy < energy) return;
         ScaleButton(localScale, 0.05f);
-        if (eventData.pointerCurrentRaycast.gameObject == currentObjectSelected)
-        {
-            booster.amoutEnergy -= energy;
-            booster.CheckBoosterState();
-            UseBooster();
-        }
+        booster.amoutEnergy -= energy;
+        booster.CheckBoosterState();
+        UseBooster();
     }
 
     public virtual void UseBooster() { }

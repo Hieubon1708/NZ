@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
 
         EquipmentController.instance.playerInventory.LoadData();
         PlayerController.instance.playerHandler.LoadData();
+        PlayerController.instance.player.playerSkiner.LoadData();
         UIHandler.instance.LoadData();
         EquipmentController.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();

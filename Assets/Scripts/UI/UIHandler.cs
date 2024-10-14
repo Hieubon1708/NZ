@@ -84,14 +84,24 @@ public class UIHandler : MonoBehaviour
             if (isOk) frame.sprite = frameButtonBooster[0];
             else frame.sprite = frameButtonBooster[1];
         }
+        if(isOk) frame.raycastTarget = true;
+        else frame.raycastTarget = false;
     }
 
     public void WeaponEvoButtonChangeState(Type type, Image frame, Image framePrice, Image arrow)
     {
         int index;
         GetIndexNSetColorNAlpha(type, out index, framePrice);
-        if (type == Type.NOT_ENOUGH_MONEY) arrow.color = arrowNOk;
-        else arrow.color = arrowNOk;
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            frame.raycastTarget = false;
+            arrow.color = arrowNOk;
+        }
+        else
+        {
+            arrow.color = arrowNOk;
+            frame.raycastTarget = true;
+        }
         frame.sprite = frameButtonWeaponEvoUpgradees[index];
     }
 
@@ -100,11 +110,13 @@ public class UIHandler : MonoBehaviour
         int index = 0;
         if (type == Type.NOT_ENOUGH_MONEY)
         {
+            frame.raycastTarget = false;
             index = 1;
             framePrice.color = framePriceNok;
         }
         else
         {
+            frame.raycastTarget = true;
             framePrice.color = framePriceOk;
         }
         frame.sprite = frameButtonWeaponBuyers[index];
@@ -119,12 +131,14 @@ public class UIHandler : MonoBehaviour
             TextChangeColor(textLv, textDamageL, textDamageR, textNOk);
             BoxColorChange(boxes, boxNOk);
             arrow.color = arrowNOk;
+            frame.raycastTarget = false;
         }
         else
         {
             TextChangeColor(textLv, textDamageL, textDamageR, textOk);
             BoxColorChange(boxes, boxOk);
             arrow.color = arrowOk;
+            frame.raycastTarget = true;
         }
         frame.sprite = frameButtonWeaponUpgradees[index];
     }
@@ -134,6 +148,7 @@ public class UIHandler : MonoBehaviour
         textPrice.gameObject.SetActive(false);
         textMax.gameObject.SetActive(true);
         frame.sprite = frameButtonWeaponUpgradees[2];
+        frame.raycastTarget = false;
     }
 
     public void BlockButtonChangeState(Image frame, Image framePrice, TextMeshProUGUI textPrice, TextMeshProUGUI textMax, Image iconGold, TextMeshProUGUI textLv, TextMeshProUGUI textHpL, TextMeshProUGUI textHpR)
@@ -145,6 +160,7 @@ public class UIHandler : MonoBehaviour
         frame.sprite = frameButtonBlockUpgradees[2];
 
         framePrice.color = framePriceMax;
+        frame.raycastTarget = false;
 
         TextChangeColor(textLv, textHpL, textHpR, textNOk);
     }
@@ -152,6 +168,14 @@ public class UIHandler : MonoBehaviour
     public void BlockButtonChangeState(Type type, Image frame, Image framePrice)
     {
         int index;
+        if (type == Type.NOT_ENOUGH_MONEY)
+        {
+            frame.raycastTarget = false;
+        }
+        else
+        {
+            frame.raycastTarget = true;
+        }
         GetIndexNSetColorNAlpha(type, out index, framePrice);
         frame.sprite = frameButtonBlockUpgradees[index];
     }
@@ -163,10 +187,12 @@ public class UIHandler : MonoBehaviour
         if (type == Type.NOT_ENOUGH_MONEY)
         {
             TextChangeColor(textLv, textHpL, textHpR, textNOk);
+            frame.raycastTarget = false;
         }
         else
         {
             TextChangeColor(textLv, textHpL, textHpR, textOk);
+            frame.raycastTarget = true;
         }
         frame.sprite = frameButtonBlockUpgradees[index];
     }
@@ -178,10 +204,12 @@ public class UIHandler : MonoBehaviour
         if (type == Type.NOT_ENOUGH_MONEY)
         {
             arrow.color = arrowNOk;
+            frame.raycastTarget = false;
         }
         else
         {
             arrow.color = arrowOk;
+            frame.raycastTarget = true;
         }
         frame.sprite = frameButtonEnergyUpgradees[index];
     }

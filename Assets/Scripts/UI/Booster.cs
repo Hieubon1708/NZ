@@ -48,7 +48,7 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
-        energyBar.DOFillAmount(1, 0.5f).SetEase(Ease.Linear).OnComplete(delegate
+        energyBar.DOFillAmount(1, 1f / 2f).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
             energyBar.fillAmount = 0;
