@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class EquipmentController : MonoBehaviour
 {
@@ -14,7 +13,10 @@ public class EquipmentController : MonoBehaviour
     public List<EquipmentInfo> equipments = new List<EquipmentInfo>();
     public EquipmentInfo[] equipMains;
 
-    public Transform container;
+    public RectTransform container;
+    public RectTransform view;
+    public ScrollRect scrollInventory;
+    public DesignContraint designContraint;
 
     public Image cap;
     public Image clothes;
@@ -83,7 +85,11 @@ public class EquipmentController : MonoBehaviour
     public Sprite downArrow;
     public Sprite buttonOk;
     public Sprite buttonNok;
+    public Sprite equipBest;
+    public Sprite sellDuplicates;
 
+    public Image frameEquipBest;
+    public Image frameSellDuplicates;
     public Image maxLevel;
     public Image levelUp;
 
@@ -110,6 +116,12 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
+    public void DesignContraint()
+    {
+        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 175, float.MinValue, designContraint.startY);
+        designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
+    }
+
     public void LoadData()
     {
         playerInventory.LoadData();
@@ -123,7 +135,7 @@ public class EquipmentController : MonoBehaviour
         {
             for (int i = 0; i < DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages.Length; i++)
             {
-                //if (amoutEquip == equipments.Count - 1) Generate();
+                if (amoutEquip == equipments.Count - 1) Generate();
                 equipments[i].gameObject.SetActive(true);
                 EquipmentDataStorage eq = DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages[i];
                 SetEquip(eq.type, eq.level, equipments[i]);
@@ -140,6 +152,9 @@ public class EquipmentController : MonoBehaviour
 
         UpdateDamage();
         UpdateHealth();
+        CheckDisplayDesign();
+        CheckStateEquipBest();
+        CheckStateSellDuplicate();
         QualitySort();
     }
 
@@ -153,6 +168,8 @@ public class EquipmentController : MonoBehaviour
 
     void CheckDisplayDesign()
     {
+        scrollInventory.normalizedPosition = new Vector2(0, 1);
+
         if (playerInventory.amoutClothesDesign == 0) clothesDesign.SetActive(false);
         else clothesDesign.SetActive(true);
         if (playerInventory.amoutCapDesign == 0) capDesign.SetActive(false);
@@ -161,6 +178,9 @@ public class EquipmentController : MonoBehaviour
         else boomDesign.SetActive(true);
         if (playerInventory.amoutGunDesign == 0) gunDesign.SetActive(false);
         else gunDesign.SetActive(true);
+
+        if (playerInventory.amoutClothesDesign == 0 && playerInventory.amoutCapDesign == 0 && playerInventory.amoutBoomDesign == 0 && playerInventory.amoutGunDesign == 0) view.offsetMin = new Vector2(view.offsetMin.x, 30);
+        else view.offsetMin = new Vector2(view.offsetMin.x, 250);
     }
 
     void UpdateDamage()
@@ -210,6 +230,7 @@ public class EquipmentController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+
         }
     }
 
@@ -278,6 +299,9 @@ public class EquipmentController : MonoBehaviour
         SwapEquip(equipMain, equipSelected);
 
         HidePopupSwap();
+
+        CheckStateEquipBest();
+        CheckStateSellDuplicate();
     }
 
     public void UpgradeAccept()
@@ -387,12 +411,54 @@ public class EquipmentController : MonoBehaviour
 
     void CheckStateEquipBest()
     {
-
+        for (int i = 0; i < equipMains.Length; i++)
+        {
+            for (int j = 0; j < amoutEquip; j++)
+            {
+                if (equipMains[i].type == equipments[j].type && equipMains[i].level < equipments[j].level)
+                {
+                    frameEquipBest.raycastTarget = true;
+                    frameEquipBest.sprite = equipBest;
+                    return;
+                }
+            }
+        }
+        frameEquipBest.raycastTarget = false;
+        frameEquipBest.sprite = buttonNok;
     }
 
     void CheckStateSellDuplicate()
     {
+        for (int i = 0; i < equipMains.Length; i++)
+        {
+            for (int j = 0; j < amoutEquip; j++)
+            {
+                if (equipMains[i].type == equipments[j].type)
+                {
+                    if (equipMains[i].level >= equipments[j].level)
+                    {
+                        frameSellDuplicates.raycastTarget = true;
+                        frameSellDuplicates.sprite = sellDuplicates;
+                        return;
+                    }
 
+                }
+            }
+        }
+        for (int i = 0; i < amoutEquip - 1; i++)
+        {
+            for (int j = i + 1; j < amoutEquip; j++)
+            {
+                if (equipMains[i].type == equipments[j].type)
+                {
+                    frameSellDuplicates.raycastTarget = true;
+                    frameSellDuplicates.sprite = sellDuplicates;
+                    return;
+                }
+            }
+        }
+        frameSellDuplicates.sprite = buttonNok;
+        frameSellDuplicates.raycastTarget = false;
     }
 
     void SwapEquip(EquipmentInfo eq1, EquipmentInfo eq2)
@@ -449,23 +515,27 @@ public class EquipmentController : MonoBehaviour
     public void SellDuplicates()
     {
         int length = amoutEquip;
-        for (int i = 0; i < length; i++)
+        for (int k = 0; k < equipMains.Length; k++)
         {
-            if (equipments[i].gameObject.activeSelf)
+            int maxType = GetEquipMax(equipMains[k].type);
+            for (int i = 0; i < length; i++)
             {
-                if ((int)equipments[i].level <= GetIndexLevel((int)equipments[i].type))
+                if (equipments[i].gameObject.activeSelf && equipments[i].type == equipMains[k].type)
                 {
-                    equipments[i].gameObject.SetActive(false);
-                    amoutEquip--;
-                }
-                else
-                {
-                    for (int j = i + 1; j < length; j++)
+                    if ((int)equipments[i].level <= maxType)
                     {
-                        if (equipments[j].gameObject.activeSelf && (int)equipments[i].level == (int)equipments[j].level && (int)equipments[i].type == (int)equipments[j].type)
+                        equipments[i].gameObject.SetActive(false);
+                        amoutEquip--;
+                    }
+                    else
+                    {
+                        for (int j = i + 1; j < length; j++)
                         {
-                            equipments[j].gameObject.SetActive(false);
-                            amoutEquip--;
+                            if (equipments[j].gameObject.activeSelf && equipments[i].level == equipments[j].level && equipments[i].type == equipments[j].type)
+                            {
+                                equipments[j].gameObject.SetActive(false);
+                                amoutEquip--;
+                            }
                         }
                     }
                 }
@@ -487,6 +557,20 @@ public class EquipmentController : MonoBehaviour
                 }
             }
         }
+        CheckDisplayDesign();
+    }
+
+    int GetEquipMax(EQUIPMENTTYPE type)
+    {
+        int result = int.MinValue;
+        for (int i = 0; i < equipments.Count; i++)
+        {
+            if (equipments[i].type == type && equipments[i].level > equipMains[(int)type].level && (int)equipments[i].level > result)
+            {
+                result = (int)equipments[i].level;
+            }
+        }
+        return result;
     }
 
     public void EquipBest()
