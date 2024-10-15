@@ -29,21 +29,24 @@ public class PlayerSkiner : MonoBehaviour
         gun2.sprite = guns2[indexGun];
         gun3.sprite = guns3[indexGun];
 
-        PlayerController.instance.BoomSkinChange();
+        PlayerController.instance.BoomChange();
     }
 
-    public void CapChange(int index)
+    public void CapChange()
     {
+        int index = EquipmentController.instance.playerInventory.capLevel;
         cap.sprite = caps[index];
     }
 
-    public void ClothesChange(int index)
+    public void ClothesChange()
     {
+        int index = EquipmentController.instance.playerInventory.clothesLevel;
         clothes.sprite = clothess[index];
     }
 
-    public void GunChange(int index)
+    public void GunChange()
     {
+        int index = EquipmentController.instance.playerInventory.gunLevel;
         gun1.sprite = guns1[index];
         gun2.sprite = guns2[index];
         gun3.sprite = guns3[index];

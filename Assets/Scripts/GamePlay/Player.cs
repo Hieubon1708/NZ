@@ -17,11 +17,23 @@ public class Player : MonoBehaviour
     public void SubtractGold(int gold)
     {
         this.gold -= gold;
-        Debug.LogWarning(this.gold);
     }
     
     public void PlusGold(int gold)
     {
         this.gold += gold;
+    }
+
+    public void LoadData()
+    {
+        if (DataManager.instance.dataStorage.playerDataStorage != null) gold = DataManager.instance.dataStorage.playerDataStorage.gold;
+        HpChange();
+    }
+
+    public void HpChange()
+    {
+        int capHp = EquipmentController.instance.GetEquipValue(EquipmentController.EQUIPMENTTYPE.CAP, EquipmentController.instance.playerInventory.capLevel, EquipmentController.instance.playerInventory.capLevelUpgrade);
+        int clothesHp = EquipmentController.instance.GetEquipValue(EquipmentController.EQUIPMENTTYPE.ARMOR, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
+        hp = capHp + clothesHp;
     }
 }

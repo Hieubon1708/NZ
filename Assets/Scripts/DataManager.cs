@@ -26,7 +26,6 @@ public class DataManager : MonoBehaviour
 
     public DataStorage dataStorage;
     public BlockConfig blockConfig;
-    public PLayerConfig playerConfig;
     public EnergyConfig energyConfig;
     public ChanceConfig chanceConfig;
     public EquipmentConfig equipmentConfig;
@@ -70,7 +69,6 @@ public class DataManager : MonoBehaviour
         TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
         TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
 
-        playerConfig = JsonConvert.DeserializeObject<PLayerConfig>(playerConfigJs.text);
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
         chanceConfig = JsonConvert.DeserializeObject<ChanceConfig>(chanceConfigJs.text);
@@ -197,13 +195,6 @@ public class DataManager : MonoBehaviour
         return new WeaponLevelConfig(priceConfig, attackConfig);
     }
 }
-
-[System.Serializable]
-public class PLayerConfig
-{
-    public int hp;
-}
-
 
 [System.Serializable]
 public class BlockConfig
@@ -343,16 +334,16 @@ public class DataStorage
 {
     public int level;
 
-    public PLayerDataStorage pLayerDataStorage;
+    public playerDataStorage playerDataStorage;
     public BlockDataStorage[] blockDataStorage;
     public EnergyDataStorage energyDataStorage;
     public ChanceDataStorage chanceDataStorage;
     public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
     public DataStorage() { }
-    public DataStorage(int level, PLayerDataStorage pLayerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
+    public DataStorage(int level, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
     {
         this.level = level;
-        this.pLayerDataStorage = pLayerDataStorage;
+        this.playerDataStorage = playerDataStorage;
         this.blockDataStorage = blockDataStorage;
         this.energyDataStorage = energyDataStorage;
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
@@ -416,11 +407,12 @@ public class DesignDataStorage
     }
 }
 
-public class PLayerDataStorage
+public class playerDataStorage
 {
     public int gold;
     public int gem;
     public int dush;
+    public int cogwheel;
 
     public int gunLevel;
     public int boomLevel;
@@ -431,9 +423,12 @@ public class PLayerDataStorage
     public EquipmentUpgradeDataStorage equipmentUpgradeDataStorages;
     public EquipmentDataStorage[] equipmentDataStorages;
 
-    public PLayerDataStorage(int gold, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
+    public playerDataStorage(int gold, int gem, int dush, int cogwheel, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
     {
         this.gold = gold;
+        this.gem = gem;
+        this.dush = dush;
+        this.cogwheel = cogwheel;
         this.gunLevel = gunLevel;
         this.boomLevel = boomLevel;
         this.capLevel = capLevel;

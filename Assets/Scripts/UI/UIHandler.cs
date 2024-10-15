@@ -41,6 +41,7 @@ public class UIHandler : MonoBehaviour
     public void LoadData()
     {
         GoldUpdatee();
+        summonEquipment.LoadData();
     }
 
     public void Restart()

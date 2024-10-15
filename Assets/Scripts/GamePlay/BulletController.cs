@@ -22,6 +22,19 @@ public class BulletController : MonoBehaviour
         Generate();
     }
 
+    public void LoadData()
+    {
+        SetDamage(EquipmentController.instance.GetEquipValue(EquipmentController.EQUIPMENTTYPE.SHOTGUN, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.gunLevelUpgrade));
+    }
+
+    public void SetDamage(int damage)
+    {
+        for (int i = 0; i < listBullets.Length; i++)
+        {
+            listBullets[i].name = damage.ToString();
+        }
+    }
+
     void Generate()
     {
         listBullets = new GameObject[count];

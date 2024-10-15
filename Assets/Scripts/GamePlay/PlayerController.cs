@@ -54,6 +54,16 @@ public class PlayerController : MonoBehaviour
         BulletController.instance.EndShot();
     }
 
+    public void LoadData()
+    {
+        BoomChange();
+        BoomSetDamage(EquipmentController.instance.GetEquipValue(EquipmentController.EQUIPMENTTYPE.GRENADE, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.boomLevelUpgrade));
+        player.LoadData();
+        player.playerSkiner.LoadData();
+        playerHandler.LoadData();
+        BulletController.instance.LoadData();
+    }
+
     public void FindTarget()
     {
         if (isMouseDown) return;
@@ -81,7 +91,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void BoomSkinChange()
+    public void BoomSetDamage(int damage)
+    {
+        for (int i = 0; i < listBooms.Length; i++)
+        {
+            listBooms[i].name = damage.ToString();
+        }
+    }
+
+    public void BoomChange()
     {
         for (int i = 0;i < boomSpriteRenderers.Length; i++)
         {

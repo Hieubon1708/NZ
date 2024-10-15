@@ -11,8 +11,6 @@ public class PlayerHandler : MonoBehaviour
 
     public void LoadData()
     {
-        playerInfo.hp = DataManager.instance.playerConfig.hp;
-        if (DataManager.instance.dataStorage.pLayerDataStorage != null) playerInfo.gold = DataManager.instance.dataStorage.pLayerDataStorage.gold;
         healthHandler.SetTotalHp(playerInfo.hp);
     }
 

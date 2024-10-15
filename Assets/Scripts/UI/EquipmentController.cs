@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class EquipmentController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class EquipmentController : MonoBehaviour
     public Image gun;
     public Image boom;
     public Image[] iconTypes;
+
+    public Image iconDesign;
+    public Sprite[] iconDesigns;
 
     public Image panelEquip;
     public Image arrowPopup;
@@ -65,6 +69,8 @@ public class EquipmentController : MonoBehaviour
     public EquipmentInfo equipUpgradeSelected;
 
     public int amoutEquip;
+    public int dushSelected;
+    public int designSelected;
 
     public Sprite[] bgs;
     public Sprite[] guns;
@@ -85,15 +91,13 @@ public class EquipmentController : MonoBehaviour
     public Color downColor;
     public Color[] colorEquipLevels;
 
+    bool isQuality = true;
+    public TextMeshProUGUI textQualityNClass;
+
     public void Awake()
     {
         instance = this;
         Generate();
-    }
-
-    public void Start()
-    {
-        LoadData();
     }
 
     void Generate()
@@ -108,18 +112,20 @@ public class EquipmentController : MonoBehaviour
 
     public void LoadData()
     {
+        playerInventory.LoadData();
+
         textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
         textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutBoomDesign);
         textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutCapDesign);
         textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutClothesDesign);
 
-        if (DataManager.instance.dataStorage.pLayerDataStorage != null)
+        if (DataManager.instance.dataStorage.playerDataStorage != null)
         {
-            for (int i = 0; i < DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages.Length; i++)
+            for (int i = 0; i < DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages.Length; i++)
             {
                 //if (amoutEquip == equipments.Count - 1) Generate();
                 equipments[i].gameObject.SetActive(true);
-                EquipmentDataStorage eq = DataManager.instance.dataStorage.pLayerDataStorage.equipmentDataStorages[i];
+                EquipmentDataStorage eq = DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages[i];
                 SetEquip(eq.type, eq.level, equipments[i]);
                 amoutEquip++;
             }
@@ -127,19 +133,22 @@ public class EquipmentController : MonoBehaviour
 
         for (int i = 0; i < equipMains.Length; i++)
         {
-            int level = 0;
-
-            if (i == 0) level = playerInventory.gunLevel;
-            else if (i == 1) level = playerInventory.boomLevel;
-            else if (i == 2) level = playerInventory.capLevel;
-            else level = playerInventory.clothesLevel;
-
+            int level = GetIndexLevel(i);
             SetEquip(i, level, equipMains[i]);
             equipCurrentLevels[i].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(equipMains[i].type) + 1);
         }
 
         UpdateDamage();
         UpdateHealth();
+        QualitySort();
+    }
+
+    int GetIndexLevel(int index)
+    {
+        if (index == 0) return playerInventory.gunLevel;
+        else if (index == 1) return playerInventory.boomLevel;
+        else if (index == 2) return playerInventory.capLevel;
+        else return playerInventory.clothesLevel;
     }
 
     void CheckDisplayDesign()
@@ -193,6 +202,7 @@ public class EquipmentController : MonoBehaviour
         for (int i = 0; i < iconTypes.Length; i++)
         {
             iconTypes[i].sprite = sprite;
+            iconTypes[i].SetNativeSize();
         }
     }
 
@@ -201,6 +211,16 @@ public class EquipmentController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
         }
+    }
+
+    public void QualityNClass()
+    {
+        isQuality = !isQuality;
+
+        textQualityNClass.text = isQuality ? "Quality" : "Class";
+
+        if (isQuality) QualitySort();
+        else ClassSort();
     }
 
     void ClassSort()
@@ -213,12 +233,12 @@ public class EquipmentController : MonoBehaviour
                 {
                     if (equipments[i].level < equipments[j].level)
                     {
-                        SwapEquip(equipments[i], equipments[j]);
+                        SwapValueEquip(equipments[i], equipments[j]);
                     }
                 }
                 else if (equipments[i].type > equipments[j].type)
                 {
-                    SwapEquip(equipments[i], equipments[j]);
+                    SwapValueEquip(equipments[i], equipments[j]);
                 }
             }
         }
@@ -232,13 +252,13 @@ public class EquipmentController : MonoBehaviour
             {
                 if (equipments[i].level < equipments[j].level)
                 {
-                    SwapEquip(equipments[i], equipments[j]);
+                    SwapValueEquip(equipments[i], equipments[j]);
                 }
                 else if (equipments[i].level == equipments[j].level)
                 {
                     if (equipments[i].type > equipments[j].type)
                     {
-                        SwapEquip(equipments[i], equipments[j]);
+                        SwapValueEquip(equipments[i], equipments[j]);
                     }
                 }
             }
@@ -257,13 +277,161 @@ public class EquipmentController : MonoBehaviour
     {
         SwapEquip(equipMain, equipSelected);
 
-        if (equipMain.type == EQUIPMENTTYPE.SHOTGUN || equipMain.type == EQUIPMENTTYPE.GRENADE) UpdateDamage();
-        else UpdateHealth();
-
         HidePopupSwap();
     }
 
+    public void UpgradeAccept()
+    {
+        Upgrade();
+    }
+
+    void Upgrade()
+    {
+        SubtractDesgin(equipUpgradeSelected.type, designSelected);
+        playerInventory.dush -= dushSelected;
+        if (equipUpgradeSelected.type == EQUIPMENTTYPE.SHOTGUN)
+        {
+            int damage = GetEquipValue(EQUIPMENTTYPE.SHOTGUN, playerInventory.gunLevel, ++playerInventory.gunLevelUpgrade);
+            equipUpgradeSelected.value = damage;
+            UpdateDamage();
+            BulletController.instance.SetDamage(damage);
+            equipCurrentLevels[0].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
+        }
+        else if (equipUpgradeSelected.type == EQUIPMENTTYPE.GRENADE)
+        {
+            int damage = GetEquipValue(EQUIPMENTTYPE.GRENADE, playerInventory.boomLevel, ++playerInventory.boomLevelUpgrade);
+            UpdateDamage();
+            PlayerController.instance.BoomSetDamage(damage);
+            equipCurrentLevels[1].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
+        }
+        else if (equipUpgradeSelected.type == EQUIPMENTTYPE.CAP)
+        {
+            GetEquipValue(EQUIPMENTTYPE.CAP, playerInventory.capLevel, ++playerInventory.capLevelUpgrade);
+            UpdateHealth();
+            PlayerController.instance.player.HpChange();
+            equipCurrentLevels[2].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
+        }
+        else
+        {
+            GetEquipValue(EQUIPMENTTYPE.ARMOR, playerInventory.clothesLevel, ++playerInventory.clothesLevelUpgrade);
+            UpdateHealth();
+            PlayerController.instance.player.HpChange();
+            equipCurrentLevels[3].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
+        }
+        UpdateInfoUpgrade(equipUpgradeSelected);
+        CheckStateUpgrade(equipUpgradeSelected);
+    }
+
+    void UpdateInfoUpgrade(EquipmentInfo eq)
+    {
+        currentLevelUpgrade.text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(eq.type) + 1);
+        currentValue.text = UIHandler.instance.ConvertNumberAbbreviation(eq.value);
+        nextValue.text = UIHandler.instance.ConvertNumberAbbreviation(GetEquipValue(eq.type, (int)eq.level, GetLevelUpgrade(eq.type) + 1));
+    }
+
+    void CheckStateUpgrade(EquipmentInfo eq)
+    {
+        bool isNok = false;
+
+        int levelUpgrade = GetLevelUpgrade(eq.type);
+        dushSelected = GetDush(levelUpgrade);
+        designSelected = GetDesign(levelUpgrade);
+
+        int amoutDesgin = GetAmoutDesign(eq.type);
+
+        if (playerInventory.dush < dushSelected)
+        {
+            isNok = true;
+            dush.text = "<color=red>" + playerInventory.dush + "</color>" + "/" + dushSelected;
+        }
+        else
+        {
+            dush.color = Vector4.one;
+            dush.text = playerInventory.dush + "/" + dushSelected;
+        }
+
+        if (amoutDesgin < designSelected)
+        {
+            isNok = true;
+            desgin.text = "<color=red>" + amoutDesgin + "</color>" + "/" + designSelected;
+        }
+        else
+        {
+            desgin.text = amoutDesgin + "/" + designSelected;
+        }
+
+        if (isNok)
+        {
+            levelUp.sprite = buttonNok;
+            maxLevel.sprite = buttonNok;
+            levelUp.raycastTarget = false;
+            maxLevel.raycastTarget = false;
+
+        }
+        else
+        {
+            levelUp.sprite = buttonOk;
+            maxLevel.sprite = buttonOk;
+            levelUp.raycastTarget = true;
+            maxLevel.raycastTarget = true;
+        }
+    }
+
+    public void UpradeMaxAccept()
+    {
+        while (GetAmoutDesign(equipUpgradeSelected.type) >= designSelected && playerInventory.dush >= dushSelected)
+        {
+            Upgrade();
+        }
+    }
+
+    void CheckStateEquipBest()
+    {
+
+    }
+
+    void CheckStateSellDuplicate()
+    {
+
+    }
+
     void SwapEquip(EquipmentInfo eq1, EquipmentInfo eq2)
+    {
+        SwapValueEquip(eq1, eq2);
+        if (eq1.type == EQUIPMENTTYPE.SHOTGUN)
+        {
+            UpdateDamage();
+            playerInventory.gunLevel = (int)eq1.level;
+            PlayerController.instance.player.playerSkiner.GunChange();
+            BulletController.instance.SetDamage(GetEquipValue(EQUIPMENTTYPE.SHOTGUN, playerInventory.gunLevel, ++playerInventory.gunLevelUpgrade));
+        }
+        else if (eq1.type == EQUIPMENTTYPE.GRENADE)
+        {
+            UpdateDamage();
+            playerInventory.boomLevel = (int)eq1.level;
+            PlayerController.instance.BoomChange();
+            PlayerController.instance.BoomSetDamage(GetEquipValue(EQUIPMENTTYPE.GRENADE, playerInventory.boomLevel, playerInventory.boomLevelUpgrade));
+        }
+        else if (eq1.type == EQUIPMENTTYPE.CAP)
+        {
+            UpdateHealth();
+            playerInventory.capLevel = (int)eq1.level;
+            PlayerController.instance.player.playerSkiner.CapChange();
+            PlayerController.instance.player.HpChange();
+        }
+        else
+        {
+            UpdateHealth();
+            playerInventory.clothesLevel = (int)eq1.level;
+            PlayerController.instance.player.playerSkiner.ClothesChange();
+            PlayerController.instance.player.HpChange();
+        }
+
+        if (isQuality) QualitySort();
+        else ClassSort();
+    }
+
+    void SwapValueEquip(EquipmentInfo eq1, EquipmentInfo eq2)
     {
         EQUIPMENTLEVEL tempLevel = eq1.level;
         EQUIPMENTTYPE tempType = eq1.type;
@@ -278,18 +446,74 @@ public class EquipmentController : MonoBehaviour
         eq2.SetValue(tempType, tempLevel, tempValue);
     }
 
+    public void SellDuplicates()
+    {
+        int length = amoutEquip;
+        for (int i = 0; i < length; i++)
+        {
+            if (equipments[i].gameObject.activeSelf)
+            {
+                if ((int)equipments[i].level <= GetIndexLevel((int)equipments[i].type))
+                {
+                    equipments[i].gameObject.SetActive(false);
+                    amoutEquip--;
+                }
+                else
+                {
+                    for (int j = i + 1; j < length; j++)
+                    {
+                        if (equipments[j].gameObject.activeSelf && (int)equipments[i].level == (int)equipments[j].level && (int)equipments[i].type == (int)equipments[j].type)
+                        {
+                            equipments[j].gameObject.SetActive(false);
+                            amoutEquip--;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < length; i++)
+        {
+            if (equipments[i].gameObject.activeSelf)
+            {
+                for (int j = 0; j < length; j++)
+                {
+                    if (!equipments[j].gameObject.activeSelf)
+                    {
+                        SwapValueEquip(equipments[i], equipments[j]);
+                        equipments[j].gameObject.SetActive(true);
+                        equipments[i].gameObject.SetActive(false);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void EquipBest()
+    {
+        for (int i = 0; i < equipMains.Length; i++)
+        {
+            for (int j = 0; j < amoutEquip; j++)
+            {
+                if (equipMains[i].type == equipments[j].type && equipMains[i].level < equipments[j].level)
+                {
+                    SwapEquip(equipMains[i], equipments[j]);
+                }
+            }
+        }
+    }
+
     public void ShowPopupUpgrade(EquipmentInfo eq)
     {
         equipUpgradeSelected = eq;
 
         equipUpgradeBg.sprite = eq.bg.sprite;
         equipUpgrade.sprite = eq.eq.sprite;
-        currentLevelUpgrade.text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(eq.type));
         currentslotUpgrade.text = eq.GetNameType() + " slot";
-        currentValue.text = UIHandler.instance.ConvertNumberAbbreviation(eq.value);
-        nextValue.text = UIHandler.instance.ConvertNumberAbbreviation(GetEquipValue(eq.type, (int)eq.level, GetLevelUpgrade(eq.type) + 1));
+        UpdateInfoUpgrade(eq);
         nextValue.color = upColor;
         nameTypeUpgrade.text = eq.GetNameLevelNType();
+        iconDesign.sprite = iconDesigns[(int)eq.type];
 
         if (eq.type == EQUIPMENTTYPE.SHOTGUN)
         {
@@ -317,50 +541,9 @@ public class EquipmentController : MonoBehaviour
             contentUpgrade.text = "Casual apocalypse outfit";
         }
 
-        bool isNok = false;
+        iconUpgrade.SetNativeSize();
 
-        int levelUpgrade = GetLevelUpgrade(eq.type);
-        int du = GetDush(levelUpgrade);
-        int de = GetDesign(levelUpgrade);
-
-        int amoutDesgin = GetAmoutDesign(eq.type);
-
-        if (playerInventory.dush < du)
-        {
-            isNok = true;
-            dush.text = "<color=red>" + playerInventory.dush + "</color>" + "/" + du;
-        }
-        else
-        {
-            dush.color = Vector4.one;
-            dush.text = playerInventory.dush + "/" + du;
-        }
-
-        if (playerInventory.dush < du)
-        {
-            isNok = true;
-            desgin.text = "<color=red>" + amoutDesgin + "</color>" + "/" + de;
-        }
-        else
-        {
-            desgin.text = amoutDesgin + "/" + de;
-        }
-
-        if (isNok)
-        {
-            levelUp.sprite = buttonNok;
-            maxLevel.sprite = buttonNok;
-            levelUp.raycastTarget = false;
-            maxLevel.raycastTarget = false;
-
-        }
-        else
-        {
-            levelUp.sprite = buttonOk;
-            maxLevel.sprite = buttonOk;
-            levelUp.raycastTarget = true;
-            maxLevel.raycastTarget = true;
-        }
+        CheckStateUpgrade(eq);
 
         panelUpgradeEquip.gameObject.SetActive(true);
         UIEffect.instance.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 222f / 255f, 0.1f, 1f, 0.5f);
@@ -368,61 +551,55 @@ public class EquipmentController : MonoBehaviour
 
     int GetDush(int levelUpgrade)
     {
-        int length = DataManager.instance.equipmentConfig.dushUpgrades.Length;
-        if (levelUpgrade < length)
+        int length = DataManager.instance.equipmentConfig.dushUpgrades.Length - 1;
+        if (levelUpgrade <= length)
         {
             return DataManager.instance.equipmentConfig.dushUpgrades[levelUpgrade];
         }
         else
         {
-            int count = 0;
-            int previousValue = 0;
+            int step = 0;
+            int result = 0;
+            int multiplier = 0;
 
-            for (int i = length - 1; i < levelUpgrade; i++)
+            for (int i = length; i <= levelUpgrade; i++)
             {
-                previousValue = DataManager.instance.equipmentConfig.dushUpgrades[i];
-                count++;
-                if (count == DataManager.instance.equipmentConfig.dushStep) count = 0;
+                result = DataManager.instance.equipmentConfig.dushUpgrades[length] + (multiplier * DataManager.instance.equipmentConfig.dushUpgradeStep);
+                step++;
+                if (step == DataManager.instance.equipmentConfig.dushStep)
+                {
+                    step = 0;
+                    multiplier++;
+                }
             }
-
-            if (count == 0)
-            {
-                return previousValue + DataManager.instance.equipmentConfig.designUpgradeStep;
-            }
-            else
-            {
-                return previousValue;
-            }
+            return result;
         }
     }
 
     int GetDesign(int levelUpgrade)
     {
-        int length = DataManager.instance.equipmentConfig.desginUpgrades.Length;
-        if (levelUpgrade < length)
+        int length = DataManager.instance.equipmentConfig.desginUpgrades.Length - 1;
+        if (levelUpgrade <= length)
         {
-            return DataManager.instance.equipmentConfig.dushUpgrades[levelUpgrade];
+            return DataManager.instance.equipmentConfig.desginUpgrades[levelUpgrade];
         }
         else
         {
-            int count = 0;
-            int previousValue = 0;
+            int step = 0;
+            int result = 0;
+            int multiplier = 0;
 
-            for (int i = length - 1; i < levelUpgrade; i++)
+            for (int i = length; i <= levelUpgrade; i++)
             {
-                previousValue = DataManager.instance.equipmentConfig.desginUpgrades[i];
-                count++;
-                if (count == DataManager.instance.equipmentConfig.designStep) count = 0;
+                result = DataManager.instance.equipmentConfig.desginUpgrades[length] + (multiplier * DataManager.instance.equipmentConfig.designUpgradeStep);
+                step++;
+                if (step == DataManager.instance.equipmentConfig.designStep)
+                {
+                    step = 0;
+                    multiplier++;
+                }
             }
-
-            if (count == 0)
-            {
-                return previousValue + DataManager.instance.equipmentConfig.designUpgradeStep;
-            }
-            else
-            {
-                return previousValue;
-            }
+            return result;
         }
     }
 
@@ -440,6 +617,14 @@ public class EquipmentController : MonoBehaviour
         else if (type == EQUIPMENTTYPE.GRENADE) return playerInventory.amoutBoomDesign;
         else if (type == EQUIPMENTTYPE.CAP) return playerInventory.amoutCapDesign;
         else return playerInventory.amoutClothesDesign;
+    }
+
+    void SubtractDesgin(EQUIPMENTTYPE type, int amout)
+    {
+        if (type == EQUIPMENTTYPE.SHOTGUN) playerInventory.amoutGunDesign -= amout;
+        else if (type == EQUIPMENTTYPE.GRENADE) playerInventory.amoutBoomDesign -= amout;
+        else if (type == EQUIPMENTTYPE.CAP) playerInventory.amoutCapDesign -= amout;
+        else playerInventory.amoutClothesDesign -= amout;
     }
 
     public void HidePopupUpgrade()
@@ -470,7 +655,9 @@ public class EquipmentController : MonoBehaviour
         currentEquipBg.sprite = equipMain.bg.sprite;
         equipBg.sprite = eq.bg.sprite;
         currentLevelType.text = equipMain.GetNameLevelNType();
+        currentLevelType.color = colorEquipLevels[(int)equipMain.level];
         levelType.text = eq.GetNameLevelNType();
+        levelType.color = colorEquipLevels[(int)eq.level];
         currentEquip.sprite = equipMain.eq.sprite;
         equip.sprite = eq.eq.sprite;
 
@@ -597,7 +784,7 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
-    int GetEquipValue(EQUIPMENTTYPE type, int level, int levelUpgrade)
+    public int GetEquipValue(EQUIPMENTTYPE type, int level, int levelUpgrade)
     {
         int value = 0;
         int startValue = 0;

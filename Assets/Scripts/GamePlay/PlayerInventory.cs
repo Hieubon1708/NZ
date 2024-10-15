@@ -1,9 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public TextMeshProUGUI textDush;
+    public TextMeshProUGUI textCogwheel;
+
     public int gem;
     public int dush;
+    public int cogwheel;
 
     public int capLevel;
     public int clothesLevel;
@@ -22,22 +27,49 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadData()
     {
-        if(DataManager.instance.dataStorage.pLayerDataStorage != null)
+        if(DataManager.instance.dataStorage.playerDataStorage != null)
         {
-            gunLevel = DataManager.instance.dataStorage.pLayerDataStorage.gunLevel;
-            boomLevel = DataManager.instance.dataStorage.pLayerDataStorage.boomLevel;
-            capLevel = DataManager.instance.dataStorage.pLayerDataStorage.capLevel;
-            clothesLevel = DataManager.instance.dataStorage.pLayerDataStorage.clothesLevel;
+            gem = DataManager.instance.dataStorage.playerDataStorage.gem;
+            dush = DataManager.instance.dataStorage.playerDataStorage.dush;
+            cogwheel = DataManager.instance.dataStorage.playerDataStorage.cogwheel;
 
-            gunLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
-            boomLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
-            capLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
-            clothesLevelUpgrade = DataManager.instance.dataStorage.pLayerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
+            gunLevel = DataManager.instance.dataStorage.playerDataStorage.gunLevel;
+            boomLevel = DataManager.instance.dataStorage.playerDataStorage.boomLevel;
+            capLevel = DataManager.instance.dataStorage.playerDataStorage.capLevel;
+            clothesLevel = DataManager.instance.dataStorage.playerDataStorage.clothesLevel;
 
-            amoutGunDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.gunAmout;
-            amoutBoomDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.boomAmout;
-            amoutCapDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.capAmout;
-            amoutClothesDesign = DataManager.instance.dataStorage.pLayerDataStorage.designDataStorage.clothesAmout;
+            gunLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
+            boomLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
+            capLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
+            clothesLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
+
+            amoutGunDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.gunAmout;
+            amoutBoomDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.boomAmout;
+            amoutCapDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.capAmout;
+            amoutClothesDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.clothesAmout;
         }
+
+        textDush.text = UIHandler.instance.ConvertNumberAbbreviation(dush);
+        textCogwheel.text = UIHandler.instance.ConvertNumberAbbreviation(cogwheel);
+    }
+
+    public void SubtractGem(int gem)
+    {
+        this.gem -= gem;
+    }
+
+    public void PlusGem(int gem)
+    {
+        this.gem += gem;
+    }
+    
+    public void SubtractCogwheel(int cogwheel)
+    {
+        this.cogwheel -= cogwheel;
+    }
+
+    public void PlusCogwheel(int cogwheel)
+    {
+        this.cogwheel += cogwheel;
     }
 }

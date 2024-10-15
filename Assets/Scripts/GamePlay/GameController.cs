@@ -69,14 +69,11 @@ public class GameController : MonoBehaviour
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
 
-        EquipmentController.instance.playerInventory.LoadData();
-        PlayerController.instance.playerHandler.LoadData();
-        PlayerController.instance.player.playerSkiner.LoadData();
-        UIHandler.instance.LoadData();
         EquipmentController.instance.LoadData();
+        PlayerController.instance.LoadData();
+        UIHandler.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
-        UIHandler.instance.summonEquipment.LoadData();
 
         //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
         //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
@@ -267,12 +264,12 @@ public class GameController : MonoBehaviour
         PlayerController.instance.player.gold += UIHandler.instance.progressHandler.gold;
         DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
-        PLayerDataStorage pLayerDataStorage = new PLayerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
+        playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.leveInPopUp, UIHandler.instance.summonEquipment.amout);
 
-        DataStorage dataStorage = new DataStorage(level, pLayerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
+        DataStorage dataStorage = new DataStorage(level, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

@@ -23,7 +23,7 @@ public class EnemyTowerHandler : MonoBehaviour
         int subtractHp = 0;
         if (collision.CompareTag("Bullet"))
         {
-            subtractHp = 70;
+            subtractHp = int.Parse(collision.gameObject.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
