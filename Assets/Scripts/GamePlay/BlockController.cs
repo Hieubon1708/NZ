@@ -216,7 +216,7 @@ public class BlockController : MonoBehaviour
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
         CarController.instance.DeleteGameBookAni();
-        PlayerController.instance.DeleteBookAni();
+        if(!GameController.instance.isLose) PlayerController.instance.DeleteBookAni();
         for (int i = 0; i < tempBlocks.Count; i++)
         {
             tempBlocks[i].transform.localPosition = new Vector2(tempBlocks[i].transform.localPosition.x, startY + distance * i);

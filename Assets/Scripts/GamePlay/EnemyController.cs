@@ -70,6 +70,11 @@ public class EnemyController : MonoBehaviour
 
     void Generate()
     {
+        float minSpeed = float.MaxValue;
+        for(int i = 0; i < speed.Length; i++)
+        {
+            if (speed[i] < minSpeed) minSpeed = speed[i];
+        }
         for (int i = 0; i < enemies.Length; i++)
         {
             List<GameObject> listEs = new List<GameObject>();
@@ -77,7 +82,8 @@ public class EnemyController : MonoBehaviour
             {
                 GameObject e = Instantiate(enemies[i], GameController.instance.poolEnemies);
                 EnemyHandler sc = e.GetComponent<EnemyHandler>();
-                sc.startSpeed = speed[i];
+                sc.realSpeed = speed[i];
+                sc.startSpeed = minSpeed;
                 sc.content.SetActive(false);
                 e.SetActive(false);
                 listEs.Add(e);
@@ -223,7 +229,7 @@ public class EnemyController : MonoBehaviour
 
         int indexLine = EUtils.GetIndexLine(e);
 
-        float x = xHighest < col.transform.position.x ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : xHighest + defaultDistance;
+        float x = index == -1 ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : xHighest + defaultDistance;
         float y = CarController.instance.spawnY[indexLine - 1].position.y;
 
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
@@ -237,6 +243,7 @@ public class EnemyController : MonoBehaviour
         eSc.SetColNKinematicNRevival(true);
         eSc.SetActiveContentNView(true);
         eSc.ResetBone();
+        eSc.healthHandler.SetDefaultInfo(eSc.enemyInfo);
     }
 
     void CheckAmoutEnemyEachLine()

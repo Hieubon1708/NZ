@@ -8,13 +8,13 @@ public class DesignContraint : MonoBehaviour
 
     private void Start()
     {
-        startY = transform.position.y;
         StartCoroutine(SetPosition());
     }
 
     IEnumerator SetPosition()
     {
         yield return new WaitForFixedUpdate();
-        transform.position = new Vector2(Screen.width / 2, content.transform.position.y - content.sizeDelta.y - 180);
+        float y = content.transform.position.y - content.sizeDelta.y - 180;
+        transform.position = new Vector2(Screen.width / 2, y > startY ? startY : y);
     }
 }

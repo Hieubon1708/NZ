@@ -154,7 +154,7 @@ public class EquipmentController : MonoBehaviour
         UpdateHealth();
         CheckDisplayDesign();
         CheckStateEquipBest();
-        CheckStateSellDuplicate();
+        CheckStateSellDuplicates();
         QualitySort();
     }
 
@@ -226,14 +226,6 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-
-        }
-    }
-
     public void QualityNClass()
     {
         isQuality = !isQuality;
@@ -301,7 +293,7 @@ public class EquipmentController : MonoBehaviour
         HidePopupSwap();
 
         CheckStateEquipBest();
-        CheckStateSellDuplicate();
+        CheckStateSellDuplicates();
     }
 
     public void UpgradeAccept()
@@ -427,38 +419,77 @@ public class EquipmentController : MonoBehaviour
         frameEquipBest.sprite = buttonNok;
     }
 
-    void CheckStateSellDuplicate()
+    void CheckStateSellDuplicates()
     {
-        for (int i = 0; i < equipMains.Length; i++)
-        {
-            for (int j = 0; j < amoutEquip; j++)
-            {
-                if (equipMains[i].type == equipments[j].type)
-                {
-                    if (equipMains[i].level >= equipments[j].level)
-                    {
-                        frameSellDuplicates.raycastTarget = true;
-                        frameSellDuplicates.sprite = sellDuplicates;
-                        return;
-                    }
+        int maxGun = GetEquipMax(EQUIPMENTTYPE.SHOTGUN, equipMains[0].level);
+        int maxBoom = GetEquipMax(EQUIPMENTTYPE.GRENADE, equipMains[1].level);
+        int maxCap = GetEquipMax(EQUIPMENTTYPE.CAP, equipMains[2].level);
+        int maxClothes = GetEquipMax(EQUIPMENTTYPE.ARMOR, equipMains[3].level);
 
-                }
-            }
-        }
-        for (int i = 0; i < amoutEquip - 1; i++)
+        for (int i = 0; i < amoutEquip; i++)
         {
-            for (int j = i + 1; j < amoutEquip; j++)
+            if (equipments[i].type == EQUIPMENTTYPE.SHOTGUN)
             {
-                if (equipMains[i].type == equipments[j].type)
+                if ((int)equipMains[0].level == maxGun)
                 {
-                    frameSellDuplicates.raycastTarget = true;
-                    frameSellDuplicates.sprite = sellDuplicates;
-                    return;
+                    if (CheckDuplicates(-1, EQUIPMENTTYPE.SHOTGUN, maxGun)) return;
+                }
+                else if ((int)equipments[i].level == maxGun)
+                {
+                    if (CheckDuplicates(i, EQUIPMENTTYPE.SHOTGUN, maxGun)) return;
+                }
+            }
+            if (equipments[i].type == EQUIPMENTTYPE.GRENADE)
+            {
+                if ((int)equipMains[1].level == maxBoom)
+                {
+                    if (CheckDuplicates(-1, EQUIPMENTTYPE.GRENADE, maxBoom)) return;
+                }
+                else if ((int)equipments[i].level == maxBoom)
+                {
+                    if (CheckDuplicates(i, EQUIPMENTTYPE.GRENADE, maxBoom)) return;
+                }
+            }
+            if (equipments[i].type == EQUIPMENTTYPE.CAP)
+            {
+                if ((int)equipMains[2].level == maxCap)
+                {
+                    if (CheckDuplicates(-1, EQUIPMENTTYPE.CAP, maxCap)) return;
+                }
+                else if ((int)equipments[i].level == maxCap)
+                {
+                    if (CheckDuplicates(i, EQUIPMENTTYPE.CAP, maxCap)) return;
+                }
+            }
+            if (equipments[i].type == EQUIPMENTTYPE.ARMOR)
+            {
+                if ((int)equipMains[3].level == maxClothes)
+                {
+                    if (CheckDuplicates(-1, EQUIPMENTTYPE.ARMOR, maxClothes)) return;
+                }
+                else if ((int)equipments[i].level == maxClothes)
+                {
+                    if (CheckDuplicates(i, EQUIPMENTTYPE.ARMOR, maxClothes)) return;
                 }
             }
         }
+
         frameSellDuplicates.sprite = buttonNok;
         frameSellDuplicates.raycastTarget = false;
+    }
+
+    bool CheckDuplicates(int index, EQUIPMENTTYPE type, int max)
+    {
+        for (int j = 0; j < amoutEquip; j++)
+        {
+            if (index != j && type == equipments[j].type && (int)equipments[j].level <= max)
+            {
+                frameSellDuplicates.raycastTarget = true;
+                frameSellDuplicates.sprite = sellDuplicates;
+                return true;
+            }
+        }
+        return false;
     }
 
     void SwapEquip(EquipmentInfo eq1, EquipmentInfo eq2)
@@ -512,35 +543,54 @@ public class EquipmentController : MonoBehaviour
         eq2.SetValue(tempType, tempLevel, tempValue);
     }
 
+    void RemoveEquipDuplicates(int index, EQUIPMENTTYPE type, int max, int length)
+    {
+        for (int j = 0; j < length; j++)
+        {
+            if (equipments[j].gameObject.activeSelf && index != j && type == equipments[j].type && (int)equipments[j].level <= max)
+            {
+                equipments[j].gameObject.SetActive(false);
+                amoutEquip--;
+            }
+        }
+    }
+
     public void SellDuplicates()
     {
+        int maxGun = GetEquipMax(EQUIPMENTTYPE.SHOTGUN, equipMains[0].level);
+        int maxBoom = GetEquipMax(EQUIPMENTTYPE.GRENADE, equipMains[1].level);
+        int maxCap = GetEquipMax(EQUIPMENTTYPE.CAP, equipMains[2].level);
+        int maxClothes = GetEquipMax(EQUIPMENTTYPE.ARMOR, equipMains[3].level);
+
         int length = amoutEquip;
-        for (int k = 0; k < equipMains.Length; k++)
+
+        for (int i = 0; i < length; i++)
         {
-            int maxType = GetEquipMax(equipMains[k].type);
-            for (int i = 0; i < length; i++)
+            if (equipments[i].gameObject.activeSelf)
             {
-                if (equipments[i].gameObject.activeSelf && equipments[i].type == equipMains[k].type)
+                if (equipments[i].type == EQUIPMENTTYPE.SHOTGUN)
                 {
-                    if ((int)equipments[i].level <= maxType)
-                    {
-                        equipments[i].gameObject.SetActive(false);
-                        amoutEquip--;
-                    }
-                    else
-                    {
-                        for (int j = i + 1; j < length; j++)
-                        {
-                            if (equipments[j].gameObject.activeSelf && equipments[i].level == equipments[j].level && equipments[i].type == equipments[j].type)
-                            {
-                                equipments[j].gameObject.SetActive(false);
-                                amoutEquip--;
-                            }
-                        }
-                    }
+                    if ((int)equipMains[0].level == maxGun) RemoveEquipDuplicates(-1, EQUIPMENTTYPE.SHOTGUN, maxGun, length);
+                    else if ((int)equipments[i].level == maxGun) RemoveEquipDuplicates(i, EQUIPMENTTYPE.SHOTGUN, maxGun, length);
+                }
+                if (equipments[i].type == EQUIPMENTTYPE.GRENADE)
+                {
+                    if ((int)equipMains[1].level == maxBoom) RemoveEquipDuplicates(-1, EQUIPMENTTYPE.GRENADE, maxBoom, length);
+                    else if ((int)equipments[i].level == maxBoom) RemoveEquipDuplicates(i, EQUIPMENTTYPE.GRENADE, maxBoom, length);
+                }
+                if (equipments[i].type == EQUIPMENTTYPE.CAP)
+                {
+                    if ((int)equipMains[2].level == maxCap) RemoveEquipDuplicates(-1, EQUIPMENTTYPE.CAP, maxCap, length);
+                    else if ((int)equipments[i].level == maxCap) RemoveEquipDuplicates(i, EQUIPMENTTYPE.CAP, maxCap, length);
+                }
+                if (equipments[i].type == EQUIPMENTTYPE.ARMOR)
+                {
+                    if ((int)equipMains[3].level == maxClothes) RemoveEquipDuplicates(-1, EQUIPMENTTYPE.ARMOR, maxClothes, length);
+                    else if ((int)equipments[i].level == maxClothes) RemoveEquipDuplicates(i, EQUIPMENTTYPE.ARMOR, maxClothes, length);
                 }
             }
         }
+
         for (int i = 0; i < length; i++)
         {
             if (equipments[i].gameObject.activeSelf)
@@ -558,11 +608,14 @@ public class EquipmentController : MonoBehaviour
             }
         }
         CheckDisplayDesign();
+        CheckStateSellDuplicates();
+        frameSellDuplicates.sprite = buttonNok;
+        frameSellDuplicates.raycastTarget = false;
     }
 
-    int GetEquipMax(EQUIPMENTTYPE type)
+    int GetEquipMax(EQUIPMENTTYPE type, EQUIPMENTLEVEL level)
     {
-        int result = int.MinValue;
+        int result = (int)level;
         for (int i = 0; i < equipments.Count; i++)
         {
             if (equipments[i].type == type && equipments[i].level > equipMains[(int)type].level && (int)equipments[i].level > result)
@@ -585,6 +638,9 @@ public class EquipmentController : MonoBehaviour
                 }
             }
         }
+        frameEquipBest.raycastTarget = false;
+        frameEquipBest.sprite = buttonNok;
+        CheckStateSellDuplicates();
     }
 
     public void ShowPopupUpgrade(EquipmentInfo eq)

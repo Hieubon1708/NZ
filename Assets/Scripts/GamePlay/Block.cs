@@ -54,6 +54,7 @@ public class Block : MonoBehaviour
 
     public void UpgradeBlockAni()
     {
+        if(ani.isPlaying) ani.Stop();
         ani.clip = animationClips[2];
         ani.Play("upgradeBlock");
     }

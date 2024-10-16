@@ -1038,6 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4262343801324020}
   - component: {fileID: 212756910143847383}
+  - component: {fileID: 5446345987339537687}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1112,6 +1113,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5446345987339537687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864642852169883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTowerHandler: {fileID: -4154267827378100649}
 --- !u!1 &1926481704132237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8011295276014667482
 Transform:
   m_ObjectHideFlags: 0

@@ -9,17 +9,18 @@ public class EnemyTowerHandler : MonoBehaviour
     public Damage damage;
     public Transform towerPos;
     public bool isVisible;
-    bool isTriggerFlame;
     int damageTaken;
+    Coroutine flameTrigger;
 
     public void Start()
     {
         healthHandler.SetTotalHp(towerInfo.hp);
     }
 
-    public IEnumerator OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isVisible) yield break;
+        if (!isVisible) return;
+        if (towerInfo.hp == 0) return;
         int subtractHp = 0;
         if (collision.CompareTag("Bullet"))
         {
@@ -41,39 +42,47 @@ public class EnemyTowerHandler : MonoBehaviour
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
-            isTriggerFlame = true;
-            while (isTriggerFlame && towerInfo.hp > 0)
-            {
-                SubtractHp(subtractHp);
-                yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
-            }
+            flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
         damageTaken += subtractHp;
-        if(damageTaken >= 100)
+        if (damageTaken >= 100)
         {
             UIHandler.instance.progressHandler.PlusGold(1);
             damageTaken -= 100;
         }
     }
 
+    IEnumerator FlameTriggerHandle(int subtractHp)
+    {
+        while (towerInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeFlameDamage);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!view.activeSelf) return;
-        if (collision.CompareTag("Flame")) isTriggerFlame = false;
+        if (!view.activeSelf || towerInfo.hp == 0) return;
+        if (collision.CompareTag("Flame"))
+        {
+            if (flameTrigger != null) StopCoroutine(flameTrigger);
+        }
     }
 
     void SubtractHp(int substractHp)
     {
+        if (towerInfo.hp == 0) return;
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
         damage.ShowDamage(substractHp.ToString());
 
         if (hp == 0)
         {
+            towerInfo.gameObject.SetActive(false);
             damageTaken = 0;
             UIHandler.instance.progressHandler.PlusGold(100);
             GameController.instance.EDeathAll(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col);
-            towerInfo.gameObject.SetActive(false);
             EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(towerPos.transform.position.x + 1.5f, towerPos.transform.position.y));
         }

@@ -67,7 +67,10 @@ public class EnemyT2 : EnemyHandler
                     isShot = true;
                     animator.SetBool("attack", true);
                 }
-                speed = 0;
+                if(isCollisionWithGround)
+                {
+                    speed = 0;
+                }
             }
             else
             {

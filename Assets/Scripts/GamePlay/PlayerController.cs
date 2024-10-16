@@ -121,7 +121,11 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = listBooms[boomIndex];
         b.SetActive(true);
         b.transform.position = startBoom.position;
-        rb.AddForce(new Vector2(Random.Range(1.85f + GameController.instance.backgroundSpeed * 1.2f, 1.95f + GameController.instance.backgroundSpeed * 1.2f), 7), ForceMode2D.Impulse);
+
+        float bgSpeed = GameController.instance.backgroundSpeed * 2f;
+        float blockHeight = BlockController.instance.tempBlocks.Count == 0 ? 0 : (transform.position.y - BlockController.instance.tempBlocks[0].transform.position.y) * 0.1f;
+
+        rb.AddForce(new Vector2(Random.Range(2.75f + bgSpeed - blockHeight, 3.55f + bgSpeed - blockHeight), 5), ForceMode2D.Impulse);
         rb.AddTorque(0.75f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;

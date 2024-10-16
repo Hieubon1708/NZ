@@ -16,6 +16,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void SubtractHp(int subtractHp)
     {
+        if (playerInfo.hp == 0) return;
         float hp = playerInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         if (hp == 0)
@@ -33,6 +34,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (playerInfo.hp == 0) return;
         if (collision.CompareTag("EnemyBullet"))
         {
             SubtractHp(int.Parse(collision.gameObject.name));
