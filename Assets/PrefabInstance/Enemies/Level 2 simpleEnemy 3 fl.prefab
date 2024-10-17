@@ -258,7 +258,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -472,7 +472,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897103050014024}
   - component: {fileID: 212100921745570212}
+  - component: {fileID: 3100869994336753596}
   m_Layer: 0
   m_Name: Spider_2_1_Body
   m_TagString: Untagged
@@ -556,7 +557,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -588,6 +589,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &3100869994336753596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561001423257140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1571193443007499
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +865,13 @@ MonoBehaviour:
   content: {fileID: 1032697105334496}
   view: {fileID: 1797049829019114}
   frontalCollision: {fileID: 0}
+  fullBodies:
+  - {fileID: 212997807068516231}
+  - {fileID: 212635034191319704}
+  - {fileID: 212100921745570212}
+  - {fileID: 212848096908015270}
+  - {fileID: 212658445031157597}
+  - {fileID: 212665556441754785}
   forceJump: 3
   multiplier: 1
   realSpeed: 0
@@ -872,7 +892,7 @@ MonoBehaviour:
   a: 0
   targetPos: {x: 0, y: 0}
   xPlus1: 3
-  xPlus2: 7
+  xPlus2: 9
   yPlus1: 3
   yPlus2: 7
 --- !u!114 &7514071291464706062
@@ -1296,7 +1316,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1414,7 +1434,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1530,7 +1550,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

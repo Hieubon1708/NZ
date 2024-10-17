@@ -11,6 +11,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public bool isVisible;
     int damageTaken;
     Coroutine flameTrigger;
+    public SpriteRenderer[] fullTowers;
 
     public void Start()
     {
@@ -75,7 +76,7 @@ public class EnemyTowerHandler : MonoBehaviour
         if (towerInfo.hp == 0) return;
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(substractHp.ToString());
+        damage.ShowDamage(substractHp.ToString(), null, fullTowers);
 
         if (hp == 0)
         {

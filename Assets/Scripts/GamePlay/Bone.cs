@@ -31,6 +31,7 @@ public class Bone : MonoBehaviour
             if (!bones[i].gameObject.activeSelf) bones[i].gameObject.SetActive(true);
             bones[i].localPosition = infoOrigin[i].pos;
             bones[i].localRotation = infoOrigin[i].rot;
+            bones[i].localScale = Vector3.one;
         }
     }
 }

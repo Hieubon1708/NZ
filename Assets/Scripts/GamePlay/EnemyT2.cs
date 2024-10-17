@@ -39,7 +39,7 @@ public class EnemyT2 : EnemyHandler
         }
         else
         {
-            walkSpeed = -(rb.velocity.x - GameController.instance.backgroundSpeed) * multiplier;
+            walkSpeed = -rb.velocity.x * multiplier;
         }
 
         if (isCollisionWithCar

@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -18,6 +17,7 @@ public class EnemyHandler : MonoBehaviour
     public GameObject content;
     public GameObject view;
     public GameObject frontalCollision;
+    public SpriteRenderer[] fullBodies;
 
     public float forceJump;
     public float multiplier;
@@ -315,7 +315,7 @@ public class EnemyHandler : MonoBehaviour
         }
         else
         {
-            walkSpeed = -(rb.velocity.x - GameController.instance.backgroundSpeed) * multiplier;
+            walkSpeed = -rb.velocity.x * multiplier;
         }
 
         if (isCollisionWithCar
@@ -362,7 +362,7 @@ public class EnemyHandler : MonoBehaviour
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(subtractHp.ToString());
+        damage.ShowDamage(subtractHp.ToString(), content, fullBodies);
         if (hp == 0)
         {
             ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
@@ -432,6 +432,7 @@ public class EnemyHandler : MonoBehaviour
 
     public void SetDefaultField()
     {
+        content.transform.DOKill();
         speed = startSpeed;
 
         col.enabled = true;

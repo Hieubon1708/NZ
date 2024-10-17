@@ -24,6 +24,10 @@ public class EnemyController : MonoBehaviour
     public int[] startDistanceMultipliers;
     public int[] endDistanceMultipliers;
 
+    public GameObject[] enemySpawnByTimes;
+    public int[] amoutEnemySpawnByTimes;
+    public int[] timeSpawns;
+
     public void Awake()
     {
         Generate();
@@ -193,11 +197,6 @@ public class EnemyController : MonoBehaviour
             {
                 if (spawnX < col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
                 else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 0.5f, CarController.instance.spawnY[randomLine].position.y + 1f);
-            }
-            if (e.name.Contains("Level 2 simpleEnemy 5 el"))
-            {
-                randomLine = 0;
-                indexLine = randomLine;
             }
 
             e.transform.position = new Vector2(spawnX, y);

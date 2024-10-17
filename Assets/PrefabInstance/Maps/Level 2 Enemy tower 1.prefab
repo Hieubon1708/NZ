@@ -519,6 +519,9 @@ MonoBehaviour:
   damage: {fileID: 1779450487183344498}
   towerPos: {fileID: 3649732358021679054}
   isVisible: 0
+  fullTowers:
+  - {fileID: 212174046544363431}
+  - {fileID: 212787733501887417}
 --- !u!114 &742703302493711088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,10 +541,12 @@ MonoBehaviour:
   amoutLimit: 3
   col: {fileID: 1531338481327962}
   enemies:
+  - {fileID: 1087254144996759, guid: ac324d2676d40a84d9f31536972a883d, type: 3}
   - {fileID: 1667125860864603, guid: fcb326ce9d902da4da909be6d541e4b1, type: 3}
-  amout: 01000000
+  amout: 3c0000000a000000
   speed:
   - 1.5
+  - 2
   listScRandomEs: []
   listRandomEs: []
   defaultDistance: 0.75
@@ -558,6 +563,9 @@ MonoBehaviour:
   - 0.75
   startDistanceMultipliers: 030000000300000001000000
   endDistanceMultipliers: 050000000500000001000000
+  enemySpawnByTimes: []
+  amoutEnemySpawnByTimes: 
+  timeSpawns: 
   temp: []
 --- !u!114 &18448315945788001
 MonoBehaviour:
@@ -830,7 +838,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1254,7 +1262,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

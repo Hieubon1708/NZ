@@ -52,7 +52,7 @@ public abstract class WeaponShoter : MonoBehaviour
         {
             parent.localRotation = Quaternion.Lerp(parent.localRotation, targetRotation, 0.05f);
             yield return new WaitForFixedUpdate();
-            if (Quaternion.Angle(parent.localRotation, targetRotation) <= 1) break;
+            if (Quaternion.Angle(parent.localRotation, targetRotation) <= (target == GameController.instance.defaultDir ? 5f : 1f)) break;
         }
         yield return new WaitForSeconds(0.5f);
         FindTarget();
