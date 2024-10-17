@@ -127,15 +127,15 @@ public class Booster : MonoBehaviour
         }
     }
 
-    public void DecreaseEnergyFlame()
+    public void DecreaseEnergyFlame(int level)
     {
-        if (UpgradeEvolutionController.instance.flames.Contains(FLAMEEVO.DECREASEENERGY))
+        if (UpgradeEvolutionController.instance.IsFlameContains(FLAMEEVO.DECREASEENERGY, level))
         {
-            int level = UpgradeEvolutionController.instance.GetAmoutFlameEvo(FLAMEEVO.DECREASEENERGY);
+            int amout = UpgradeEvolutionController.instance.GetAmoutFlameEvo(FLAMEEVO.DECREASEENERGY, UpgradeEvolutionController.instance.flames.Count);
             int percentage = 0;
 
-            if (level == 1) percentage = 15;
-            else if (level == 2) percentage = 30;
+            if (amout == 1) percentage = 15;
+            else if (amout == 2) percentage = 30;
 
             for (int i = 0; i < weaponBoosters.Length; i++)
             {
@@ -147,15 +147,15 @@ public class Booster : MonoBehaviour
         }
     }
 
-    public void DecreaseEnergyMachineGun()
+    public void DecreaseEnergyMachineGun(int level)
     {
-        if (UpgradeEvolutionController.instance.machineGuns.Contains(MACHINEGUNEVO.DECREASEENERGY))
+        if (UpgradeEvolutionController.instance.IsMachineGunContains(MACHINEGUNEVO.DECREASEENERGY, level))
         {
-            int level = UpgradeEvolutionController.instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.DECREASEENERGY);
+            int amout = UpgradeEvolutionController.instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.DECREASEENERGY, UpgradeEvolutionController.instance.machineGuns.Count);
             int percentage = 0;
 
-            if (level == 1) percentage = 10;
-            else if (level == 2) percentage = 20;
+            if (amout == 1) percentage = 10;
+            else if (amout == 2) percentage = 20;
 
             for (int i = 0; i < weaponBoosters.Length; i++)
             {

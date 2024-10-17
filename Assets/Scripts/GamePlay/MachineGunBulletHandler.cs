@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MachineGunBulletHandler : MonoBehaviour
 {
+    public int level;
     public Rigidbody2D rb;
     int indexRoadCollider;
     public bool isGunBooster;
@@ -20,20 +21,20 @@ public class MachineGunBulletHandler : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            if (UpgradeEvolutionController.instance.machineGuns.Contains(UpgradeEvolutionController.MACHINEGUNEVO.PUSHESENEMIES))
+            if (UpgradeEvolutionController.instance.IsMachineGunContains(UpgradeEvolutionController.MACHINEGUNEVO.PUSHESENEMIES, level))
             {
-                int level = UpgradeEvolutionController.instance.GetAmoutMachineGunEvo(UpgradeEvolutionController.MACHINEGUNEVO.PUSHESENEMIES);
+                int amout = UpgradeEvolutionController.instance.GetAmoutMachineGunEvo(UpgradeEvolutionController.MACHINEGUNEVO.PUSHESENEMIES, level);
                 int percentage = 0;
 
-                if (level == 1)
+                if (amout == 1)
                 {
                     percentage = 10;
                 }
-                else if (level == 2)
+                else if (amout == 2)
                 {
                     percentage = 15;
                 }
-                else if (level == 3)
+                else if (amout == 3)
                 {
                     percentage = 20;
                 }

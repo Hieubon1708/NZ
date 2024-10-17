@@ -40,7 +40,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 {
                     if (sawEvos[j].type == SAWEVO.STUNENEMY)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY, instance.saws.Count - 1) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.STUNENEMY, instance.saws.Count) + 1;
                         int percentage = 0; float time = 0;
                         if (level == 1)
                         {
@@ -65,7 +65,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (sawEvos[j].type == SAWEVO.PUSHESENEMIES)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES, instance.saws.Count - 1) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.PUSHESENEMIES, instance.saws.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 5;
@@ -79,7 +79,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (sawEvos[j].type == SAWEVO.INCREASEDAMAGE)
                     {
-                        int level = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE, instance.saws.Count - 1) + 1;
+                        int level = instance.GetAmoutSawEvo(SAWEVO.INCREASEDAMAGE, instance.saws.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 20;
@@ -112,7 +112,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 {
                     if (flameEvos[j].type == FLAMEEVO.ATTACKCOOLDOWN)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKCOOLDOWN) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKCOOLDOWN, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 30;
@@ -123,7 +123,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (flameEvos[j].type == FLAMEEVO.ATTACKRADIUS)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 30;
@@ -134,7 +134,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (flameEvos[j].type == FLAMEEVO.ATTACKDURATION)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKDURATION) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKDURATION, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 25;
@@ -145,7 +145,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (flameEvos[j].type == FLAMEEVO.DECREASEENERGY)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.DECREASEENERGY) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.DECREASEENERGY, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 15;
@@ -155,7 +155,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (flameEvos[j].type == FLAMEEVO.INCREASEDAMAGE)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.INCREASEDAMAGE) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.INCREASEDAMAGE, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 20;
@@ -165,7 +165,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (flameEvos[j].type == FLAMEEVO.BURNING)
                     {
-                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.BURNING) + 1;
+                        int level = instance.GetAmoutFlameEvo(FLAMEEVO.BURNING, instance.flames.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 75;
@@ -198,7 +198,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 {
                     if (machineGunEvos[j].type == MACHINEGUNEVO.ADDBULLET)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ADDBULLET) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ADDBULLET, instance.machineGuns.Count) + 1;
                         int amout = 0;
                         int percentage = 0;
 
@@ -217,7 +217,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (machineGunEvos[j].type == MACHINEGUNEVO.ATTACKCOOLDOWN)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKCOOLDOWN) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKCOOLDOWN, instance.machineGuns.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 30;
@@ -228,7 +228,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (machineGunEvos[j].type == MACHINEGUNEVO.ATTACKDURATION)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION, instance.machineGuns.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 25;
@@ -239,7 +239,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (machineGunEvos[j].type == MACHINEGUNEVO.DECREASEENERGY)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.DECREASEENERGY) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.DECREASEENERGY, instance.machineGuns.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 10;
@@ -249,7 +249,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (machineGunEvos[j].type == MACHINEGUNEVO.INCREASEDAMAGE)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.INCREASEDAMAGE) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.INCREASEDAMAGE, instance.machineGuns.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 20;
@@ -259,7 +259,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                     }
                     else if (machineGunEvos[j].type == MACHINEGUNEVO.PUSHESENEMIES)
                     {
-                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.PUSHESENEMIES) + 1;
+                        int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.PUSHESENEMIES, instance.machineGuns.Count) + 1;
                         int percentage = 0;
 
                         if (level == 1) percentage = 10;
@@ -313,19 +313,19 @@ public class UIUpgradeEvolution : MonoBehaviour
     public bool IsSawMaxType(SAWEVO type)
     {
         SawEvo sawEvo = GetSawEvo(type);
-        return instance.GetAmoutSawEvo(type, instance.saws.Count - 1) == sawEvo.maxLevel;
+        return instance.GetAmoutSawEvo(type, instance.saws.Count) == sawEvo.maxLevel;
     }
 
     public bool IsFlameMaxType(FLAMEEVO type)
     {
         FlameEvo flameEvo = GetFlameEvo(type);
-        return instance.GetAmoutFlameEvo(type) == flameEvo.maxLevel;
+        return instance.GetAmoutFlameEvo(type, instance.flames.Count) == flameEvo.maxLevel;
     }
 
     public bool IsMachineGunMaxType(MACHINEGUNEVO type)
     {
         MachineGunEvo machineGunEvo = GetMachineGunEvo(type);
-        return instance.GetAmoutMachineGunEvo(type) == machineGunEvo.maxLevel;
+        return instance.GetAmoutMachineGunEvo(type, instance.machineGuns.Count) == machineGunEvo.maxLevel;
     }
 
     SawSlotEvo GetSlotSawEvo(SAWEVO type)
@@ -412,7 +412,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 sawSlotEvo.gameObject.SetActive(true);
                 sawSlotEvo.transform.SetAsLastSibling();
             }
-            sawSlotEvo.SetAmout(instance.GetAmoutSawEvo(instance.saws[i], instance.saws.Count - 1));
+            sawSlotEvo.SetAmout(instance.GetAmoutSawEvo(instance.saws[i], instance.saws.Count));
         }
 
         List<SAWEVO> temp = new List<SAWEVO>(sawEvoTypes);
@@ -449,7 +449,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 flameSlotEvo.gameObject.SetActive(true);
                 flameSlotEvo.transform.SetAsLastSibling();
             }
-            flameSlotEvo.SetAmout(instance.GetAmoutFlameEvo(instance.flames[i]));
+            flameSlotEvo.SetAmout(instance.GetAmoutFlameEvo(instance.flames[i], instance.flames.Count));
         }
 
         List<FLAMEEVO> temp = new List<FLAMEEVO>(flameEvoTypes);
@@ -486,7 +486,7 @@ public class UIUpgradeEvolution : MonoBehaviour
                 machineGunSlotEvo.gameObject.SetActive(true);
                 machineGunSlotEvo.transform.SetAsLastSibling();
             }
-            machineGunSlotEvo.SetAmout(instance.GetAmoutMachineGunEvo(instance.machineGuns[i]));
+            machineGunSlotEvo.SetAmout(instance.GetAmoutMachineGunEvo(instance.machineGuns[i], instance.machineGuns.Count));
         }
 
         List<MACHINEGUNEVO> temp = new List<MACHINEGUNEVO>(machineGunEvoTypes);

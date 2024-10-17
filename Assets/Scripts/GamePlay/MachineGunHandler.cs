@@ -42,14 +42,14 @@ public class MachineGunHandler : WeaponShoter
         AddBullet();
         AttackDurationChange();
         AttackCooldownChange();
-        Booster.instance.DecreaseEnergyMachineGun();
+        Booster.instance.DecreaseEnergyMachineGun(level);
     }
 
     public void AddBullet()
     {
-        if (instance.machineGuns.Contains(MACHINEGUNEVO.ADDBULLET))
+        if (instance.IsMachineGunContains(MACHINEGUNEVO.ADDBULLET, level))
         {
-            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ADDBULLET);
+            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ADDBULLET, level);
             amoutLine = startAmoutLine + amout;
         }
     }
@@ -57,13 +57,13 @@ public class MachineGunHandler : WeaponShoter
     public void AttackDurationChange()
     {
         float multiplier = 1;
-        if (instance.machineGuns.Contains(MACHINEGUNEVO.ATTACKDURATION))
+        if (instance.IsMachineGunContains(MACHINEGUNEVO.ATTACKDURATION, level))
         {
-            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION);
+            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKDURATION, level);
 
-            if (level == 1) multiplier = 1.75f;
-            else if (level == 2) multiplier = 1.5f;
-            else if (level == 3) multiplier = 1.25f;
+            if (amout == 1) multiplier = 1.75f;
+            else if (amout == 2) multiplier = 1.5f;
+            else if (amout == 3) multiplier = 1.25f;
         }
         attackDuration = startAttackDuration * multiplier;
     }
@@ -71,13 +71,13 @@ public class MachineGunHandler : WeaponShoter
     public void AttackCooldownChange()
     {
         float multiplier = 1;
-        if (instance.machineGuns.Contains(MACHINEGUNEVO.ATTACKCOOLDOWN))
+        if (instance.IsMachineGunContains(MACHINEGUNEVO.ATTACKCOOLDOWN, level))
         {
-            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKCOOLDOWN);
+            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.ATTACKCOOLDOWN, level);
 
-            if (level == 1) multiplier = 0.7f;
-            else if (level == 2) multiplier = 0.5f;
-            else if (level == 3) multiplier = 0.3f;
+            if (amout == 1) multiplier = 0.7f;
+            else if (amout == 2) multiplier = 0.5f;
+            else if (amout == 3) multiplier = 0.3f;
         }
         cooldown = startCooldown * multiplier;
     }
@@ -116,6 +116,7 @@ public class MachineGunHandler : WeaponShoter
                 GameObject b = Instantiate(preBullet, containers[j]);
                 b.SetActive(false);
                 MachineGunBulletHandler scB = b.GetComponent<MachineGunBulletHandler>();
+                scB.level = level;
                 listScB.Add(scB);
                 listB.Add(b);
             }
@@ -243,13 +244,13 @@ public class MachineGunHandler : WeaponShoter
 
     void IncreaseDamage(ref float multiplier)
     {
-        if (instance.machineGuns.Contains(MACHINEGUNEVO.INCREASEDAMAGE))
+        if (instance.IsMachineGunContains(MACHINEGUNEVO.INCREASEDAMAGE, level))
         {
-            int level = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.INCREASEDAMAGE);
+            int amout = instance.GetAmoutMachineGunEvo(MACHINEGUNEVO.INCREASEDAMAGE, level);
 
-            if (level == 1) multiplier = 1.2f;
-            else if (level == 2) multiplier = 1.4f;
-            else if (level == 3) multiplier = 1.6f;
+            if (amout == 1) multiplier = 1.2f;
+            else if (amout == 2) multiplier = 1.4f;
+            else if (amout == 3) multiplier = 1.6f;
         }
     }
 }

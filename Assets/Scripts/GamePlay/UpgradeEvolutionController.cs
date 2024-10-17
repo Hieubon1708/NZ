@@ -70,6 +70,30 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         return false;
     }
+    
+    public bool IsFlameContains(FLAMEEVO type, int level)
+    {
+        for (int i = 0; i < flames.Count; i++)
+        {
+            if (flames[i] == type && i < level)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public bool IsMachineGunContains(MACHINEGUNEVO type, int level)
+    {
+        for (int i = 0; i < machineGuns.Count; i++)
+        {
+            if (machineGuns[i] == type && i < level)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void SawAddEvolution(int type)
     {
@@ -114,7 +138,7 @@ public class UpgradeEvolutionController : MonoBehaviour
                 }
                 else if (type == 5)
                 {
-                    Booster.instance.DecreaseEnergyFlame();
+                    Booster.instance.DecreaseEnergyFlame(flameHandler.level);
                 }
             }
         }
@@ -141,7 +165,7 @@ public class UpgradeEvolutionController : MonoBehaviour
                 }
                 else if (type == 3)
                 {
-                    Booster.instance.DecreaseEnergyMachineGun();
+                    Booster.instance.DecreaseEnergyMachineGun(machineGunHandler.level);
                 }
                 else if (type == 5)
                 {
@@ -166,12 +190,12 @@ public class UpgradeEvolutionController : MonoBehaviour
         return count;
     }
 
-    public int GetAmoutFlameEvo(FLAMEEVO type)
+    public int GetAmoutFlameEvo(FLAMEEVO type, int level)
     {
         int count = 0;
         for (int i = 0; i < flames.Count; i++)
         {
-            if (flames[i] == type)
+            if (flames[i] == type && i < level)
             {
                 count++;
             }
@@ -179,12 +203,12 @@ public class UpgradeEvolutionController : MonoBehaviour
         return count;
     }
 
-    public int GetAmoutMachineGunEvo(MACHINEGUNEVO type)
+    public int GetAmoutMachineGunEvo(MACHINEGUNEVO type, int level)
     {
         int count = 0;
         for (int i = 0; i < machineGuns.Count; i++)
         {
-            if (machineGuns[i] == type)
+            if (machineGuns[i] == type && i < level)
             {
                 count++;
             }

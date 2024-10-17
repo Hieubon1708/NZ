@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class WeaponShoter : MonoBehaviour
 {
     public GameController.WEAPON weaponType;
+    public int level;
     public Animator ani;
     public Transform target;
     public Transform parent;

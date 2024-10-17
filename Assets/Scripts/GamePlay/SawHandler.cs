@@ -6,7 +6,6 @@ using static UpgradeEvolutionController;
 public class SawHandler : WeaponShoter
 {
     int count;
-    public int level;
     public Animation sawAttackAni;
     public ParticleSystem sawBlood;
     Coroutine blood;

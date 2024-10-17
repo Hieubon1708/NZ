@@ -44,6 +44,7 @@ public class EnemyTowerController : MonoBehaviour
         if (indexTower == towers.Length - 1)
         {
             Debug.Log("Win");
+            CarController.instance.multiplier = 0;
             return;
         }
         indexTower++;

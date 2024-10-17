@@ -33861,7 +33861,7 @@ MonoBehaviour:
   view: {fileID: 1486005185}
   frontalCollision: {fileID: 0}
   forceJump: 5
-  multiplier: 1
+  multiplier: 0
   realSpeed: 2
   startSpeed: 2
   speed: 2
@@ -33946,7 +33946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 420
+  hp: 11111111
   damage: 8
   bone: {fileID: 1729493366}
 --- !u!4 &1729493373
@@ -33958,7 +33958,7 @@ Transform:
   m_GameObject: {fileID: 1729493365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.24, y: -3.558924, z: 0}
+  m_LocalPosition: {x: 4.2, y: -3.558924, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -84185,6 +84185,7 @@ MonoBehaviour:
   wheelLeft: {fileID: 4887620693738060139}
   wheelRight: {fileID: 6018559274856243365}
   shadow: {fileID: 6425050763508872019}
+  i: {fileID: 0}
 --- !u!222 &8682821836843133749
 CanvasRenderer:
   m_ObjectHideFlags: 0

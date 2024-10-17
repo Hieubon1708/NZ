@@ -62,9 +62,9 @@ public class EnemyController : MonoBehaviour
     {
         for (int i = 0; i < listRandomEs.Count; i++)
         {
+            listScRandomEs[i].StopCoroutineNSetDefault();
             if (listScRandomEs[i].content.activeSelf) listScRandomEs[i].content.SetActive(false);
             if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
-            listScRandomEs[i].delayRevival.Kill();
         }
     }
 
@@ -84,6 +84,7 @@ public class EnemyController : MonoBehaviour
                 EnemyHandler sc = e.GetComponent<EnemyHandler>();
                 sc.realSpeed = speed[i];
                 sc.startSpeed = minSpeed;
+                sc.speed = minSpeed;
                 sc.content.SetActive(false);
                 e.SetActive(false);
                 listEs.Add(e);

@@ -15826,7 +15826,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: MAX
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: ac4c68faef870cd4d9a8b1b234876037, type: 2}
   m_sharedMaterial: {fileID: -4322115425075133727, guid: 1be27e203e0714a4cb79ba620c81422f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -15890,7 +15890,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1433013470833197341
@@ -16186,7 +16186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
-  currentObjectSelected: {fileID: 0}
   flameBuyHandler: {fileID: 1411778025174414651}
 --- !u!114 &1411778025174414651
 MonoBehaviour:
@@ -16864,7 +16863,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
-  currentObjectSelected: {fileID: 0}
   sawBuyHandler: {fileID: 5093503683493936208}
 --- !u!114 &5093503683493936208
 MonoBehaviour:
@@ -17528,7 +17526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
-  currentObjectSelected: {fileID: 0}
   machineGunBuyHandler: {fileID: 7135567256935585298}
 --- !u!114 &7135567256935585298
 MonoBehaviour:
@@ -18479,6 +18476,7 @@ MonoBehaviour:
   - {fileID: 5412024867126225252}
   - {fileID: 2989615784492025956}
   - {fileID: 1024484460878120626}
+  boxBgs: {fileID: 1436324027836310079}
   textMax: {fileID: 8348724246212844116}
   textEvoUpgrade: {fileID: 1785713905897254748}
   evoUpgrade: {fileID: 6468790569624079494}
@@ -18507,7 +18505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
-  currentObjectSelected: {fileID: 0}
   weaponUpgradeHandler: {fileID: 3294745045174629222}
 --- !u!1 &5927245879295130561
 GameObject:
@@ -18993,7 +18990,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScale: 0
-  currentObjectSelected: {fileID: 0}
   blockUpgradeHandler: {fileID: 24971306725054711}
 --- !u!225 &1347428145842583923
 CanvasGroup:

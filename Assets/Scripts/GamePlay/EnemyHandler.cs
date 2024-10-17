@@ -178,7 +178,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            if (flameTrigger != null) StopCoroutine(flameTrigger);
+            if (flameTrigger != null) StopCoroutine(flameTrigger); 
         }
         if (collision.CompareTag("Player"))
         {
@@ -294,12 +294,12 @@ public class EnemyHandler : MonoBehaviour
         if (isCollisionWithGround
             && collision.contacts[0].normal.y <= -0.85f)
         {
-            if (isCollisionWithCar) StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
+            if (isCollisionWithCar) StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, collision.collider.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
             else if (isStunByWeapon)
             {
                 if (GameController.instance.EBlockNearest(layerOrigin) == gameObject)
                 {
-                    StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
+                    StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, collision.collider.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
                 }
             }
         }
@@ -324,13 +324,6 @@ public class EnemyHandler : MonoBehaviour
             || frontalCollision != null
             || isStunByWeapon)
         {
-            if (a)
-            {
-                Debug.LogWarning(isCollisionWithCar);
-                Debug.LogWarning(gameObject.layer == layerBumping);
-                Debug.LogWarning(frontalCollision != null);
-                Debug.LogWarning(isStunByWeapon);
-            }
             speed = 0;
         }
 
@@ -341,7 +334,6 @@ public class EnemyHandler : MonoBehaviour
 
     protected IEnumerator JumpStart(Collision2D collision)
     {
-        if (enemyInfo.hp == 0) yield break;
         isJump = true;
         Collider2D col = collision.collider;
         rb.velocity = new Vector2(rb.velocity.x, forceJump);
@@ -432,13 +424,14 @@ public class EnemyHandler : MonoBehaviour
         animator.SetLayerWeight(2, weight);
     }
 
-    private void OnDisable()
+    public void StopCoroutineNSetDefault()
     {
         if (enemyInfo.hp > 0)
         {
             StopCoroutines();
             SetDefaultField();
         }
+        delayRevival.Kill();
     }
 
     public void SetDefaultField()
@@ -500,7 +493,6 @@ public class EnemyHandler : MonoBehaviour
 
     IEnumerator SetFalseIsStunned(float time)
     {
-        if (enemyInfo.hp == 0) yield break;
         yield return new WaitForSeconds(time);
         isStunned = false;
     }

@@ -14719,6 +14719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  level: 3
   ani: {fileID: 95881659751015471}
   target: {fileID: 0}
   parent: {fileID: 4725536218760666}
@@ -14729,6 +14730,14 @@ MonoBehaviour:
   col: {fileID: 1799665934625743}
   colBooster: {fileID: 3857308414590246504}
   flameThrover: {fileID: 212292618049581596}
+  flameEvos: []
+  colEvos: []
+  startColSizes: []
+  startSizes: []
+  cooldown: 0
+  startCooldown: 1
+  attackDuration: 0
+  startAttackDuration: 2
 --- !u!1 &1933484492191480
 GameObject:
   m_ObjectHideFlags: 0

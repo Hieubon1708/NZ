@@ -1044,7 +1044,9 @@ MonoBehaviour:
   frontalCollision: {fileID: 0}
   forceJump: 5
   multiplier: 1
+  realSpeed: 0
   startSpeed: 0
+  speed: 0
   timeStunned: 0
   timeJump: 0
   isCollisionWithCar: 0
@@ -1055,7 +1057,6 @@ MonoBehaviour:
   isBumping: 0
   isAttack: 0
   isShot: 0
-  isDeath: 0
   amoutCollision: 0
   lineIndex: 0
   a: 0

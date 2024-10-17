@@ -45,7 +45,7 @@ public class FlameHandler : WeaponShoter
         AttackCooldownChange();
         AttackDurationChange();
         SetBurning();
-        Booster.instance.DecreaseEnergyFlame();
+        Booster.instance.DecreaseEnergyFlame(level);
     }
 
     public void SetBurning()
@@ -61,14 +61,14 @@ public class FlameHandler : WeaponShoter
 
     public void AttackRadiusChange()
     {
-        if (instance.flames.Contains(FLAMEEVO.ATTACKRADIUS))
+        if (instance.IsFlameContains(FLAMEEVO.ATTACKRADIUS, level))
         {
-            int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS);
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS, level);
             float multiplier = 1;
 
-            if (level == 1) multiplier = 1.3f;
-            else if (level == 2) multiplier = 1.6f;
-            else if (level == 3) multiplier = 1.9f;
+            if (amout == 1) multiplier = 1.3f;
+            else if (amout == 2) multiplier = 1.6f;
+            else if (amout == 3) multiplier = 1.9f;
 
             SetAttackRadius(multiplier);
 
@@ -83,13 +83,13 @@ public class FlameHandler : WeaponShoter
     public void AttackDurationChange()
     {
         float multiplier = 1;
-        if (instance.flames.Contains(FLAMEEVO.ATTACKDURATION))
+        if (instance.IsFlameContains(FLAMEEVO.ATTACKDURATION, level))
         {
-            int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKDURATION);
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKDURATION, level);
 
-            if (level == 1) multiplier = 1.7f;
-            else if (level == 2) multiplier = 1.5f;
-            else if (level == 3) multiplier = 1.3f;
+            if (amout == 1) multiplier = 1.7f;
+            else if (amout == 2) multiplier = 1.5f;
+            else if (amout == 3) multiplier = 1.3f;
         }
         attackDuration = startAttackDuration * multiplier;
     }
@@ -97,13 +97,13 @@ public class FlameHandler : WeaponShoter
     public void AttackCooldownChange()
     {
         float multiplier = 1;
-        if (instance.flames.Contains(FLAMEEVO.ATTACKCOOLDOWN))
+        if (instance.IsFlameContains(FLAMEEVO.ATTACKCOOLDOWN, level))
         {
-            int level = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKCOOLDOWN);
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKCOOLDOWN, level);
 
-            if (level == 1) multiplier = 0.75f;
-            else if (level == 2) multiplier = 0.5f;
-            else if (level == 3) multiplier = 0.25f;
+            if (amout == 1) multiplier = 0.75f;
+            else if (amout == 2) multiplier = 0.5f;
+            else if (amout == 3) multiplier = 0.25f;
         }
         cooldown = startCooldown * multiplier;
     }
@@ -207,13 +207,13 @@ public class FlameHandler : WeaponShoter
 
     void IncreaseDamage(ref float multiplier)
     {
-        if (instance.flames.Contains(FLAMEEVO.INCREASEDAMAGE))
+        if (instance.IsFlameContains(FLAMEEVO.INCREASEDAMAGE, level))
         {
-            int level = instance.GetAmoutFlameEvo(FLAMEEVO.INCREASEDAMAGE);
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.INCREASEDAMAGE, level);
 
-            if (level == 1) multiplier = 1.2f;
-            else if (level == 2) multiplier = 1.4f;
-            else if (level == 3) multiplier = 1.6f;
+            if (amout == 1) multiplier = 1.2f;
+            else if (amout == 2) multiplier = 1.4f;
+            else if (amout == 3) multiplier = 1.6f;
         }
     }
 }

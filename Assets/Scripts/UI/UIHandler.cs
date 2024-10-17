@@ -53,6 +53,7 @@ public class UIHandler : MonoBehaviour
     {
         PlayerController.instance.player.gold += 100000;
         GoldUpdatee();
+        BlockController.instance.CheckButtonStateAll();
     }
 
     public void GoldUpdatee()
@@ -85,7 +86,7 @@ public class UIHandler : MonoBehaviour
             if (isOk) frame.sprite = frameButtonBooster[0];
             else frame.sprite = frameButtonBooster[1];
         }
-        if(isOk) frame.raycastTarget = true;
+        if (isOk) frame.raycastTarget = true;
         else frame.raycastTarget = false;
     }
 
@@ -144,12 +145,14 @@ public class UIHandler : MonoBehaviour
         frame.sprite = frameButtonWeaponUpgradees[index];
     }
 
-    public void WeaponButtonChangeState(Image frame, TextMeshProUGUI textPrice, TextMeshProUGUI textMax)
+    public void WeaponButtonChangeState(Image frame, TextMeshProUGUI textPrice, TextMeshProUGUI textMax, Image framePrice, Image arrow)
     {
         textPrice.gameObject.SetActive(false);
         textMax.gameObject.SetActive(true);
+        arrow.gameObject.SetActive(false);
         frame.sprite = frameButtonWeaponUpgradees[2];
         frame.raycastTarget = false;
+        framePrice.color = framePriceMax;
     }
 
     public void BlockButtonChangeState(Image frame, Image framePrice, TextMeshProUGUI textPrice, TextMeshProUGUI textMax, Image iconGold, TextMeshProUGUI textLv, TextMeshProUGUI textHpL, TextMeshProUGUI textHpR)

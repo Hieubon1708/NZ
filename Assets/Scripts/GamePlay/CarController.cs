@@ -51,16 +51,26 @@ public class CarController : MonoBehaviour
     {
         carAni.SetTrigger("death");
     }
-
-    public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject ePush, EnemyHandler e, float distance)
+    public GameObject i;
+    public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject colDroping, GameObject ePush, EnemyHandler e, float distance)
     {
+        i = droping;
         ePush.layer = layerBumping;
         colObj.layer = layerBumping;
         e.isBumping = true;
-        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance && ePush.activeSelf && droping.activeSelf);
+        yield return new WaitWhile(() => Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance && ePush.activeSelf && colDroping.activeSelf);
         ePush.layer = layerOrigin;
         colObj.layer = layerOrigin;
         e.isBumping = false;
+        if (e.a)
+        {
+
+        Debug.LogWarning(distance);
+        Debug.LogWarning(Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance);
+        Debug.LogWarning(ePush.activeSelf);
+        Debug.LogWarning(droping.activeSelf);
+        }
+
     }
 
     private void FixedUpdate()

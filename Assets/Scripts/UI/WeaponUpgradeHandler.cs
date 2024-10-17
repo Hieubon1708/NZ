@@ -11,6 +11,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public TextMeshProUGUI textDamageL;
     public Image frameEvoUpgrade;
     public Image[] boxes;
+    public GameObject boxBgs;
     public TextMeshProUGUI textMax;
     public TextMeshProUGUI textEvoUpgrade;
     public GameObject evoUpgrade;
@@ -116,9 +117,10 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public override void CheckButtonState()
     {
         if (weaponShoter == null) return;
-        if (level == DataManager.instance.GetLengthUpgradePriceWeaponConfig(level, weaponConfig) - 1 && levelUpgrade == boxProgress.Length - 1)
+        if (level == DataManager.instance.GetLengthUpgradePriceWeaponConfig(level, weaponConfig) - 1 && levelUpgrade == boxProgress.Length)
         {
-            UIHandler.instance.WeaponButtonChangeState(frame, textPriceUpgrade, textMax);
+            UIHandler.instance.WeaponButtonChangeState(frame, textPriceUpgrade, textMax, framePrice, arrow);
+            boxBgs.SetActive(false);
         }
         else if (PlayerController.instance.player.gold < DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig))
         {
@@ -149,5 +151,8 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         level = 0;
         levelUpgrade = 0;
         evoUpgrade.SetActive(false);
+        boxBgs.SetActive(true);
+        arrow.gameObject.SetActive(true);
+        textMax.gameObject.SetActive(false);
     }
 }
