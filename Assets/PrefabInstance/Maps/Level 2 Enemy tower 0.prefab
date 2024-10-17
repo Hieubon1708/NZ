@@ -338,7 +338,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 33098d402e035fc40bfb6547bcaf16ab, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad3276872c3cf34dbc3be79590482ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 7500
   textHp: {fileID: 209505455515986899}
 --- !u!114 &-2982043727843311319
 MonoBehaviour:
@@ -647,12 +647,13 @@ MonoBehaviour:
   - {fileID: 2011792742572541611}
   - {fileID: 5482541864241261168}
   amoutLimit: 3
-  col: {fileID: 0}
+  col: {fileID: 1782036001426747}
   enemies:
-  - {fileID: 1748248514519542, guid: 66a47f629e1876c43a78d3c6c24d8a9a, type: 3}
-  amout: 01000000
+  - {fileID: 1087254144996759, guid: ac324d2676d40a84d9f31536972a883d, type: 3}
+  amout: 3c000000
   speed:
-  - -2
+  - 1.5
+  listScRandomEs: []
   listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
@@ -682,9 +683,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: -774998304737252913}
+  view: {fileID: 5740745080037013949}
   healthHandler: {fileID: 6387675731977847477}
   damage: {fileID: 2398730488777532831}
-  towerPos: {fileID: 0}
+  towerPos: {fileID: 4772390162799545660}
   isVisible: 0
 --- !u!210 &-3118863998555680615
 SortingGroup:
@@ -842,8 +844,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 123
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ac4c68faef870cd4d9a8b1b234876037, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 857b903a84bda4d429b3400c9f37ee16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -919,7 +921,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4715253096528966}
   - component: {fileID: 212420188585423599}
-  - component: {fileID: 7593526972976384465}
   m_Layer: 0
   m_Name: Zombie_Base_Front
   m_TagString: Enemy
@@ -994,19 +995,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7593526972976384465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287868333396912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTowerHandler: {fileID: 3960937402483561204}
 --- !u!1 &1294178067070413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4410354505983302}
   - component: {fileID: 212384197014783699}
+  - component: {fileID: 2022508895453086736}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1252,6 +1241,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2022508895453086736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485083851653916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTowerHandler: {fileID: 3960937402483561204}
 --- !u!1 &1606049370052365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4061844958187404}
   - component: {fileID: 61812170049125604}
+  - component: {fileID: 6710590631287137608}
   m_Layer: 0
   m_Name: collider
   m_TagString: Tower
@@ -1398,7 +1401,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.20725411, y: 0.48955607}
@@ -1414,6 +1417,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4245082, y: 4.8385577}
   m_EdgeRadius: 0
+--- !u!114 &6710590631287137608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782036001426747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd8dead3b242c54c84b8613f25b1e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1919718924649587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +2004,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 4980374869977139972}
+    - target: {fileID: 7126976719786292588, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 4669636541930981}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

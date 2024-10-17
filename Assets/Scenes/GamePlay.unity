@@ -921,7 +921,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30131113}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5971,7 +5971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &236414137
 Transform:
   m_ObjectHideFlags: 0
@@ -33799,7 +33799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   face: {fileID: 2086648589}
   bodyUp: {fileID: 6812721}
   bodyDown: {fileID: 2003823627}
@@ -33958,7 +33957,7 @@ Transform:
   m_GameObject: {fileID: 1729493365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.2, y: -3.558924, z: 0}
+  m_LocalPosition: {x: 8.79, y: -3.558924, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35150,7 +35149,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803999336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -37511,7 +37510,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913493729}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -39311,6 +39310,8 @@ MonoBehaviour:
   zomDiePrefab: {fileID: 1948955770630358, guid: 2e730dbd180c1c84b912c4b5f18a6dd7, type: 3}
   blockDestroyPrefab: {fileID: 1206373143852319, guid: 71a95ade04171724da98738baf808232, type: 3}
   towerExplosionHolePrefab: {fileID: 1260678400331278, guid: 6421f07ba20350841a661f15d0efa40e, type: 3}
+  zomHitOnRoadPrefab: {fileID: 1982696263771530, guid: 3e2b0a3e8372caf45a29f54cb5503eaf, type: 3}
+  zomHitOnHeroPrefab: {fileID: 1494868365755377, guid: 7e749c2e9c5071d4fb75741d499d89de, type: 3}
   towerExplosionPrefab: {fileID: 1493261097588810, guid: 081d4f7d3e990734aa02d1ae05832c11, type: 3}
   flameThrowerPrefab: {fileID: 1396825472111115, guid: b0e9f22ce64938e48ac1b3c310effc13, type: 3}
   stunOnEnemyPrefab: {fileID: 1765056701174977, guid: 67d90a6c0eb9e11458d8636f85f83fca, type: 3}
@@ -39330,6 +39331,8 @@ MonoBehaviour:
   boomEffects: []
   zomDies: []
   blockDestroys: []
+  zomHitOnRoads: []
+  zomHitOnHeros: []
   playerDie: {fileID: 0}
   towerExplosionHole: {fileID: 0}
   towerExplosion: {fileID: 0}
@@ -39342,6 +39345,8 @@ MonoBehaviour:
   amoutGunHitOnEnemy: 25
   amoutStunOnEnemy: 15
   amoutGunHitOnRoad: 25
+  amoutZomHitOnRoad: 20
+  amoutZomHitOnHero: 20
 --- !u!114 &1972759687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39354,13 +39359,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e1e69c8a94b04786eed4292e6e6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   isLose: 0
   listEnemies: []
   listEVisible: []
   mapLevels:
   - {fileID: 7967148387835107803, guid: 626c375b5000d3c4cb43129c86f90557, type: 3}
-  - {fileID: 1148497961413998, guid: d087b4238846b2e40b08eb31c5ac1f82, type: 3}
+  - {fileID: 7967148387835107803, guid: 7472b5f9f4869974a88ddad509b49b28, type: 3}
   poolDamages: {fileID: 1353833272}
   poolWeapons: {fileID: 2079081491}
   poolBullets: {fileID: 1706001891}
@@ -39417,11 +39422,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fb084d6135b8c24da6cf77c3db3544c, type: 3}
   - {fileID: 21300000, guid: df7155825b1cf7c4fb772bf59dc684ba, type: 3}
   blockSpritesLv2:
-  - {fileID: 21300000, guid: f92cb7568f41e0b4d93bba604bd773d4, type: 2}
-  - {fileID: 21300000, guid: 8cd75de13726ad34dacb324ff6010b2e, type: 2}
-  - {fileID: 21300000, guid: e672d038547c58a4e904fa63f0853cbd, type: 2}
-  - {fileID: 21300000, guid: d9dce02f9a9a94a46a98407c1f63ee0c, type: 2}
-  - {fileID: 21300000, guid: 3f788dcc40f98824c8b095f67d6c82b7, type: 2}
+  - {fileID: 21300000, guid: 2c26aefe78afbec4e9c47b816d4502c6, type: 3}
+  - {fileID: 21300000, guid: 56863914d9bf03645b60f3440e8210e6, type: 3}
+  - {fileID: 21300000, guid: 775b63e7073f3b94b80088a7e06fcd9b, type: 3}
+  - {fileID: 21300000, guid: dc013188f82e3a742a77292514815fb6, type: 3}
+  - {fileID: 21300000, guid: a8d6812b09f13a747b63bcea98abe82b, type: 3}
   blockSpritesLv3:
   - {fileID: 21300000, guid: a1de388c986427f4f84a012de357e090, type: 2}
   - {fileID: 21300000, guid: 9270cfe0c395d714ab729725458af0e1, type: 2}
@@ -39454,12 +39459,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 627eb35f98da4474e8a70d22006476da, type: 3}
   - {fileID: 21300000, guid: 5832feec3de114f4c8f8ca1c22b8f71c, type: 3}
   carSpritesLv2:
-  - {fileID: 21300000, guid: 0796ec6abe8c45245bd4aa0038bb4786, type: 2}
-  - {fileID: 21300000, guid: b03ea1b474e7b2048aad270c80154860, type: 2}
-  - {fileID: 21300000, guid: 7d65f92aea20aea43be4746fbd07d34d, type: 2}
-  - {fileID: 21300000, guid: d534f5428dde81646b6dcc7539508bb2, type: 2}
-  - {fileID: 21300000, guid: 8721096f89ffb19409106275bd2e98c4, type: 2}
-  - {fileID: 21300000, guid: feb0d33c428dd91439a0e1a07abe08a4, type: 2}
+  - {fileID: 21300000, guid: f387be44eb761874caf5824665381857, type: 3}
+  - {fileID: 21300000, guid: 32eb54a05357a444c936d46250b210e6, type: 3}
+  - {fileID: 21300000, guid: 0559254cfce935e43b7cfad3c3fa7499, type: 3}
+  - {fileID: 21300000, guid: b07cacf5ad164af48a534060503aa4dd, type: 3}
+  - {fileID: 21300000, guid: 47949e0a107a56b4f9b32153f299ce02, type: 3}
+  - {fileID: 21300000, guid: 64403cb3743734b4b96c2206f6584b03, type: 3}
   carSpritesLv3:
   - {fileID: 21300000, guid: 705f111c4230b974eba126e517a995c8, type: 2}
   - {fileID: 21300000, guid: c02c90060c5f35d44887cff2d5b6e4d3, type: 2}
@@ -39712,7 +39717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979316087}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -42344,7 +42349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   face: {fileID: 1902899365}
   bodyUp: {fileID: 1121583183}
   bodyDown: {fileID: 1822045098}
@@ -58780,7 +58784,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.08, y: 0.28}
+  m_Size: {x: 1.4, y: 0.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -64609,7 +64613,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.24, y: 1.2}
+  m_Size: {x: 0.24, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -66134,7 +66138,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 0.71948683, y: 0.71948683}
+  m_Size: {x: 0.68, y: 0.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -66475,7 +66479,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.31946498, y: 1.099465}
+  m_Size: {x: 0.32, y: 1.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -69461,7 +69465,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.71948683, y: 0.71948683}
+  m_Size: {x: 0.68, y: 0.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -69513,7 +69517,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9194651, y: 0.739465}
+  m_Size: {x: 1.96, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -70028,7 +70032,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.68, y: 0.12}
+  m_Size: {x: 1.4, y: 0.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -77329,7 +77333,7 @@ Transform:
   m_GameObject: {fileID: 8419812569849590183}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.34, y: 0.76, z: 0}
+  m_LocalPosition: {x: 4, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84334,7 +84338,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 151
   m_Sprite: {fileID: 21300000, guid: 821a8b873355ef64bb7d9ba98bb81404, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45516333, b: 0.3820755, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1

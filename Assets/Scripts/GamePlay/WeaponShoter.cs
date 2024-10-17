@@ -1,4 +1,5 @@
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class WeaponShoter : MonoBehaviour
@@ -8,8 +9,9 @@ public abstract class WeaponShoter : MonoBehaviour
     public Animator ani;
     public Transform target;
     public Transform parent;
+    protected float distance;
     protected Coroutine rotate;
-    protected Coroutine findTarget;
+    Quaternion targetRotation;
 
     public abstract void StartGame();
     public abstract void UseBooster();
@@ -20,43 +22,39 @@ public abstract class WeaponShoter : MonoBehaviour
     {
         if (parent != null) parent.localRotation = Quaternion.identity;
         if (rotate != null) StopCoroutine(rotate);
-        if (findTarget != null) StopCoroutine(findTarget);
         target = null;
     }
 
-    public abstract void LoadData();  
+    protected void FindTarget()
+    {
+        if (GameController.instance.listEVisible.Count == 0) target = GameController.instance.defaultDir;
+        else
+        {
+            target = GameController.instance.listEVisible[Random.Range(0, GameController.instance.listEVisible.Count)].transform;
+            if (weaponType == GameController.WEAPON.FLAME)
+            {
+                List<Transform> esByDistance = new List<Transform>();
+                GameController.instance.GetEsByDistance(distance, parent.transform.position, esByDistance);
+                if(esByDistance.Count != 0) target = esByDistance[Random.Range(0, esByDistance.Count)];
+            }
+        }
+
+        Vector3 direction = target.position - parent.position;
+        targetRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(direction));
+        rotate = StartCoroutine(Rotate());
+    }
+
+    public abstract void LoadData();
 
     public IEnumerator Rotate()
     {
         while (true)
         {
-            if (target != null && GameController.instance.listEVisible.Contains(target.gameObject))
-            {
-                float time = 0.1f;
-                if (Vector2.Distance(parent.position, target.position) < 3) time = 0.05f;
-                if (Vector2.Distance(parent.position, target.position) < 1) time = 0.01f;
-                float angle = EUtils.GetAngle(target.position - parent.position);
-                if (parent.transform.position == BlockController.instance.tempBlocks[0].transform.position)
-                {
-                    angle = Mathf.Clamp(angle, -10f, 180f);
-                }
-                parent.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, parent.localEulerAngles.z), Quaternion.Euler(0, 0, angle), time);
-            }
-            else
-            {
-                target = GameController.instance.GetENearest(parent.position);
-                if (findTarget != null) StopCoroutine(findTarget);
-                StartCoroutine(FindTarget());
-            }
+            parent.localRotation = Quaternion.Lerp(parent.localRotation, targetRotation, 0.05f);
             yield return new WaitForFixedUpdate();
+            if (Quaternion.Angle(parent.localRotation, targetRotation) <= 1) break;
         }
-    }
-    public IEnumerator FindTarget()
-    {
-        while (true)
-        {
-            target = GameController.instance.GetENearest(parent.position);
-            yield return new WaitForSeconds(3f);
-        }
+        yield return new WaitForSeconds(0.5f);
+        FindTarget();
     }
 }

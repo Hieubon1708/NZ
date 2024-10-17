@@ -31,32 +31,46 @@ public class EnemyT3 : EnemyHandler
         base.OnTriggerExit2D(collision);
         if (collision.CompareTag("Tower")) levingCave = StartCoroutine(LevingCave());
     }
-
+    private Vector2 velocity = Vector2.zero;
     protected override void FixedUpdate()
     {
-        if (transform.position.x <= targetX)
+        float walkSpeed = 1f;
+        float speed = this.speed;
+
+        if (GameController.instance.isLose && BlockController.instance.tempBlocks.Count == 0)
         {
-            if (!animator.GetBool("attack")) animator.SetBool("attack", true);
-            if (!isLevingCave) return;
-            if (rb.velocity != Vector2.zero)
-            {
-                rb.velocity = Vector2.zero;
-                targetPos = RandomTarget();
-            }
-            if (Vector2.Distance(transform.position, targetPos) > 0.1f)
-            {
-                transform.position = Vector2.Lerp(transform.position, targetPos, 0.1f);
-                //Debug.DrawLine(transform.position, targetPos, Color.red, 2);
-            }
-            else
-            {
-                targetPos = RandomTarget();
-            }
+            if (animator.GetBool("attack")) animator.SetBool("attack", false);
+            rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(startSpeed * multiplier, rb.velocity.y);
+            if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
+            {
+                if (!animator.GetBool("attack")) animator.SetBool("attack", true);
+                if (!isLevingCave) return;
+                if (rb.velocity != Vector2.zero)
+                {
+                    rb.velocity = Vector2.zero;
+                    targetPos = RandomTarget();
+                }
+                if (Vector2.Distance(transform.position, targetPos) > 0.1f)
+                {
+                    Vector2 targetPosition = Vector2.SmoothDamp(rb.position, targetPos, ref velocity, 0.3f);
+                    rb.MovePosition(targetPosition);
+                }
+                else
+                {
+                    targetPos = RandomTarget();
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
+            }
         }
+
+        animator.SetFloat("velocityY", rb.velocity.y);
+        animator.SetFloat("walkSpeed", walkSpeed + Mathf.Clamp(velocity.y, -0.5f, 0.5f));
     }
 
     protected override void DeathHandle()

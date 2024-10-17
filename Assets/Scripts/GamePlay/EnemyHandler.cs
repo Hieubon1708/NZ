@@ -69,6 +69,8 @@ public class EnemyHandler : MonoBehaviour
         {
             content.SetActive(true);
             speed = realSpeed;
+            col.enabled = false;
+            col.enabled = true;
         }
         if (!content.activeSelf) return;
         if (enemyInfo.hp == 0) return;
@@ -178,7 +180,7 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            if (flameTrigger != null) StopCoroutine(flameTrigger); 
+            if (flameTrigger != null) StopCoroutine(flameTrigger);
         }
         if (collision.CompareTag("Player"))
         {
@@ -204,7 +206,6 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (enemyInfo.hp == 0) return;
         if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
@@ -213,7 +214,6 @@ public class EnemyHandler : MonoBehaviour
 
     protected void OnCollisionStay2D(Collision2D collision)
     {
-        if (enemyInfo.hp == 0) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f && collision.gameObject.activeSelf) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -259,7 +259,6 @@ public class EnemyHandler : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if (enemyInfo.hp == 0) return;
         if (collision.gameObject.CompareTag("Block"))
         {
             if (blockCollision != null) StopCoroutine(blockCollision);
@@ -426,11 +425,8 @@ public class EnemyHandler : MonoBehaviour
 
     public void StopCoroutineNSetDefault()
     {
-        if (enemyInfo.hp > 0)
-        {
-            StopCoroutines();
-            SetDefaultField();
-        }
+        StopCoroutines();
+        SetDefaultField();
         delayRevival.Kill();
     }
 

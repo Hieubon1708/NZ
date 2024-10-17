@@ -38,11 +38,8 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator StartFindTarget()
     {
-        while (target == null || target == GameController.instance.defaultDir)
-        {
-            target = GameController.instance.GetENearest(transform.position);
-            yield return new WaitForFixedUpdate();
-        }
+        yield return new WaitForFixedUpdate();
+        target = GameController.instance.GetENearest(transform.position);
         isFindingTarget = true;
         ShotAni();
     }
@@ -101,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     public void BoomChange()
     {
-        for (int i = 0;i < boomSpriteRenderers.Length; i++)
+        for (int i = 0; i < boomSpriteRenderers.Length; i++)
         {
             boomSpriteRenderers[i].sprite = player.playerSkiner.booms[EquipmentController.instance.playerInventory.boomLevel];
         }

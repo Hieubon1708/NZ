@@ -113,7 +113,7 @@ public class FlameHandler : WeaponShoter
         esmission = flameSmokeParticle.emission;
         esmissionChild = flameSmokeParticleChild.emission;
         shot = StartCoroutine(Shot());
-        rotate = StartCoroutine(Rotate());
+        FindTarget();
     }
 
     public void SetAttackRadius(float multiplier)
@@ -156,6 +156,7 @@ public class FlameHandler : WeaponShoter
 
     IEnumerator Shot()
     {
+        distance = 5f;
         while (true)
         {
             ShotHandle(true, 1f, 0.35f);
@@ -167,6 +168,7 @@ public class FlameHandler : WeaponShoter
 
     void StartBooster()
     {
+        distance = 10f;
         if (shot != null) StopCoroutine(shot);
         ShotHandle(false, 1f, 0.35f);
         colBooster.SetActive(true);

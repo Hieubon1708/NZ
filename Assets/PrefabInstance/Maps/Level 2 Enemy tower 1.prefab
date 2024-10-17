@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4370698864393952
 Transform:
   m_ObjectHideFlags: 0
@@ -299,83 +299,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1375091841354117
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4646713291034466}
-  - component: {fileID: 61760708108723112}
-  m_Layer: 0
-  m_Name: roofForEnemiesCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4646713291034466
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375091841354117}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.01745245, w: 0.99984777}
-  m_LocalPosition: {x: 1.0817986, y: 4.28, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3649732358021679054}
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: 2.000005}
---- !u!61 &61760708108723112
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375091841354117}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 48cbe0797d3a283499dbf78f3e82f208, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 5.5343904, y: 2.170851}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 9.201757, y: 5.0919757}
-  m_EdgeRadius: 0.45
 --- !u!1 &1390853434672090
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,8 +366,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 123
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ac4c68faef870cd4d9a8b1b234876037, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 857b903a84bda4d429b3400c9f37ee16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -591,9 +514,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: 18448315945788001}
+  view: {fileID: 1877263634050349957}
   healthHandler: {fileID: -5127170304809717261}
   damage: {fileID: 1779450487183344498}
-  towerPos: {fileID: 0}
+  towerPos: {fileID: 3649732358021679054}
   isVisible: 0
 --- !u!114 &742703302493711088
 MonoBehaviour:
@@ -607,18 +531,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPools: []
-  amoutLimit: 0
-  col: {fileID: 0}
-  enemies: []
-  amout: 
-  speed: []
+  enemyPools:
+  - {fileID: 380540743260107143}
+  - {fileID: 9020507347988027720}
+  - {fileID: 9053163376588873733}
+  amoutLimit: 3
+  col: {fileID: 1531338481327962}
+  enemies:
+  - {fileID: 1667125860864603, guid: fcb326ce9d902da4da909be6d541e4b1, type: 3}
+  amout: 01000000
+  speed:
+  - 1.5
+  listScRandomEs: []
   listRandomEs: []
-  defaultDistance: 0
-  amoutEs: 
-  distances: []
-  startDistanceMultipliers: 
-  endDistanceMultipliers: 
+  defaultDistance: 0.75
+  amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
+  distances:
+  - 0.55
+  - 0.45
+  - 0.75
+  - 1.5
+  - 0.75
+  - 1.5
+  - 0.75
+  - 1.5
+  - 0.75
+  startDistanceMultipliers: 030000000300000001000000
+  endDistanceMultipliers: 050000000500000001000000
   temp: []
 --- !u!114 &18448315945788001
 MonoBehaviour:
@@ -632,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad3276872c3cf34dbc3be79590482ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 15000
   textHp: {fileID: 8888379365309204478}
 --- !u!114 &-5127170304809717261
 MonoBehaviour:
@@ -663,83 +602,6 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_SortAtRoot: 0
---- !u!1 &1526573249863094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4836794929392559}
-  - component: {fileID: 61232286373320174}
-  m_Layer: 0
-  m_Name: roofForParticlesCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4836794929392559
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526573249863094}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5317986, y: 4.08, z: 0}
-  m_LocalScale: {x: 0.43431, y: 0.43431, z: 0.43431}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3649732358021679054}
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
---- !u!61 &61232286373320174
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526573249863094}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.27779722, y: -0.79718053}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.049787, y: 0.45871168}
-  m_EdgeRadius: 0.55
 --- !u!1 &1531338481327962
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4746225878124755}
   - component: {fileID: 61867450331015690}
+  - component: {fileID: 3809636944786738073}
   m_Layer: 0
   m_Name: collider
   m_TagString: Tower
@@ -802,7 +665,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.11685842, y: 0.6388264}
@@ -818,83 +681,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7837168, y: 5.135788}
   m_EdgeRadius: 0
---- !u!1 &1550203681820863
-GameObject:
+--- !u!114 &3809636944786738073
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4570700839223545}
-  - component: {fileID: 61143365296271590}
-  m_Layer: 0
-  m_Name: roofForParticlesCollider (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4570700839223545
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550203681820863}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5317986, y: 4.08, z: 0}
-  m_LocalScale: {x: 0.43431, y: 0.43431, z: 0.43431}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3649732358021679054}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61143365296271590
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550203681820863}
+  m_GameObject: {fileID: 1531338481327962}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.2263539, y: -1.5264664}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.9102778, y: 1.917283}
-  m_EdgeRadius: 0.55
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd8dead3b242c54c84b8613f25b1e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1563665404792921
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4784334840816841}
   - component: {fileID: 212174046544363431}
+  - component: {fileID: 6822513793391288845}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1063,83 +862,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1661031462449232
-GameObject:
+--- !u!114 &6822513793391288845
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4063466490976240}
-  - component: {fileID: 61791072992843547}
-  m_Layer: 0
-  m_Name: roofForParticlesCollider (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4063466490976240
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661031462449232}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9487362, y: 2.612032, z: 0}
-  m_LocalScale: {x: 0.43431, y: 0.43431, z: 0.43431}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3649732358021679054}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61791072992843547
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661031462449232}
+  m_GameObject: {fileID: 1605730415193408}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.6335465, y: -2.0432882}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0958927, y: 7.210787}
-  m_EdgeRadius: 0.55
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTowerHandler: {fileID: -8229932177525097154}
 --- !u!1 &1704113231746139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1161,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 19
   m_Sprite: {fileID: 21300000, guid: 33098d402e035fc40bfb6547bcaf16ab, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1477,7 +1212,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4400856927924894}
   - component: {fileID: 212787733501887417}
-  - component: {fileID: 2493948637316462180}
   m_Layer: 0
   m_Name: Zombie_Base_Front
   m_TagString: Enemy
@@ -1552,19 +1286,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2493948637316462180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923986560583794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTowerHandler: {fileID: -8229932177525097154}
 --- !u!1 &1976426354387623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,10 +1475,6 @@ Transform:
   - {fileID: 224882870243660103}
   - {fileID: 4370698864393952}
   - {fileID: 4746225878124755}
-  - {fileID: 4646713291034466}
-  - {fileID: 4836794929392559}
-  - {fileID: 4570700839223545}
-  - {fileID: 4063466490976240}
   m_Father: {fileID: 4809774582836012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3980321656474803946
@@ -1949,26 +1666,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage
       objectReference: {fileID: 0}
-    - target: {fileID: 2597407603152731815, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3571161364059412704, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4502626900472404923, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
-      propertyPath: m_Mass
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4502626900472404923, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4502626900472404923, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
-      propertyPath: m_GravityScale
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6179988147239823511, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2053,6 +1750,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 8564579085577880545}
+    - target: {fileID: 7126976719786292588, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 4809774582836012}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

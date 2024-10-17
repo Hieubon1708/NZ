@@ -85,7 +85,7 @@ public class MachineGunHandler : WeaponShoter
     public override void StartGame()
     {
         ShotAll();
-        rotate = StartCoroutine(Rotate());
+        FindTarget();
     }
 
     public override void Restart()

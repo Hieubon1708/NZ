@@ -9,6 +9,8 @@ public class ParController : MonoBehaviour
     public GameObject zomDiePrefab;
     public GameObject blockDestroyPrefab;
     public GameObject towerExplosionHolePrefab;
+    public GameObject zomHitOnRoadPrefab;
+    public GameObject zomHitOnHeroPrefab;
     public GameObject towerExplosionPrefab;
     public GameObject flameThrowerPrefab;
     public GameObject stunOnEnemyPrefab;
@@ -28,6 +30,8 @@ public class ParController : MonoBehaviour
     public GameObject[] boomEffects;
     public GameObject[] zomDies;
     public GameObject[] blockDestroys;
+    public GameObject[] zomHitOnRoads;
+    public GameObject[] zomHitOnHeros;
     public GameObject playerDie;
     public GameObject towerExplosionHole;
     public GameObject towerExplosion;
@@ -40,6 +44,10 @@ public class ParController : MonoBehaviour
     public int amoutGunHitOnEnemy;
     public int amoutStunOnEnemy;
     public int amoutGunHitOnRoad;
+    public int amoutZomHitOnRoad;
+    public int amoutZomHitOnHero;
+    int currentCountZomHitOnRoad;
+    int currentCountZomHitOnHero;
     int currentCount;
     int currentCountFlameThrower;
     int currentCountZomDie;
@@ -120,6 +128,38 @@ public class ParController : MonoBehaviour
             flameThrowers[i] = Instantiate(flameThrowerPrefab, container);
             flameThrowers[i].SetActive(false);
         }
+        zomHitOnHeros = new GameObject[amoutZomHitOnHero];
+        for (int i = 0; i < zomHitOnHeros.Length; i++)
+        {
+            zomHitOnHeros[i] = Instantiate(zomHitOnHeroPrefab, container);
+            zomHitOnHeros[i].SetActive(false);
+        }
+        zomHitOnRoads = new GameObject[amoutZomHitOnRoad];
+        for (int i = 0; i < zomHitOnRoads.Length; i++)
+        {
+            zomHitOnRoads[i] = Instantiate(zomHitOnRoadPrefab, container);
+            zomHitOnRoads[i].SetActive(false);
+        }
+    }
+
+    public void PlayZomHitOnRoadParticle(Vector2 pos)
+    {
+        GameObject h = zomHitOnRoads[currentCountZomHitOnRoad];
+        h.transform.position = pos;
+        h.SetActive(true);
+        currentCountZomHitOnRoad++;
+        if (currentCountZomHitOnRoad == zomHitOnRoads.Length) currentCountZomHitOnRoad = 0;
+        DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
+    }
+
+    public void PlayZomHitOnHeroParticle(Vector2 pos)
+    {
+        GameObject h = zomHitOnHeros[currentCountZomHitOnHero];
+        h.transform.position = pos;
+        h.SetActive(true);
+        currentCountZomHitOnHero++;
+        if (currentCountZomHitOnHero == zomHitOnHeros.Length) currentCountZomHitOnHero = 0;
+        DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
 
     public void PlayFlameThrowerParticle(Vector2 pos, Transform e, out int damage)

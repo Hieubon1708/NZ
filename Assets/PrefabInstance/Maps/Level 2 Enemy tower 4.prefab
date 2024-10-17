@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad3276872c3cf34dbc3be79590482ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 38750
   textHp: {fileID: 487100097146422759}
 --- !u!114 &2412087578246271838
 MonoBehaviour:
@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: 1743894182911853957}
+  view: {fileID: 0}
   healthHandler: {fileID: 114801264179300645}
   damage: {fileID: 1477398306270601920}
   towerPos: {fileID: 0}
@@ -642,6 +643,7 @@ MonoBehaviour:
   enemies: []
   amout: 
   speed: []
+  listScRandomEs: []
   listRandomEs: []
   defaultDistance: 0
   amoutEs: 
@@ -800,7 +802,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 2.0289016}

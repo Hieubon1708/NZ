@@ -60,14 +60,23 @@ public class GameController : MonoBehaviour
     void MapGenerate(int index)
     {
         Instantiate(mapLevels[index], transform);
+        ChangeBlockSprites(level);
+        ChangeCarSprites(level);
+    }
+
+    public void GetEsByDistance(float distance, Vector2 from, List<Transform> es)
+    {
+        es.Clear();
+        for (int i = 0; i < listEVisible.Count; i++)
+        {
+            if (Vector2.Distance(from, listEVisible[i].transform.position) <= distance) es.Add(listEVisible[i].transform);
+        }
     }
 
     public void Start()
     {
         LoadData();
         MapGenerate(level);
-        ChangeBlockSprites(level);
-        ChangeCarSprites(level);
 
         EquipmentController.instance.LoadData();
         PlayerController.instance.LoadData();

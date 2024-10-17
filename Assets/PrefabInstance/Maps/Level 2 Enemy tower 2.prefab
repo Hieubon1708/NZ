@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad3276872c3cf34dbc3be79590482ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 23250
   textHp: {fileID: 4386353811192175891}
 --- !u!114 &5863783749768097348
 MonoBehaviour:
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerInfo: {fileID: -8019583124124422244}
+  view: {fileID: 0}
   healthHandler: {fileID: -9180657258031006031}
   damage: {fileID: 1108451353837883988}
   towerPos: {fileID: 0}
@@ -146,6 +147,7 @@ MonoBehaviour:
   enemies: []
   amout: 
   speed: []
+  listScRandomEs: []
   listRandomEs: []
   defaultDistance: 0
   amoutEs: 
@@ -335,8 +337,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 123
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ac4c68faef870cd4d9a8b1b234876037, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 857b903a84bda4d429b3400c9f37ee16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1201,7 +1203,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0903945, y: 0.30992436}
@@ -2053,6 +2055,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 2742250008789229765}
+    - target: {fileID: 7126976719786292588, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 4864609611592455}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

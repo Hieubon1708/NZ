@@ -31,7 +31,7 @@ public class EnemyT2 : EnemyHandler
     protected override void FixedUpdate()
     {
         float walkSpeed = 0f;
-        float speed = startSpeed;
+        float speed = this.speed;
 
         if (isCollisionWithCar)
         {

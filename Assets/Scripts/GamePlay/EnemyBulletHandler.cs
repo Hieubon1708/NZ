@@ -26,12 +26,12 @@ public class EnemyBulletHandler : MonoBehaviour
         if (collision.CompareTag("Road_2"))
         {
             gameObject.SetActive(false);
-            ParLv1.instance.PlayZomHitOnRoadParticle(transform.position);
+            ParController.instance.PlayZomHitOnRoadParticle(transform.position);
         }
         if (collision.CompareTag("Block") || collision.CompareTag("Player"))
         {
             gameObject.SetActive(false);
-            ParLv1.instance.PlayZomHitOnHeroParticle(transform.position);
+            ParController.instance.PlayZomHitOnHeroParticle(transform.position);
         }
     }
 }
