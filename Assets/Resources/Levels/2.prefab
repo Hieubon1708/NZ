@@ -4654,8 +4654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towers:
-  - {fileID: 1391151871131150, guid: e9ce420e084bbbf468d35277b260520c, type: 3}
   - {fileID: 1220936975972952, guid: e966bbe52c26c2c4e8183230b4f2a469, type: 3}
+  - {fileID: 1391151871131150, guid: e9ce420e084bbbf468d35277b260520c, type: 3}
   scTowers: []
   backgroundMovements:
   - {fileID: 6148601504995329746}
@@ -4664,6 +4664,14 @@ MonoBehaviour:
   enemyTowerMovements: []
   distanceTower: 25
   indexTower: -1
+  enemies: []
+  amouts: 
+  listRandomEs: []
+  amoutLimit: 3
+  enemySpawnByTimes:
+  - {fileID: 1613438774475295, guid: f0e37866d2d4e4544b3a24878cb5ed0b, type: 3}
+  amoutEnemySpawnByTimes: 03000000
+  timeSpawns: 05000000
 --- !u!114 &729454814644193020
 MonoBehaviour:
   m_ObjectHideFlags: 0

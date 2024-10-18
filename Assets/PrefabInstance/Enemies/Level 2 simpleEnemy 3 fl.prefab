@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: -4955065364970544218}
   - component: {fileID: 7514071291464706062}
   - component: {fileID: 1461888401393896252}
+  - component: {fileID: 4628645668783679784}
   m_Layer: 0
   m_Name: Level 2 simpleEnemy 3 fl
   m_TagString: Enemy
@@ -872,6 +873,7 @@ MonoBehaviour:
   - {fileID: 212848096908015270}
   - {fileID: 212658445031157597}
   - {fileID: 212665556441754785}
+  hitEffect: {fileID: 4628645668783679784}
   forceJump: 3
   multiplier: 1
   realSpeed: 0
@@ -952,6 +954,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1c37c76c09113a54cb417be66f668fc7, type: 3}
   - {fileID: 21300000, guid: 76284d27f0987804a81eec0edb1c2e8b, type: 3}
   - {fileID: 21300000, guid: 38d54504350538b4a9ce4a05653774e4, type: 3}
+--- !u!114 &4628645668783679784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667125860864603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1670489737766548
 GameObject:
   m_ObjectHideFlags: 0

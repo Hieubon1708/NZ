@@ -4766,6 +4766,7 @@ GameObject:
   - component: {fileID: 24971306725054711}
   - component: {fileID: 8928951468721011795}
   - component: {fileID: 8185997973660201778}
+  - component: {fileID: 9006069076126143642}
   m_Layer: 16
   m_Name: Block
   m_TagString: Block
@@ -4864,6 +4865,9 @@ MonoBehaviour:
   healthBar: {fileID: 1090444958327038}
   healthHandler: {fileID: 2513861802699813261}
   listEnemies: []
+  fullBlocks:
+  - {fileID: 212773638200962692}
+  hitEffect: {fileID: 9006069076126143642}
 --- !u!114 &24971306725054711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4962,6 +4966,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeBlock: {fileID: 198297926910592426}
+--- !u!114 &9006069076126143642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100216680222728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1139739807160430
 GameObject:
   m_ObjectHideFlags: 0
@@ -12470,7 +12486,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88fce395a01437d44a09026414bdb83f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -7,11 +7,12 @@ public class EnemyTowerHandler : MonoBehaviour
     public GameObject view;
     public HealthHandler healthHandler;
     public Damage damage;
-    public Transform towerPos;
+    public EnemyController enemyController;
     public bool isVisible;
     int damageTaken;
     Coroutine flameTrigger;
     public SpriteRenderer[] fullTowers;
+    public HitEffect hitEffect;
 
     public void Start()
     {
@@ -48,7 +49,7 @@ public class EnemyTowerHandler : MonoBehaviour
         damageTaken += subtractHp;
         if (damageTaken >= 100)
         {
-            UIHandler.instance.progressHandler.PlusGold(1);
+            UIHandler.instance.FlyGold(enemyController.col.transform.position, 1);
             damageTaken -= 100;
         }
     }
@@ -76,16 +77,17 @@ public class EnemyTowerHandler : MonoBehaviour
         if (towerInfo.hp == 0) return;
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(substractHp.ToString(), null, fullTowers);
+        damage.ShowDamage(substractHp.ToString(), null);
+        hitEffect.PlayHitEffect(fullTowers);
 
         if (hp == 0)
         {
             towerInfo.gameObject.SetActive(false);
             damageTaken = 0;
-            UIHandler.instance.progressHandler.PlusGold(100);
-            GameController.instance.EDeathAll(EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col);
+            UIHandler.instance.FlyGold(enemyController.col.transform.position, 100);
+            GameController.instance.EDeathAll(enemyController.col);
             EnemyTowerController.instance.NextTower();
-            ParController.instance.PlayTowerExplosionParticle(new Vector2(towerPos.transform.position.x + 1.5f, towerPos.transform.position.y));
+            ParController.instance.PlayTowerExplosionParticle(new Vector2(view.transform.position.x + 1.5f, view.transform.position.y));
         }
     }
 }

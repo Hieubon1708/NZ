@@ -38,7 +38,7 @@ public class SummonEquipment : MonoBehaviour
 
         panelChances.gameObject.SetActive(true);
 
-        UIEffect.instance.ScalePopup(panelChances, chancePopup, 222f / 255f, 0.1f, 1f, 0.5f);
+        UIHandler.instance.uIEffect.ScalePopup(panelChances, chancePopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
 
     void LoadChances(int level)
@@ -65,7 +65,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void HideChances()
     {
-        UIEffect.instance.ScalePopup(panelChances, chancePopup, 0f, 0f, 0.8f, 0f);
+        UIHandler.instance.uIEffect.ScalePopup(panelChances, chancePopup, 0f, 0f, 0.8f, 0f);
         panelChances.gameObject.SetActive(false);
     }
 }

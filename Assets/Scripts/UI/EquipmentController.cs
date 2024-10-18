@@ -686,7 +686,7 @@ public class EquipmentController : MonoBehaviour
         CheckStateUpgrade(eq);
 
         panelUpgradeEquip.gameObject.SetActive(true);
-        UIEffect.instance.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 222f / 255f, 0.1f, 1f, 0.5f);
+        UIHandler.instance.uIEffect.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 222f / 255f, 0.1f, 1f, 0.5f);
     }
 
     int GetDush(int levelUpgrade)
@@ -769,7 +769,7 @@ public class EquipmentController : MonoBehaviour
 
     public void HidePopupUpgrade()
     {
-        UIEffect.instance.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 0f, 0f, 0.8f, 0f);
+        UIHandler.instance.uIEffect.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 0f, 0f, 0.8f, 0f);
         panelUpgradeEquip.gameObject.SetActive(false);
     }
 
@@ -820,12 +820,12 @@ public class EquipmentController : MonoBehaviour
         }
 
         panelEquip.gameObject.SetActive(true);
-        UIEffect.instance.ScalePopup(panelEquip, popupEquip, 222f / 255f, 0.1f, 1f, 0.5f);
+        UIHandler.instance.uIEffect.ScalePopup(panelEquip, popupEquip, 222f / 255f, 0.1f, 1f, 0.5f);
     }
 
     public void HidePopupSwap()
     {
-        UIEffect.instance.ScalePopup(panelEquip, popupEquip, 0f, 0f, 0.8f, 0f);
+        UIHandler.instance.uIEffect.ScalePopup(panelEquip, popupEquip, 0f, 0f, 0.8f, 0f);
         panelEquip.gameObject.SetActive(false);
     }
 

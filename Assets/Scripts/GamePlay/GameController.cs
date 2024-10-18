@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     public Transform poolPars;
     public Transform defaultDir;
 
+    public float xPlus1, xPlus2;
+    public float yPlus1, yPlus2;
+
     public float timeBlockNPlayerDamage;
     public float timeSawDamage;
     public float timeFlameDamage;
@@ -84,8 +87,9 @@ public class GameController : MonoBehaviour
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
 
-        //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 7, CarController.instance.transform.position.x + 3), Quaternion.identity);
-        //Instantiate(v, new Vector2(CarController.instance.transform.position.x + 2.5f, CarController.instance.transform.position.y + 7), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8, CarController.instance.transform.position.y + 3), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8 - 3, CarController.instance.transform.position.y + 3), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3f, CarController.instance.transform.position.y + 8), Quaternion.identity);
     }
 
     public GameObject EBlockNearest(LayerMask layer)

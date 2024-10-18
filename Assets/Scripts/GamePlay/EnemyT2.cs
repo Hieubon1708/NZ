@@ -4,13 +4,12 @@
 public class EnemyT2 : EnemyHandler
 {
     public float targetX;
-    public float xPlus1, xPlus2;
 
     public override void Start()
     {
         base.Start();
         SetDamage();
-        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
     }
 
     public override void SetDamage()
@@ -62,6 +61,7 @@ public class EnemyT2 : EnemyHandler
         {
             if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
             {
+                walkSpeed = 0;
                 if (!animator.GetBool("attack"))
                 {
                     isShot = true;
@@ -78,7 +78,7 @@ public class EnemyT2 : EnemyHandler
                 {
                     isShot = false;
                     animator.SetBool("attack", false);
-                    targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+                    targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
                 }
             }
         }
@@ -91,6 +91,16 @@ public class EnemyT2 : EnemyHandler
     protected override void DeathHandle()
     {
         base.DeathHandle();
-        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
+    }
+
+    protected override void StopCoroutines()
+    {
+        base.StopCoroutines();
+    }
+
+    public override void SpawnbyTime()
+    {
+        base.SpawnbyTime();
     }
 }

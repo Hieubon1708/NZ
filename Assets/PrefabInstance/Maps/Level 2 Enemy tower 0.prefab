@@ -546,6 +546,7 @@ GameObject:
   - component: {fileID: -2982043727843311319}
   - component: {fileID: 3960937402483561204}
   - component: {fileID: -3118863998555680615}
+  - component: {fileID: -4438501563657134225}
   m_Layer: 0
   m_Name: Level 2 Enemy tower 0
   m_TagString: Tower
@@ -642,19 +643,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 1782036001426747}
+  indexEs: 
+  amoutIndexEs: 
+  speeds: []
   enemyPools:
   - {fileID: 4744771178669215742}
   - {fileID: 2011792742572541611}
   - {fileID: 5482541864241261168}
-  amoutLimit: 3
-  col: {fileID: 1782036001426747}
-  enemies:
-  - {fileID: 1087254144996759, guid: ac324d2676d40a84d9f31536972a883d, type: 3}
-  amout: 3c000000
-  speed:
-  - 1.5
-  listScRandomEs: []
-  listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
   distances:
@@ -669,10 +665,7 @@ MonoBehaviour:
   - 0.75
   startDistanceMultipliers: 040000000400000001000000
   endDistanceMultipliers: 060000000600000001000000
-  enemySpawnByTimes: []
-  amoutEnemySpawnByTimes: 
-  timeSpawns: 
-  temp: []
+  isSpawnByTime: 1
 --- !u!114 &3960937402483561204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,11 +682,12 @@ MonoBehaviour:
   view: {fileID: 5740745080037013949}
   healthHandler: {fileID: 6387675731977847477}
   damage: {fileID: 2398730488777532831}
-  towerPos: {fileID: 4772390162799545660}
+  enemyController: {fileID: -2982043727843311319}
   isVisible: 0
   fullTowers:
   - {fileID: 212384197014783699}
   - {fileID: 212420188585423599}
+  hitEffect: {fileID: -4438501563657134225}
 --- !u!210 &-3118863998555680615
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -706,6 +700,18 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_SortAtRoot: 0
+--- !u!114 &-4438501563657134225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220936975972952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1225383517729108
 GameObject:
   m_ObjectHideFlags: 0

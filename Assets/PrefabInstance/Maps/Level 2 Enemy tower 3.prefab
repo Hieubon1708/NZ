@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 3623396429751235432}
   - component: {fileID: 5213358309602491864}
   - component: {fileID: 8705864562920221124}
+  - component: {fileID: -2162843299084998848}
   m_Layer: 0
   m_Name: Level 2 Enemy tower 3
   m_TagString: Tower
@@ -410,6 +411,9 @@ MonoBehaviour:
   distances: []
   startDistanceMultipliers: 
   endDistanceMultipliers: 
+  enemySpawnByTimes: []
+  amoutEnemySpawnByTimes: 
+  timeSpawns: 
   temp: []
 --- !u!114 &5599196776689415060
 MonoBehaviour:
@@ -429,6 +433,8 @@ MonoBehaviour:
   damage: {fileID: 200214995185776859}
   towerPos: {fileID: 0}
   isVisible: 0
+  fullTowers: []
+  hitEffect: {fileID: 0}
 --- !u!210 &3623396429751235432
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -472,6 +478,18 @@ MonoBehaviour:
   startHp: 0
   timeSubtractHp_1: 0.25
   timeSubtractHp_2: 0.5
+--- !u!114 &-2162843299084998848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213577617050126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1250505932900614
 GameObject:
   m_ObjectHideFlags: 0

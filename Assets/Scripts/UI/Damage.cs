@@ -11,15 +11,7 @@ public class Damage : MonoBehaviour
     public Rigidbody2D rb;
     bool isShowDamage;
 
-    public void HitEffect(SpriteRenderer[] fullBodies, float value)
-    {
-        for (int i = 0; i < fullBodies.Length; i++)
-        {
-            fullBodies[i].material.SetFloat("_HitEffectBlend", value);
-        }
-    }
-
-    public void ShowDamage(string text, GameObject content, SpriteRenderer[] fullBodies)
+    public void ShowDamage(string text, GameObject content)
     {
         if (isShowDamage) return;
         canvas.SetParent(GameController.instance.poolDamages);
@@ -45,18 +37,7 @@ public class Damage : MonoBehaviour
                     content.transform.DOScaleX(1f, 0.125f);
                 });
             });*/
-        }
-
-        DOVirtual.Float(0f, 0.05f, 0.05f, (x) =>
-        {
-            HitEffect(fullBodies, x);
-        }).OnComplete(delegate
-        {
-            DOVirtual.Float(0.05f, 0f, 0.05f, (x) =>
-            {
-                HitEffect(fullBodies, x);
-            });
-        });
+        }        
 
         rb.AddForce(new Vector2(Random.Range(-0.55f, 0.55f), 4.25f), ForceMode2D.Impulse);
         textDamage.DOFade(0, 0.25f).SetDelay(0.25f).OnComplete(delegate

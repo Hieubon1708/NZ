@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: -4394416537802803902}
   - component: {fileID: -8501794509877524660}
   - component: {fileID: 6350634470192508310}
+  - component: {fileID: -7396106575290405328}
   m_Layer: 0
   m_Name: Level 1 Enemy tower 2
   m_TagString: Tower
@@ -287,23 +288,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 1854999101307730}
+  indexEs: 000000000100000002000000
+  amoutIndexEs: 4b0000000f00000023000000
+  speeds:
+  - 2
+  - 1.5
+  - 1.5
   enemyPools:
   - {fileID: 6999828217129881156}
   - {fileID: 446788878540877375}
   - {fileID: 7318022337563596222}
-  amoutLimit: 3
-  col: {fileID: 1854999101307730}
-  enemies:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
-  - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
-  amout: 3c0000001400000014000000
-  speed:
-  - 2
-  - 1.5
-  - 1.5
-  listScRandomEs: []
-  listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
   distances:
@@ -321,7 +316,6 @@ MonoBehaviour:
   enemySpawnByTimes: []
   amoutEnemySpawnByTimes: 
   timeSpawns: 
-  temp: []
 --- !u!114 &-4394416537802803902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,11 +363,24 @@ MonoBehaviour:
   view: {fileID: 2377124745728435780}
   healthHandler: {fileID: -8501794509877524660}
   damage: {fileID: 4386329509900324676}
-  towerPos: {fileID: 8885763055557346442}
+  enemyController: {fileID: -2110796626722167297}
   isVisible: 0
   fullTowers:
   - {fileID: 212357692926463117}
   - {fileID: 212664506185060240}
+  hitEffect: {fileID: -7396106575290405328}
+--- !u!114 &-7396106575290405328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345099119009694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1373411231433682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,7 +1229,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 33098d402e035fc40bfb6547bcaf16ab, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1

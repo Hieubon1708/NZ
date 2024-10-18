@@ -8,6 +8,8 @@ public class PlayerHandler : MonoBehaviour
     public GameObject healthBar;
     public GameObject boxCollider;
     public List<GameObject> listEnemies = new List<GameObject>();
+    public SpriteRenderer[] fullBodies;
+    public HitEffect hitEffect;
 
     public void LoadData()
     {
@@ -19,6 +21,8 @@ public class PlayerHandler : MonoBehaviour
         if (playerInfo.hp == 0) return;
         float hp = playerInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
+        hitEffect.PlayHitEffect(fullBodies);
+
         if (hp == 0)
         {
             GameController.instance.isLose = true;

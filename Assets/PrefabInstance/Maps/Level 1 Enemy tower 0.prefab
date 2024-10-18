@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: -4761481621960193217}
   - component: {fileID: -4907019566322060450}
   - component: {fileID: -7356064853032215106}
+  - component: {fileID: 8234801743374827819}
   m_Layer: 0
   m_Name: Level 1 Enemy tower 0
   m_TagString: Untagged
@@ -569,19 +570,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 1662500758019991}
+  indexEs: 00000000
+  amoutIndexEs: 4b000000
+  speeds:
+  - 1.5
   enemyPools:
   - {fileID: 6468478039744720405}
   - {fileID: 2881456623302554004}
   - {fileID: 514162525848653926}
-  amoutLimit: 3
-  col: {fileID: 1662500758019991}
-  enemies:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  amout: 3c000000
-  speed:
-  - 1.5
-  listScRandomEs: []
-  listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
   distances:
@@ -599,7 +596,6 @@ MonoBehaviour:
   enemySpawnByTimes: []
   amoutEnemySpawnByTimes: 
   timeSpawns: 
-  temp: []
 --- !u!114 &-4761481621960193217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,10 +644,24 @@ MonoBehaviour:
   healthHandler: {fileID: -4907019566322060450}
   damage: {fileID: 675304469991516846}
   towerPos: {fileID: 6996733975855680790}
+  enemyController: {fileID: 5724845233640459580}
   isVisible: 0
   fullTowers:
   - {fileID: 212056760783725208}
   - {fileID: 212827652699421588}
+  hitEffect: {fileID: 8234801743374827819}
+--- !u!114 &8234801743374827819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511787952999719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1530868721543646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,7 +1500,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 33098d402e035fc40bfb6547bcaf16ab, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1

@@ -336,7 +336,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 151
   m_Sprite: {fileID: 21300000, guid: 821a8b873355ef64bb7d9ba98bb81404, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 629573409863836213}
   - component: {fileID: 4321627747312284488}
   - component: {fileID: 7099280852617269894}
+  - component: {fileID: 5957996290742626540}
   m_Layer: 0
   m_Name: Level 1 simpleEnemy 3
   m_TagString: Enemy
@@ -725,6 +726,7 @@ MonoBehaviour:
   - {fileID: 3923571008609272267}
   - {fileID: 1710597911463958779}
   - {fileID: 3540499030001077412}
+  hitEffect: {fileID: 5957996290742626540}
   forceJump: 5
   multiplier: 1
   realSpeed: 0
@@ -806,6 +808,18 @@ MonoBehaviour:
   view: {fileID: 6915357791159878373}
   bones: []
   spriteInfoOrigin: []
+--- !u!114 &5957996290742626540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440869563518828017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3532547900781416665
 GameObject:
   m_ObjectHideFlags: 0

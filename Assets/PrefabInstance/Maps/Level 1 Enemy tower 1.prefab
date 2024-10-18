@@ -338,7 +338,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 33098d402e035fc40bfb6547bcaf16ab, type: 2}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.45490196, b: 0.38039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -982,6 +982,7 @@ GameObject:
   - component: {fileID: -8882876489914271287}
   - component: {fileID: -743801041022967399}
   - component: {fileID: 2833574505629969244}
+  - component: {fileID: -7277545970185325225}
   m_Layer: 0
   m_Name: Level 1 Enemy tower 1
   m_TagString: Tower
@@ -1059,21 +1060,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8d6eb4120d264ab9f1c27ef9cb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 1744204625660242}
+  indexEs: 0000000001000000
+  amoutIndexEs: 4b0000000f000000
+  speeds:
+  - 2
+  - 1.5
   enemyPools:
   - {fileID: 466713235246414257}
   - {fileID: 7464571976471757835}
   - {fileID: 2265907848159135778}
-  amoutLimit: 3
-  col: {fileID: 1744204625660242}
-  enemies:
-  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
-  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
-  amout: 4b0000000f000000
-  speed:
-  - 2
-  - 1.5
-  listScRandomEs: []
-  listRandomEs: []
   defaultDistance: 0.75
   amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
   distances:
@@ -1091,7 +1087,6 @@ MonoBehaviour:
   enemySpawnByTimes: []
   amoutEnemySpawnByTimes: 
   timeSpawns: 
-  temp: []
 --- !u!114 &-8882876489914271287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,11 +1134,24 @@ MonoBehaviour:
   view: {fileID: 6622867508876134994}
   healthHandler: {fileID: -743801041022967399}
   damage: {fileID: 8499165566888003411}
-  towerPos: {fileID: 2466118535215537226}
+  enemyController: {fileID: 5252272118276834461}
   isVisible: 0
   fullTowers:
   - {fileID: 212648377551459711}
   - {fileID: 212466910760587985}
+  hitEffect: {fileID: -7277545970185325225}
+--- !u!114 &-7277545970185325225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740088135779993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aff8961d6d41f64f8dbb4918c8da19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1744204625660242
 GameObject:
   m_ObjectHideFlags: 0

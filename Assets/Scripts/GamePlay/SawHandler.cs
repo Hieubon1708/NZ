@@ -63,7 +63,7 @@ public class SawHandler : WeaponShoter
         {
             if (listEs.Contains(collision.attachedRigidbody.gameObject))
             {
-                EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(collision.attachedRigidbody.gameObject);
+                EnemyHandler eSc = EnemyTowerController.instance.GetScE(collision.attachedRigidbody.gameObject);
                 eSc.EndBumpByWeapon();
                 listEs.Remove(collision.attachedRigidbody.gameObject);
             }
@@ -107,7 +107,7 @@ public class SawHandler : WeaponShoter
                 {
                     for (int i = 0; i < listEs.Count; i++)
                     {
-                        EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(listEs[i]);
+                        EnemyHandler eSc = EnemyTowerController.instance.GetScE(listEs[i]);
                         eSc.StartBumpByWeapon();
                     }
                 }
@@ -152,7 +152,7 @@ public class SawHandler : WeaponShoter
         {
             for (int i = 0; i < listEs.Count; i++)
             {
-                EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(listEs[i]);
+                EnemyHandler eSc = EnemyTowerController.instance.GetScE(listEs[i]);
                 eSc.Stun(time);
                 Vector2 topBound = eSc.GetPositionTopBound(eSc.col);
                 ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), time, eSc.healthBar.transform);

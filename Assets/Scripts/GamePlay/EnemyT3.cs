@@ -8,16 +8,13 @@ public class EnemyT3 : EnemyHandler
     float yRandomAfterLevingCave;
     bool isLevingCave;
     Coroutine levingCave;
-    public float xPlus1, xPlus2;
-    public float yPlus1, yPlus2;
     float targetX;
 
     public override void Start()
     {
-        base.Start();
-        yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(yPlus1, yPlus2);
-        targetX = CarController.instance.transform.position.x + xPlus2;
-        if (transform.position.y >= CarController.instance.transform.position.y + yPlus1) isLevingCave = true;
+        yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2);
+        targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
+        if (transform.position.y >= CarController.instance.transform.position.y + GameController.instance.yPlus1) isLevingCave = true;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -89,16 +86,35 @@ public class EnemyT3 : EnemyHandler
         float y = Random.Range(-1f, 1f);
         Vector2 dir = new Vector2(x, y);
 
-        return EUtils.ClampXYDistanceByCar(transform.position, dir, xPlus1, xPlus2, yPlus1, yPlus2);
+        return EUtils.ClampXYDistanceByCar(transform.position, dir, GameController.instance.xPlus1, GameController.instance.xPlus2, GameController.instance.yPlus1, GameController.instance.yPlus2);
     }
 
     IEnumerator LevingCave()
     {
         yield return new WaitUntil(() => Mathf.Abs(EnemyTowerController.instance.GetTower().col.transform.position.x - enemyInfo.transform.position.x) > 1.75f);
         rb.velocity = new Vector2(rb.velocity.x, 3.5f);
-        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomXDistanceByCar(yPlus1, yPlus2 / 2);
+        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomXDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2 / 2);
         yield return new WaitWhile(() => transform.position.y <= yRandomAfterLevingCave);
         rb.velocity = new Vector2(rb.velocity.x, 0);
         isLevingCave = true;
+    }
+
+    protected override void StopCoroutines()
+    {
+        base.StopCoroutines();
+        if (levingCave != null)
+        {
+            StopCoroutine(levingCave); levingCave = null;
+        }
+    }
+
+    public override void SetDamage()
+    {
+        base.SetDamage();
+    }
+
+    public override void SpawnbyTime()
+    {
+        base.SpawnbyTime();
     }
 }

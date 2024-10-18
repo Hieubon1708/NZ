@@ -18,6 +18,7 @@ public class EnemyHandler : MonoBehaviour
     public GameObject view;
     public GameObject frontalCollision;
     public SpriteRenderer[] fullBodies;
+    public HitEffect hitEffect;
 
     public float forceJump;
     public float multiplier;
@@ -45,7 +46,7 @@ public class EnemyHandler : MonoBehaviour
     Coroutine flameTrigger;
     Coroutine flameBurningTrigger;
     Coroutine blockCollision;
-    Coroutine playerCollision;
+    protected Coroutine playerCollision;
 
     protected LayerMask layerOrigin;
     protected LayerMask layerBumping;
@@ -55,12 +56,12 @@ public class EnemyHandler : MonoBehaviour
         lineIndex = EUtils.GetIndexLine(gameObject);
         layerOrigin = gameObject.layer;
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
-        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     public virtual void SetDamage()
     {
         name = enemyInfo.damage.ToString();
+        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -108,7 +109,6 @@ public class EnemyHandler : MonoBehaviour
             }
             flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
-        if (collision.CompareTag("Player")) playerCollision = StartCoroutine(PlayerTriggerHandle(int.Parse(name)));
     }
 
     IEnumerator FlameBurningTriggerHandle(int subtractHp)
@@ -120,7 +120,7 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
-    IEnumerator PlayerTriggerHandle(int subtractHp)
+    protected IEnumerator PlayerTriggerHandle(int subtractHp)
     {
         while (PlayerController.instance.player.hp > 0 && !isStunByWeapon)
         {
@@ -182,10 +182,6 @@ public class EnemyHandler : MonoBehaviour
         {
             if (flameTrigger != null) StopCoroutine(flameTrigger);
         }
-        if (collision.CompareTag("Player"))
-        {
-            if (playerCollision != null) StopCoroutine(playerCollision);
-        }
         if (collision.CompareTag("Boom")) SubtractHp(int.Parse(collision.attachedRigidbody.name));
     }
 
@@ -204,21 +200,23 @@ public class EnemyHandler : MonoBehaviour
         if (isAttack) animator.SetBool("attack", true);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!collision.collider.gameObject.activeSelf || !colObj.gameObject.activeSelf) return;
         if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
 
     public bool a;
 
-    protected void OnCollisionStay2D(Collision2D collision)
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f && collision.gameObject.activeSelf) isCollisionWithCar = true;
+        if (!collision.collider.gameObject.activeSelf && !colObj.gameObject.activeSelf) return;
+        if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.contacts[0].normal.x >= 0.99f && !isBumping && collision.gameObject != frontalCollision && collision.collider.gameObject.activeSelf)
+            if (collision.contacts[0].normal.x >= 0.99f && !isBumping && collision.gameObject != frontalCollision)
             {
                 frontalCollision = collision.gameObject;
             }
@@ -257,7 +255,7 @@ public class EnemyHandler : MonoBehaviour
         CheckBump(collision);
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    public virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block"))
         {
@@ -303,6 +301,8 @@ public class EnemyHandler : MonoBehaviour
             }
         }
     }
+
+    public virtual void SpawnbyTime() { }
 
     protected virtual void FixedUpdate()
     {
@@ -362,7 +362,8 @@ public class EnemyHandler : MonoBehaviour
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(subtractHp.ToString(), content, fullBodies);
+        damage.ShowDamage(subtractHp.ToString(), content);
+        hitEffect.PlayHitEffect(fullBodies); 
         if (hp == 0)
         {
             ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
@@ -377,7 +378,7 @@ public class EnemyHandler : MonoBehaviour
         SetColNKinematicNRevival(false);
         StopCoroutines();
 
-        UIHandler.instance.progressHandler.PlusGold(2);
+        UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
 
         int deathRandomizer = Random.Range(0, 10);
 
@@ -389,7 +390,7 @@ public class EnemyHandler : MonoBehaviour
 
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
-            EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].ERevival(enemyInfo.gameObject, this);
+            EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
         });
     }
 
@@ -452,7 +453,7 @@ public class EnemyHandler : MonoBehaviour
         colObj.SetActive(true);
     }
 
-    void StopCoroutines()
+    protected virtual void StopCoroutines()
     {
         if (jump != null)
         {

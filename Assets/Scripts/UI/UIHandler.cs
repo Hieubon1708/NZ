@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,14 @@ public class UIHandler : MonoBehaviour
 
     public ProgressHandler progressHandler;
     public SummonEquipment summonEquipment;
+    public UIEffect uIEffect;
+
+    public GameObject goldFlyPrefab;
+    public GameObject[] goldFlies;
+    public int amout;
+    public Transform container;
+    public Transform targetFlyGold;
+    int curentCountFlyGold;
 
     public GameObject gold;
     public TextMeshProUGUI textGold;
@@ -36,12 +45,37 @@ public class UIHandler : MonoBehaviour
     public void Awake()
     {
         instance = this;
+        Generate();
     }
 
     public void LoadData()
     {
         GoldUpdatee();
         summonEquipment.LoadData();
+    }
+
+    void Generate()
+    {
+        goldFlies = new GameObject[amout];
+        for (int i = 0; i < amout; i++)
+        {
+            goldFlies[i] = Instantiate(goldFlyPrefab, container);
+            goldFlies[i].SetActive(false);
+        }
+    }
+
+    public void FlyGold(Vector2 pos, int gold)
+    {
+        GameObject g = goldFlies[curentCountFlyGold];
+        g.transform.position = GameController.instance.cam.WorldToScreenPoint(pos);
+        g.SetActive(true);
+        curentCountFlyGold++;
+        if (curentCountFlyGold == goldFlies.Length) curentCountFlyGold = 0;
+        g.transform.DOMove(targetFlyGold.position, 0.75f).OnComplete(delegate
+        {
+            g.SetActive(false);
+            progressHandler.PlusGold(2);
+        });
     }
 
     public void Restart()

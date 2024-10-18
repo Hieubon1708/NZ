@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D[] listBooms;
     public SpriteRenderer[] boomSpriteRenderers;
     public Transform startBoom;
+    public Transform container;
     public CapsuleCollider2D col;
     public Transform target;
 
@@ -29,11 +30,6 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
         BoomGenerate();
-    }
-
-    public void Start()
-    {
-        SetParentForBoom();
     }
 
     public IEnumerator StartFindTarget()
@@ -81,7 +77,7 @@ public class PlayerController : MonoBehaviour
         boomSpriteRenderers = new SpriteRenderer[boomCount];
         for (int i = 0; i < listBooms.Length; i++)
         {
-            GameObject b = Instantiate(boomPref, transform);
+            GameObject b = Instantiate(boomPref, container);
             listBooms[i] = b.GetComponent<Rigidbody2D>();
             boomSpriteRenderers[i] = b.GetComponent<SpriteRenderer>();
             b.SetActive(false);
@@ -101,14 +97,6 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < boomSpriteRenderers.Length; i++)
         {
             boomSpriteRenderers[i].sprite = player.playerSkiner.booms[EquipmentController.instance.playerInventory.boomLevel];
-        }
-    }
-
-    void SetParentForBoom()
-    {
-        for (int i = 0; i < listBooms.Length; i++)
-        {
-            listBooms[i].transform.SetParent(GameController.instance.poolDynamics);
         }
     }
 

@@ -22,6 +22,7 @@ public class EnemyT1 : EnemyHandler
             animator.SetBool("attack", true);
             isAttack = true;
         }
+        if (collision.CompareTag("Player")) playerCollision = StartCoroutine(PlayerTriggerHandle(int.Parse(name)));
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -59,6 +60,10 @@ public class EnemyT1 : EnemyHandler
             animator.SetBool("attack", false);
             isAttack = false;
         }
+        if (collision.CompareTag("Player"))
+        {
+            if (playerCollision != null) StopCoroutine(playerCollision);
+        }
     }
 
     protected override void FixedUpdate()
@@ -69,5 +74,15 @@ public class EnemyT1 : EnemyHandler
     protected override void DeathHandle()
     {
         base.DeathHandle();
+    }
+
+    protected override void StopCoroutines()
+    {
+        base.StopCoroutines();
+    }
+
+    public override void SpawnbyTime()
+    {
+        base.SpawnbyTime();
     }
 }

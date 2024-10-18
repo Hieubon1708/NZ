@@ -8422,8 +8422,18 @@ MonoBehaviour:
   - {fileID: 8802961595582142297}
   - {fileID: 4387113376618253829}
   enemyTowerMovements: []
-  distanceTower: 20
+  distanceTower: 25
   indexTower: -1
+  enemies:
+  - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
+  - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
+  - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
+  amouts: 4b0000000f00000023000000
+  poolScEs: []
+  listRandomEs: []
+  amoutLimit: 3
+  milestone: 0
+  temp: []
 --- !u!114 &7009180778381774957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8436,12 +8446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6a56c244d63e641adb16c9bb0b2ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zomHitOnRoadPrefab: {fileID: 1982696263771530, guid: 3e2b0a3e8372caf45a29f54cb5503eaf, type: 3}
-  zomHitOnHeroPrefab: {fileID: 1494868365755377, guid: 7e749c2e9c5071d4fb75741d499d89de, type: 3}
-  zomHitOnRoads: []
-  zomHitOnHeros: []
-  amoutZomHitOnRoad: 20
-  amoutZomHitOnHero: 20
 --- !u!1 &7974610830401044293
 GameObject:
   m_ObjectHideFlags: 0

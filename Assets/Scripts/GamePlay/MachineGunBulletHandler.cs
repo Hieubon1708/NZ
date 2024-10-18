@@ -42,7 +42,7 @@ public class MachineGunBulletHandler : MonoBehaviour
 
                 if (random <= percentage)
                 {
-                    EnemyHandler eSc = EnemyTowerController.instance.GetScEInTower(collision.attachedRigidbody.gameObject);
+                    EnemyHandler eSc = EnemyTowerController.instance.GetScE(collision.attachedRigidbody.gameObject);
                     eSc.StartBumpByWeapon();
                     if (endBump != null && endBump.IsActive()) endBump.Kill();
                     endBump = DOVirtual.DelayedCall(0.125f, delegate

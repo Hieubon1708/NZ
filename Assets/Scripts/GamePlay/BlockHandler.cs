@@ -8,6 +8,8 @@ public class BlockHandler : MonoBehaviour
     public GameObject healthBar;
     public HealthHandler healthHandler;
     public List<GameObject> listEnemies = new List<GameObject>();
+    public SpriteRenderer[] fullBlocks;
+    public HitEffect hitEffect;
 
     public void SetTotalHp()
     {
@@ -29,6 +31,8 @@ public class BlockHandler : MonoBehaviour
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = blockInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
+        hitEffect.PlayHitEffect(fullBlocks);
+
         if (hp == 0)
         {
             BlockController.instance.DeleteBlockInGame(blockInfo.gameObject);

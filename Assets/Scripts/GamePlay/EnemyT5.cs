@@ -8,26 +8,32 @@ public class EnemyT5 : EnemyHandler
     public GameObject silk;
     public GameObject v;
     Coroutine breakingSilk;
-    public float xPlus1, xPlus2;
 
     public override void Start()
     {
-        base.Start();
         SetDamage();
-        targetX = EUtils.RandomXDistanceByCar(xPlus1, xPlus2);
+    }
+
+    public override void SpawnbyTime()
+    {
+        RestartSilk();
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 4, GameController.instance.xPlus2);
+        transform.position = new Vector2(targetX, CarController.instance.spawnY[Random.Range(0, CarController.instance.spawnY.Length)].transform.position.y);
+        gameObject.SetActive(true);
     }
 
     public override void SetDamage()
     {
         col.name = enemyInfo.damage.ToString();
+        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ColDisplay")) RestartSilk();
         base.OnTriggerEnter2D(collision);
         if (collision.CompareTag("Block") || collision.CompareTag("Player"))
         {
+            PlayerController.instance.playerHandler.SubtractHp(int.Parse(col.name));
             if (ParLv2.instance != null) ParLv2.instance.PlaySpriderHitOnBlockOHeroParticle(new Vector2(transform.position.x, transform.position.y + 6));
             DeathHandle();
         }
@@ -51,14 +57,9 @@ public class EnemyT5 : EnemyHandler
             }
             rb.velocity = new Vector2(Mathf.Clamp(-1.5f - BlockController.instance.tempBlocks.Count * multiplier, -2f, -1.5f) * multiplier, rb.velocity.y);
         }
-        else if (transform.position.x <= targetX)
-        {
-            if (!content.activeSelf) content.SetActive(true);
-            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
-        }
         else
         {
-            rb.velocity = new Vector2(startSpeed * multiplier, rb.velocity.y);
+            rb.velocity = new Vector2(-GameController.instance.backgroundSpeed * multiplier, rb.velocity.y);
         }
     }
 
@@ -67,7 +68,15 @@ public class EnemyT5 : EnemyHandler
         base.DeathHandle();
         rb.gravityScale = 0;
         animator.SetFloat("velocityY", 3);
-        if(breakingSilk != null) StopCoroutine(breakingSilk);
+    }
+
+    protected override void StopCoroutines()
+    {
+        base.StopCoroutines();
+        if (breakingSilk != null)
+        {
+            StopCoroutine(breakingSilk); breakingSilk = null;
+        }
     }
 
     void RestartSilk()
@@ -95,5 +104,17 @@ public class EnemyT5 : EnemyHandler
             if (silk.transform.localEulerAngles.z >= angleTarget * 0.75f) firstPush = true;
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    public override void OnCollisionEnter2D(Collision2D collision)
+    {
+    }
+
+    protected override void OnCollisionStay2D(Collision2D collision)
+    {
+    }
+
+    public override void OnCollisionExit2D(Collision2D collision)
+    {
     }
 }
