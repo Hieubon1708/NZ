@@ -13,6 +13,7 @@ public class BlockUpgradeController : MonoBehaviour
     public GameObject recyleOpen;
     public TextMeshProUGUI goldInRecyle;
     GameObject blockSelected;
+    public WeaponBuyButton[] weaponBuyButtons;
     bool isDrag;
     bool isHold;
 
@@ -20,7 +21,7 @@ public class BlockUpgradeController : MonoBehaviour
     {
         instance = this;
     }
-
+    
     public void Update()
     {
         if(GameController.instance.isStart) return;

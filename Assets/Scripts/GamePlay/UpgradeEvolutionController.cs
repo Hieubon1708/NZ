@@ -11,8 +11,14 @@ public class UpgradeEvolutionController : MonoBehaviour
     public List<SAWEVO> saws;
     public List<FLAMEEVO> flames;
     public List<MACHINEGUNEVO> machineGuns;
+    public List<SHOCKEREVO> shockers;
 
     public enum SAWEVO
+    {
+        PUSHESENEMIES, INCREASEDAMAGE, ADDFROMBOOSTER, DECREASEENERGY, STUNENEMY
+    }
+    
+    public enum SHOCKEREVO
     {
         PUSHESENEMIES, INCREASEDAMAGE, ADDFROMBOOSTER, DECREASEENERGY, STUNENEMY
     }
@@ -53,7 +59,9 @@ public class UpgradeEvolutionController : MonoBehaviour
         saws = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.sawEvos.ToList() : new List<SAWEVO>();
         flames = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.flameEvos.ToList() : new List<FLAMEEVO>();
         machineGuns = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.machineGunEvos.ToList() : new List<MACHINEGUNEVO>();
+        shockers = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.shockerEvos.ToList() : new List<SHOCKEREVO>();
 
+        uIUpgradeEvolution.UpdateShockerEvo();
         uIUpgradeEvolution.UpdateSawEvo();
         uIUpgradeEvolution.UpdateFlameEvo();
         uIUpgradeEvolution.UpdateMachineGunEvo();
@@ -64,6 +72,18 @@ public class UpgradeEvolutionController : MonoBehaviour
         for (int i = 0; i < saws.Count; i++)
         {
             if (saws[i] == type && i < level)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public bool IsShockerContains(SHOCKEREVO type, int level)
+    {
+        for (int i = 0; i < shockers.Count; i++)
+        {
+            if (shockers[i] == type && i < level)
             {
                 return true;
             }
@@ -109,6 +129,22 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         uIUpgradeEvolution.UpdateSawEvo();
         uIUpgradeEvolution.HidePanelSawEvo();
+    }
+    
+    public void ShockerAddEvolution(int type)
+    {
+        shockers.Add((SHOCKEREVO)type);
+        for (int i = 0; i < BlockController.instance.blocks.Count; i++)
+        {
+            Block sc = BlockController.instance.GetScBlock(BlockController.instance.blocks[i]);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is ShockerHandler)
+            {
+                ShockerHandler shockerHandler = (ShockerHandler)sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter;
+                shockerHandler.LoadData();
+            }
+        }
+        uIUpgradeEvolution.UpdateShockerEvo();
+        uIUpgradeEvolution.HidePanelShockerEvo();
     }
 
     public void FlameAddEvolution(int type)
@@ -183,6 +219,19 @@ public class UpgradeEvolutionController : MonoBehaviour
         for (int i = 0; i < saws.Count; i++)
         {
             if (saws[i] == type && i < level)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public int GetAmoutShockerEvo(SHOCKEREVO type, int level)
+    {
+        int count = 0;
+        for (int i = 0; i < shockers.Count; i++)
+        {
+            if (shockers[i] == type && i < level)
             {
                 count++;
             }

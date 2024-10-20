@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
+using static Unity.Collections.AllocatorManager;
 
 public class BlockController : MonoBehaviour
 {
@@ -150,8 +151,9 @@ public class BlockController : MonoBehaviour
         {
             Block sc = GetScBlock(blocks[i]);
             if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
-            if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
-            if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is MachineGunHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
+            else if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
+            else if (weaponType == WEAPON.MACHINE_GUN && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is MachineGunHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
+            else if (weaponType == WEAPON.SHOCKER && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is ShockerHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
         }
     }
 
@@ -215,8 +217,11 @@ public class BlockController : MonoBehaviour
         block.SetActive(false);
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
-        CarController.instance.DeleteGameBookAni();
-        if(!GameController.instance.isLose) PlayerController.instance.DeleteBookAni();
+        if (!GameController.instance.isLose)
+        {
+            PlayerController.instance.DeleteBookAni();
+            CarController.instance.DeleteGameBookAni();
+        }
         for (int i = 0; i < tempBlocks.Count; i++)
         {
             tempBlocks[i].transform.localPosition = new Vector2(tempBlocks[i].transform.localPosition.x, startY + distance * i);
@@ -246,6 +251,14 @@ public class BlockController : MonoBehaviour
             Block scBlock = blockIns.GetComponent<Block>();
             blockPools.Add(blockIns);
             scBlocks.Add(scBlock);
+        }
+    }
+
+    public void LoadWeaponBuyButtonInCurrentLevel()
+    {
+        for (int i = 0; i < scBlocks.Count; i++)
+        {
+            scBlocks[i].blockUpgradeHandler.LoadWeaponBuyButtonInCurrentLevel();
         }
     }
 }

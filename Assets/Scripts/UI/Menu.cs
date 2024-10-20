@@ -23,6 +23,7 @@ public class Menu : MonoBehaviour
 
     public GameObject battle;
     public GameObject inventory;
+    public GameObject shop;
     public GameObject battleGamePlay;
 
     public void Start()
@@ -93,7 +94,7 @@ public class Menu : MonoBehaviour
 
     public void ShopActive(bool isActive)
     {
-
+        shop.SetActive(isActive);
     }
 
     public void OnClick(int index)

@@ -7,17 +7,22 @@ public class UIUpgradeEvolution : MonoBehaviour
     public CanvasGroup sawCanvasGroup;
     public CanvasGroup flameCanvasGroup;
     public CanvasGroup machineGunCanvasGroup;
+    public CanvasGroup shockerCanvasGroup;
 
     public List<SAWEVO> sawEvoTypes = new List<SAWEVO>();
     public List<FLAMEEVO> flameEvoTypes = new List<FLAMEEVO>();
     public List<MACHINEGUNEVO> machineGunEvoTypes = new List<MACHINEGUNEVO>();
+    public List<SHOCKEREVO> shockerEvoTypes = new List<SHOCKEREVO>();
 
     public GameObject panelSawEvo;
     public GameObject panelFlameEvo;
     public GameObject panelMachineGunEvo;
+    public GameObject panelShockerEvo;
 
     public SawEvo[] sawEvos;
     public SawSlotEvo[] sawSlotEvos;
+    public ShockerEvo[] shockerEvos;
+    public ShockerSlotEvo[] shockerSlotEvos;
     public FlameEvo[] flameEvos;
     public FlameSlotEvo[] flameSlotEvos;
     public MachineGunEvo[] machineGunEvos;
@@ -88,6 +93,77 @@ public class UIUpgradeEvolution : MonoBehaviour
                         text = "+" + percentage + "% damage";
                     }
                     sawEvos[j].content.text = text;
+                    break;
+                }
+            }
+        }
+    }
+    
+    public void UpdateShockerEvo()
+    {
+        if (IsShockerMaxType(SHOCKEREVO.STUNENEMY)) shockerEvoTypes.Remove(SHOCKEREVO.STUNENEMY);
+        if (IsShockerMaxType(SHOCKEREVO.PUSHESENEMIES)) shockerEvoTypes.Remove(SHOCKEREVO.PUSHESENEMIES);
+        if (IsShockerMaxType(SHOCKEREVO.ADDFROMBOOSTER)) shockerEvoTypes.Remove(SHOCKEREVO.ADDFROMBOOSTER);
+        if (IsShockerMaxType(SHOCKEREVO.DECREASEENERGY)) shockerEvoTypes.Remove(SHOCKEREVO.DECREASEENERGY);
+        if (IsShockerMaxType(SHOCKEREVO.INCREASEDAMAGE)) shockerEvoTypes.Remove(SHOCKEREVO.INCREASEDAMAGE);
+
+        for (int i = 0; i < shockerEvoTypes.Count; i++)
+        {
+            for (int j = 0; j < shockerEvos.Length; j++)
+            {
+                string text = "";
+                if (shockerEvoTypes[i] == shockerEvos[j].type)
+                {
+                    if (shockerEvos[j].type == SHOCKEREVO.STUNENEMY)
+                    {
+                        int level = instance.GetAmoutShockerEvo(SHOCKEREVO.STUNENEMY, instance.shockers.Count) + 1;
+                        int percentage = 0; float time = 0;
+                        if (level == 1)
+                        {
+                            percentage = 10;
+                            time = 1.5f;
+                        }
+                        else if (level == 2)
+                        {
+                            percentage = 20;
+                            time = 2f;
+                        }
+                        else if (level == 3)
+                        {
+                            percentage = 30;
+                            time = 2.5f;
+                        }
+                        text = "Has " + percentage + "% chance to stund enemy for " + time.ToString("#0.##", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) + " seconds";
+                    }
+                    else if (shockerEvos[j].type == SHOCKEREVO.ADDFROMBOOSTER)
+                    {
+                        text = "+1 saw from ability";
+                    }
+                    else if (shockerEvos[j].type == SHOCKEREVO.PUSHESENEMIES)
+                    {
+                        int level = instance.GetAmoutShockerEvo(SHOCKEREVO.PUSHESENEMIES, instance.shockers.Count) + 1;
+                        int percentage = 0;
+
+                        if (level == 1) percentage = 5;
+                        else if (level == 2) percentage = 10;
+                        else if (level == 3) percentage = 15;
+                        text = "Pushes enemies with a " + percentage + "% chance";
+                    }
+                    else if (shockerEvos[j].type == SHOCKEREVO.DECREASEENERGY)
+                    {
+                        text = "-20% to ability cost";
+                    }
+                    else if (shockerEvos[j].type == SHOCKEREVO.INCREASEDAMAGE)
+                    {
+                        int level = instance.GetAmoutShockerEvo(SHOCKEREVO.INCREASEDAMAGE, instance.shockers.Count) + 1;
+                        int percentage = 0;
+
+                        if (level == 1) percentage = 20;
+                        else if (level == 2) percentage = 40;
+                        else if (level == 3) percentage = 60;
+                        text = "+" + percentage + "% damage";
+                    }
+                    shockerEvos[j].content.text = text;
                     break;
                 }
             }
@@ -285,6 +361,18 @@ public class UIUpgradeEvolution : MonoBehaviour
         }
         return null;
     }
+    
+    ShockerEvo GetShockerEvo(SHOCKEREVO type)
+    {
+        for (int i = 0; i < shockerEvos.Length; i++)
+        {
+            if (shockerEvos[i].type == type)
+            {
+                return shockerEvos[i];
+            }
+        }
+        return null;
+    }
 
     FlameEvo GetFlameEvo(FLAMEEVO type)
     {
@@ -315,6 +403,12 @@ public class UIUpgradeEvolution : MonoBehaviour
         SawEvo sawEvo = GetSawEvo(type);
         return instance.GetAmoutSawEvo(type, instance.saws.Count) == sawEvo.maxLevel;
     }
+    
+    public bool IsShockerMaxType(SHOCKEREVO type)
+    {
+        ShockerEvo shockerEvo = GetShockerEvo(type);
+        return instance.GetAmoutShockerEvo(type, instance.shockers.Count) == shockerEvo.maxLevel;
+    }
 
     public bool IsFlameMaxType(FLAMEEVO type)
     {
@@ -335,6 +429,18 @@ public class UIUpgradeEvolution : MonoBehaviour
             if (sawSlotEvos[i].type == type)
             {
                 return sawSlotEvos[i];
+            }
+        }
+        return null;
+    }
+    
+    ShockerSlotEvo GetSlotShockerEvo(SHOCKEREVO type)
+    {
+        for (int i = 0; i < shockerSlotEvos.Length; i++)
+        {
+            if (shockerSlotEvos[i].type == type)
+            {
+                return shockerSlotEvos[i];
             }
         }
         return null;
@@ -369,6 +475,18 @@ public class UIUpgradeEvolution : MonoBehaviour
         for (int i = 0; i < sawSlotEvos.Length; i++)
         {
             if (sawSlotEvos[i].type == type && sawSlotEvos[i].gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool IsActiveShockerSlot(SHOCKEREVO type)
+    {
+        for (int i = 0; i < shockerSlotEvos.Length; i++)
+        {
+            if (shockerSlotEvos[i].type == type && shockerSlotEvos[i].gameObject.activeSelf)
             {
                 return true;
             }
@@ -435,6 +553,43 @@ public class UIUpgradeEvolution : MonoBehaviour
 
         panelSawEvo.SetActive(true);
         UIHandler.instance.uIEffect.FadeAll(sawCanvasGroup, 1, 0.15f);
+    }
+    
+    public void ShowPanelShokerEvo()
+    {
+        UpdateShockerEvo();
+
+        for (int i = 0; i < instance.shockers.Count; i++)
+        {
+            ShockerSlotEvo shockerSlotEvo = GetSlotShockerEvo(instance.shockers[i]);
+            if (!IsActiveShockerSlot(instance.shockers[i]))
+            {
+                shockerSlotEvo.gameObject.SetActive(true);
+                shockerSlotEvo.transform.SetAsLastSibling();
+            }
+            shockerSlotEvo.SetAmout(instance.GetAmoutShockerEvo(instance.shockers[i], instance.shockers.Count));
+        }
+
+        List<SHOCKEREVO> temp = new List<SHOCKEREVO>(shockerEvoTypes);
+
+        SHOCKEREVO type1 = temp[Random.Range(0, temp.Count)];
+        temp.Remove(type1);
+        SHOCKEREVO type2 = temp[Random.Range(0, temp.Count)];
+
+        for (int i = 0; i < shockerEvos.Length; i++)
+        {
+            if (shockerEvos[i].type == type1 || shockerEvos[i].type == type2)
+            {
+                shockerEvos[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                shockerEvos[i].gameObject.SetActive(false);
+            }
+        }
+
+        panelShockerEvo.SetActive(true);
+        UIHandler.instance.uIEffect.FadeAll(shockerCanvasGroup, 1, 0.15f);
     }
 
     public void ShowPanelFlameEvo()
@@ -515,6 +670,12 @@ public class UIUpgradeEvolution : MonoBehaviour
     {
         sawCanvasGroup.alpha = 0;
         panelSawEvo.SetActive(false);
+    }
+    
+    public void HidePanelShockerEvo()
+    {
+        shockerCanvasGroup.alpha = 0;
+        panelShockerEvo.SetActive(false);
     }
 
     public void HidePanelFlameEvo()

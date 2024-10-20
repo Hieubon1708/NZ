@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerController : MonoBehaviour
 {
     public static EnemyTowerController instance;
+
+    public GameController.WEAPON[] weaponUseds;
 
     public GameObject[] towers;
     public EnemyController[] scTowers;
@@ -13,6 +14,7 @@ public class EnemyTowerController : MonoBehaviour
     public EnemyTowerMovement[] enemyTowerMovements;
     public float distanceTower;
     public int indexTower;
+    public int[] lineRandoms;
 
     List<int> remainingLines = new List<int>() { 0, 1, 2 };
     public GameObject[] enemies;
@@ -31,7 +33,7 @@ public class EnemyTowerController : MonoBehaviour
     public GameObject[] enemySpawnByTimes;
     GameObject[][] poolEnemySpawnByTimes;
     public int[] amoutEnemySpawnByTimes;
-    public int[] speedEnemySpawnByTimes;
+    public float[] speedEnemySpawnByTimes;
     public int[] timeSpawns;
     Coroutine[] eSpawnByTimes;
 
@@ -46,6 +48,7 @@ public class EnemyTowerController : MonoBehaviour
     {
         milestone = amoutLimit;
         eSpawnByTimes = new Coroutine[enemySpawnByTimes.Length];
+        BlockController.instance.LoadWeaponBuyButtonInCurrentLevel();
     }
 
     void AssignSpanwX()
@@ -71,14 +74,11 @@ public class EnemyTowerController : MonoBehaviour
 
     public void EnableEs()
     {
-        if (listRandomEs.Count == 0)
+        for (int i = 0; i < listRandomEs.Count; i++)
         {
-            for (int i = 0; i < listRandomEs.Count; i++)
-            {
-                if (!listRandomEs[i].activeSelf) listRandomEs[i].SetActive(true);
-                EnemyHandler eSc = GetScE(listRandomEs[i]);
-                if (!eSc.view.activeSelf) eSc.view.SetActive(true);
-            }
+            listRandomEs[i].SetActive(true);
+            EnemyHandler eSc = GetScE(listRandomEs[i]);
+            eSc.view.SetActive(true);
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
@@ -94,7 +94,7 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < listRandomEs.Count; i++)
         {
             EnemyHandler eSc = GetScE(listRandomEs[i]);
-            eSc.StopCoroutineNSetDefault();
+            eSc.Restart();
             if (eSc.content.activeSelf) eSc.content.SetActive(false);
             if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
         }
@@ -103,8 +103,8 @@ public class EnemyTowerController : MonoBehaviour
             for (int i = 0; i < poolScEByTimes.Count; i++)
             {
                 EnemyHandler eSc = GetScE(poolScEByTimes[i].gameObject);
-                eSc.StopCoroutineNSetDefault();
-                if (poolScEByTimes[i].gameObject.activeSelf) listRandomEs[i].gameObject.SetActive(false);
+                eSc.Restart();
+                listRandomEs[i].gameObject.SetActive(false);
             }
         }
     }
@@ -119,8 +119,10 @@ public class EnemyTowerController : MonoBehaviour
 
             if (GameController.instance.listEVisible.Contains(scTowers[indexTower].col) && eSc is EnemyT5) yield break;
 
-            if (!eSc.view.activeSelf) eSc.view.SetActive(true);
+            es[index].SetActive(true);
             eSc.SpawnbyTime();
+            eSc.SetDefaultField();
+
             index++;
             if (index == es.Length) index = 0;
         }
@@ -153,9 +155,11 @@ public class EnemyTowerController : MonoBehaviour
                     eSpawnbyTimes[j] = Instantiate(enemySpawnByTimes[i], GameController.instance.poolEnemies);
                     eSpawnbyTimes[j].SetActive(false);
                     EnemyHandler sc = eSpawnbyTimes[j].GetComponent<EnemyHandler>();
-                    if(sc is EnemyT4)
+                    if (sc is EnemyT4)
                     {
                         sc.realSpeed = speedEnemySpawnByTimes[i];
+                        sc.speed = speedEnemySpawnByTimes[i];
+                        sc.startSpeed = speedEnemySpawnByTimes[i];
                     }
                     poolScEByTimes.Add(sc);
                 }
@@ -169,12 +173,15 @@ public class EnemyTowerController : MonoBehaviour
         DisableEs();
         SetPosition();
 
-        for (int i = 0; i < eSpawnByTimes.Length; i++)
+        if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
-            if (eSpawnByTimes[i] != null)
+            for (int i = 0; i < eSpawnByTimes.Length; i++)
             {
-                StopCoroutine(eSpawnByTimes[i]);
-                eSpawnByTimes[i] = null;
+                if (eSpawnByTimes[i] != null)
+                {
+                    StopCoroutine(eSpawnByTimes[i]);
+                    eSpawnByTimes[i] = null;
+                }
             }
         }
         for (int i = indexTower; i >= 0; i--)
@@ -276,6 +283,7 @@ public class EnemyTowerController : MonoBehaviour
         int i = 0;
 
         remainingLines = new List<int>() { 0, 1, 2 };
+        lineRandoms = new int[3];
 
         EnemyController eController = scTowers[indexTower];
 
@@ -295,21 +303,24 @@ public class EnemyTowerController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 
             GameObject e = listRandomEs[count];
             EnemyHandler scE = e.GetComponent<EnemyHandler>();
 
-            e.transform.SetParent(scTowers[indexTower].enemyPools[randomLine]);
-
             float y = CarController.instance.spawnY[randomLine].position.y;
 
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
+                int lineIndex = Random.Range(0, 3);
                 if (spawnX < scTowers[indexTower].col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
-                else y = Random.Range(CarController.instance.spawnY[randomLine].position.y + 0.5f, CarController.instance.spawnY[randomLine].position.y + 1f);
+                else y = Random.Range(CarController.instance.spawnY[lineIndex].position.y + 0.5f, CarController.instance.spawnY[lineIndex].position.y + 1f);
+            }
+            else
+            {
+                lineRandoms[randomLine]++;
             }
 
             e.transform.position = new Vector2(spawnX, y);
@@ -320,7 +331,7 @@ public class EnemyTowerController : MonoBehaviour
             scE.sortingGroup.sortingLayerName = "Line_" + indexLine;
             scE.rb.excludeLayers = (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8);
 
-            spawnX += randomDistance * distance;
+            if (!e.name.Contains("Level 2 simpleEnemy 3 fl")) spawnX += randomDistance * distance;
             count++;
         }
     }
@@ -340,23 +351,23 @@ public class EnemyTowerController : MonoBehaviour
             }
         }
 
-        int indexLine = EUtils.GetIndexLine(e);
-
         float x = index == -1 ? GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1 : xHighest + scTowers[indexTower].defaultDistance;
-        float y = CarController.instance.spawnY[indexLine - 1].position.y;
+        float y = 0;
 
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
         {
-            y = Random.Range(CarController.instance.spawnY[indexLine - 1].position.y + 0.5f, CarController.instance.spawnY[indexLine - 1].position.y + 1f);
+            int lineIndex = Random.Range(0, 3);
+            if (spawnX < scTowers[indexTower].col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
+            else y = Random.Range(CarController.instance.spawnY[lineIndex].position.y + 0.5f, CarController.instance.spawnY[lineIndex].position.y + 1f);
+        }
+        else
+        {
+            y = CarController.instance.spawnY[eSc.lineIndex - 1].position.y;
         }
 
         e.transform.position = new Vector2(x, y);
 
         eSc.SetDefaultField();
-        eSc.SetColNKinematicNRevival(true);
-        eSc.SetActiveContentNView(true);
-        eSc.ResetBone();
-        eSc.healthHandler.SetDefaultInfo(eSc.enemyInfo);
     }
 
     void SetLayer(int line, GameObject enemy)
@@ -373,7 +384,7 @@ public class EnemyTowerController : MonoBehaviour
     {
         for (int i = 0; i < remainingLines.Count; i++)
         {
-            if (scTowers[indexTower].enemyPools[remainingLines[i]].childCount >= milestone)
+            if (lineRandoms[remainingLines[i]] >= milestone)
             {
                 remainingLines.RemoveAt(i);
             }
@@ -407,6 +418,7 @@ public class EnemyTowerController : MonoBehaviour
         if (indexTower == towers.Length - 1)
         {
             Debug.Log("Win");
+            DisableEs();
             CarController.instance.multiplier = 0;
             return;
         }

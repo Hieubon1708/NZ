@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
 
     public float timeBlockNPlayerDamage;
     public float timeSawDamage;
+    public float timeShockerDamage;
     public float timeFlameDamage;
     public float timeFlameBurningDamage;
     public float backgroundSpeed;
@@ -67,6 +68,12 @@ public class GameController : MonoBehaviour
         ChangeCarSprites(level);
     }
 
+    public void ShakeCam()
+    {
+        gameCamera.transform.DOComplete();
+        gameCamera.transform.DOShakePosition(1f, 0.35f);
+    }
+
     public void GetEsByDistance(float distance, Vector2 from, List<Transform> es)
     {
         es.Clear();
@@ -87,10 +94,10 @@ public class GameController : MonoBehaviour
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
 
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8, CarController.instance.transform.position.y + 3), Quaternion.identity);
+        /*Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8, CarController.instance.transform.position.y + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8 - 3, CarController.instance.transform.position.y + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3f, CarController.instance.transform.position.y + 8), Quaternion.identity);
-    }
+   */ }
 
     public GameObject EBlockNearest(LayerMask layer)
     {
@@ -140,9 +147,9 @@ public class GameController : MonoBehaviour
             ChangeCarSprites(level);
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            StartGame();
+            ShakeCam();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -224,7 +231,7 @@ public class GameController : MonoBehaviour
 
     public enum WEAPON
     {
-        NONE, SAW, FLAME, MACHINE_GUN
+        NONE, SAW, FLAME, MACHINE_GUN, SHOCKER
     }
 
 
@@ -279,7 +286,7 @@ public class GameController : MonoBehaviour
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
         playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
-        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray());
+        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray(), UpgradeEvolutionController.instance.shockers.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.leveInPopUp, UIHandler.instance.summonEquipment.amout);
 
         DataStorage dataStorage = new DataStorage(level, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);

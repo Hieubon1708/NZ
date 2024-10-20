@@ -21,6 +21,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public GameObject[] saws;
     public GameObject[] flames;
     public GameObject[] machineGuns;
+    public GameObject[] shockers;
     public GameObject weaponUpgrade;
     public GameObject canvas;
     public WeaponUpgradeHandler weaponUpgradeHandler;
@@ -35,11 +36,30 @@ public class BlockUpgradeHandler : ButtonUpgradee
         BuyWeapon(weaponType, weaponLevel);
     }
 
+     public void LoadWeaponBuyButtonInCurrentLevel()
+    {
+        WEAPON[] weaponUseds = EnemyTowerController.instance.weaponUseds;
+        for (int i = 0; i < weaponBuyButtons.Length; i++)
+        {
+            weaponBuyButtons[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < weaponUseds.Length; i++)
+        {
+            for (int j = 0; j < weaponBuyButtons.Length; j++)
+            {
+                if (weaponUseds[i] == WEAPON.SAW && weaponBuyButtons[j] is SawBuyHandler) weaponBuyButtons[j].gameObject.SetActive(true);
+                else if (weaponUseds[i] == WEAPON.FLAME && weaponBuyButtons[j] is FlameBuyHandler) weaponBuyButtons[j].gameObject.SetActive(true);
+                else if (weaponUseds[i] == WEAPON.MACHINE_GUN && weaponBuyButtons[j] is MachineGunBuyHandler) weaponBuyButtons[j].gameObject.SetActive(true);
+                else if (weaponUseds[i] == WEAPON.SHOCKER && weaponBuyButtons[j] is ShockerBuyHandler) weaponBuyButtons[j].gameObject.SetActive(true);
+            }
+        }
+    }
+
     public void LoadData()
     {
         for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
-            weaponBuyButtons[i].LoadData();
+            if (weaponBuyButtons[i].gameObject.activeSelf) weaponBuyButtons[i].LoadData();
         }
     }
 
@@ -50,6 +70,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
         if (weaponType == WEAPON.SAW) weapons = saws;
         if (weaponType == WEAPON.FLAME) weapons = flames;
         if (weaponType == WEAPON.MACHINE_GUN) weapons = machineGuns;
+        if (weaponType == WEAPON.SHOCKER) weapons = shockers;
 
         weaponBuyer.SetActive(false);
         weaponUpgrade.SetActive(true);
@@ -72,7 +93,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     {
         for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
-            weaponBuyButtons[i].CheckButtonState();
+            if(weaponBuyButtons[i].gameObject.activeSelf) weaponBuyButtons[i].CheckButtonState();
         }
         CheckButtonState();
         weaponUpgradeHandler.CheckButtonState();

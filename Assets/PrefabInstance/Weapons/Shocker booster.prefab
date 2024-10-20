@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4997990072708971}
   - component: {fileID: 212402840846918565}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4729847521110999}
   - component: {fileID: 212490066818485438}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4519407439079909}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BottomBallRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685369322061567}
   - component: {fileID: 96969973192944011}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 0.1
-  m_PreviewTimeScale: 0
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 4367245347843153}
   - component: {fileID: 198745546975992449}
   - component: {fileID: 199494603929880757}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BoostParticle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2714,7 +2714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119540703718954}
   - component: {fileID: 212102198365969400}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2798,7 +2798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4357557254406392}
   - component: {fileID: 212259453414841277}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2882,9 +2882,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4413360322062051}
   - component: {fileID: 61784343637483231}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: attack area
-  m_TagString: Untagged
+  m_TagString: ShockerBooster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2959,7 +2959,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4902545752160015}
   - component: {fileID: 50567418034361857}
-  m_Layer: 9
+  - component: {fileID: 5462296914133460602}
+  m_Layer: 17
   m_Name: Shocker booster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2974,7 +2975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673302001532738}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3010,6 +3011,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5462296914133460602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673302001532738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0cce08dd921fd499725f49816fa8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electricities:
+  - {fileID: 212312721042145111}
+  - {fileID: 212102198365969400}
+  - {fileID: 212259453414841277}
+  - {fileID: 212402840846918565}
+  topBall: {fileID: 1974760481012029}
+  botBall: {fileID: 1125029575399944}
+  col: {fileID: 61784343637483231}
+  parBooster: {fileID: 1940683176472475}
+  targetHeightElectricity: 0.8
+  targetScaleParBooster: 0.8
+  time: 0.8
 --- !u!1 &1676861282915355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,7 +3045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4801797578632179}
   - component: {fileID: 212071877607800644}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3104,7 +3129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4275892364623498}
   - component: {fileID: 212336519832322320}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3189,7 +3214,7 @@ GameObject:
   - component: {fileID: 4291191947689235}
   - component: {fileID: 198008206321745781}
   - component: {fileID: 199240334862137337}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BoostParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5553,7 +5578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819772996902657}
   - component: {fileID: 212747217495219761}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5637,7 +5662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4123051285490780}
   - component: {fileID: 212312721042145111}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5722,7 +5747,7 @@ GameObject:
   - component: {fileID: 4593286466888228}
   - component: {fileID: 198819014145459539}
   - component: {fileID: 199466057359872016}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BoostParticle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8086,7 +8111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4704111000482226}
   - component: {fileID: 212025406835438335}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8170,7 +8195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4455757219789436}
   - component: {fileID: 111430432299251891}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ELECTRO_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8226,7 +8251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4148706338197950}
   - component: {fileID: 212786400541722915}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Shocker_Electricity_End_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8309,7 +8334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4062874907861348}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: TopBallRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

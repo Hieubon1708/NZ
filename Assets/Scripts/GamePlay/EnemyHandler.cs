@@ -17,6 +17,7 @@ public class EnemyHandler : MonoBehaviour
     public GameObject content;
     public GameObject view;
     public GameObject frontalCollision;
+    public GameObject hitObj;
     public SpriteRenderer[] fullBodies;
     public HitEffect hitEffect;
 
@@ -43,6 +44,7 @@ public class EnemyHandler : MonoBehaviour
     Coroutine stunnedDelay;
     Coroutine jump;
     Coroutine sawTrigger;
+    Coroutine shockerTrigger;
     Coroutine flameTrigger;
     Coroutine flameBurningTrigger;
     Coroutine blockCollision;
@@ -56,12 +58,17 @@ public class EnemyHandler : MonoBehaviour
         lineIndex = EUtils.GetIndexLine(gameObject);
         layerOrigin = gameObject.layer;
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
+        hitObj = content;
+    }
+
+    public virtual void SetHp()
+    {
+        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     public virtual void SetDamage()
     {
         name = enemyInfo.damage.ToString();
-        healthHandler.SetTotalHp(enemyInfo.hp);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -73,18 +80,17 @@ public class EnemyHandler : MonoBehaviour
             col.enabled = false;
             col.enabled = true;
         }
-        if (!content.activeSelf) return;
-        if (enemyInfo.hp == 0) return;
+        if (!content.activeSelf || enemyInfo.hp == 0) return;
         int subtractHp;
         if (collision.CompareTag("Bullet"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
         if (collision.CompareTag("MachineGun"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
@@ -95,12 +101,22 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Saw"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             sawTrigger = StartCoroutine(SawTriggerHandle(subtractHp));
+        }
+        if (collision.CompareTag("Shocker"))
+        {
+            subtractHp = int.Parse(collision.name);
+            shockerTrigger = StartCoroutine(ShockerTriggerHandle(subtractHp));
+        }
+        if (collision.CompareTag("ShockerBooster"))
+        {
+            subtractHp = int.Parse(collision.attachedRigidbody.name);
+            SubtractHp(subtractHp);
         }
         if (collision.CompareTag("Flame"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             if (flameBurningTrigger == null && UpgradeEvolutionController.instance.flames.Contains(UpgradeEvolutionController.FLAMEEVO.BURNING))
             {
                 int damageBurning;
@@ -146,6 +162,15 @@ public class EnemyHandler : MonoBehaviour
         {
             SubtractHp(subtractHp);
             yield return new WaitForSeconds(GameController.instance.timeSawDamage);
+        }
+    }
+    
+    IEnumerator ShockerTriggerHandle(int subtractHp)
+    {
+        while (enemyInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeShockerDamage);
         }
     }
 
@@ -202,7 +227,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.gameObject.activeSelf || !collision.gameObject.activeSelf) return;
         if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
@@ -211,7 +236,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf && !colObj.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf && !colObj.gameObject.activeSelf || !collision.gameObject.activeSelf) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -291,6 +316,7 @@ public class EnemyHandler : MonoBehaviour
         if (isCollisionWithGround
             && collision.contacts[0].normal.y <= -0.85f)
         {
+            Debug.LogWarning(collision.gameObject);
             if (isCollisionWithCar) StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, collision.collider.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
             else if (isStunByWeapon)
             {
@@ -362,11 +388,11 @@ public class EnemyHandler : MonoBehaviour
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(subtractHp.ToString(), content);
+        damage.ShowDamage(subtractHp.ToString(), hitObj);
         hitEffect.PlayHitEffect(fullBodies); 
         if (hp == 0)
         {
-            ParController.instance.PlayZomDieParticle(enemyInfo.transform.position);
+            ParController.instance.PlayZomDieParticle(hitObj.transform.position);
             DeathHandle();
         }
     }
@@ -377,28 +403,27 @@ public class EnemyHandler : MonoBehaviour
     {
         SetColNKinematicNRevival(false);
         StopCoroutines();
-
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
-
-        int deathRandomizer = Random.Range(0, 10);
-
-        SetDeathAni(deathRandomizer);
+        SetDeathAni();
         healthBar.SetActive(false);
-
         GameController.instance.listEVisible.Remove(gameObject);
-
 
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
             EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
+            content.SetActive(false);
+            gameObject.layer = layerOrigin;
+            colObj.layer = layerOrigin;
         });
     }
 
-    public void SetDeathAni(int deathRandomizer)
+    public void SetDeathAni()
     {
+        int deathRandomizer = Random.Range(0, 10);
         animator.SetInteger("deathRandomizer", deathRandomizer);
         animator.SetTrigger("death");
-        SetLayerWeight(0);
+        animator.SetLayerWeight(1, 0);
+        animator.SetLayerWeight(2, 0);
     }
 
     public void SetColNKinematicNRevival(bool isEnable)
@@ -407,35 +432,58 @@ public class EnemyHandler : MonoBehaviour
         rb.isKinematic = !isEnable;
     }
 
-    public void SetActiveContentNView(bool isActive)
-    {
-        view.SetActive(isActive);
-        content.SetActive(!isActive);
-    }
-
-    public void ResetBone()
-    {
-        enemyInfo.bone.ResetBone();
-    }
-
-    public void SetLayerWeight(int weight)
-    {
-        animator.SetLayerWeight(1, weight);
-        animator.SetLayerWeight(2, weight);
-    }
-
-    public void StopCoroutineNSetDefault()
+    public void Restart()
     {
         StopCoroutines();
         SetDefaultField();
         delayRevival.Kill();
     }
 
-    public void SetDefaultField()
+    protected virtual void StopCoroutines()
     {
+        if (jump != null)
+        {
+            StopCoroutine(jump); 
+        }
+        if (sawTrigger != null)
+        {
+            StopCoroutine(sawTrigger); 
+        }
+        if (shockerTrigger != null)
+        {
+            StopCoroutine(shockerTrigger); 
+        }
+        if (flameTrigger != null)
+        {
+            StopCoroutine(flameTrigger);
+        }
+        if (stunnedDelay != null)
+        {
+            StopCoroutine(stunnedDelay); 
+        }
+        if (stunByWeapon != null)
+        {
+            StopCoroutine(stunByWeapon);
+        }
+        if (blockCollision != null)
+        {
+            StopCoroutine(blockCollision);
+        }
+        if (playerCollision != null)
+        {
+            StopCoroutine(playerCollision);
+        }
+        if (flameBurningTrigger != null)
+        {
+            StopCoroutine(flameBurningTrigger);
+        }
+    }
+
+    public virtual void SetDefaultField()
+    {
+        animator.Rebind();
         content.transform.DOKill();
         speed = startSpeed;
-
         col.enabled = true;
         rb.isKinematic = false;
         isCollisionWithCar = false;
@@ -444,49 +492,11 @@ public class EnemyHandler : MonoBehaviour
         isStunByWeapon = false;
         isShot = false;
         isBumping = false;
-        frontalCollision = null;
-
-        if (animator.GetBool("attack")) animator.SetBool("attack", false);
-
-        gameObject.layer = layerOrigin;
-        colObj.layer = layerOrigin;
+        frontalCollision = null;       
+        view.SetActive(true);
         colObj.SetActive(true);
-    }
-
-    protected virtual void StopCoroutines()
-    {
-        if (jump != null)
-        {
-            StopCoroutine(jump); jump = null;
-        }
-        if (sawTrigger != null)
-        {
-            StopCoroutine(sawTrigger); sawTrigger = null;
-        }
-        if (flameTrigger != null)
-        {
-            StopCoroutine(flameTrigger); flameTrigger = null;
-        }
-        if (stunnedDelay != null)
-        {
-            StopCoroutine(stunnedDelay); stunnedDelay = null;
-        }
-        if (stunByWeapon != null)
-        {
-            StopCoroutine(stunByWeapon); stunByWeapon = null;
-        }
-        if (blockCollision != null)
-        {
-            StopCoroutine(blockCollision); blockCollision = null;
-        }
-        if (playerCollision != null)
-        {
-            StopCoroutine(playerCollision); playerCollision = null;
-        }
-        if (flameBurningTrigger != null)
-        {
-            StopCoroutine(flameBurningTrigger); flameBurningTrigger = null;
-        }
+        SetColNKinematicNRevival(true);
+        healthHandler.SetDefaultInfo(enemyInfo);
     }
 
     IEnumerator SetFalseIsStunned(float time)

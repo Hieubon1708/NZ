@@ -2961,6 +2961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4423232732882134}
   - component: {fileID: 212235060875842775}
+  - component: {fileID: 8129030688863795452}
   m_Layer: 6
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -3035,6 +3036,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8129030688863795452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347015860235459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1345313834295946}
 --- !u!1 &1356695783053886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,7 +3112,7 @@ Transform:
   m_Children:
   - {fileID: 4344451826971709}
   m_Father: {fileID: 4279646364352108}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 42.338997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -44.906}
 --- !u!1 &1371543720589430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3336,7 +3350,7 @@ Transform:
   m_Children:
   - {fileID: 4836948663382353}
   m_Father: {fileID: 4279646364352108}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 42.338997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.312999}
 --- !u!1 &1566479267194364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3368,7 +3382,7 @@ Transform:
   m_Children:
   - {fileID: 4522361639062598}
   m_Father: {fileID: 4971748508548367}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -41.342995}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 26.665997}
 --- !u!1 &1613438774475295
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,7 +3436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 500
-  damage: 500
+  damage: 200
   bone: {fileID: 690481407306403437}
 --- !u!114 &-6627901784958837372
 MonoBehaviour:
@@ -3465,6 +3479,7 @@ MonoBehaviour:
   content: {fileID: 1449363872860772}
   view: {fileID: 1866626148859237}
   frontalCollision: {fileID: 0}
+  hitObj: {fileID: 0}
   fullBodies:
   - {fileID: 212014393484000023}
   - {fileID: 212607039549086053}
@@ -3496,6 +3511,7 @@ MonoBehaviour:
   targetX: 0
   silk: {fileID: 4490884765193982259}
   v: {fileID: 1866626148859237}
+  objScaler: {fileID: 1729801483369198}
 --- !u!50 &2887219471394199083
 Rigidbody2D:
   serializedVersion: 4
@@ -3576,26 +3592,38 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 96ffec4eddde2494181c153bf78a3ade, type: 3}
   - {fileID: 21300000, guid: 2963539a1d7da054ea7c1cab9ebbd755, type: 3}
   - {fileID: 21300000, guid: 6dafd239c857bef4e82fd712ea40cba6, type: 3}
+  - {fileID: 21300000, guid: c7b8652e7bf4e374fae64271879baf3e, type: 3}
+  - {fileID: 21300000, guid: 0681d95197a494049959a26b11d9f1c6, type: 3}
   asses:
   - {fileID: 21300000, guid: 0695f6145a8213b40a074c560c7ed21a, type: 3}
   - {fileID: 21300000, guid: 301852badffbe4e4a8aca73c37460513, type: 3}
   - {fileID: 21300000, guid: be85eb68cd938cf46874cfb3a4deeb21, type: 3}
+  - {fileID: 21300000, guid: 4190808810b64d14980093c645f8d495, type: 3}
+  - {fileID: 21300000, guid: d251593664fa0b049a0be6620917b4c6, type: 3}
   rightFangs:
   - {fileID: 21300000, guid: 0be01f43f5853da4a90710e4db6353a5, type: 3}
   - {fileID: 21300000, guid: 44ae5c4b6d3f1b14fb5611d139591cf4, type: 3}
   - {fileID: 21300000, guid: 5d48b1348c756c24cbcbcaa3ab3eb66f, type: 3}
+  - {fileID: 21300000, guid: a75d0681cc4e8ad4e8fd4ac09954464b, type: 3}
+  - {fileID: 21300000, guid: 14d4b5117db4a904ca651032d2707058, type: 3}
   leftFangs:
   - {fileID: 21300000, guid: f64791720e3c3ad44be25de33b8fcde4, type: 3}
   - {fileID: 21300000, guid: 2205435f96c7d324cbb9ed9d9f94c3ad, type: 3}
   - {fileID: 21300000, guid: e5fe613813799464f89af49de86c7a3e, type: 3}
+  - {fileID: 21300000, guid: 8dc5e61e1b67b1247bdba58743a950f8, type: 3}
+  - {fileID: 21300000, guid: b0ba1b8d2ebeaac4690ef109718ea67b, type: 3}
   rightLegs:
   - {fileID: 21300000, guid: 4ff39374558b7144c9902b6f9f1eb326, type: 3}
   - {fileID: 21300000, guid: dfb2a3e6689f5d8468da74e48f837d13, type: 3}
   - {fileID: 21300000, guid: c168ec7bf1684094aa800cff20b11091, type: 3}
+  - {fileID: 21300000, guid: 7ce07ef2aa712094690f42453337ed68, type: 3}
+  - {fileID: 21300000, guid: 5e3d2f18b0e8cfd44b93a1e9e33f952a, type: 3}
   leftLegs:
   - {fileID: 21300000, guid: d7a6b48af4d195240a9cb3f3a534c011, type: 3}
   - {fileID: 21300000, guid: 9af2dfb922f25624eba057bac38e90b0, type: 3}
   - {fileID: 21300000, guid: ce28e0b5edadc2244b2610c3dbe1c2f9, type: 3}
+  - {fileID: 21300000, guid: a3fabc4b241a8b04e9ab54c07b3aa6d4, type: 3}
+  - {fileID: 21300000, guid: a6ede7fdf88e4514db34c140808cca7c, type: 3}
 --- !u!114 &-2422824545140288885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3678,7 +3706,6 @@ Transform:
   - {fileID: 4698980556196731}
   - {fileID: 6764756064193956289}
   - {fileID: 4893147587062772}
-  - {fileID: 993267692138461423}
   m_Father: {fileID: 4184996150959588}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!1 &1804161294444792
@@ -3996,6 +4023,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 993267692138461423}
   - {fileID: 4849858515108678}
   m_Father: {fileID: 4830021743426896}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
@@ -4214,7 +4242,7 @@ Transform:
   m_Children:
   - {fileID: 4329602374025782}
   m_Father: {fileID: 4971748508548367}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -41.342995}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 37.652004}
 --- !u!1 &1992332613239635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,11 +4619,11 @@ Transform:
   m_GameObject: {fileID: 4490884765193982259}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 5.231, z: 0}
-  m_LocalScale: {x: 0.1, y: 10, z: 1}
+  m_LocalPosition: {x: -0.06, y: 5.2309995, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4849858515108678}
+  m_Father: {fileID: 4184996150959588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4372384403734108828
 SpriteRenderer:
@@ -4638,12 +4666,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -7
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eae657f7e4c449e43bf906645e61b2e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 0.1, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

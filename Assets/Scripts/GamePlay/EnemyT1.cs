@@ -6,11 +6,7 @@ public class EnemyT1 : EnemyHandler
     {
         base.Start();
         SetDamage();
-    }
-
-    public override void SetDamage()
-    {
-        base.SetDamage();
+        SetHp();
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -49,6 +45,11 @@ public class EnemyT1 : EnemyHandler
                     }
                 }
             }
+            else
+            {
+                animator.SetBool("attack", false);
+                isAttack = false;
+            }
         }
     }
 
@@ -64,25 +65,5 @@ public class EnemyT1 : EnemyHandler
         {
             if (playerCollision != null) StopCoroutine(playerCollision);
         }
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
-    protected override void DeathHandle()
-    {
-        base.DeathHandle();
-    }
-
-    protected override void StopCoroutines()
-    {
-        base.StopCoroutines();
-    }
-
-    public override void SpawnbyTime()
-    {
-        base.SpawnbyTime();
     }
 }

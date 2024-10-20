@@ -8408,6 +8408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a18da581fe4d842bf61d808eeeffe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponUseds: 010000000200000003000000
   towers:
   - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
   - {fileID: 1740088135779993, guid: a1d3b1b878886484f9364b997d7623dc, type: 3}
@@ -8424,16 +8425,18 @@ MonoBehaviour:
   enemyTowerMovements: []
   distanceTower: 25
   indexTower: -1
+  lineRandoms: 
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
   - {fileID: 3440869563518828017, guid: e990d58b414a8e54e9d77ec895804680, type: 3}
   amouts: 4b0000000f00000023000000
-  poolScEs: []
   listRandomEs: []
   amoutLimit: 3
-  milestone: 0
-  temp: []
+  enemySpawnByTimes: []
+  amoutEnemySpawnByTimes: 
+  speedEnemySpawnByTimes: []
+  timeSpawns: 
 --- !u!114 &7009180778381774957
 MonoBehaviour:
   m_ObjectHideFlags: 0

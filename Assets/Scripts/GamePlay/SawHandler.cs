@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class SawHandler : WeaponShoter
     public GameObject sawBoosterPref;
     public int amout;
     int countBooster;
-    int amoutSawFBooster = 1;
+    int amoutSawBooster = 1;
     public Rigidbody2D[] sawBoosters;
     public Transform container;
     public List<GameObject> listEs = new List<GameObject>();
@@ -39,7 +40,7 @@ public class SawHandler : WeaponShoter
     {
         if (instance.IsSawContains(SAWEVO.ADDFROMBOOSTER, level))
         {
-            amoutSawFBooster++;
+            amoutSawBooster++;
         }
     }
 
@@ -170,16 +171,19 @@ public class SawHandler : WeaponShoter
 
     IEnumerator ThrowSaw()
     {
-        GameObject[] listS = new GameObject[amoutSawFBooster];
         Vector2 startPos = transform.position;
-        for (int i = 0; i < amoutSawFBooster; i++)
+        for (int i = 0; i < amoutSawBooster; i++)
         {
-            listS[i] = sawBoosters[countBooster].gameObject;
-            listS[i].transform.position = startPos;
-            listS[i].SetActive(true);
+            GameObject s = sawBoosters[countBooster].gameObject;
+            s.transform.position = startPos;
+            s.SetActive(true);
             sawBoosters[countBooster].velocity = new Vector2(25, sawBoosters[countBooster].velocity.y);
             countBooster++;
             if (countBooster == sawBoosters.Length) countBooster = 0;
+            DOVirtual.DelayedCall(2f, delegate
+            {
+                s.SetActive(false);
+            });
             yield return new WaitForSeconds(0.3f);
         }
     }

@@ -17,6 +17,7 @@ public class Booster : MonoBehaviour
     public GameObject sawBooster;
     public GameObject flameBooster;
     public GameObject machineGunBooster;
+    public GameObject shockerBooster;
     public WeaponBooster[] weaponBoosters;
 
     private void Awake()
@@ -80,6 +81,7 @@ public class Booster : MonoBehaviour
         if (sawBooster.activeSelf) sawBooster.SetActive(false);
         if (flameBooster.activeSelf) flameBooster.SetActive(false);
         if (machineGunBooster.activeSelf) machineGunBooster.SetActive(false);
+        if (shockerBooster.activeSelf) shockerBooster.SetActive(false);
         ActiveBoosterButton(true);
     }
 
@@ -91,6 +93,7 @@ public class Booster : MonoBehaviour
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.SAW) sawBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.FLAME) flameBooster.SetActive(true);
             if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(true);
+            if (sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType == GameController.WEAPON.SHOCKER) shockerBooster.SetActive(true);
         }
     }
 
@@ -110,6 +113,7 @@ public class Booster : MonoBehaviour
             if (type == GameController.WEAPON.SAW) sawBooster.SetActive(false);
             if (type == GameController.WEAPON.FLAME) flameBooster.SetActive(false);
             if (type == GameController.WEAPON.MACHINE_GUN) machineGunBooster.SetActive(false);
+            if (type == GameController.WEAPON.SHOCKER) shockerBooster.SetActive(false);
         }
     }
 
@@ -122,6 +126,20 @@ public class Booster : MonoBehaviour
                 if (weaponBoosters[i] is SawBooster)
                 {
                     weaponBoosters[i].SubtractEnergy(25f);
+                }
+            }
+        }
+    }
+    
+    public void DecreaseEnergyShocker(int level)
+    {
+        if (UpgradeEvolutionController.instance.IsShockerContains(SHOCKEREVO.DECREASEENERGY, level))
+        {
+            for (int i = 0; i < weaponBoosters.Length; i++)
+            {
+                if (weaponBoosters[i] is ShockerBooster)
+                {
+                    weaponBoosters[i].SubtractEnergy(20f);
                 }
             }
         }

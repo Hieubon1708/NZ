@@ -35,6 +35,7 @@ public class DataManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
+        // GenerateWeaponConfigs();
         DataReader();
     }
 
@@ -144,7 +145,7 @@ public class DataManager : MonoBehaviour
 
     void GenerateWeaponConfigs()
     {
-        WeaponConfig[] weaponConfigs = new WeaponConfig[3];
+        WeaponConfig[] weaponConfigs = new WeaponConfig[4];
 
         WeaponLevelConfig[] sawLevelConfigs = new WeaponLevelConfig[7];
 
@@ -181,6 +182,18 @@ public class DataManager : MonoBehaviour
         machineGunLevelConfigs[6] = SetWeaponLevelConfig(3765, 0, 1.03f, 50528, 6737, 0.2f, 1.5f, 1.11f, 2, 1);
 
         weaponConfigs[2] = new WeaponConfig(WEAPON.MACHINE_GUN, 750, 2, machineGunLevelConfigs);
+
+        WeaponLevelConfig[] shockerLevelConfigs = new WeaponLevelConfig[7];
+
+        shockerLevelConfigs[0] = SetWeaponLevelConfig(200, 250, 1.03f, 600, 7, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[1] = SetWeaponLevelConfig(310, 400, 1.03f, 1286, 15, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[2] = SetWeaponLevelConfig(481, 600, 1.03f, 2914, 34, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[3] = SetWeaponLevelConfig(746, 900, 1.03f, 6429, 75, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[4] = SetWeaponLevelConfig(1156, 1400, 1.03f, 14057, 164, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[5] = SetWeaponLevelConfig(1792, 2250, 1.03f, 30943, 361, 0.2f, 1.5f, 1.11f, 2, 1);
+        shockerLevelConfigs[6] = SetWeaponLevelConfig(2778, 0, 1.03f, 68057, 794, 0.2f, 1.5f, 1.11f, 2, 1);
+
+        weaponConfigs[3] = new WeaponConfig(WEAPON.SHOCKER, 90, 2, shockerLevelConfigs);
 
         string js = JsonConvert.SerializeObject(weaponConfigs);
         string path = Path.Combine(Application.dataPath, "Resources/Datas/WeaponConfig.json");
@@ -482,12 +495,14 @@ public class WeaponEvolutionDataStorge
     public SAWEVO[] sawEvos;
     public FLAMEEVO[] flameEvos;
     public MACHINEGUNEVO[] machineGunEvos;
+    public SHOCKEREVO[] shockerEvos;
 
-    public WeaponEvolutionDataStorge(SAWEVO[] sawEvos, FLAMEEVO[] flameEvos, MACHINEGUNEVO[] machineGunEvos)
+    public WeaponEvolutionDataStorge(SAWEVO[] sawEvos, FLAMEEVO[] flameEvos, MACHINEGUNEVO[] machineGunEvos, SHOCKEREVO[] shockerEvos)
     {
         this.sawEvos = sawEvos;
         this.flameEvos = flameEvos;
         this.machineGunEvos = machineGunEvos;
+        this.shockerEvos = shockerEvos;
     }
 }
 

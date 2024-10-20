@@ -235,6 +235,7 @@ MonoBehaviour:
   content: {fileID: 1765375808991662}
   view: {fileID: 1484429323690610}
   frontalCollision: {fileID: 0}
+  hitObj: {fileID: 0}
   fullBodies:
   - {fileID: 212898741226426992}
   - {fileID: 212211843931731424}
@@ -304,26 +305,38 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4857c0e82def3454691592cf86ca9f28, type: 3}
   - {fileID: 21300000, guid: 151685517e7233640a6313604f968f7e, type: 3}
   - {fileID: 21300000, guid: 4a31ed34278d0e941b951070c05f90c7, type: 3}
+  - {fileID: 21300000, guid: 6926e0c403f17284c806a02da083c494, type: 3}
+  - {fileID: 21300000, guid: 5a8db5cded152814dbe076bfb4709308, type: 3}
   asses:
   - {fileID: 21300000, guid: 34eb9d60ce257b8438e87ee3b549de0f, type: 3}
   - {fileID: 21300000, guid: 247b05a06de070344af9acf32a5fc273, type: 3}
   - {fileID: 21300000, guid: 76d5b85731e020f4aaac1501ff52d052, type: 3}
+  - {fileID: 21300000, guid: f4921359fda940f4599deedf75dae48c, type: 3}
+  - {fileID: 21300000, guid: 37981974f71a3fd4bb6fb9449c5e8c67, type: 3}
   rightFangs:
   - {fileID: 21300000, guid: 5e69ab35b321df741a8af74072341931, type: 3}
   - {fileID: 21300000, guid: 8070ccc0efa873844bc250b6eff7f201, type: 3}
   - {fileID: 21300000, guid: af46f5634a639df4ab1630150dacf30c, type: 3}
+  - {fileID: 21300000, guid: 3630a36000b66c945ac7ea656f443e1e, type: 3}
+  - {fileID: 21300000, guid: e676f959cb9532d448f7fdf8985f50e6, type: 3}
   leftFangs:
   - {fileID: 21300000, guid: cebddc7da70277f479ea4991182e26c6, type: 3}
   - {fileID: 21300000, guid: a75314007f065304888d1406cf6ba0ef, type: 3}
   - {fileID: 21300000, guid: 38a6926162a538a4d932ad0d57cf5d50, type: 3}
+  - {fileID: 21300000, guid: 2b3e22c1725da3f44b1b69ab8f1a6dfd, type: 3}
+  - {fileID: 21300000, guid: 9b315541840b9b245ae550bb62f67847, type: 3}
   rightLegs:
   - {fileID: 21300000, guid: d2de10abb1e843543a919c27e6c2306b, type: 3}
   - {fileID: 21300000, guid: 96e3dbc185f36424d8fcdb0509900546, type: 3}
   - {fileID: 21300000, guid: a7fa171ec071d5f41af31e01ee482ef8, type: 3}
+  - {fileID: 21300000, guid: d6e963c094aa7654f8a9d9d27b67be3e, type: 3}
+  - {fileID: 21300000, guid: 3c1ee8a8c740f804a88c8708d7dbd2ca, type: 3}
   leftLegs:
   - {fileID: 21300000, guid: aaf52b89ac13fde4d94293d0b1cf6f61, type: 3}
   - {fileID: 21300000, guid: 39cd73f3d58521943945c96b4020d7c8, type: 3}
   - {fileID: 21300000, guid: 219a079b260d0ab42b957961618673b7, type: 3}
+  - {fileID: 21300000, guid: e13318b1a0e5db045a6da4400f5a4852, type: 3}
+  - {fileID: 21300000, guid: 69ad97747f067734094ce4023ed3e9a5, type: 3}
 --- !u!114 &-1661562930705537571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3906,6 +3919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 1087254144996759}
 --- !u!1 &1883705050430329
 GameObject:
   m_ObjectHideFlags: 0

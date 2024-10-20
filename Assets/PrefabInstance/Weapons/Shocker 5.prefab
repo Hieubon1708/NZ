@@ -2406,9 +2406,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4966120331580312}
   - component: {fileID: 58225013122359154}
+  - component: {fileID: 1982902529081481544}
   m_Layer: 0
   m_Name: attackArea
-  m_TagString: Untagged
+  m_TagString: Shocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2463,6 +2464,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
+--- !u!114 &1982902529081481544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085623955393613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 856bd2863e1d05e43b60561e79a5b79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 4
+  level: 5
+  ani: {fileID: 95335794542800682}
+  target: {fileID: 0}
+  parent: {fileID: 4902215364239584}
+  shockerAttackAni: {fileID: 111293908049593727}
+  shockerLight: {fileID: 198633764817057640}
+  shockerBoosterLight: {fileID: 198056643007595180}
+  pointSpawnBooster: {fileID: 4144160640173239}
+  shockerBoosterPref: {fileID: 1673302001532738, guid: b103f188b82e0924eaf2bb95aebb7cde, type: 3}
+  amout: 6
+  shockerBoosters: []
+  shockerScBoosters: []
+  container: {fileID: 4902215364239584}
+  listEs: []
 --- !u!1 &1131063762129911
 GameObject:
   m_ObjectHideFlags: 0
@@ -7268,7 +7296,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 17
-  m_Sprite: {fileID: 21300000, guid: a8394327db028b64a883b51d412bef46, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 43949fe446e654d4b96cdd602d1db02f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -7936,8 +7964,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499391944116114}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 939080219
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &1500371908585455
@@ -10449,7 +10477,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 16
-  m_Sprite: {fileID: 21300000, guid: a8394327db028b64a883b51d412bef46, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 43949fe446e654d4b96cdd602d1db02f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10470,6 +10498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4698170441439719}
   - component: {fileID: 95335794542800682}
+  - component: {fileID: 7333057215228654894}
   m_Layer: 0
   m_Name: ShockerView_Level_5
   m_TagString: Untagged
@@ -10486,7 +10515,7 @@ Transform:
   m_GameObject: {fileID: 1565992391435889}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.021, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10515,6 +10544,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7333057215228654894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565992391435889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174237efe03958d4f90f2edc3720c696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boosterShocker: {fileID: 198056643007595180}
 --- !u!1 &1573994948875637
 GameObject:
   m_ObjectHideFlags: 0
@@ -13117,7 +13159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: da92591cbf5fd4649a129533ba40bbef, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 1d9c4b08182bb69458498c39db2c603f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13672,7 +13714,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 13589f0d2c506d3418b60b0bfa2b7e55, type: 2}
+  m_Sprite: {fileID: 21300000, guid: b679a4906650dc84eb82fa7bf9c732e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13790,7 +13832,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: da92591cbf5fd4649a129533ba40bbef, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 1d9c4b08182bb69458498c39db2c603f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

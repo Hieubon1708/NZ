@@ -2,7 +2,7 @@ using UnityEngine.EventSystems;
 
 public class FlameBuyButton : ButtonState
 {
-    public FrameBuyHandler flameBuyHandler;
+    public FlameBuyHandler flameBuyHandler;
 
     public override void OnPointerDown(PointerEventData eventData)
     {

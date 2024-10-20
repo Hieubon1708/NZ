@@ -72,7 +72,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             }
             if (weaponShoter.weaponType == GameController.WEAPON.MACHINE_GUN)
             {
-                if (level > UpgradeEvolutionController.instance.flames.Count)
+                if (level > UpgradeEvolutionController.instance.machineGuns.Count)
                 {
                     UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo(); isEvoContains = true;
                 }

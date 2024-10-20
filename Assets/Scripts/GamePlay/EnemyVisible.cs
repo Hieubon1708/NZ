@@ -2,14 +2,10 @@ using UnityEngine;
 
 public class EnemyVisible : MonoBehaviour
 {
+    public GameObject parent;
 
     private void OnBecameVisible()
     {
-        GameController.instance.listEVisible.Add(gameObject);
-    }
-
-    private void OnBecameInvisible()
-    {
-        GameController.instance.listEVisible.Remove(gameObject);
+        GameController.instance.listEVisible.Add(parent);
     }
 }

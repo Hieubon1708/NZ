@@ -41,6 +41,11 @@ public class EnemyTowerHandler : MonoBehaviour
             subtractHp = int.Parse(collision.attachedRigidbody.name);
             SubtractHp(subtractHp);
         }
+        if (collision.CompareTag("ShockerBooster"))
+        {
+            subtractHp = int.Parse(collision.attachedRigidbody.name);
+            SubtractHp(subtractHp);
+        }
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.gameObject.name);
@@ -86,6 +91,7 @@ public class EnemyTowerHandler : MonoBehaviour
             damageTaken = 0;
             UIHandler.instance.FlyGold(enemyController.col.transform.position, 100);
             GameController.instance.EDeathAll(enemyController.col);
+            GameController.instance.ShakeCam();
             EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(view.transform.position.x + 1.5f, view.transform.position.y));
         }

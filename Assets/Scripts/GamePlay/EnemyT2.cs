@@ -8,23 +8,8 @@ public class EnemyT2 : EnemyHandler
     public override void Start()
     {
         base.Start();
-        SetDamage();
+        SetHp();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
-    }
-
-    public override void SetDamage()
-    {
-        base.SetDamage();
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 
     protected override void FixedUpdate()
@@ -92,15 +77,5 @@ public class EnemyT2 : EnemyHandler
     {
         base.DeathHandle();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
-    }
-
-    protected override void StopCoroutines()
-    {
-        base.StopCoroutines();
-    }
-
-    public override void SpawnbyTime()
-    {
-        base.SpawnbyTime();
     }
 }

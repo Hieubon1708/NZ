@@ -5,16 +5,24 @@ using UnityEngine;
 public class EnemyT3 : EnemyHandler
 {
     public Vector2 targetPos;
+    private Vector2 velocity = Vector2.zero;
     float yRandomAfterLevingCave;
-    bool isLevingCave;
+    public bool isLevingCave;
     Coroutine levingCave;
-    float targetX;
+    public float targetX;
 
     public override void Start()
     {
+        hitObj = content;
+        SetHp();
         yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2);
         targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
         if (transform.position.y >= CarController.instance.transform.position.y + GameController.instance.yPlus1) isLevingCave = true;
+    }
+
+    public override void SetHp()
+    {
+        base.SetHp();
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -27,7 +35,7 @@ public class EnemyT3 : EnemyHandler
         base.OnTriggerExit2D(collision);
         if (collision.CompareTag("Tower") && EnemyTowerController.instance.GetTower().col == collision.gameObject) levingCave = StartCoroutine(LevingCave());
     }
-    private Vector2 velocity = Vector2.zero;
+
     protected override void FixedUpdate()
     {
         float walkSpeed = 1f;
@@ -55,11 +63,15 @@ public class EnemyT3 : EnemyHandler
                 }
                 if (Vector2.Distance(transform.position, targetPos) > 0.1f)
                 {
+                    if (a) Debug.LogWarning(targetPos.ToString());
+
                     Vector2 targetPosition = Vector2.SmoothDamp(rb.position, targetPos, ref velocity, 0.3f);
                     rb.MovePosition(targetPosition);
                 }
                 else
                 {
+                    if (a) Debug.LogWarning("a");
+
                     targetPos = RandomTarget();
                 }
             }
@@ -77,7 +89,6 @@ public class EnemyT3 : EnemyHandler
     {
         base.DeathHandle();
         isLevingCave = false;
-        if (levingCave != null) StopCoroutine(levingCave);
     }
 
     Vector2 RandomTarget()
@@ -104,17 +115,13 @@ public class EnemyT3 : EnemyHandler
         base.StopCoroutines();
         if (levingCave != null)
         {
-            StopCoroutine(levingCave); levingCave = null;
+            StopCoroutine(levingCave);
         }
     }
 
-    public override void SetDamage()
+    public override void SetDefaultField()
     {
-        base.SetDamage();
-    }
-
-    public override void SpawnbyTime()
-    {
-        base.SpawnbyTime();
+        base.SetDefaultField();
+        if (transform.position.y >= CarController.instance.transform.position.y + GameController.instance.yPlus1) isLevingCave = true;
     }
 }

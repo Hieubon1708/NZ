@@ -7,19 +7,22 @@ public class EnemyT5 : EnemyHandler
     public float targetX;
     public GameObject silk;
     public GameObject v;
+    public GameObject objScaler;
     Coroutine breakingSilk;
 
-    public override void Start()
-    {
-        SetDamage();
-    }
+    public override void Start() { }
 
     public override void SpawnbyTime()
     {
+        if (healthHandler.startHp == 0)
+        {
+            SetDamage();
+            SetHp();
+            hitObj = objScaler;
+        }
         RestartSilk();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 4, GameController.instance.xPlus2);
         transform.position = new Vector2(targetX, CarController.instance.spawnY[Random.Range(0, CarController.instance.spawnY.Length)].transform.position.y);
-        gameObject.SetActive(true);
     }
 
     public override void SetDamage()
@@ -35,17 +38,18 @@ public class EnemyT5 : EnemyHandler
         {
             PlayerController.instance.playerHandler.SubtractHp(int.Parse(col.name));
             if (ParLv2.instance != null) ParLv2.instance.PlaySpriderHitOnBlockOHeroParticle(new Vector2(transform.position.x, transform.position.y + 6));
-            DeathHandle();
+            StopCoroutines();
+            SetColNKinematicNRevival(false);
+            rb.gravityScale = 0;
+            rb.velocity = Vector2.zero;
+            SetDeathAni();
+            GameController.instance.listEVisible.Remove(colObj);
         }
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 
     protected override void FixedUpdate()
     {
+        if (!colObj.activeSelf) return;
         if (transform.position.x <= PlayerController.instance.transform.position.x + 2f)
         {
             if (rb.gravityScale == 0)
@@ -63,20 +67,27 @@ public class EnemyT5 : EnemyHandler
         }
     }
 
-    protected override void DeathHandle()
+    public override void SetDefaultField()
     {
-        base.DeathHandle();
-        rb.gravityScale = 0;
-        animator.SetFloat("velocityY", 3);
+        base.SetDefaultField();
+
     }
 
-    protected override void StopCoroutines()
+    protected override void DeathHandle()
     {
-        base.StopCoroutines();
-        if (breakingSilk != null)
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+        StopCoroutines();
+        if (!silk.transform.IsChildOf(GameController.instance.poolDynamics));
         {
-            StopCoroutine(breakingSilk); breakingSilk = null;
+            silk.transform.SetParent(GameController.instance.poolDynamics);
+            breakingSilk = StartCoroutine(BreakingSpiderSilk());
         }
+        SetColNKinematicNRevival(false);
+        healthBar.SetActive(false);
+        UIHandler.instance.FlyGold(hitObj.transform.position, 2);
+        SetDeathAni();
+        GameController.instance.listEVisible.Remove(colObj);
     }
 
     void RestartSilk()
@@ -104,17 +115,5 @@ public class EnemyT5 : EnemyHandler
             if (silk.transform.localEulerAngles.z >= angleTarget * 0.75f) firstPush = true;
             yield return new WaitForFixedUpdate();
         }
-    }
-
-    public override void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
-
-    protected override void OnCollisionStay2D(Collision2D collision)
-    {
-    }
-
-    public override void OnCollisionExit2D(Collision2D collision)
-    {
     }
 }

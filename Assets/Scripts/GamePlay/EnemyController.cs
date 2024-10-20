@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
     public int[] amoutIndexEs;
     public float[] speeds;
 
-    public Transform[] enemyPools;
     public float defaultDistance;
 
     public int[] amoutEs;

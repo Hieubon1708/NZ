@@ -139,6 +139,7 @@ MonoBehaviour:
   content: {fileID: 1341644327381429}
   view: {fileID: 1468143518272523}
   frontalCollision: {fileID: 0}
+  hitObj: {fileID: 0}
   fullBodies:
   - {fileID: 212569871557235098}
   - {fileID: 212620746033558759}
@@ -211,26 +212,38 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9bf82c0c294096d4797270d151ba1d6c, type: 3}
   - {fileID: 21300000, guid: 22227a0ff679f4d4ebd9b7b64e5d9ec2, type: 3}
   - {fileID: 21300000, guid: 26fd7962e379d854d9389b1dfa652ff1, type: 3}
+  - {fileID: 21300000, guid: 0cea944990dc0eb419d993151b376674, type: 3}
+  - {fileID: 21300000, guid: 6f197e8733b159242b1709e0acb20781, type: 3}
   asses:
   - {fileID: 21300000, guid: 20f1b9198b01f5b488b1b49585d3b0dc, type: 3}
   - {fileID: 21300000, guid: 64bcec40811233545a455c912b78a133, type: 3}
   - {fileID: 21300000, guid: d091b0e3f1197cf4a8eb64cb8c2fa453, type: 3}
+  - {fileID: 21300000, guid: b7dec211a305dca42824f8281512de23, type: 3}
+  - {fileID: 21300000, guid: 87233b3a5f7e36c4fa4082535731c8c4, type: 3}
   rightFangs:
   - {fileID: 21300000, guid: 9aaf9858076ecba4a98eb1e497401995, type: 3}
   - {fileID: 21300000, guid: 3ea26e4f50473b54b81b6534bef9870b, type: 3}
   - {fileID: 21300000, guid: 1a089e5a66510034d806a87c09de1643, type: 3}
+  - {fileID: 21300000, guid: 7ea950f6ad8c72f439a1498bdbad1918, type: 3}
+  - {fileID: 21300000, guid: b0e27da18092f8d4aa3fa3177092be88, type: 3}
   leftFangs:
   - {fileID: 21300000, guid: 4b7a54e19ecf3d54a94f06dde2ea91ca, type: 3}
   - {fileID: 21300000, guid: 0229dd8bf3c16734e9eea40e85f8b76d, type: 3}
   - {fileID: 21300000, guid: 34e2f880dc844244ba63dde7702f05e9, type: 3}
+  - {fileID: 21300000, guid: 0b45d6ad6d5692047b9507d51a7c02ef, type: 3}
+  - {fileID: 21300000, guid: 397f37869cb242e48a23f84595fb552f, type: 3}
   rightLegs:
   - {fileID: 21300000, guid: c040ebfa781de354f849e2cc396a7988, type: 3}
   - {fileID: 21300000, guid: f6377773c9055c74fa620a50af33a182, type: 3}
   - {fileID: 21300000, guid: ba47187f281aa234ba536afa6f3357c8, type: 3}
+  - {fileID: 21300000, guid: 8afb56f3d30556f4281d8060281b1667, type: 3}
+  - {fileID: 21300000, guid: a2c6ba6195100e64cadd18f674b10cfd, type: 3}
   leftLegs:
   - {fileID: 21300000, guid: cf1df18cff34dce46abfd3d853ef1045, type: 3}
   - {fileID: 21300000, guid: cdd27d0a3834f6144a5da3bbb8f27885, type: 3}
   - {fileID: 21300000, guid: 81f6e8822b504214bbc9babef6a38454, type: 3}
+  - {fileID: 21300000, guid: de37f76169998f54b8b38e12f4a80bde, type: 3}
+  - {fileID: 21300000, guid: 69748a9554bac3d4fbdc3da4c4519b24, type: 3}
 --- !u!114 &8393661869597390703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4218,6 +4231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4368150491121422}
   - component: {fileID: 212451239856233975}
+  - component: {fileID: 8761939641403380701}
   m_Layer: 0
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -4292,6 +4306,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &8761939641403380701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932332229096409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1006156732137668}
 --- !u!1 &1979293970977120603
 GameObject:
   m_ObjectHideFlags: 0
