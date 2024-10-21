@@ -316,7 +316,6 @@ public class EnemyHandler : MonoBehaviour
         if (isCollisionWithGround
             && collision.contacts[0].normal.y <= -0.85f)
         {
-            Debug.LogWarning(collision.gameObject);
             if (isCollisionWithCar) StartCoroutine(CarController.instance.Bump(layerBumping, layerOrigin, colObj, collision.rigidbody.gameObject, collision.collider.gameObject, rb.gameObject, this, col.bounds.size.y - collision.collider.bounds.size.x));
             else if (isStunByWeapon)
             {

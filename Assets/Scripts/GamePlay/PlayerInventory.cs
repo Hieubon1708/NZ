@@ -1,10 +1,17 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
     public TextMeshProUGUI textDush;
     public TextMeshProUGUI textCogwheel;
+
+    public RectTransform rectCap;
+
+    public Image cap;
+    public Image clothes;
+    public Image gun;
 
     public int gem;
     public int dush;
@@ -27,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadData()
     {
-        if(DataManager.instance.dataStorage.playerDataStorage != null)
+        if (DataManager.instance.dataStorage.playerDataStorage != null)
         {
             gem = DataManager.instance.dataStorage.playerDataStorage.gem;
             dush = DataManager.instance.dataStorage.playerDataStorage.dush;
@@ -51,6 +58,28 @@ public class PlayerInventory : MonoBehaviour
 
         textDush.text = UIHandler.instance.ConvertNumberAbbreviation(dush);
         textCogwheel.text = UIHandler.instance.ConvertNumberAbbreviation(cogwheel);
+
+        ChangeCap();
+        ChangeClothes();
+        ChangeGun();
+    }
+
+    public void ChangeCap()
+    {
+        cap.sprite = EquipmentController.instance.caps[capLevel];
+        Vector2 pivot = PlayerController.instance.player.playerSkiner.caps[capLevel].pivot;
+        Vector2 size = PlayerController.instance.player.playerSkiner.caps[capLevel].rect.size;
+        rectCap.pivot = new Vector2(pivot.x / size.x, pivot.y / size.y);
+    }
+
+    public void ChangeClothes()
+    {
+        clothes.sprite = EquipmentController.instance.clothess[clothesLevel];
+    }
+
+    public void ChangeGun()
+    {
+        gun.sprite = EquipmentController.instance.guns[gunLevel];
     }
 
     public void SubtractGem(int gem)
@@ -62,7 +91,7 @@ public class PlayerInventory : MonoBehaviour
     {
         this.gem += gem;
     }
-    
+
     public void SubtractCogwheel(int cogwheel)
     {
         this.cogwheel -= cogwheel;

@@ -12,16 +12,13 @@ public class EquipmentController : MonoBehaviour
     public GameObject equipmentPrefab;
     public List<EquipmentInfo> equipments = new List<EquipmentInfo>();
     public EquipmentInfo[] equipMains;
+    public GameObject[] arrowEquipMains;
 
     public RectTransform container;
     public RectTransform view;
     public ScrollRect scrollInventory;
     public DesignContraint designContraint;
 
-    public Image cap;
-    public Image clothes;
-    public Image gun;
-    public Image boom;
     public Image[] iconTypes;
 
     public Image iconDesign;
@@ -93,6 +90,8 @@ public class EquipmentController : MonoBehaviour
     public Image maxLevel;
     public Image levelUp;
 
+    public GameObject lightEquipBest;
+
     public Color upColor;
     public Color downColor;
     public Color[] colorEquipLevels;
@@ -118,7 +117,7 @@ public class EquipmentController : MonoBehaviour
 
     public void DesignContraint()
     {
-        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 175, float.MinValue, designContraint.startY);
+        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 270, float.MinValue, designContraint.startY);
         designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
     }
 
@@ -156,6 +155,7 @@ public class EquipmentController : MonoBehaviour
         CheckStateEquipBest();
         CheckStateSellDuplicates();
         QualitySort();
+        CheckWeaponUpgrade();
     }
 
     int GetIndexLevel(int index)
@@ -180,8 +180,9 @@ public class EquipmentController : MonoBehaviour
         else gunDesign.SetActive(true);
 
         if (playerInventory.amoutClothesDesign == 0 && playerInventory.amoutCapDesign == 0 && playerInventory.amoutBoomDesign == 0 && playerInventory.amoutGunDesign == 0) view.offsetMin = new Vector2(view.offsetMin.x, 30);
-        else view.offsetMin = new Vector2(view.offsetMin.x, 250);
+        else view.offsetMin = new Vector2(view.offsetMin.x, 345);
     }
+
 
     void UpdateDamage()
     {
@@ -194,14 +195,6 @@ public class EquipmentController : MonoBehaviour
             }
         }
         textDamage.text = UIHandler.instance.ConvertNumberAbbreviation(damage);
-    }
-
-    void SetSpritePlayer(EQUIPMENTTYPE type, Sprite sprite)
-    {
-        if (type == EQUIPMENTTYPE.SHOTGUN) gun.sprite = sprite;
-        else if (type == EQUIPMENTTYPE.GRENADE) boom.sprite = sprite;
-        else if (type == EQUIPMENTTYPE.CAP) cap.sprite = sprite;
-        else if (type == EQUIPMENTTYPE.ARMOR) clothes.sprite = sprite;
     }
 
     void UpdateHealth()
@@ -254,6 +247,26 @@ public class EquipmentController : MonoBehaviour
                     SwapValueEquip(equipments[i], equipments[j]);
                 }
             }
+        }
+    }
+
+    void CheckWeaponUpgrade()
+    {
+        for (int i = 0; i < equipMains.Length; i++)
+        {
+            bool isNok = false;
+            int levelUpgrade = GetLevelUpgrade(equipMains[i].type);
+            int dushSelected = GetDush(levelUpgrade);
+            int designSelected = GetDesign(levelUpgrade);
+            int amoutDesgin = GetAmoutDesign(equipMains[i].type);
+
+            if (playerInventory.dush < dushSelected || amoutDesgin < designSelected)
+            { 
+                isNok = true;
+            }
+
+            if (isNok) arrowEquipMains[i].SetActive(false);
+            else arrowEquipMains[i].SetActive(true);
         }
     }
 
@@ -336,11 +349,14 @@ public class EquipmentController : MonoBehaviour
         }
         UpdateInfoUpgrade(equipUpgradeSelected);
         CheckStateUpgrade(equipUpgradeSelected);
+        CheckWeaponUpgrade();
     }
 
     void UpdateInfoUpgrade(EquipmentInfo eq)
     {
-        currentLevelUpgrade.text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(eq.type) + 1);
+        string level = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(GetLevelUpgrade(eq.type) + 1);
+        currentLevelUpgrade.text = level;
+        equipCurrentLevels[(int)eq.type].text = level;
         currentValue.text = UIHandler.instance.ConvertNumberAbbreviation(eq.value);
         nextValue.text = UIHandler.instance.ConvertNumberAbbreviation(GetEquipValue(eq.type, (int)eq.level, GetLevelUpgrade(eq.type) + 1));
     }
@@ -409,6 +425,7 @@ public class EquipmentController : MonoBehaviour
             {
                 if (equipMains[i].type == equipments[j].type && equipMains[i].level < equipments[j].level)
                 {
+                    lightEquipBest.SetActive(true);
                     frameEquipBest.raycastTarget = true;
                     frameEquipBest.sprite = equipBest;
                     return;
@@ -501,6 +518,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.gunLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.GunChange();
             BulletController.instance.SetDamage(GetEquipValue(EQUIPMENTTYPE.SHOTGUN, playerInventory.gunLevel, ++playerInventory.gunLevelUpgrade));
+            playerInventory.ChangeGun();
         }
         else if (eq1.type == EQUIPMENTTYPE.GRENADE)
         {
@@ -515,6 +533,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.capLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.CapChange();
             PlayerController.instance.player.HpChange();
+            playerInventory.ChangeCap();
         }
         else
         {
@@ -522,6 +541,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.clothesLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.ClothesChange();
             PlayerController.instance.player.HpChange();
+            playerInventory.ChangeClothes();
         }
 
         if (isQuality) QualitySort();
@@ -640,6 +660,7 @@ public class EquipmentController : MonoBehaviour
         }
         frameEquipBest.raycastTarget = false;
         frameEquipBest.sprite = buttonNok;
+        lightEquipBest.SetActive(false);
         CheckStateSellDuplicates();
     }
 

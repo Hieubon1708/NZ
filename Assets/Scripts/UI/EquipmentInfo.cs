@@ -9,6 +9,8 @@ public class EquipmentInfo : MonoBehaviour
     public Image bg;
     public Image eq;
 
+    public GameObject frameLight;
+
     public int value;
     public string levelType;
 
