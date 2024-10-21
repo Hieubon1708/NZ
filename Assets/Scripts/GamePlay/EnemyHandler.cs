@@ -92,7 +92,7 @@ public class EnemyHandler : MonoBehaviour
         {
             subtractHp = int.Parse(collision.name);
             collision.gameObject.SetActive(false);
-            SubtractHp(subtractHp);
+            SubtractHp(subtractHp);            
         }
         if (collision.CompareTag("SawBooster"))
         {

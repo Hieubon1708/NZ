@@ -17,7 +17,6 @@ public class EnemyT3 : EnemyHandler
         SetHp();
         yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2);
         targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
-        if (transform.position.y >= CarController.instance.transform.position.y + GameController.instance.yPlus1) isLevingCave = true;
     }
 
     public override void SetHp()
@@ -33,7 +32,7 @@ public class EnemyT3 : EnemyHandler
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Tower") && EnemyTowerController.instance.GetTower().col == collision.gameObject) levingCave = StartCoroutine(LevingCave());
+        if (collision.CompareTag("Tower") && EnemyTowerController.instance.GetTower().col == collision.gameObject && collision.gameObject.activeSelf) levingCave = StartCoroutine(LevingCave());
     }
 
     protected override void FixedUpdate()
@@ -122,6 +121,5 @@ public class EnemyT3 : EnemyHandler
     public override void SetDefaultField()
     {
         base.SetDefaultField();
-        if (transform.position.y >= CarController.instance.transform.position.y + GameController.instance.yPlus1) isLevingCave = true;
     }
 }

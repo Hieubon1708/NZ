@@ -179,8 +179,16 @@ public class EquipmentController : MonoBehaviour
         if (playerInventory.amoutGunDesign == 0) gunDesign.SetActive(false);
         else gunDesign.SetActive(true);
 
-        if (playerInventory.amoutClothesDesign == 0 && playerInventory.amoutCapDesign == 0 && playerInventory.amoutBoomDesign == 0 && playerInventory.amoutGunDesign == 0) view.offsetMin = new Vector2(view.offsetMin.x, 30);
-        else view.offsetMin = new Vector2(view.offsetMin.x, 345);
+        if (playerInventory.amoutClothesDesign == 0 && playerInventory.amoutCapDesign == 0 && playerInventory.amoutBoomDesign == 0 && playerInventory.amoutGunDesign == 0)
+        {
+            designContraint.label.SetActive(false);
+            view.offsetMin = new Vector2(view.offsetMin.x, 30);
+        }
+        else
+        {
+            designContraint.label.SetActive(true);
+            view.offsetMin = new Vector2(view.offsetMin.x, 345);
+        }
     }
 
 
@@ -261,7 +269,7 @@ public class EquipmentController : MonoBehaviour
             int amoutDesgin = GetAmoutDesign(equipMains[i].type);
 
             if (playerInventory.dush < dushSelected || amoutDesgin < designSelected)
-            { 
+            {
                 isNok = true;
             }
 
@@ -304,7 +312,6 @@ public class EquipmentController : MonoBehaviour
         SwapEquip(equipMain, equipSelected);
 
         HidePopupSwap();
-
         CheckStateEquipBest();
         CheckStateSellDuplicates();
     }
@@ -312,6 +319,7 @@ public class EquipmentController : MonoBehaviour
     public void UpgradeAccept()
     {
         Upgrade();
+        CheckDisplayDesign();
     }
 
     void Upgrade()
@@ -415,25 +423,36 @@ public class EquipmentController : MonoBehaviour
         {
             Upgrade();
         }
+        CheckDisplayDesign();
     }
 
     void CheckStateEquipBest()
     {
+        bool isHave = false;
+        bool[] isMaxOnce = new bool[equipMains.Length];
         for (int i = 0; i < equipMains.Length; i++)
         {
+            int max = GetEquipMax(equipMains[i].type, equipMains[i].level);
             for (int j = 0; j < amoutEquip; j++)
             {
-                if (equipMains[i].type == equipments[j].type && equipMains[i].level < equipments[j].level)
+                if (equipMains[i].type == equipments[j].type)
                 {
-                    lightEquipBest.SetActive(true);
-                    frameEquipBest.raycastTarget = true;
-                    frameEquipBest.sprite = equipBest;
-                    return;
+                    if (equipMains[i].level < equipments[j].level) isHave = true;
+                    if ((int)equipments[j].level == max && !isMaxOnce[i] && equipMains[i].level != equipments[j].level)
+                    {
+                        isMaxOnce[i] = true;
+                        equipments[j].frameLight.SetActive(true);
+                    }
+                    else
+                    {
+                        equipments[j].frameLight.SetActive(false);
+                    }
                 }
             }
         }
-        frameEquipBest.raycastTarget = false;
-        frameEquipBest.sprite = buttonNok;
+        lightEquipBest.SetActive(isHave);
+        frameEquipBest.raycastTarget = isHave;
+        frameEquipBest.sprite = isHave ? equipBest : buttonNok;
     }
 
     void CheckStateSellDuplicates()
@@ -658,9 +677,7 @@ public class EquipmentController : MonoBehaviour
                 }
             }
         }
-        frameEquipBest.raycastTarget = false;
-        frameEquipBest.sprite = buttonNok;
-        lightEquipBest.SetActive(false);
+        CheckStateEquipBest();
         CheckStateSellDuplicates();
     }
 

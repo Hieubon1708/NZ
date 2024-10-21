@@ -89,7 +89,7 @@ public class EnemyTowerController : MonoBehaviour
         }
     }
 
-    void DisableEs()
+    public void DisableEs()
     {
         for (int i = 0; i < listRandomEs.Count; i++)
         {
@@ -303,7 +303,7 @@ public class EnemyTowerController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = 1;// remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 
@@ -315,7 +315,11 @@ public class EnemyTowerController : MonoBehaviour
             if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
             {
                 int lineIndex = Random.Range(0, 3);
-                if (spawnX < scTowers[indexTower].col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
+                if (spawnX < scTowers[indexTower].col.transform.position.x)
+                {
+                    y = EUtils.RandomYDistanceByCar(3, 7f);
+                    (scE as EnemyT3).isLevingCave = true;
+                }
                 else y = Random.Range(CarController.instance.spawnY[lineIndex].position.y + 0.5f, CarController.instance.spawnY[lineIndex].position.y + 1f);
             }
             else
@@ -357,7 +361,11 @@ public class EnemyTowerController : MonoBehaviour
         if (e.name.Contains("Level 2 simpleEnemy 3 fl"))
         {
             int lineIndex = Random.Range(0, 3);
-            if (spawnX < scTowers[indexTower].col.transform.position.x) y = EUtils.RandomYDistanceByCar(3, 7f);
+            if (x < scTowers[indexTower].col.transform.position.x)
+            {
+                y = EUtils.RandomYDistanceByCar(3, 7f);
+                (eSc as EnemyT3).isLevingCave = true;
+            }
             else y = Random.Range(CarController.instance.spawnY[lineIndex].position.y + 0.5f, CarController.instance.spawnY[lineIndex].position.y + 1f);
         }
         else

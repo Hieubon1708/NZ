@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 70449314905778797}
   m_Layer: 0
   m_Name: main collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -881,6 +881,8 @@ MonoBehaviour:
   lineIndex: 0
   a: 0
   targetPos: {x: 0, y: 0}
+  isLevingCave: 0
+  targetX: 0
 --- !u!114 &7514071291464706062
 MonoBehaviour:
   m_ObjectHideFlags: 0

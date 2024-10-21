@@ -27,9 +27,9 @@ public class MachineGunHandler : WeaponShoter
     public float timeDistance;
     public float timeDistanceBooster;
     public float speedBullet;
-    public float cooldown;
+    float cooldown = 1;
+    float attackDuration = 2;
     float startCooldown = 1;
-    public float attackDuration;
     float startAttackDuration = 2;
 
     public void Awake()

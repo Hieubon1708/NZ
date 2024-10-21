@@ -128,6 +128,7 @@ public class GameController : MonoBehaviour
                 ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
             }
         }
+        EnemyTowerController.instance.DisableEs();
         listEVisible.Clear();
     }
 
