@@ -19,16 +19,6 @@ public class EnemyT3 : EnemyHandler
         targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
     }
 
-    public override void SetHp()
-    {
-        base.SetHp();
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
@@ -116,10 +106,5 @@ public class EnemyT3 : EnemyHandler
         {
             StopCoroutine(levingCave);
         }
-    }
-
-    public override void SetDefaultField()
-    {
-        base.SetDefaultField();
     }
 }

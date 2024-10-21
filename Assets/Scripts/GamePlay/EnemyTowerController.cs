@@ -100,6 +100,13 @@ public class EnemyTowerController : MonoBehaviour
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
+            for (int i = 0; i < eSpawnByTimes.Length; i++)
+            {
+                if (eSpawnByTimes[i] != null)
+                {
+                    StopCoroutine(eSpawnByTimes[i]);
+                }
+            }
             for (int i = 0; i < poolScEByTimes.Count; i++)
             {
                 EnemyHandler eSc = GetScE(poolScEByTimes[i].gameObject);
@@ -121,7 +128,9 @@ public class EnemyTowerController : MonoBehaviour
 
             es[index].SetActive(true);
             eSc.SpawnbyTime();
-            eSc.SetDefaultField();
+            eSc.healthHandler.SetDefaultInfo(eSc.enemyInfo);
+            eSc.SetColNKinematicNRevival(true);
+            eSc.animator.Rebind();
 
             index++;
             if (index == es.Length) index = 0;
@@ -171,7 +180,6 @@ public class EnemyTowerController : MonoBehaviour
     public void Restart()
     {
         DisableEs();
-        SetPosition();
 
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
@@ -180,7 +188,6 @@ public class EnemyTowerController : MonoBehaviour
                 if (eSpawnByTimes[i] != null)
                 {
                     StopCoroutine(eSpawnByTimes[i]);
-                    eSpawnByTimes[i] = null;
                 }
             }
         }

@@ -14,11 +14,6 @@ public class EnemyT4 : EnemyHandler
 
     public override void Start() { }
 
-    public override void SetHp()
-    {
-        base.SetHp();
-    }
-
     protected override void FixedUpdate()
     {
         float walkSpeed = 0f;
@@ -43,6 +38,8 @@ public class EnemyT4 : EnemyHandler
         animator.SetFloat("walkSpeed", walkSpeed);
     }
 
+    public override void SetDefaultField() { }
+
     protected override void DeathHandle()
     {
         SetColNKinematicNRevival(false);
@@ -51,11 +48,6 @@ public class EnemyT4 : EnemyHandler
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
         SetDeathAni();
         GameController.instance.listEVisible.Remove(gameObject);
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 
     public override void SpawnbyTime()
@@ -71,11 +63,6 @@ public class EnemyT4 : EnemyHandler
         transform.position = new Vector2(x, y);
     }
 
-    protected override void StopCoroutines()
-    {
-        base.StopCoroutines();
-    }
-
     public override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
@@ -85,15 +72,5 @@ public class EnemyT4 : EnemyHandler
             animator.SetBool("attack", true);
             isAttack = true;
         }
-    }
-
-    public override void OnCollisionExit2D(Collision2D collision)
-    {
-        base.OnCollisionExit2D(collision);
-    }
-
-    public override void SetDefaultField()
-    {
-        base.SetDefaultField();
     }
 }
