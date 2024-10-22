@@ -118,7 +118,6 @@ public class EquipmentController : MonoBehaviour
     IEnumerator SetPosition()
     {
         yield return new WaitForFixedUpdate();
-        Debug.LogWarning(designContraint.content.sizeDelta.y);
         float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
         designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
     }
@@ -167,12 +166,12 @@ public class EquipmentController : MonoBehaviour
         UpdateDamage();
         UpdateHealth();
         CheckDisplayDesign();
-        SortNCheckStateButton();
+        CheckStateButtonEquipBestNSellDuplicates();
         QualitySort();
         CheckWeaponUpgrade();
     }
 
-    public void SortNCheckStateButton()
+    public void CheckStateButtonEquipBestNSellDuplicates()
     {
         CheckStateEquipBest();
         CheckStateSellDuplicates();
@@ -616,6 +615,7 @@ public class EquipmentController : MonoBehaviour
         {
             if (equipments[j].gameObject.activeSelf && index != j && type == equipments[j].type && (int)equipments[j].level <= max)
             {
+                playerInventory.RewardDesign(equipments[j].type);
                 equipments[j].gameObject.SetActive(false);
                 amoutEquip--;
             }
@@ -676,8 +676,14 @@ public class EquipmentController : MonoBehaviour
         }
         CheckDisplayDesign();
         CheckStateSellDuplicates();
+        UpdateTextDush();
         frameSellDuplicates.sprite = buttonNok;
         frameSellDuplicates.raycastTarget = false;
+    }
+
+    public void UpdateTextDush()
+    {
+        playerInventory.textDush.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.dush);
     }
 
     int GetEquipMax(EQUIPMENTTYPE type, EQUIPMENTLEVEL level)

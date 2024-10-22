@@ -72,6 +72,15 @@ public class PlayerInventory : MonoBehaviour
         rectCap.pivot = new Vector2(pivot.x / size.x, pivot.y / size.y);
     }
 
+    public void RewardDesign(EquipmentController.EQUIPMENTTYPE type)
+    {
+        if (type == EquipmentController.EQUIPMENTTYPE.SHOTGUN) amoutGunDesign++;
+        else if (type == EquipmentController.EQUIPMENTTYPE.GRENADE) amoutBoomDesign++;
+        else if (type == EquipmentController.EQUIPMENTTYPE.CAP) amoutCapDesign++;
+        else amoutClothesDesign++;
+        dush += 10;
+    }
+
     public void ChangeClothes()
     {
         clothes.sprite = EquipmentController.instance.clothess[clothesLevel];

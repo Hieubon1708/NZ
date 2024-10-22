@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ public class GameController : MonoBehaviour
     {
         instance = this;
         DOTween.SetTweensCapacity(200, 1000);
-        Resize();
+        //Resize();
         GenerateColDisplay();
     }
 
@@ -199,10 +200,16 @@ public class GameController : MonoBehaviour
         float defaultSize = cam.orthographicSize;
         float screenRatio = (float)Screen.width / (float)Screen.height;
         float targetRatio = 10.8f / 19.2f;
-        if (screenRatio < targetRatio)
+        if (screenRatio >= targetRatio)
+        {
+            menuCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = defaultSize;
+            gameCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = defaultSize;
+        }
+        else
         {
             float changeSize = targetRatio / screenRatio;
-            cam.orthographicSize = defaultSize * changeSize;
+            menuCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = defaultSize * changeSize;
+            gameCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = defaultSize * changeSize;
         }
     }
 

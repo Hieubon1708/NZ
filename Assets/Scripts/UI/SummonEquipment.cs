@@ -7,7 +7,12 @@ public class SummonEquipment : MonoBehaviour
     public Image panelChances;
     public RectTransform chancePopup;
 
+    public TextMeshProUGUI textGem;
+    public TextMeshProUGUI textKey;
     public Image progress;
+    public Image frameRollX1;
+    public Image frameRollX10;
+    public GameObject[] frameInactive;
 
     public float[][] chanceDatas;
 
@@ -31,11 +36,39 @@ public class SummonEquipment : MonoBehaviour
             level = DataManager.instance.dataStorage.chanceDataStorage.level;
             amout = DataManager.instance.dataStorage.chanceDataStorage.amout;
         }
-
         textLevel.text = "Lv." + (level + 1);
         int amoutUpgradeLevel = DataManager.instance.chanceConfig.amoutUpgradeLevel[level];
         SetTextNFillAmout(amoutUpgradeLevel);
         ChanceSort(level);
+    }
+
+    public void UpdateText()
+    {
+        textGem.text = UIHandler.instance.ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+    }
+
+    public void CheckButtonState()
+    {
+        if(EquipmentController.instance.playerInventory.gem < 5)
+        {
+            frameRollX1.raycastTarget = false;
+            frameInactive[0].SetActive(true);
+        }
+        else
+        {
+            frameRollX1.raycastTarget = true;
+            frameInactive[0].SetActive(false);
+        }
+        if(EquipmentController.instance.playerInventory.gem < 45)
+        {
+            frameRollX10.raycastTarget = false;
+            frameInactive[1].SetActive(true);
+        }
+        else
+        {
+            frameRollX10.raycastTarget = true;
+            frameInactive[1].SetActive(false);
+        }
     }
 
     void ChanceSort(int level)
@@ -60,24 +93,30 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX1()
     {
+        EquipmentController.instance.playerInventory.gem -= 5;
         Roll();
         SortEquip();
+        CheckButtonState();
+        UpdateText();
     }
 
     public void RollX10()
     {
+        EquipmentController.instance.playerInventory.gem -= 45;
         for (int i = 0; i < 10; i++)
         {
             Roll();
         }
         SortEquip();
+        CheckButtonState();
+        UpdateText();
     }
 
     void SortEquip()
     {
-        EquipmentController.instance.SortNCheckStateButton();
         if (EquipmentController.instance.isQuality) EquipmentController.instance.QualitySort();
         else EquipmentController.instance.ClassSort();
+        EquipmentController.instance.CheckStateButtonEquipBestNSellDuplicates();
     }
 
     void Roll()

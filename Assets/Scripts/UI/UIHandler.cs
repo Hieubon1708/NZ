@@ -22,6 +22,7 @@ public class UIHandler : MonoBehaviour
 
     public GameObject gold;
     public TextMeshProUGUI textGold;
+    public TextMeshProUGUI textGem;
 
     public Sprite[] frameButtonWeaponBuyers;
     public Sprite[] frameButtonWeaponUpgradees;
@@ -54,6 +55,7 @@ public class UIHandler : MonoBehaviour
         GoldUpdatee();
         summonEquipment.LoadData();
         setting.LoadData();
+        textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
     }
 
     void Generate()

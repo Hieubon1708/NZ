@@ -20,7 +20,6 @@ public class Menu : MonoBehaviour
     public Sprite ok;
     public Sprite nOk;
 
-
     public GameObject battle;
     public GameObject inventory;
     public GameObject shop;
@@ -28,13 +27,24 @@ public class Menu : MonoBehaviour
 
     public void Start()
     {
-        startSizeX = Screen.width / options.Length;
+        startSizeX = 1080 / options.Length;
+        if (GameController.instance.cam.aspect >= 0.55f)
+        {
+            startSizeX += startSizeX - startSizeX * ((float)1920 / Screen.height);
+        }
+
         startSizeY = options[0].sizeDelta.y;
 
         bigSizeX = startSizeX * 1.2f;
         bigSizeY = startSizeY * 1f;
 
-        minSizeX = (Screen.width - bigSizeX) / (options.Length - 1);
+        minSizeX = (1080 - bigSizeX) / (options.Length - 1);
+
+        if (GameController.instance.cam.aspect >= 0.55f)
+        {
+            float screen = 1080 + (1080 - 1080 * ((float)1920 / Screen.height));
+            minSizeX = (screen - bigSizeX) / (options.Length - 1);
+        }
 
         ScaleOption(2, 0f);
     }
@@ -80,6 +90,7 @@ public class Menu : MonoBehaviour
     public void InventoryActive(bool isActive)
     {
         inventory.SetActive(isActive);
+        EquipmentController.instance.DesignUpdatePosition();
     }
 
     public void WeaponActive(bool isActive)
@@ -95,6 +106,8 @@ public class Menu : MonoBehaviour
     public void ShopActive(bool isActive)
     {
         shop.SetActive(isActive);
+        UIHandler.instance.summonEquipment.UpdateText();
+        UIHandler.instance.summonEquipment.CheckButtonState();
     }
 
     public void OnClick(int index)
