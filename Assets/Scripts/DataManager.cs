@@ -221,6 +221,7 @@ public class BlockConfig
 public class ChanceConfig
 {
     public float[][] chances;
+    public int[] amoutUpgradeLevel;
 }
 
 [System.Serializable]
@@ -346,16 +347,22 @@ public class EnergyConfig
 public class DataStorage
 {
     public int level;
+    public bool isSoundActive;
+    public bool isMusicActive;
 
     public playerDataStorage playerDataStorage;
     public BlockDataStorage[] blockDataStorage;
     public EnergyDataStorage energyDataStorage;
     public ChanceDataStorage chanceDataStorage;
     public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
+
     public DataStorage() { }
-    public DataStorage(int level, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
+
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
     {
         this.level = level;
+        this.isSoundActive = isSoundActive;
+        this.isMusicActive = isMusicActive;
         this.playerDataStorage = playerDataStorage;
         this.blockDataStorage = blockDataStorage;
         this.energyDataStorage = energyDataStorage;

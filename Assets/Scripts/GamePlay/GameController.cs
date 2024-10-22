@@ -97,7 +97,8 @@ public class GameController : MonoBehaviour
         /*Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8, CarController.instance.transform.position.y + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8 - 3, CarController.instance.transform.position.y + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3f, CarController.instance.transform.position.y + 8), Quaternion.identity);
-   */ }
+   */
+    }
 
     public GameObject EBlockNearest(LayerMask layer)
     {
@@ -288,9 +289,9 @@ public class GameController : MonoBehaviour
         playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray(), UpgradeEvolutionController.instance.shockers.ToArray());
-        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.leveInPopUp, UIHandler.instance.summonEquipment.amout);
+        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
 
-        DataStorage dataStorage = new DataStorage(level, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
+        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

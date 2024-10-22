@@ -7,59 +7,153 @@ public class SummonEquipment : MonoBehaviour
     public Image panelChances;
     public RectTransform chancePopup;
 
-    public float[][] chancesData;
+    public Image progress;
+
+    public float[][] chanceDatas;
 
     public TextMeshProUGUI[] chancePercentages;
     public TextMeshProUGUI textLevel;
+    public TextMeshProUGUI textAmoutProgress;
     public TextMeshProUGUI textLevelInPopUp;
+
+    public float[] chanceSorts;
 
     public int level;
     public int leveInPopUp;
     public int amout;
 
-    public void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.S))
-        {
-            ShowChances();
-        }*/
-    }
-
     public void LoadData()
     {
-        chancesData = DataManager.instance.chanceConfig.chances;
+        chanceDatas = DataManager.instance.chanceConfig.chances;
+        chanceSorts = new float[chanceDatas[level].Length];
+        if (DataManager.instance.dataStorage.chanceDataStorage != null)
+        {
+            level = DataManager.instance.dataStorage.chanceDataStorage.level;
+            amout = DataManager.instance.dataStorage.chanceDataStorage.amout;
+        }
+
+        textLevel.text = "Lv." + (level + 1);
+        int amoutUpgradeLevel = DataManager.instance.chanceConfig.amoutUpgradeLevel[level];
+        SetTextNFillAmout(amoutUpgradeLevel);
+        ChanceSort(level);
+    }
+
+    void ChanceSort(int level)
+    {
+        for (int i = 0; i < chanceSorts.Length; i++)
+        {
+            chanceSorts[i] = chanceDatas[level][i];
+        }
+        for (int i = 0; i < chanceSorts.Length - 1; i++)
+        {
+            for (int j = i + 1; j < chanceSorts.Length; j++)
+            {
+                if (chanceSorts[i] > chanceSorts[j])
+                {
+                    float temp = chanceSorts[j];
+                    chanceSorts[j] = chanceSorts[i];
+                    chanceSorts[i] = temp;
+                }
+            }
+        }
+    }
+
+    public void RollX1()
+    {
+        Roll();
+        SortEquip();
+    }
+
+    public void RollX10()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Roll();
+        }
+        SortEquip();
+    }
+
+    void SortEquip()
+    {
+        EquipmentController.instance.SortNCheckStateButton();
+        if (EquipmentController.instance.isQuality) EquipmentController.instance.QualitySort();
+        else EquipmentController.instance.ClassSort();
+    }
+
+    void Roll()
+    {
+        float rate = Random.Range(0f, 100f);
+        amout++;
+
+        float totalPercent = 0;
+        Debug.LogWarning("rate " + rate);
+        for (int i = 0; i < chanceSorts.Length; i++)
+        {
+            totalPercent += chanceSorts[i];
+            if (rate <= totalPercent)
+            {
+                Debug.LogWarning("totalPercent " + totalPercent);
+                int type = Random.Range(0, EquipmentController.instance.equipMains.Length);
+                Debug.LogWarning("weapon type " + type + " level " + GetRateLevel(chanceSorts[i]));
+                EquipmentController.instance.AddEquip(type, GetRateLevel(chanceSorts[i]));
+                break;
+            }
+        }
+
+        int amoutUpgradeLevel = DataManager.instance.chanceConfig.amoutUpgradeLevel[level];
+        if (amout == amoutUpgradeLevel)
+        {
+            amout = 0;
+            level++;
+            textLevel.text = "Lv." + (level + 1);
+            ChanceSort(level);
+        }
+        SetTextNFillAmout(amoutUpgradeLevel);
+    }
+
+    int GetRateLevel(float value)
+    {
+        for (int i = 0; i < chanceDatas[level].Length; i++)
+        {
+            if (chanceDatas[level][i] == value) return i;
+        }
+        return -1;
+    }
+
+    void SetTextNFillAmout(int amoutUpgradeLevel)
+    {
+        textAmoutProgress.text = amout + "/" + amoutUpgradeLevel;
+        float percent = (float)amout / amoutUpgradeLevel;
+        progress.fillAmount = percent;
     }
 
     public void ShowChances()
     {
         leveInPopUp = level;
-
         LoadChances(leveInPopUp);
-
         panelChances.gameObject.SetActive(true);
-
         UIHandler.instance.uIEffect.ScalePopup(panelChances, chancePopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
 
     void LoadChances(int level)
     {
-        textLevelInPopUp.text = "Lv." + level;
+        textLevelInPopUp.text = "Lv." + (level + 1);
 
         for (int i = 0; i < chancePercentages.Length; i++)
         {
-            chancePercentages[i].text = chancesData[level - 1][i] + "%";
+            chancePercentages[i].text = chanceDatas[level][i] + "%";
         }
     }
 
     public void ChanceNextLevel()
     {
-        if (leveInPopUp + 1 == chancesData.Length + 1) return;
+        if (leveInPopUp + 1 == chanceDatas.Length) return;
         LoadChances(++leveInPopUp);
     }
 
     public void ChanceBackLevel()
     {
-        if (leveInPopUp - 1 == 0) return;
+        if (leveInPopUp - 1 == -1) return;
         LoadChances(--leveInPopUp);
     }
 

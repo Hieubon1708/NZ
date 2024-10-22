@@ -11,6 +11,7 @@ public class UIHandler : MonoBehaviour
     public ProgressHandler progressHandler;
     public SummonEquipment summonEquipment;
     public UIEffect uIEffect;
+    public Setting setting;
 
     public GameObject goldFlyPrefab;
     public GameObject[] goldFlies;
@@ -52,6 +53,7 @@ public class UIHandler : MonoBehaviour
     {
         GoldUpdatee();
         summonEquipment.LoadData();
+        setting.LoadData();
     }
 
     void Generate()

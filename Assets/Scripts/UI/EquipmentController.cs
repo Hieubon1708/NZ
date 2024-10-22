@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -96,13 +97,30 @@ public class EquipmentController : MonoBehaviour
     public Color downColor;
     public Color[] colorEquipLevels;
 
-    bool isQuality = true;
+    public bool isQuality;
     public TextMeshProUGUI textQualityNClass;
+
+    Coroutine delayDesignContraint;
 
     public void Awake()
     {
         instance = this;
+        isQuality = true;
         Generate();
+    }
+
+    public void DesignUpdatePosition()
+    {
+        if (delayDesignContraint != null) StopCoroutine(delayDesignContraint);
+        delayDesignContraint = StartCoroutine(SetPosition());
+    }
+
+    IEnumerator SetPosition()
+    {
+        yield return new WaitForFixedUpdate();
+        Debug.LogWarning(designContraint.content.sizeDelta.y);
+        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
+        designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
     }
 
     void Generate()
@@ -117,7 +135,7 @@ public class EquipmentController : MonoBehaviour
 
     public void DesignContraint()
     {
-        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 270, float.MinValue, designContraint.startY);
+        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
         designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
     }
 
@@ -134,11 +152,8 @@ public class EquipmentController : MonoBehaviour
         {
             for (int i = 0; i < DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages.Length; i++)
             {
-                if (amoutEquip == equipments.Count - 1) Generate();
-                equipments[i].gameObject.SetActive(true);
                 EquipmentDataStorage eq = DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages[i];
-                SetEquip(eq.type, eq.level, equipments[i]);
-                amoutEquip++;
+                AddEquip(eq.type, eq.level);
             }
         }
 
@@ -152,10 +167,23 @@ public class EquipmentController : MonoBehaviour
         UpdateDamage();
         UpdateHealth();
         CheckDisplayDesign();
-        CheckStateEquipBest();
-        CheckStateSellDuplicates();
+        SortNCheckStateButton();
         QualitySort();
         CheckWeaponUpgrade();
+    }
+
+    public void SortNCheckStateButton()
+    {
+        CheckStateEquipBest();
+        CheckStateSellDuplicates();
+    }
+
+    public void AddEquip(int type, int level)
+    {
+        equipments[amoutEquip].gameObject.SetActive(true);
+        SetEquip(type, level, equipments[amoutEquip]);
+        amoutEquip++;
+        if (amoutEquip == equipments.Count - 1) Generate();
     }
 
     int GetIndexLevel(int index)
@@ -237,7 +265,7 @@ public class EquipmentController : MonoBehaviour
         else ClassSort();
     }
 
-    void ClassSort()
+    public void ClassSort()
     {
         for (int i = 0; i < amoutEquip - 1; i++)
         {
@@ -278,7 +306,7 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
-    void QualitySort()
+    public void QualitySort()
     {
         for (int i = 0; i < amoutEquip - 1; i++)
         {
