@@ -21,6 +21,7 @@ public class UIHandler : MonoBehaviour
     int curentCountFlyGold;
 
     public GameObject gold;
+    public GameObject gem;
     public TextMeshProUGUI textGold;
     public TextMeshProUGUI textGem;
 

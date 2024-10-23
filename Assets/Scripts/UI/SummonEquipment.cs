@@ -12,6 +12,10 @@ public class SummonEquipment : MonoBehaviour
     public Image progress;
     public Image frameRollX1;
     public Image frameRollX10;
+    public TextMeshProUGUI textFrameRollX1;
+    public TextMeshProUGUI textFrameRollX10;
+    public Image framePriceRollX1;
+    public Image framePriceRollX10;
     public GameObject[] frameInactive;
 
     public float[][] chanceDatas;
@@ -23,9 +27,19 @@ public class SummonEquipment : MonoBehaviour
 
     public float[] chanceSorts;
 
+    public Color framePriceX1Original;
+    public Color framePriceX10Original;
+    public Color textFrameOriginal;
+    public Color notEnoughMoney;
     public int level;
     public int leveInPopUp;
     public int amout;
+
+    public void Start()
+    {
+        framePriceX1Original = framePriceRollX1.color;
+        framePriceX10Original = framePriceRollX10.color;
+    }
 
     public void LoadData()
     {
@@ -53,21 +67,29 @@ public class SummonEquipment : MonoBehaviour
         {
             frameRollX1.raycastTarget = false;
             frameInactive[0].SetActive(true);
+            framePriceRollX1.color = notEnoughMoney;
+            textFrameRollX1.color = Color.white;
         }
         else
         {
             frameRollX1.raycastTarget = true;
             frameInactive[0].SetActive(false);
+            framePriceRollX1.color = framePriceX1Original;
+            textFrameRollX1.color = textFrameOriginal;
         }
-        if(EquipmentController.instance.playerInventory.gem < 45)
+        if (EquipmentController.instance.playerInventory.gem < 45)
         {
             frameRollX10.raycastTarget = false;
             frameInactive[1].SetActive(true);
+            framePriceRollX10.color = notEnoughMoney;
+            textFrameRollX10.color = Color.white;
         }
         else
         {
             frameRollX10.raycastTarget = true;
             frameInactive[1].SetActive(false);
+            framePriceRollX10.color = framePriceX10Original;
+            textFrameRollX10.color = textFrameOriginal;
         }
     }
 

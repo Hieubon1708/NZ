@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShockerBoosterHandler : MonoBehaviour
 {
     public SpriteRenderer[] electricities;
-    public Tween[] scaleElectricities;
     public GameObject topBall, botBall;
     public BoxCollider2D col;
     public GameObject parBooster;
@@ -20,19 +19,16 @@ public class ShockerBoosterHandler : MonoBehaviour
     float startSizebotBall;
     float startSizecol;
 
-    private void Start()
-    {
-        scaleElectricities = new Tween[electricities.Length];
-        startSizeElectricity = electricities[0].size.y;
-        startSizeParBooster = parBooster.transform.localScale.x;
-        startSizetopBall = topBall.transform.position.y;
-        startSizebotBall = botBall.transform.position.y;
-        startSizecol = col.size.y;
-        ZoomInBooster();
-    }
-
     public void ZoomInBooster()
     {
+        if(startSizecol == 0)
+        {
+            startSizecol = col.size.y;
+            startSizeElectricity = electricities[0].size.y;
+            startSizeParBooster = parBooster.transform.localScale.x;
+            startSizetopBall = topBall.transform.position.y;
+            startSizebotBall = botBall.transform.position.y;
+        }
         col.size = new Vector2(col.size.x, startSizecol);
         topBall.transform.position = new Vector2(topBall.transform.position.x, startSizetopBall);
         botBall.transform.position = new Vector2(botBall.transform.position.x, startSizebotBall);

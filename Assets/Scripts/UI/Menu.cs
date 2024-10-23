@@ -90,7 +90,10 @@ public class Menu : MonoBehaviour
     public void InventoryActive(bool isActive)
     {
         inventory.SetActive(isActive);
-        EquipmentController.instance.DesignUpdatePosition();
+        if (isActive)
+        {
+            EquipmentController.instance.DesignUpdatePosition();
+        }
     }
 
     public void WeaponActive(bool isActive)
@@ -106,8 +109,11 @@ public class Menu : MonoBehaviour
     public void ShopActive(bool isActive)
     {
         shop.SetActive(isActive);
-        UIHandler.instance.summonEquipment.UpdateText();
-        UIHandler.instance.summonEquipment.CheckButtonState();
+        if(isActive)
+        {
+            UIHandler.instance.summonEquipment.UpdateText();
+            UIHandler.instance.summonEquipment.CheckButtonState();
+        }
     }
 
     public void OnClick(int index)

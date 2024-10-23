@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -55,10 +56,14 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void Start()
     {
+        hitObj = content;
+    }
+
+    public void GetLayer()
+    {
         lineIndex = EUtils.GetIndexLine(gameObject);
         layerOrigin = gameObject.layer;
         layerBumping = LayerMask.NameToLayer("Line_" + lineIndex);
-        hitObj = content;
     }
 
     public virtual void SetHp()
@@ -73,7 +78,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ColDisplay"))
+        if (collision.CompareTag("ColDisplay") && !content.activeSelf)
         {
             content.SetActive(true);
             speed = realSpeed;
@@ -241,7 +246,7 @@ public class EnemyHandler : MonoBehaviour
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.contacts[0].normal.x >= 0.99f && !isBumping && collision.gameObject != frontalCollision)
+            if (collision.contacts[0].normal.x >= 0.85f && !isBumping && collision.gameObject != frontalCollision)
             {
                 frontalCollision = collision.gameObject;
             }
@@ -410,9 +415,6 @@ public class EnemyHandler : MonoBehaviour
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
             EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
-            content.SetActive(false);
-            gameObject.layer = layerOrigin;
-            colObj.layer = layerOrigin;
         });
     }
 
@@ -435,7 +437,6 @@ public class EnemyHandler : MonoBehaviour
     {
         StopCoroutines();
         SetDefaultField();
-        delayRevival.Kill();
     }
 
     protected virtual void StopCoroutines()
@@ -495,6 +496,7 @@ public class EnemyHandler : MonoBehaviour
         view.SetActive(true);
         colObj.SetActive(true);
         SetColNKinematicNRevival(true);
+        healthBar.SetActive(false);
         healthHandler.SetDefaultInfo(enemyInfo);
     }
 

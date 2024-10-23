@@ -4,7 +4,6 @@ public class PlayerAniEvent : MonoBehaviour
 {
     public void ShotAniEvent()
     {
-        return;
         if(!GameController.instance.isStart) return;
         StartCoroutine(PlayerController.instance.StartFindTarget());
     }

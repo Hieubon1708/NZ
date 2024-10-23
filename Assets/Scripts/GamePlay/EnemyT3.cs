@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 // con bắn đạn, bay ở trên
@@ -52,15 +53,11 @@ public class EnemyT3 : EnemyHandler
                 }
                 if (Vector2.Distance(transform.position, targetPos) > 0.1f)
                 {
-                    if (a) Debug.LogWarning(targetPos.ToString());
-
                     Vector2 targetPosition = Vector2.SmoothDamp(rb.position, targetPos, ref velocity, 0.3f);
                     rb.MovePosition(targetPosition);
                 }
                 else
                 {
-                    if (a) Debug.LogWarning("a");
-
                     targetPos = RandomTarget();
                 }
             }
@@ -106,5 +103,12 @@ public class EnemyT3 : EnemyHandler
         {
             StopCoroutine(levingCave);
         }
+    }
+
+    public override void SetDefaultField()
+    {
+        base.SetDefaultField();
+        delayRevival.Kill();
+        content.SetActive(false);
     }
 }

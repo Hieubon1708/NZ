@@ -344,11 +344,18 @@ public class EnergyConfig
 }
 
 [System.Serializable]
+public class ProgressConfig
+{
+    public int[] towerRewards;
+}
+
+[System.Serializable]
 public class DataStorage
 {
     public int level;
     public bool isSoundActive;
     public bool isMusicActive;
+    public int[] progresses;
 
     public playerDataStorage playerDataStorage;
     public BlockDataStorage[] blockDataStorage;
@@ -358,7 +365,7 @@ public class DataStorage
 
     public DataStorage() { }
 
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int progress)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
@@ -368,6 +375,7 @@ public class DataStorage
         this.energyDataStorage = energyDataStorage;
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
         this.chanceDataStorage = chanceDataStorage;
+        this.progress = progress;
     }
 }
 

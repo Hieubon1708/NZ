@@ -11,6 +11,7 @@ public class EnemyT5 : EnemyHandler
     Coroutine breakingSilk;
 
     public override void Start() { }
+    public override void SetDefaultField() { }
 
     public override void SpawnbyTime()
     {
@@ -67,14 +68,13 @@ public class EnemyT5 : EnemyHandler
         }
     }
 
-    public override void SetDefaultField() { }
 
     protected override void DeathHandle()
     {
         rb.gravityScale = 0;
         rb.velocity = Vector2.zero;
         StopCoroutines();
-        if (!silk.transform.IsChildOf(GameController.instance.poolDynamics)) ;
+        if (!silk.transform.IsChildOf(GameController.instance.poolDynamics))
         {
             silk.transform.SetParent(GameController.instance.poolDynamics);
             breakingSilk = StartCoroutine(BreakingSpiderSilk());

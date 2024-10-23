@@ -235,6 +235,7 @@ public class GameController : MonoBehaviour
         BlockController.instance.SetActiveUI(!isActive);
         UIHandler.instance.progressHandler.parent.SetActive(isActive);
         UIHandler.instance.gold.SetActive(!isActive);
+        UIHandler.instance.gem.SetActive(!isActive);
         CarController.instance.multiplier = isActive ? 1 : 0;
     }
 
@@ -298,7 +299,7 @@ public class GameController : MonoBehaviour
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray(), UpgradeEvolutionController.instance.shockers.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
 
-        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage);
+        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage, UIHandler.instance.progressHandler.progressIndex);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class EnemyT1 : EnemyHandler
@@ -65,5 +66,14 @@ public class EnemyT1 : EnemyHandler
         {
             if (playerCollision != null) StopCoroutine(playerCollision);
         }
+    }
+
+    public override void SetDefaultField()
+    {
+        base.SetDefaultField();
+        delayRevival.Kill();
+        content.SetActive(false);
+        gameObject.layer = layerOrigin;
+        colObj.layer = layerOrigin;
     }
 }

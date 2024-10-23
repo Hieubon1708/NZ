@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
 using static Unity.Collections.AllocatorManager;
@@ -214,7 +215,6 @@ public class BlockController : MonoBehaviour
     public void DeleteBlockInGame(GameObject block)
     {
         Block scBlock = GetScBlock(block);
-        block.SetActive(false);
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
         if (!GameController.instance.isLose)
@@ -224,9 +224,9 @@ public class BlockController : MonoBehaviour
         }
         for (int i = 0; i < tempBlocks.Count; i++)
         {
-            tempBlocks[i].transform.localPosition = new Vector2(tempBlocks[i].transform.localPosition.x, startY + distance * i);
+            tempBlocks[i].transform.DOLocalMoveY(startY + distance * i, 0.25f).SetEase(Ease.Linear);
         }
-        player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * tempBlocks.Count);
+        player.transform.DOLocalMoveY(startYPlayer + distance * tempBlocks.Count, 0.25f).SetEase(Ease.Linear).OnComplete(delegate { block.SetActive(false); });
     }
 
     public Block GetScBlock(GameObject block)

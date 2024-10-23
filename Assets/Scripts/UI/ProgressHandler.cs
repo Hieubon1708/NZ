@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,41 @@ public class ProgressHandler : MonoBehaviour
     public Image progress;
     public int gold;
     public TextMeshProUGUI textGold;
+    public GameObject[] chests;
+    public GameObject[] chestCompleteds;
+    public List<int> progresses;
+    public List<EquipmentInfo> equipRewards = new List<EquipmentInfo>();
+
+    public void LoadData()
+    {
+        if (DataManager.instance.dataStorage != null)
+        {
+            progresses = DataManager.instance.dataStorage.progresses.ToList();
+            Restart();
+            if (DataManager.instance.dataStorage.level == 0) chests[0].SetActive(false);
+        }
+    }
+
+    public void ChestReward(int indexTower)
+    {
+        indexTower += 1;
+        if (indexTower % 2 != 0 && indexTower > progresses[progresses.Count - 1])
+        {
+            chestCompleteds[indexTower % 2].SetActive(true);
+            progresses.Add(indexTower);
+        }
+    }
+
+    public void Restart()
+    {
+        for (int i = 0; i < progresses.Count; i++)
+        {
+            if (progresses[i] % 2 != 0)
+            {
+                chests[i].SetActive(false);
+            }
+        }
+    }
 
     public void StartGame()
     {
@@ -23,7 +60,6 @@ public class ProgressHandler : MonoBehaviour
     IEnumerator LaunchProgress(float distance, Transform target)
     {
         float startPos = target.position.x;
-
         while (progress.fillAmount <= 1 && GameController.instance.isStart)
         {
             float distanceLaunch = Mathf.Abs(target.position.x - startPos);

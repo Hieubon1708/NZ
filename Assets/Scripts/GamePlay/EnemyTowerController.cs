@@ -95,8 +95,8 @@ public class EnemyTowerController : MonoBehaviour
         {
             EnemyHandler eSc = GetScE(listRandomEs[i]);
             eSc.Restart();
-            if (eSc.content.activeSelf) eSc.content.SetActive(false);
-            if (listRandomEs[i].activeSelf) listRandomEs[i].SetActive(false);
+            eSc.content.SetActive(false);
+            listRandomEs[i].SetActive(false);
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
@@ -131,7 +131,7 @@ public class EnemyTowerController : MonoBehaviour
             eSc.healthHandler.SetDefaultInfo(eSc.enemyInfo);
             eSc.SetColNKinematicNRevival(true);
             eSc.animator.Rebind();
-
+            yield break;
             index++;
             if (index == es.Length) index = 0;
         }
@@ -340,9 +340,13 @@ public class EnemyTowerController : MonoBehaviour
             SetLayer(randomLine, scE.colObj);
 
             scE.sortingGroup.sortingLayerName = "Line_" + indexLine;
-            scE.rb.excludeLayers = (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8);
+            scE.rb.excludeLayers = (randomLine == 0 ? 0 : 1 << 9) | (randomLine == 1 ? 0 : 1 << 10) | (randomLine == 2 ? 0 : 1 << 11) | (randomLine == 0 ? 0 : 1 << 6) | (randomLine == 1 ? 0 : 1 << 7) | (randomLine == 2 ? 0 : 1 << 8) | 1 << 18;
 
-            if (!e.name.Contains("Level 2 simpleEnemy 3 fl")) spawnX += randomDistance * distance;
+            if (!e.name.Contains("Level 2 simpleEnemy 3 fl"))
+            {
+                scE.GetLayer();
+                spawnX += randomDistance * distance;
+            }
             count++;
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 // con bắn đạn ở dưới
 public class EnemyT2 : EnemyHandler
@@ -77,5 +78,14 @@ public class EnemyT2 : EnemyHandler
     {
         base.DeathHandle();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
+    }
+
+    public override void SetDefaultField()
+    {
+        base.SetDefaultField();
+        delayRevival.Kill();
+        content.SetActive(false);
+        gameObject.layer = layerOrigin;
+        colObj.layer = layerOrigin;
     }
 }

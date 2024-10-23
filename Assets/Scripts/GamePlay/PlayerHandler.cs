@@ -31,6 +31,7 @@ public class PlayerHandler : MonoBehaviour
             CarController.instance.DeathAni();
             ParController.instance.PlayPlayerDieParticle(PlayerController.instance.transform.position);
             CarController.instance.multiplier = 0;
+            UIHandler.instance.progressHandler.ChestReward(EnemyTowerController.instance.indexTower);
             boxCollider.SetActive(false);
             healthBar.SetActive(false);
         }
