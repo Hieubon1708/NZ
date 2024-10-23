@@ -107,10 +107,10 @@ public class PlayerController : MonoBehaviour
         b.SetActive(true);
         b.transform.position = startBoom.position;
 
-        float bgSpeed = GameController.instance.backgroundSpeed * 2f;
+        float bgSpeed = GameController.instance.backgroundSpeed * 1.5f;
         float blockHeight = BlockController.instance.tempBlocks.Count == 0 ? 0 : (transform.position.y - BlockController.instance.tempBlocks[0].transform.position.y) * 0.1f;
 
-        rb.AddForce(new Vector2(Random.Range(2.75f + bgSpeed - blockHeight, 3.55f + bgSpeed - blockHeight), 5), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Random.Range(4f + bgSpeed - blockHeight, 5f + bgSpeed - blockHeight), 5), ForceMode2D.Impulse);
         rb.AddTorque(0.75f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;

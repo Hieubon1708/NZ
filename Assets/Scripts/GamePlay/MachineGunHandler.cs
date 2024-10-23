@@ -15,7 +15,7 @@ public class MachineGunHandler : WeaponShoter
     public GameObject block;
 
     public int startAmoutLine = 1;
-    public int amoutLine;
+    int amoutLine = 1;
     public int count;
 
     Coroutine[] shots;

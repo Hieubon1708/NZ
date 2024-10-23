@@ -28,8 +28,8 @@ public class DataManager : MonoBehaviour
     public BlockConfig blockConfig;
     public EnergyConfig energyConfig;
     public ChanceConfig chanceConfig;
+    public RewardConfig[] rewardConfigs;
     public EquipmentConfig equipmentConfig;
-
     public WeaponConfig[] weaponConfigs;
 
     public void Awake()
@@ -69,12 +69,14 @@ public class DataManager : MonoBehaviour
         TextAsset playerConfigJs = Resources.Load<TextAsset>("Datas/PlayerConfig");
         TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
         TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
+        TextAsset rewardConfigJs = Resources.Load<TextAsset>("Datas/RewardConfig");
 
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
         chanceConfig = JsonConvert.DeserializeObject<ChanceConfig>(chanceConfigJs.text);
         equipmentConfig = JsonConvert.DeserializeObject<EquipmentConfig>(equipmentConfigJs.text);
         weaponConfigs = JsonConvert.DeserializeObject<WeaponConfig[]>(weaponConfigJs.text);
+        rewardConfigs = JsonConvert.DeserializeObject<RewardConfig[]>(rewardConfigJs.text);
 
         string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
         if (File.Exists(dataStorageJs))
@@ -225,6 +227,28 @@ public class ChanceConfig
 }
 
 [System.Serializable]
+public class RewardConfig
+{
+    public RewardLevelConfig[] rewardLevelConfigs;
+}
+
+public class RewardLevelConfig
+{
+    public EquipRewardConfig[] equips;
+    public int[] desgins;
+    public int dush;
+    public int gem;
+    public int key;
+    public int cogwheel;
+}
+
+public class EquipRewardConfig
+{
+    public int type;
+    public int level;
+}
+
+[System.Serializable]
 public class EquipmentConfig
 {
     public int[] dushUpgrades;
@@ -365,7 +389,7 @@ public class DataStorage
 
     public DataStorage() { }
 
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int progress)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int[] progresses)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
@@ -375,7 +399,7 @@ public class DataStorage
         this.energyDataStorage = energyDataStorage;
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
         this.chanceDataStorage = chanceDataStorage;
-        this.progress = progress;
+        this.progresses = progresses;
     }
 }
 
@@ -440,6 +464,7 @@ public class playerDataStorage
     public int gold;
     public int gem;
     public int dush;
+    public int key;
     public int cogwheel;
 
     public int gunLevel;
@@ -451,11 +476,12 @@ public class playerDataStorage
     public EquipmentUpgradeDataStorage equipmentUpgradeDataStorages;
     public EquipmentDataStorage[] equipmentDataStorages;
 
-    public playerDataStorage(int gold, int gem, int dush, int cogwheel, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
+    public playerDataStorage(int gold, int gem, int dush, int key, int cogwheel, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
     {
         this.gold = gold;
         this.gem = gem;
         this.dush = dush;
+        this.key = key;
         this.cogwheel = cogwheel;
         this.gunLevel = gunLevel;
         this.boomLevel = boomLevel;

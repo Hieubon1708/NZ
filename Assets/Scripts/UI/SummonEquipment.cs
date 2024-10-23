@@ -59,11 +59,12 @@ public class SummonEquipment : MonoBehaviour
     public void UpdateText()
     {
         textGem.text = UIHandler.instance.ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+        textKey.text = UIHandler.instance.ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.key);
     }
-
+    
     public void CheckButtonState()
     {
-        if(EquipmentController.instance.playerInventory.gem < 5)
+        if (EquipmentController.instance.playerInventory.gem < 5)
         {
             frameRollX1.raycastTarget = false;
             frameInactive[0].SetActive(true);
@@ -115,30 +116,27 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX1()
     {
-        EquipmentController.instance.playerInventory.gem -= 5;
+        SubtractGem(5);
         Roll();
-        SortEquip();
+        EquipmentController.instance.SortEquip();
         CheckButtonState();
+    }
+
+    void SubtractGem(int gem)
+    {
+        EquipmentController.instance.playerInventory.gem -= gem;
         UpdateText();
     }
 
     public void RollX10()
     {
-        EquipmentController.instance.playerInventory.gem -= 45;
+        SubtractGem(45);
         for (int i = 0; i < 10; i++)
         {
             Roll();
         }
-        SortEquip();
+        EquipmentController.instance.SortEquip();
         CheckButtonState();
-        UpdateText();
-    }
-
-    void SortEquip()
-    {
-        if (EquipmentController.instance.isQuality) EquipmentController.instance.QualitySort();
-        else EquipmentController.instance.ClassSort();
-        EquipmentController.instance.CheckStateButtonEquipBestNSellDuplicates();
     }
 
     void Roll()

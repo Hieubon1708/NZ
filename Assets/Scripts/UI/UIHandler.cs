@@ -55,6 +55,7 @@ public class UIHandler : MonoBehaviour
     {
         GoldUpdatee();
         summonEquipment.LoadData();
+        progressHandler.LoadData();
         setting.LoadData();
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
     }
@@ -98,6 +99,17 @@ public class UIHandler : MonoBehaviour
     public void GoldUpdatee()
     {
         textGold.text = ConvertNumberAbbreviation(PlayerController.instance.player.gold);
+    }
+    
+    public void GemUpdatee()
+    {
+        textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+    }
+
+    public void PlusGem(int gem)
+    {
+        EquipmentController.instance.playerInventory.gem += gem;
+        GemUpdatee();
     }
 
     public enum Type

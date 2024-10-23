@@ -19,6 +19,7 @@ public class Booster : MonoBehaviour
     public GameObject machineGunBooster;
     public GameObject shockerBooster;
     public WeaponBooster[] weaponBoosters;
+    public Sprite frameDelay;
 
     private void Awake()
     {
@@ -38,6 +39,12 @@ public class Booster : MonoBehaviour
         ActiveBoosterButton(false);
     }
 
+    public void PlusEnergy()
+    {
+        amoutEnergy += 12;
+        textAmoutEnergy.text = amoutEnergy.ToString();
+    }
+
     public void ActiveBoosterButton(bool isActive)
     {
         for (int i = 0; i < weaponBoosters.Length; i++)
@@ -49,7 +56,7 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
-        energyBar.DOFillAmount(1, 1f / 2f).SetEase(Ease.Linear).OnComplete(delegate
+        energyBar.DOFillAmount(1, 1f).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
             energyBar.fillAmount = 0;

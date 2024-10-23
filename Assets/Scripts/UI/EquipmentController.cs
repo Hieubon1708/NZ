@@ -132,6 +132,13 @@ public class EquipmentController : MonoBehaviour
         }
     }
 
+    public void SortEquip()
+    {
+        if (isQuality) QualitySort();
+        else ClassSort();
+        CheckStateButtonEquipBestNSellDuplicates();
+    }
+
     public void DesignContraint()
     {
         float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
@@ -913,7 +920,7 @@ public class EquipmentController : MonoBehaviour
         return null;
     }
 
-    void SetEquip(int type, int level, EquipmentInfo equipmentInfo)
+    public void SetEquip(int type, int level, EquipmentInfo equipmentInfo)
     {
         Sprite[] eq = null;
         EQUIPMENTTYPE equipType = GetType(type);

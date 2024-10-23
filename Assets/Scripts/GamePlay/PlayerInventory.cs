@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour
     public int gem;
     public int dush;
     public int cogwheel;
+    public int key;
 
     public int capLevel;
     public int clothesLevel;
@@ -38,6 +39,7 @@ public class PlayerInventory : MonoBehaviour
         {
             gem = DataManager.instance.dataStorage.playerDataStorage.gem;
             dush = DataManager.instance.dataStorage.playerDataStorage.dush;
+            key = DataManager.instance.dataStorage.playerDataStorage.key;
             cogwheel = DataManager.instance.dataStorage.playerDataStorage.cogwheel;
 
             gunLevel = DataManager.instance.dataStorage.playerDataStorage.gunLevel;

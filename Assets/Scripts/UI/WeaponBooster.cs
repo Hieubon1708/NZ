@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,7 @@ public class WeaponBooster : ButtonState
     public Booster booster;
     public Image frame;
     public TextMeshProUGUI textEnergy;
+    bool isUseBooster;
 
     public void UpdateTextEnergy()
     {
@@ -28,6 +30,15 @@ public class WeaponBooster : ButtonState
 
     public override void OnPointerUp(PointerEventData eventData)
     {
+        isUseBooster = true;
+        frame.sprite = booster.frameDelay;
+        frame.raycastTarget = false;
+        DOVirtual.DelayedCall(0.5f, delegate
+        {
+            frame.raycastTarget = true;
+            isUseBooster = false;
+            CheckBooterState();
+        });
         ScaleButton(localScale, 0.05f);
         booster.amoutEnergy -= energy;
         booster.CheckBoosterState();
@@ -43,6 +54,7 @@ public class WeaponBooster : ButtonState
 
     public void CheckBooterState()
     {
+        if (isUseBooster) return;
         if (booster.amoutEnergy < energy)
         {
             UIHandler.instance.BoosterButtonChangeState(frame, false, this is BoomBooster);
