@@ -101,9 +101,9 @@ public class GameController : MonoBehaviour
    */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
-            UIHandler.instance.DoLayerCover(0f, 0.75f, null);
-            StartGame();
-            StartCoroutine(PlayerController.instance.StartFindTarget());
+            //StartGame();
+            //UIHandler.instance.DoLayerCover(0f, 0.75f, null);
+            //StartCoroutine(PlayerController.instance.StartFindTarget());
         }
     }
 

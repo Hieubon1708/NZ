@@ -45,6 +45,7 @@ public class BlockUpgradeController : MonoBehaviour
                 }
                 blockSelected.transform.position = frame1.transform.position;
                 scBlock.blockUpgradeHandler.DeSelected();
+                scBlock.blockUpgradeHandler.UpdateUIPosition();
                 SetActiveFrame(false);
                 RecyleChange(true);
                 blockSelected = null;

@@ -7,6 +7,7 @@ using static GameController;
 public class BlockUpgradeHandler : ButtonUpgradee
 {
     public Block blockInfo;
+    public GameObject content;
     public GameObject weaponBuyer;
     public BlockHandler blockHandler;
     public WeaponBuyButton[] weaponBuyButtons;
@@ -25,6 +26,26 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public GameObject weaponUpgrade;
     public GameObject canvas;
     public WeaponUpgradeHandler weaponUpgradeHandler;
+
+    private void Start()
+    {
+        UpdateUIPosition();
+    }
+
+    public void UpdateUIPosition()
+    {
+        frame.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x - 1.75f, transform.position.y));
+        weaponBuyer.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x + 1.25f, transform.position.y));
+        weaponUpgrade.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x + 2.55f, transform.position.y));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            UpdateUIPosition();
+        }
+    }
 
     public void LoadData(int blockLevel, WEAPON weaponType, int weaponLevel, int levelUpgrade)
     {
@@ -132,14 +153,14 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public void Selected()
     {
         canvas.SetActive(false);
-        transform.localScale = Vector3.one * 1.55f;
+        content.transform.localScale = Vector3.one * 1.55f;
         sortingGroup.sortingLayerName = "UI";
     }
 
     public void DeSelected()
     {
         canvas.SetActive(true);
-        transform.localScale = Vector3.one;
+        content.transform.localScale = Vector3.one;
         sortingGroup.sortingLayerName = "Default";
     }
 }

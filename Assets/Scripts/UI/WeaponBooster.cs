@@ -30,6 +30,7 @@ public class WeaponBooster : ButtonState
 
     public override void OnPointerUp(PointerEventData eventData)
     {
+        CheckTutorial(false);
         isUseBooster = true;
         frame.sprite = booster.frameDelay;
         frame.raycastTarget = false;
@@ -43,6 +44,14 @@ public class WeaponBooster : ButtonState
         booster.amoutEnergy -= energy;
         booster.CheckBoosterState();
         UseBooster();
+    }
+
+    void CheckTutorial(bool isActive)
+    {
+        UIHandler.instance.tutorial.TutorialButtonBooserBoom(isActive, this);
+        UIHandler.instance.tutorial.TutorialButtonBooserSaw(isActive, this);
+        UIHandler.instance.tutorial.TutorialButtonBooserFlame(isActive, this);
+        UIHandler.instance.tutorial.TutorialButtonBooserMachineGun(isActive, this);
     }
 
     public virtual void UseBooster() { }
@@ -61,6 +70,7 @@ public class WeaponBooster : ButtonState
         }
         else
         {
+            CheckTutorial(true);
             UIHandler.instance.BoosterButtonChangeState(frame, true, this is BoomBooster);
         }
     }

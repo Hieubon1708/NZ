@@ -1,4 +1,3 @@
-using Coffee.UIExtensions;
 using DG.Tweening;
 using System;
 using TMPro;
@@ -52,17 +51,10 @@ public class UIHandler : MonoBehaviour
 
     public Image layerCover;
 
-    public Unmask unmask;
-
     public void Awake()
     {
         instance = this;
         Generate();
-    }
-
-    public void Start()
-    {
-        layerCover.gameObject.SetActive(true);
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
@@ -82,7 +74,7 @@ public class UIHandler : MonoBehaviour
         summonEquipment.LoadData();
         progressHandler.LoadData();
         setting.LoadData();
-        tutorial.LoadData();
+        //tutorial.LoadData();
         menu.LoadData();
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
     }

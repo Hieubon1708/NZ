@@ -169,6 +169,11 @@ public class BlockController : MonoBehaviour
             float y = startY + distance * i;
             if (blocks[i] != block) blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, y);
             else frame.transform.position = new Vector2(frame.transform.position.x, y + CarController.instance.transform.localPosition.y);
+            if (blocks[i] != block)
+            {
+                Block sc = GetScBlock(blocks[i]);
+                sc.blockUpgradeHandler.UpdateUIPosition();
+            }
         }
     }
 
