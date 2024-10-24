@@ -253,4 +253,12 @@ public class MachineGunHandler : WeaponShoter
             else if (amout == 3) multiplier = 1.6f;
         }
     }
+
+    public override void DisableWeapon()
+    {
+        if (shotBoosters != null) StopCoroutine(shotBoosters);
+        ani.SetBool("attack", false);
+        StopAll();
+        if (rotate != null) StopCoroutine(rotate);
+    }
 }

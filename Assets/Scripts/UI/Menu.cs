@@ -7,6 +7,8 @@ public class Menu : MonoBehaviour
     public RectTransform[] options;
     public Image[] optionImages;
 
+    public GameObject[] lockOptions;
+
     float startSizeX;
     float startSizeY;
 
@@ -24,6 +26,30 @@ public class Menu : MonoBehaviour
     public GameObject inventory;
     public GameObject shop;
     public GameObject battleGamePlay;
+
+    public void LoadData()
+    {
+        if (UIHandler.instance.tutorial.isUnlockInventory)
+        {
+            lockOptions[0].SetActive(false);
+        }
+        else optionImages[1].raycastTarget = false;
+        if (UIHandler.instance.tutorial.isUnlockShop)
+        {
+            lockOptions[1].SetActive(false);
+        }
+        else optionImages[0].raycastTarget = false;
+        if (UIHandler.instance.tutorial.isUnlockBoss)
+        {
+            lockOptions[4].SetActive(false);
+        }
+        else optionImages[3].raycastTarget = false;
+        if (UIHandler.instance.tutorial.isUnlockWeapon)
+        {
+            lockOptions[3].SetActive(false);
+        }
+        else optionImages[4].raycastTarget = false;
+    }
 
     public void Start()
     {

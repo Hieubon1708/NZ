@@ -18,6 +18,7 @@ public class SawHandler : WeaponShoter
     public Rigidbody2D[] sawBoosters;
     public Transform container;
     public List<GameObject> listEs = new List<GameObject>();
+    CircleCollider2D col;
 
     public void Awake()
     {
@@ -28,6 +29,11 @@ public class SawHandler : WeaponShoter
             sawBoosters[i] = s.GetComponent<Rigidbody2D>();
             s.SetActive(false);
         }
+    }
+
+    public void Start()
+    {
+        col = GetComponent<CircleCollider2D>();
     }
 
     public override void LoadData()
@@ -161,7 +167,7 @@ public class SawHandler : WeaponShoter
         }
     }
 
-    public override void StartGame() { }
+    public override void StartGame() { col.enabled = true; }
 
     public override void UseBooster()
     {
@@ -219,5 +225,15 @@ public class SawHandler : WeaponShoter
             else if (amout == 2) multiplier = 1.4f;
             else if (amout == 3) multiplier = 1.6f;
         }
+    }
+
+    public override void DisableWeapon()
+    {
+        col.enabled = false;
+        sawAttackAni.Stop();
+        if (blood != null) StopCoroutine(blood);
+        if (sawBooster != null) StopCoroutine(sawBooster);
+        if (rotate != null) StopCoroutine(rotate);
+        count = 0;
     }
 }

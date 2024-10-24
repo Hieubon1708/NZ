@@ -381,6 +381,7 @@ public class DataStorage
     public bool isMusicActive;
     public int[] progresses;
 
+    public TutorialDataStorage tutorialDataStorage;
     public playerDataStorage playerDataStorage;
     public BlockDataStorage[] blockDataStorage;
     public EnergyDataStorage energyDataStorage;
@@ -389,7 +390,7 @@ public class DataStorage
 
     public DataStorage() { }
 
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int[] progresses)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int[] progresses, TutorialDataStorage tutorialDataStorage)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
@@ -400,6 +401,7 @@ public class DataStorage
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
         this.chanceDataStorage = chanceDataStorage;
         this.progresses = progresses;
+        this.tutorialDataStorage = tutorialDataStorage;
     }
 }
 
@@ -413,6 +415,14 @@ public class ChanceDataStorage
         this.level = level;
         this.amout = amout;
     }
+}
+
+public class TutorialDataStorage
+{
+    public int isFirstTimePlay;
+    public int isFirstTimeClickButtonBuyBlock;
+    public int isFirstTimeClickButtonBuyWeapon;
+    public int isFirstTimeClickBooster;
 }
 
 public class EquipmentDataStorage

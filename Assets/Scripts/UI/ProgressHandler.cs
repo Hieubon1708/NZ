@@ -9,6 +9,8 @@ public class ProgressHandler : MonoBehaviour
 {
     public Image panelReward;
     public RectTransform rewardPopup;
+    public Image panelLose;
+    public RectTransform losePopup;
     public GameObject parent;
     public Image progress;
 
@@ -18,6 +20,7 @@ public class ProgressHandler : MonoBehaviour
     public TextMeshProUGUI textGem;
     public TextMeshProUGUI textKey;
     public TextMeshProUGUI textCogwheel;
+    public TextMeshProUGUI textGoldReward;
 
     public int gold;
     public TextMeshProUGUI textGold;
@@ -37,6 +40,24 @@ public class ProgressHandler : MonoBehaviour
             Restart();
             if (GameController.instance.level == 0) chests[0].SetActive(false);
         }
+    }
+
+    public void ShowLose()
+    {
+        textGoldReward.text = gold.ToString();
+        panelLose.gameObject.SetActive(true);
+        UIHandler.instance.uIEffect.ScalePopup(panelLose, losePopup, 222f / 255f, 0.1f, 1f, 0.5f);
+    }
+
+    public void HideLose()
+    {
+        UIHandler.instance.uIEffect.ScalePopup(panelLose, losePopup, 0f, 0f, 0.8f, 0f);
+        panelLose.gameObject.SetActive(false);
+    }
+
+    public void X2Gold()
+    {
+        HideLose();
     }
 
     public void ShowReward()

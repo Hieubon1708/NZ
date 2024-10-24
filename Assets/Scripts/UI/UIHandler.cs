@@ -1,4 +1,6 @@
+using Coffee.UIExtensions;
 using DG.Tweening;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,15 +10,18 @@ public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance;
 
+    public RectTransform poolUIs;
     public ProgressHandler progressHandler;
     public SummonEquipment summonEquipment;
     public UIEffect uIEffect;
     public Setting setting;
+    public Tutorial tutorial;
+    public Menu menu;
 
+    public TextMeshProUGUI mapInfo;
     public GameObject goldFlyPrefab;
     public GameObject[] goldFlies;
     public int amout;
-    public Transform container;
     public Transform targetFlyGold;
     int curentCountFlyGold;
 
@@ -45,18 +50,40 @@ public class UIHandler : MonoBehaviour
     public Color arrowOk;
     public Color arrowNOk;
 
+    public Image layerCover;
+
+    public Unmask unmask;
+
     public void Awake()
     {
         instance = this;
         Generate();
     }
 
+    public void Start()
+    {
+        layerCover.gameObject.SetActive(true);
+    }
+
+    public void DoLayerCover(float alpha, float duration, Action callback)
+    {
+        layerCover.gameObject.SetActive(true);
+        layerCover.DOFade(alpha, duration).OnComplete(delegate
+        {
+            layerCover.gameObject.SetActive(false);
+            if(callback != null) callback.Invoke();
+        });
+    }
+
     public void LoadData()
     {
+        if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
         GoldUpdatee();
         summonEquipment.LoadData();
         progressHandler.LoadData();
         setting.LoadData();
+        tutorial.LoadData();
+        menu.LoadData();
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
     }
 
@@ -65,9 +92,17 @@ public class UIHandler : MonoBehaviour
         goldFlies = new GameObject[amout];
         for (int i = 0; i < amout; i++)
         {
-            goldFlies[i] = Instantiate(goldFlyPrefab, container);
+            goldFlies[i] = Instantiate(goldFlyPrefab, poolUIs);
             goldFlies[i].SetActive(false);
         }
+    }
+
+    public void SetValue(bool isActive)
+    {
+        progressHandler.parent.SetActive(isActive);
+        mapInfo.transform.parent.gameObject.SetActive(!isActive);
+        gold.SetActive(!isActive);
+        gem.SetActive(!isActive);
     }
 
     public void FlyGold(Vector2 pos, int gold)

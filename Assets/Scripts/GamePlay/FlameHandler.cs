@@ -27,6 +27,12 @@ public class FlameHandler : WeaponShoter
     public float attackDuration;
     public float startAttackDuration = 2;
 
+    public void Start()
+    {
+        esmission = flameSmokeParticle.emission;
+        esmissionChild = flameSmokeParticleChild.emission;
+    }
+
     public override void LoadData()
     {
         startColSizes = new Vector2[colEvos.Length];
@@ -110,8 +116,6 @@ public class FlameHandler : WeaponShoter
 
     public override void StartGame()
     {
-        esmission = flameSmokeParticle.emission;
-        esmissionChild = flameSmokeParticleChild.emission;
         shot = StartCoroutine(Shot());
         FindTarget();
     }
@@ -217,5 +221,13 @@ public class FlameHandler : WeaponShoter
             else if (amout == 2) multiplier = 1.4f;
             else if (amout == 3) multiplier = 1.6f;
         }
+    }
+
+    public override void DisableWeapon()
+    {
+        if (shot != null) StopCoroutine(shot);
+        if (rotate != null) StopCoroutine(rotate);
+        ShotHandle(false, 1f, 0.35f);
+        colBooster.SetActive(false);
     }
 }

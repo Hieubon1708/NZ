@@ -15,6 +15,7 @@ public abstract class WeaponShoter : MonoBehaviour
 
     public abstract void StartGame();
     public abstract void UseBooster();
+    public abstract void DisableWeapon();
     public abstract void SetDamageBooster(int damage);
     public abstract void SetDamage(int damage);
 
@@ -24,6 +25,7 @@ public abstract class WeaponShoter : MonoBehaviour
         if (rotate != null) StopCoroutine(rotate);
         target = null;
     }
+
 
     protected void FindTarget()
     {

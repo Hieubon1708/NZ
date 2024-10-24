@@ -100,6 +100,7 @@ public class BlockController : MonoBehaviour
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
         energyUpgradee.LoadData();
         CheckButtonStateAll();
+        if(!UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(false);
     }
 
     public void SetActiveUI(bool isActive)
@@ -259,6 +260,14 @@ public class BlockController : MonoBehaviour
         for (int i = 0; i < scBlocks.Count; i++)
         {
             scBlocks[i].blockUpgradeHandler.LoadWeaponBuyButtonInCurrentLevel();
+        }
+    }
+
+    public void DisableWeapons()
+    {
+        for (int i = 0; i < tempBlocks.Count; i++)
+        {
+            scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
         }
     }
 }
