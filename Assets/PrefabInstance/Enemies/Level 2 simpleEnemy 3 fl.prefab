@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897103050014024}
   - component: {fileID: 212100921745570212}
+  - component: {fileID: 2451918962573874507}
   m_Layer: 0
   m_Name: Spider_2_1_Body
   m_TagString: Untagged
@@ -588,6 +589,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &2451918962573874507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561001423257140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1667125860864603}
 --- !u!1 &1571193443007499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1416,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4946940804095964}
   - component: {fileID: 212997807068516231}
-  - component: {fileID: 5054984191505784311}
   m_Layer: 0
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -1479,19 +1492,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &5054984191505784311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909963973446080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1667125860864603}
 --- !u!1 &1937634799697948
 GameObject:
   m_ObjectHideFlags: 0

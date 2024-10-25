@@ -30,6 +30,8 @@ public class EnergyUpgradeHandler : ButtonUpgradee
         UIHandler.instance.GoldUpdatee();
         level++;
         UpgradeHandle();
+        UIHandler.instance.tutorial.TutorialButtonUpgradeEnergy(true);
+        BlockController.instance.CheckButtonStateAll();
     }
 
     public override void UpgradeHandle()

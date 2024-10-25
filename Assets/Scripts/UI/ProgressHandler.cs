@@ -53,6 +53,15 @@ public class ProgressHandler : MonoBehaviour
     {
         UIHandler.instance.uIEffect.ScalePopup(panelLose, losePopup, 0f, 0f, 0.8f, 0f);
         panelLose.gameObject.SetActive(false);
+        UIHandler.instance.DoLayerCover(1f, 0.75f, delegate
+        {
+            UIHandler.instance.DoLayerCover(0f, 0.75f, delegate
+            {
+                UIHandler.instance.uIEffect.FlyGold();
+            });
+            GameController.instance.Restart();
+        });
+
     }
 
     public void X2Gold()
@@ -132,7 +141,7 @@ public class ProgressHandler : MonoBehaviour
         {
             chestCompleteds[indexTower / 2].SetActive(true);
             progresses.Add(indexTower);
-            if(indexTower / 2 == 0 && GameController.instance.level == 0) return;
+            if (indexTower / 2 == 0 && GameController.instance.level == 0) return;
             RewardConfig rewardConfig = DataManager.instance.rewardConfigs[GameController.instance.level];
             RewardLevelConfig rewardLevelConfig = rewardConfig.rewardLevelConfigs[indexTower / 2];
 

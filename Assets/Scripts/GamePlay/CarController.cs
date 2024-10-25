@@ -51,10 +51,9 @@ public class CarController : MonoBehaviour
     {
         carAni.SetTrigger("death");
     }
-    public GameObject i;
+
     public IEnumerator Bump(LayerMask layerBumping, LayerMask layerOrigin, GameObject colObj, GameObject droping, GameObject colDroping, GameObject ePush, EnemyHandler e, float distance)
     {
-        i = droping;
         ePush.layer = layerBumping;
         colObj.layer = layerBumping;
         e.isBumping = true;
@@ -76,5 +75,10 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         GameController.instance.backgroundSpeed = Mathf.Lerp(GameController.instance.backgroundSpeed, multiplier * (backgroundSpeed - (partSpeed * Mathf.Clamp(amoutCollison, 0, 3))), 0.1f);
+    }
+
+    public void Restart()
+    {
+        carAni.Rebind();
     }
 }

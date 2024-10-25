@@ -91,7 +91,7 @@ public class EnemyTowerHandler : MonoBehaviour
             damageTaken = 0;
             UIHandler.instance.FlyGold(enemyController.col.transform.position, 100);
             GameController.instance.EDeathAll(enemyController.col);
-            GameController.instance.ShakeCam();
+            GameController.instance.ShakeCam(0.35f);
             UIHandler.instance.progressHandler.ChestReward(EnemyTowerController.instance.indexTower);
             EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(view.transform.position.x + 1.5f, view.transform.position.y));

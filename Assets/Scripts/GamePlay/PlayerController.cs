@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     public void Restart()
     {
-        playerAni.SetBool("attack", false);
+        playerAni.Rebind();
         playerHandler.boxCollider.SetActive(true);
         BulletController.instance.EndShot();
     }
@@ -107,10 +107,10 @@ public class PlayerController : MonoBehaviour
         b.SetActive(true);
         b.transform.position = startBoom.position;
 
-        float bgSpeed = GameController.instance.backgroundSpeed * 1.5f;
+        float bgSpeed = GameController.instance.backgroundSpeed * 1.25f;
         float blockHeight = BlockController.instance.tempBlocks.Count == 0 ? 0 : (transform.position.y - BlockController.instance.tempBlocks[0].transform.position.y) * 0.1f;
 
-        rb.AddForce(new Vector2(Random.Range(4f + bgSpeed - blockHeight, 5f + bgSpeed - blockHeight), 5), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Random.Range(2.5f + bgSpeed - blockHeight, 3f + bgSpeed - blockHeight), 7), ForceMode2D.Impulse);
         rb.AddTorque(0.75f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;

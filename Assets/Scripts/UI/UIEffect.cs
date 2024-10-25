@@ -10,10 +10,14 @@ public class UIEffect : MonoBehaviour
     public RectTransform[] areaIn;
     public RectTransform[] areaOut;
     public GameObject targetGold;
+    Tween[] delayCall;
+    Tween delayTutorial;
+    Tween delayGoldUpdate;
 
     public void Start()
     {
         golds = new GameObject[7];
+        delayCall = new Tween[golds.Length];
         for (int i = 0; i < 7; i++)
         {
             golds[i] = Instantiate(preGold, UIHandler.instance.poolUIs);
@@ -36,15 +40,25 @@ public class UIEffect : MonoBehaviour
 
             int index = i;
 
-            lightCircle.DOFade(1f, 0.25f).OnComplete(delegate
+            lightCircle.DOFade(1f, 0.35f).OnComplete(delegate
             {
                 lightCircle.DOFade(0f, 0.85f);
             });
-            golds[index].transform.DOMove(new Vector2(xOut, yOut), 0.25f).OnComplete(delegate
+            golds[index].transform.DOMove(new Vector2(xOut, yOut), 0.35f).OnComplete(delegate
             {
-                DOVirtual.DelayedCall(Random.Range(0.25f, 0.35f), delegate
+                delayCall[index] = DOVirtual.DelayedCall(Random.Range(0.35f, 0.45f), delegate
                 {
                     golds[index].transform.DOMove(targetGold.transform.position, Random.Range(0.35f, 0.45f)).OnComplete(delegate { golds[index].SetActive(false); });
+                });
+                delayTutorial = DOVirtual.DelayedCall(0.9f, delegate
+                {
+                    UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
+                });
+                delayGoldUpdate = DOVirtual.DelayedCall(0.7f, delegate
+                {
+                    int gold = UIHandler.instance.progressHandler.gold;
+                    PlayerController.instance.player.PlusGold(gold);
+                    UIHandler.instance.GoldUpdatee();
                 });
             });
         }
@@ -73,10 +87,22 @@ public class UIEffect : MonoBehaviour
 
     public void OnDestroy()
     {
+        KillTw();
+    }
+
+    public void KillTw()
+    {
         for (int i = 0; i < golds.Length; i++)
         {
+            delayCall[i].Kill();
             golds[i].transform.DOKill();
+            golds[i].SetActive(false);
         }
+        Color color = lightCircle.color;
+        color.a = 0;
+        lightCircle.color = color;
         lightCircle.DOKill();
+        delayTutorial.Kill();
+        delayGoldUpdate.Kill();
     }
 }

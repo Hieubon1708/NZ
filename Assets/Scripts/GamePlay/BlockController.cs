@@ -49,7 +49,7 @@ public class BlockController : MonoBehaviour
         {
             blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, startY + distance * i);
             BlockUpgradeHandler blockUpgradeHandler = GetScBlock(blocks[i]).blockUpgradeHandler;
-            blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.Restart();
+            if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.Restart();
             if (!blocks[i].activeSelf) blocks[i].SetActive(true);
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
@@ -113,7 +113,7 @@ public class BlockController : MonoBehaviour
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);
-        goldReward.SetActive(isActive);
+        if (!UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(isActive);
     }
 
     public void CheckButtonStateAll()

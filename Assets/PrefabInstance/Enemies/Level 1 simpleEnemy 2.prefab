@@ -1118,6 +1118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 664543825533225885}
   - component: {fileID: 7946886885808856377}
+  - component: {fileID: 8225234086371449790}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -1192,6 +1193,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &8225234086371449790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742473167544125026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 3440869563518828017}
 --- !u!1 &3747605842329261283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,7 +2658,6 @@ GameObject:
   m_Component:
   - component: {fileID: 567432021141285936}
   - component: {fileID: 3494351163943567998}
-  - component: {fileID: 5334075782769169277}
   m_Layer: 0
   m_Name: Zombie_1_1_Body_Up
   m_TagString: Untagged
@@ -2719,19 +2732,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &5334075782769169277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520266264476404795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 3440869563518828017}
 --- !u!1 &8547895066930920774
 GameObject:
   m_ObjectHideFlags: 0

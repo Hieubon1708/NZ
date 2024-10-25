@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerHandler : MonoBehaviour
         if (hp == 0)
         {
             GameController.instance.isLose = true;
+            GameController.instance.touchScreen.SetActive(false);
             Booster.instance.KillEnergyNBoosterButton();
             PlayerController.instance.DeathAni();
             CarController.instance.DeathAni();
@@ -35,6 +37,16 @@ public class PlayerHandler : MonoBehaviour
             BlockController.instance.DisableWeapons();
             boxCollider.SetActive(false);
             healthBar.SetActive(false);
+            GameController.instance.ShakeCam(0.25f);
+            DOVirtual.DelayedCall(1.5f, delegate
+            {
+                if(UIHandler.instance.tutorial.isFirstTimePlay) UIHandler.instance.progressHandler.ShowLose();
+                else
+                {
+                    UIHandler.instance.progressHandler.HideLose(); 
+                    UIHandler.instance.tutorial.isFirstTimePlay = true;
+                }
+            });
         }
     }
 

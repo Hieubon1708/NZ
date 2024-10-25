@@ -181,7 +181,6 @@ public class Booster : MonoBehaviour
 
             if (amout == 1) percentage = 10;
             else if (amout == 2) percentage = 20;
-
             for (int i = 0; i < weaponBoosters.Length; i++)
             {
                 if (weaponBoosters[i] is MachineGunBooster)

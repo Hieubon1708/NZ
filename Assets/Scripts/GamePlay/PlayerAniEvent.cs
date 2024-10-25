@@ -4,7 +4,7 @@ public class PlayerAniEvent : MonoBehaviour
 {
     public void ShotAniEvent()
     {
-        if(!GameController.instance.isStart || !UIHandler.instance.tutorial.isFirstTimePlay) return;
+        if(!GameController.instance.isStart) return;
         StartCoroutine(PlayerController.instance.StartFindTarget());
     }
     

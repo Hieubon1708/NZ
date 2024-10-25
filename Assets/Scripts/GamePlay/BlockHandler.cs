@@ -35,6 +35,7 @@ public class BlockHandler : MonoBehaviour
 
         if (hp == 0)
         {
+            GameController.instance.ShakeCam(0.15f);
             BlockController.instance.DeleteBlockInGame(blockInfo.gameObject);
             ParController.instance.PlayBlockDestroyParticle(blockInfo.transform.position);
             if(blockInfo.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) Booster.instance.CheckButtonState(blockInfo.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType);

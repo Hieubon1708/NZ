@@ -57,14 +57,19 @@ public class UIHandler : MonoBehaviour
         Generate();
     }
 
+    public void Start()
+    {
+        DoLayerCover(0f, 0.5f, null);
+    }
+
     public void DoLayerCover(float alpha, float duration, Action callback)
     {
         layerCover.gameObject.SetActive(true);
         layerCover.DOFade(alpha, duration).OnComplete(delegate
         {
             layerCover.gameObject.SetActive(false);
-            if(callback != null) callback.Invoke();
-        });
+            if (callback != null) callback.Invoke();
+        }).SetEase(Ease.Linear);
     }
 
     public void LoadData()
@@ -111,11 +116,6 @@ public class UIHandler : MonoBehaviour
         });
     }
 
-    public void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     public void AddGold()
     {
         PlayerController.instance.player.gold += 100000;
@@ -127,7 +127,7 @@ public class UIHandler : MonoBehaviour
     {
         textGold.text = ConvertNumberAbbreviation(PlayerController.instance.player.gold);
     }
-    
+
     public void GemUpdatee()
     {
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);

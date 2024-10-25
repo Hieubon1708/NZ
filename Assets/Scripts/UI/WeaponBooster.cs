@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponBooster : ButtonState
+public class WeaponBooster : MonoBehaviour
 {
     public int energy;
     public Booster booster;
@@ -23,12 +23,8 @@ public class WeaponBooster : ButtonState
         UpdateTextEnergy();
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        ScaleButton(localScale * 0.95f, 0.05f);
-    }
 
-    public override void OnPointerUp(PointerEventData eventData)
+    public void OnClick(PointerEventData eventData)
     {
         CheckTutorial(false);
         isUseBooster = true;
@@ -40,7 +36,6 @@ public class WeaponBooster : ButtonState
             isUseBooster = false;
             CheckBooterState();
         });
-        ScaleButton(localScale, 0.05f);
         booster.amoutEnergy -= energy;
         booster.CheckBoosterState();
         UseBooster();

@@ -69,10 +69,10 @@ public class GameController : MonoBehaviour
         ChangeCarSprites(level);
     }
 
-    public void ShakeCam()
+    public void ShakeCam(float strength)
     {
         gameCamera.transform.DOComplete();
-        gameCamera.transform.DOShakePosition(1f, 0.35f);
+        gameCamera.transform.DOShakePosition(1f, strength);
     }
 
     public void GetEsByDistance(float distance, Vector2 from, List<Transform> es)
@@ -101,9 +101,11 @@ public class GameController : MonoBehaviour
    */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
-            //StartGame();
-            //UIHandler.instance.DoLayerCover(0f, 0.75f, null);
+            StartGame();
             //StartCoroutine(PlayerController.instance.StartFindTarget());
+        }else
+        {
+            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
         }
     }
 
@@ -156,10 +158,6 @@ public class GameController : MonoBehaviour
             ChangeCarSprites(level);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ShakeCam();
-        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Restart();
@@ -198,6 +196,7 @@ public class GameController : MonoBehaviour
         EnemyTowerController.instance.Restart();
         PlayerController.instance.Restart();
         BlockController.instance.Restart();
+        CarController.instance.Restart();
         Booster.instance.ResetBooster();
     }
 
