@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float hp;
+    public int hp;
     public float damage;
     public Bone bone;
 
-    public float SubtractHp(float hp)
+    public int SubtractHp(int hp)
     {
         this.hp -= hp;
         if (this.hp < 0) this.hp = 0;

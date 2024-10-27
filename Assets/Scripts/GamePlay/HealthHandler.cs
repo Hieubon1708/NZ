@@ -6,7 +6,7 @@ public class HealthHandler : MonoBehaviour
     public SpriteRenderer layer_1;
     public SpriteRenderer layer_2;
     float startWidth;
-    public float startHp;
+    public int startHp;
     public float timeSubtractHp_1;
     public float timeSubtractHp_2;
     Tween delayCallLayer_1;
@@ -18,15 +18,15 @@ public class HealthHandler : MonoBehaviour
         startWidth = layer_2.size.x;
     }
 
-    public void SetDefaultInfo(Enemy e)
+    public void SetDefaultInfo(ref int hp)
     {
         KillDelay();
-        e.hp = startHp;
+        hp = startHp;
         layer_1.size = new Vector2(startWidth, layer_1.size.y);
         layer_2.size = new Vector2(startWidth, layer_2.size.y);
     }
 
-    public void SetTotalHp(float totalHp)
+    public void SetTotalHp(int totalHp)
     {
         startHp = totalHp;
     }

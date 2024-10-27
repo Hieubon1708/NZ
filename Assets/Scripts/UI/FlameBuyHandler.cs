@@ -4,8 +4,9 @@ public class FlameBuyHandler : WeaponBuyButton
     {
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.FLAME, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.FLAME));
+        BlockController.instance.CheckButtonStateAll();
     }
-
+    
     public override void LoadData()
     {
         textPrice.text = DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.FLAME).ToString();

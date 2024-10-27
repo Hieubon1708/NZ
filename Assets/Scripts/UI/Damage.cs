@@ -13,7 +13,7 @@ public class Damage : MonoBehaviour
 
     public void ShowDamage(string text, GameObject content)
     {
-        if (isShowDamage) return;
+        if (isShowDamage || !canvas.gameObject.activeSelf) return;
         canvas.SetParent(GameController.instance.poolDamages);
         textDamage.text = text;
         isShowDamage = true;

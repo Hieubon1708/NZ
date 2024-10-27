@@ -26,12 +26,13 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public override void Upgrade()
     {
-        PlayerController.instance.player.gold -= DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(level) : DataManager.instance.energyConfig.startPrice;
+        int price = DataManager.instance.GetPriceUpgradeEnergyConfig(level);
+        PlayerController.instance.player.gold -= price;
         UIHandler.instance.GoldUpdatee();
-        level++;
-        UpgradeHandle();
         UIHandler.instance.tutorial.TutorialButtonUpgradeEnergy(true);
         BlockController.instance.CheckButtonStateAll();
+        level++;
+        UpgradeHandle();
     }
 
     public override void UpgradeHandle()

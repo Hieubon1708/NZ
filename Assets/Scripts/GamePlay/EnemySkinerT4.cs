@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class EnemySkinerT4 : MonoBehaviour
 {
+    public int level;
+    public int amountSet;
+
     public SpriteRenderer head;
     public SpriteRenderer ass;
     public SpriteRenderer[] rightLegUp;
@@ -9,16 +13,42 @@ public class EnemySkinerT4 : MonoBehaviour
     public SpriteRenderer[] leftLegUp;
     public SpriteRenderer[] leftLegDown;
 
-    public Sprite[] heads;
-    public Sprite[] asses;
-    public Sprite[] rightLegUps;
-    public Sprite[] rightLegDowns;
-    public Sprite[] leftLegUps;
-    public Sprite[] leftLegDowns;
+    Sprite[] heads;
+    Sprite[] asses;
+    Sprite[] rightLegUps;
+    Sprite[] rightLegDowns;
+    Sprite[] leftLegUps;
+    Sprite[] leftLegDowns;
+
+    public SpriteAtlas spriteAtlas;
+
+    private void Awake()
+    {
+        LoadSprites();
+    }
 
     public void OnEnable()
     {
         SkinChangeBySet();
+    }
+
+    void LoadSprites()
+    {
+        heads = new Sprite[amountSet];
+        asses = new Sprite[amountSet];
+        rightLegUps = new Sprite[amountSet];
+        rightLegDowns = new Sprite[amountSet];
+        leftLegUps = new Sprite[amountSet];
+        leftLegDowns = new Sprite[amountSet];
+        for (int i = 0; i < amountSet; i++)
+        {
+            heads[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Head");
+            asses[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Ass");
+            rightLegUps[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Leg_Right_Up");
+            rightLegDowns[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Leg_Right_Down");
+            leftLegUps[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Leg_Left_Up");
+            leftLegDowns[i] = spriteAtlas.GetSprite("Spider_" + level + "_" + (i + 1) + "_Leg_Left_Down");
+        }
     }
 
     public void SkinChangeBySet()

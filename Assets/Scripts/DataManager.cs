@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.U2D;
 using static GameController;
 using static UpgradeEvolutionController;
 
@@ -8,19 +11,11 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
 
-    public Sprite[] blockSpritesLv1;
-    public Sprite[] blockSpritesLv2;
-    public Sprite[] blockSpritesLv3;
-    public Sprite[] blockSpritesLv4;
-    public Sprite[] blockSpritesLv5;
-    public Sprite[] blockSpritesLv6;
+    Sprite[] blockSpritesLv1 = new Sprite[5];
+    Sprite[] blockSpritesLv2 = new Sprite[5];
 
-    public Sprite[] carSpritesLv1;
-    public Sprite[] carSpritesLv2;
-    public Sprite[] carSpritesLv3;
-    public Sprite[] carSpritesLv4;
-    public Sprite[] carSpritesLv5;
-    public Sprite[] carSpritesLv6;
+    Sprite[] carSpritesLv1 = new Sprite[6];
+    Sprite[] carSpritesLv2 = new Sprite[6];
 
     public Sprite[] blockSprites;
 
@@ -29,34 +24,50 @@ public class DataManager : MonoBehaviour
     public EnergyConfig energyConfig;
     public ChanceConfig chanceConfig;
     public RewardConfig[] rewardConfigs;
+    public DailyConfig[] dailyConfigs;
     public EquipmentConfig equipmentConfig;
     public WeaponConfig[] weaponConfigs;
+
+    public SpriteAtlas[] spriteAtlas;
 
     public void Awake()
     {
         instance = this;
         // GenerateWeaponConfigs();
+        LoadSprites();
         DataReader();
+    }
+
+    void LoadSprites()
+    {
+        LoadBlockNCarSprites(blockSpritesLv1, carSpritesLv1, spriteAtlas[0]);
+        LoadBlockNCarSprites(blockSpritesLv2, carSpritesLv2, spriteAtlas[1]);
+    }
+
+    void LoadBlockNCarSprites(Sprite[] blockSps,Sprite[] carSps, SpriteAtlas atlas)
+    {
+        for (int i = 0; i < blockSps.Length; i++)
+        {
+            blockSps[i] = atlas.GetSprite("Tower_Block_" + (i + 1));
+        }
+        carSps[0] = atlas.GetSprite("Umbrella_Pannel");
+        carSps[1] = atlas.GetSprite("Umbrella_Pole_2");
+        carSps[2] = atlas.GetSprite("Umbrella_Pole_1");
+        carSps[3] = atlas.GetSprite("Tower_Chassis");
+        carSps[4] = atlas.GetSprite("Tower_Wheel_1");
+        carSps[5] = atlas.GetSprite("Tower_Shadow");
     }
 
     public void SetBlockSprites(int level)
     {
         if (level == 0) blockSprites = blockSpritesLv1;
         if (level == 1) blockSprites = blockSpritesLv2;
-        if (level == 2) blockSprites = blockSpritesLv3;
-        if (level == 3) blockSprites = blockSpritesLv4;
-        if (level == 4) blockSprites = blockSpritesLv5;
-        if (level == 5) blockSprites = blockSpritesLv6;
     }
 
     public Sprite[] GetCarSprites(int level)
     {
         if (level == 0) return carSpritesLv1;
         if (level == 1) return carSpritesLv2;
-        if (level == 2) return carSpritesLv3;
-        if (level == 3) return carSpritesLv4;
-        if (level == 4) return carSpritesLv5;
-        if (level == 5) return carSpritesLv6;
 
         return null;
     }
@@ -70,6 +81,7 @@ public class DataManager : MonoBehaviour
         TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
         TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
         TextAsset rewardConfigJs = Resources.Load<TextAsset>("Datas/RewardConfig");
+        TextAsset dailyConfigJs = Resources.Load<TextAsset>("Datas/DailyConfig");
 
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
@@ -77,6 +89,7 @@ public class DataManager : MonoBehaviour
         equipmentConfig = JsonConvert.DeserializeObject<EquipmentConfig>(equipmentConfigJs.text);
         weaponConfigs = JsonConvert.DeserializeObject<WeaponConfig[]>(weaponConfigJs.text);
         rewardConfigs = JsonConvert.DeserializeObject<RewardConfig[]>(rewardConfigJs.text);
+        dailyConfigs = JsonConvert.DeserializeObject<DailyConfig[]>(dailyConfigJs.text);
 
         string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
         if (File.Exists(dataStorageJs))
@@ -232,6 +245,22 @@ public class RewardConfig
     public RewardLevelConfig[] rewardLevelConfigs;
 }
 
+public class DailyConfig
+{
+    public Daily.DailyType dailyType;
+    public int amountTarget;
+    public string content;
+    public int gemReward;
+
+    public DailyConfig(Daily.DailyType dailyType, int amountTarget, string content, int gemReward)
+    {
+        this.dailyType = dailyType;
+        this.amountTarget = amountTarget;
+        this.content = content;
+        this.gemReward = gemReward;
+    }
+}
+
 public class RewardLevelConfig
 {
     public EquipRewardConfig[] equips;
@@ -379,8 +408,13 @@ public class DataStorage
     public int level;
     public bool isSoundActive;
     public bool isMusicActive;
+
+    public DateTime lastRewardTime;
+    public int goldRewardHighest;
+
     public int[] progresses;
 
+    public DailyDataStorage dailyDataStorage;
     public TutorialDataStorage tutorialDataStorage;
     public playerDataStorage playerDataStorage;
     public BlockDataStorage[] blockDataStorage;
@@ -390,18 +424,21 @@ public class DataStorage
 
     public DataStorage() { }
 
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, ChanceDataStorage chanceDataStorage, int[] progresses, TutorialDataStorage tutorialDataStorage)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, DateTime lastRewardTime, int goldRewardHighest, int[] progresses, DailyDataStorage dailyDataStorage, TutorialDataStorage tutorialDataStorage, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, ChanceDataStorage chanceDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
         this.isMusicActive = isMusicActive;
+        this.lastRewardTime = lastRewardTime;
+        this.goldRewardHighest = goldRewardHighest;
+        this.progresses = progresses;
+        this.dailyDataStorage = dailyDataStorage;
+        this.tutorialDataStorage = tutorialDataStorage;
         this.playerDataStorage = playerDataStorage;
         this.blockDataStorage = blockDataStorage;
         this.energyDataStorage = energyDataStorage;
-        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
         this.chanceDataStorage = chanceDataStorage;
-        this.progresses = progresses;
-        this.tutorialDataStorage = tutorialDataStorage;
+        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
     }
 }
 
@@ -417,12 +454,62 @@ public class ChanceDataStorage
     }
 }
 
+public class DailyDataStorage
+{
+    public List<DailyConfig> dailyOfDate;
+    public DateTime lastUpdateDate;
+    public int indexDaily;
+    public int amount;
+
+    public DailyDataStorage(List<DailyConfig> dailyOfDate, DateTime lastUpdateDate, int indexDaily, int amount)
+    {
+        this.dailyOfDate = dailyOfDate;
+        this.lastUpdateDate = lastUpdateDate;
+        this.indexDaily = indexDaily;
+        this.amount = amount;
+    }
+}
+
 public class TutorialDataStorage
 {
-    public int isFirstTimePlay;
-    public int isFirstTimeClickButtonBuyBlock;
-    public int isFirstTimeClickButtonBuyWeapon;
-    public int isFirstTimeClickBooster;
+    public bool isFirstTimePlay;
+
+    public bool isFirstTimeClickButtonBuyBlock;
+    public bool isFirstTimeClickButtonBuyWeapon;
+    public bool isFirstTimeClickButtonUpgradeEnergy;
+
+    public bool isFirstTimeClickBoosterBoom;
+    public bool isFirstTimeClickBoosterSaw;
+    public bool isFirstTimeClickBoosterFlame;
+    public bool isFirstTimeClickBoosterMachineGun;
+
+    public bool isFirstTimeDestroyTower;
+    public bool isSecondTimeDestroyTower;
+    public bool isFirstTimeDragBlock;
+
+    public bool isUnlockInventory;
+    public bool isUnlockShop;
+    public bool isUnlockWeapon;
+    public bool isUnlockBoss;
+
+    public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon, bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickBoosterBoom, bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun, bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory, bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss)
+    {
+        this.isFirstTimePlay = isFirstTimePlay;
+        this.isFirstTimeClickButtonBuyBlock = isFirstTimeClickButtonBuyBlock;
+        this.isFirstTimeClickButtonBuyWeapon = isFirstTimeClickButtonBuyWeapon;
+        this.isFirstTimeClickButtonUpgradeEnergy = isFirstTimeClickButtonUpgradeEnergy;
+        this.isFirstTimeClickBoosterBoom = isFirstTimeClickBoosterBoom;
+        this.isFirstTimeClickBoosterSaw = isFirstTimeClickBoosterSaw;
+        this.isFirstTimeClickBoosterFlame = isFirstTimeClickBoosterFlame;
+        this.isFirstTimeClickBoosterMachineGun = isFirstTimeClickBoosterMachineGun;
+        this.isFirstTimeDestroyTower = isFirstTimeDestroyTower;
+        this.isSecondTimeDestroyTower = isSecondTimeDestroyTower;
+        this.isFirstTimeDragBlock = isFirstTimeDragBlock;
+        this.isUnlockInventory = isUnlockInventory;
+        this.isUnlockShop = isUnlockShop;
+        this.isUnlockWeapon = isUnlockWeapon;
+        this.isUnlockBoss = isUnlockBoss;
+    }
 }
 
 public class EquipmentDataStorage

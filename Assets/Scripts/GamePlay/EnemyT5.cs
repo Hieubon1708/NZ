@@ -71,6 +71,7 @@ public class EnemyT5 : EnemyHandler
 
     protected override void DeathHandle()
     {
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         rb.gravityScale = 0;
         rb.velocity = Vector2.zero;
         StopCoroutines();

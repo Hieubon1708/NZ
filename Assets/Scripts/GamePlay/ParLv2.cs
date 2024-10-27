@@ -35,4 +35,12 @@ public class ParLv2 : MonoBehaviour
         if (currentCountSpiderHitOnBlockOHero == spiderHitOnBlockOHeros.Length) currentCountSpiderHitOnBlockOHero = 0;
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
+
+    public void SetActivePar(bool isActive)
+    {
+        for (int i = 0; i < spiderHitOnBlockOHeros.Length; i++)
+        {
+            if (spiderHitOnBlockOHeros[i].activeSelf) spiderHitOnBlockOHeros[i].SetActive(isActive);
+        }
+    }
 }

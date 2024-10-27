@@ -63,6 +63,63 @@ public class ParController : MonoBehaviour
         Generate();
     }
 
+    public void SetActivePar(bool isActive)
+    {
+        for (int i = 0; i < gunHitOnRoads.Length; i++)
+        {
+            if (gunHitOnRoads[i].activeSelf) gunHitOnRoads[i].SetActive(isActive);
+        }
+        for (int i = 0; i < flameThrowers.Length; i++)
+        {
+            if (flameThrowers[i].activeSelf) flameThrowers[i].SetActive(isActive);
+        }
+        for (int i = 0; i < stunOnEnemies.Length; i++)
+        {
+            if (stunOnEnemies[i].activeSelf) stunOnEnemies[i].SetActive(isActive);
+        }
+        for (int i = 0; i < gunHitOnEnemies.Length; i++)
+        {
+            if (gunHitOnEnemies[i].activeSelf) gunHitOnEnemies[i].SetActive(isActive);
+        }
+        for (int i = 0; i < gunHitExplosions.Length; i++)
+        {
+            if (gunHitExplosions[i].activeSelf) gunHitExplosions[i].SetActive(isActive);
+        }
+        for (int i = 0; i < roadBulletHole.Length; i++)
+        {
+            if (roadBulletHole[i].activeSelf) roadBulletHole[i].SetActive(isActive);
+        }
+        for (int i = 0; i < boomHoles.Length; i++)
+        {
+            if (boomHoles[i].activeSelf) boomHoles[i].SetActive(isActive);
+        }
+        for (int i = 0; i < boomEffects.Length; i++)
+        {
+            if (boomEffects[i].activeSelf) boomEffects[i].SetActive(isActive);
+        }
+        for (int i = 0; i < zomDies.Length; i++)
+        {
+            if (zomDies[i].activeSelf) zomDies[i].SetActive(isActive);
+        }
+        for (int i = 0; i < blockDestroys.Length; i++)
+        {
+            if (blockDestroys[i].activeSelf) blockDestroys[i].SetActive(isActive);
+        }
+        for (int i = 0; i < zomHitOnRoads.Length; i++)
+        {
+            if (zomHitOnRoads[i].activeSelf) zomHitOnRoads[i].SetActive(isActive);
+        }
+        for (int i = 0; i < zomHitOnHeros.Length; i++)
+        {
+            if (zomHitOnHeros[i].activeSelf) zomHitOnHeros[i].SetActive(isActive);
+        }
+
+        if (ParLv2.instance != null)
+        {
+            ParLv2.instance.SetActivePar(isActive);
+        }
+    }
+
     void Generate()
     {
         roadBulletHole = new GameObject[amoutHoleBullet];

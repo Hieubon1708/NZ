@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,7 +7,6 @@ public class PlayerHandler : MonoBehaviour
     public HealthHandler healthHandler;
     public GameObject healthBar;
     public GameObject boxCollider;
-    public List<GameObject> listEnemies = new List<GameObject>();
     public SpriteRenderer[] fullBodies;
     public HitEffect hitEffect;
 
@@ -38,16 +36,23 @@ public class PlayerHandler : MonoBehaviour
             boxCollider.SetActive(false);
             healthBar.SetActive(false);
             GameController.instance.ShakeCam(0.25f);
-            DOVirtual.DelayedCall(1.5f, delegate
+            UIHandler.instance.tutorial.isFirstTimePlay = true;
+            if (EnemyTowerController.instance.indexTower == 1)
             {
-                if(UIHandler.instance.tutorial.isFirstTimePlay) UIHandler.instance.progressHandler.ShowLose();
-                else
-                {
-                    UIHandler.instance.progressHandler.HideLose(); 
-                    UIHandler.instance.tutorial.isFirstTimePlay = true;
-                }
+                if (!UIHandler.instance.tutorial.isSecondTimeDestroyTower) UIHandler.instance.tutorial.isSecondTimeDestroyTower = true;
+            }
+            DOVirtual.DelayedCall(1.75f, delegate
+            {
+                if (UIHandler.instance.tutorial.isFirstTimeDestroyTower) UIHandler.instance.progressHandler.ShowLose();
+                else UIHandler.instance.progressHandler.HideLose();
             });
         }
+    }
+
+    public void Resart()
+    {
+        healthHandler.SetDefaultInfo(ref playerInfo.hp);
+        healthBar.SetActive(true);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

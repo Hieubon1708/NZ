@@ -183,7 +183,7 @@ public class SawHandler : WeaponShoter
             GameObject s = sawBoosters[countBooster].gameObject;
             s.transform.position = startPos;
             s.SetActive(true);
-            sawBoosters[countBooster].velocity = new Vector2(25, sawBoosters[countBooster].velocity.y);
+            sawBoosters[countBooster].velocity = new Vector2(20, sawBoosters[countBooster].velocity.y);
             countBooster++;
             if (countBooster == sawBoosters.Length) countBooster = 0;
             DOVirtual.DelayedCall(2f, delegate

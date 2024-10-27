@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class PlayerAniEvent : MonoBehaviour
 {
-    public void ShotAniEvent()
-    {
-        if(!GameController.instance.isStart) return;
-        StartCoroutine(PlayerController.instance.StartFindTarget());
-    }
+    public void ShotAniEvent() {  }
     
     public void ShotEvent()
     {

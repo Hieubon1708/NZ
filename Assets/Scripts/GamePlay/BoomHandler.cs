@@ -10,7 +10,7 @@ public class BoomHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && !isOnGround)
         {
             isOnGround = true;
-            DOVirtual.DelayedCall(1f, delegate
+            DOVirtual.DelayedCall(0.75f, delegate
             {
                 isOnGround = false;
                 GameController.instance.ShakeCam(0.25f);

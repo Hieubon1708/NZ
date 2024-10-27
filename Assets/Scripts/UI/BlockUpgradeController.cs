@@ -21,10 +21,9 @@ public class BlockUpgradeController : MonoBehaviour
     {
         instance = this;
     }
-    
+
     public void Update()
     {
-        if(GameController.instance.isStart) return;
         if (Input.GetMouseButtonDown(0))
         {
             isDrag = true;
@@ -32,11 +31,12 @@ public class BlockUpgradeController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isDrag = false;
+            if (GameController.instance.isStart) return;
             isHold = false;
             if (blockSelected != null)
             {
                 Block scBlock = BlockController.instance.GetScBlock(blockSelected);
-                if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyleOpen.transform.position)) <= 1.5f)
+                if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyleOpen.transform.position)) <= 2f)
                 {
                     scBlock.SubtractGold();
                     BlockController.instance.DeleteBlock(blockSelected);
@@ -45,7 +45,6 @@ public class BlockUpgradeController : MonoBehaviour
                 }
                 blockSelected.transform.position = frame1.transform.position;
                 scBlock.blockUpgradeHandler.DeSelected();
-                scBlock.blockUpgradeHandler.UpdateUIPosition();
                 SetActiveFrame(false);
                 RecyleChange(true);
                 blockSelected = null;
@@ -53,7 +52,7 @@ public class BlockUpgradeController : MonoBehaviour
         }
         if (isDrag)
         {
-            if(blockSelected != null)
+            if (blockSelected != null)
             {
                 Vector2 pos = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);
                 blockSelected.transform.position = pos;
@@ -66,6 +65,7 @@ public class BlockUpgradeController : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(raycastPosition, Vector2.zero, raycastDistance, layerMask);
                 if (hit.collider != null)
                 {
+                    UIHandler.instance.tutorial.TutorialDragBlock(true);
                     blockSelected = hit.rigidbody.gameObject;
                     frame1.transform.position = blockSelected.transform.position;
                     frame2.transform.position = blockSelected.transform.position;

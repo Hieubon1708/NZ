@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class EquipmentController : MonoBehaviour
 {
@@ -23,7 +25,6 @@ public class EquipmentController : MonoBehaviour
     public Image[] iconTypes;
 
     public Image iconDesign;
-    public Sprite[] iconDesigns;
 
     public Image panelEquip;
     public Image arrowPopup;
@@ -72,19 +73,22 @@ public class EquipmentController : MonoBehaviour
     public int dushSelected;
     public int designSelected;
 
-    public Sprite[] bgs;
-    public Sprite[] guns;
-    public Sprite[] booms;
-    public Sprite[] clothess;
-    public Sprite[] caps;
-    public Sprite damage;
-    public Sprite hp;
-    public Sprite upArrow;
-    public Sprite downArrow;
-    public Sprite buttonOk;
-    public Sprite buttonNok;
-    public Sprite equipBest;
-    public Sprite sellDuplicates;
+    public Sprite[] iconDesigns;
+
+    Sprite[] bgs = new Sprite[8];
+    Sprite[] guns = new Sprite[8];
+    Sprite[] booms = new Sprite[8];
+    Sprite[] clothess = new Sprite[8];
+    Sprite[] caps = new Sprite[8];
+
+    Sprite damage;
+    Sprite hp;
+    Sprite upArrow;
+    Sprite downArrow;
+    Sprite buttonOk;
+    Sprite buttonNok;
+    Sprite equipBest;
+    Sprite sellDuplicates;
 
     public Image frameEquipBest;
     public Image frameSellDuplicates;
@@ -102,11 +106,51 @@ public class EquipmentController : MonoBehaviour
 
     Coroutine delayDesignContraint;
 
+    public SpriteAtlas atlasUI;
+    public SpriteAtlas atlasInventory;
+
     public void Awake()
     {
         instance = this;
         isQuality = true;
+        LoadSprites();
         Generate();
+    }
+
+    void LoadSprites()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            caps[i] = atlasInventory.GetSprite("Hat " + (i + 1));
+            clothess[i] = atlasInventory.GetSprite("Body " + (i + 1));
+            guns[i] = atlasInventory.GetSprite("Gun " + (i + 1));
+            booms[i] = atlasInventory.GetSprite("Nade " + (i + 1));
+            bgs[i] = atlasUI.GetSprite("inventory_item_frame_" + (i + 1));
+        }
+        damage = atlasUI.GetSprite("icon_bullet");
+        hp = atlasUI.GetSprite("icon_health");
+        upArrow = atlasUI.GetSprite("icon_arrow_1");
+        downArrow = atlasUI.GetSprite("icon_arrow_2");
+        buttonOk = atlasUI.GetSprite("button_inventory_1");
+        buttonNok = atlasUI.GetSprite("button_inventory_4");
+        equipBest = atlasUI.GetSprite("button_inventory_1");
+        sellDuplicates = atlasUI.GetSprite("button_inventory_2");
+    }
+
+    public void ChangeCap()
+    {
+        playerInventory.cap.sprite = caps[playerInventory.capLevel];
+        playerInventory.rectCap.pivot = PlayerController.instance.player.playerSkiner.GetCapPivot(playerInventory.capLevel);
+    }
+
+    public void ChangeClothes()
+    {
+        playerInventory.clothes.sprite = clothess[playerInventory.clothesLevel];
+    }
+
+    public void ChangeGun()
+    {
+        playerInventory.gun.sprite = guns[playerInventory.gunLevel];
     }
 
     public void DesignUpdatePosition()
@@ -571,7 +615,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.gunLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.GunChange();
             BulletController.instance.SetDamage(GetEquipValue(EQUIPMENTTYPE.SHOTGUN, playerInventory.gunLevel, ++playerInventory.gunLevelUpgrade));
-            playerInventory.ChangeGun();
+            ChangeGun();
         }
         else if (eq1.type == EQUIPMENTTYPE.GRENADE)
         {
@@ -586,7 +630,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.capLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.CapChange();
             PlayerController.instance.player.HpChange();
-            playerInventory.ChangeCap();
+            ChangeCap();
         }
         else
         {
@@ -594,7 +638,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.clothesLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.ClothesChange();
             PlayerController.instance.player.HpChange();
-            playerInventory.ChangeClothes();
+            ChangeClothes();
         }
 
         if (isQuality) QualitySort();

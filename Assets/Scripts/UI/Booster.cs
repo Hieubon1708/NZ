@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 using static UpgradeEvolutionController;
 
@@ -20,14 +21,20 @@ public class Booster : MonoBehaviour
     public GameObject shockerBooster;
     public WeaponBooster[] weaponBoosters;
     public Sprite frameDelay;
+    public SpriteAtlas spriteAtlas;
 
     private void Awake()
     {
         instance = this;
+        frameDelay = spriteAtlas.GetSprite("Button_Booster_Load");
     }
 
     public void StartGame()
     {
+        for (int i = 0; i < weaponBoosters.Length; i++)
+        {
+            weaponBoosters[i].UpdateTextEnergy();
+        }
         EnableBooster();
         CheckBoosterState();
         DoFill();
@@ -56,9 +63,10 @@ public class Booster : MonoBehaviour
     void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
-        energyBar.DOFillAmount(1, 1f).SetEase(Ease.Linear).OnComplete(delegate
+        energyBar.DOFillAmount(1, 1 / time).SetEase(Ease.Linear).OnComplete(delegate
         {
             amoutEnergy++;
+            UIHandler.instance.daily.CheckDaily(Daily.DailyType.CumulativeEnergy);
             energyBar.fillAmount = 0;
             CheckBoosterState();
             DoFill();
@@ -70,9 +78,8 @@ public class Booster : MonoBehaviour
         for (int i = 0; i < weaponBoosters.Length; i++)
         {
             weaponBoosters[i].CheckBooterState();
-            weaponBoosters[i].UpdateTextEnergy();
         }
-        textAmoutEnergy.text = amoutEnergy.ToString();
+        textAmoutEnergy.text = UIHandler.instance.ConvertNumberAbbreviation(amoutEnergy);
     }
 
     public void SetActiveBooster(bool isActive)
@@ -84,12 +91,19 @@ public class Booster : MonoBehaviour
 
     public void ResetBooster()
     {
+        amoutEnergy = 0;
         energyBar.fillAmount = 0;
         if (sawBooster.activeSelf) sawBooster.SetActive(false);
         if (flameBooster.activeSelf) flameBooster.SetActive(false);
         if (machineGunBooster.activeSelf) machineGunBooster.SetActive(false);
         if (shockerBooster.activeSelf) shockerBooster.SetActive(false);
         ActiveBoosterButton(true);
+        CheckBoosterState();
+        for (int i = 0; i < weaponBoosters.Length; i++)
+        {
+            weaponBoosters[i].Restart();
+        }
+        UIHandler.instance.tutorial.Restart();
     }
 
     void EnableBooster()

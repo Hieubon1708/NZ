@@ -745,42 +745,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 3
+  amountSet: 5
   face: {fileID: 903588980467914540}
   bodyUp: {fileID: 8240552690552768193}
   bodyDown: {fileID: 4966934803437992195}
   bodyDownJoint: {fileID: 3989258096991503123}
   rightLeg: {fileID: 1710597911463958779}
   leftLeg: {fileID: 3540499030001077412}
-  faces:
-  - {fileID: 21300000, guid: 50fbba6fefaf37744b79468a9649166f, type: 3}
-  - {fileID: 21300000, guid: 79f24c5e0e6cfd34391012a028490fc2, type: 3}
-  - {fileID: 21300000, guid: ac282020e4e6e6d498b6eea0a7f8e2d7, type: 3}
-  - {fileID: 21300000, guid: 6d369333dafd66e48b04db8dede74fba, type: 3}
-  - {fileID: 21300000, guid: 4027121c1d53c3b4cb7cf674a193176f, type: 3}
-  bodyUps:
-  - {fileID: 21300000, guid: 9255517806f651c41b84494b813bad29, type: 3}
-  - {fileID: 21300000, guid: a33b3d3fb8d7dd24e92646fea039ba4b, type: 3}
-  - {fileID: 21300000, guid: de3d45ffcd7744b40aec5a585182c75c, type: 3}
-  - {fileID: 21300000, guid: 581b04b8dc966f64880c1253b3ecd346, type: 3}
-  - {fileID: 21300000, guid: 5d376a51373ab4b4c99663fde6523933, type: 3}
-  bodyDowns:
-  - {fileID: 21300000, guid: a324dd4b15bf9e3418aa56b3c8d4512d, type: 3}
-  - {fileID: 21300000, guid: edfcf1ee30c80b646b56926d2fd09622, type: 3}
-  - {fileID: 21300000, guid: fdef49c7a9990ca4d98c8aef3c23e4c0, type: 3}
-  - {fileID: 21300000, guid: b19fe8fc36de0a941a7ef4ae9d361f5d, type: 3}
-  - {fileID: 21300000, guid: cdc8ed48809076c48ad6b4a0e8508608, type: 3}
-  bodyDownJoints:
-  - {fileID: 21300000, guid: 50e06de6929382c4aa575d52c94f202c, type: 3}
-  - {fileID: 21300000, guid: b82b916989636c84ba304fc472faa87e, type: 3}
-  - {fileID: 21300000, guid: b38fc3d5dee67c149986dd9dbc3f336e, type: 3}
-  - {fileID: 21300000, guid: 101370381f42632469e66e9bd0010ef4, type: 3}
-  - {fileID: 21300000, guid: 0fb987f80686aa8408784c2955da5ae1, type: 3}
-  legs:
-  - {fileID: 21300000, guid: 9e6ccf5ea812d9f4c920f092227e47d3, type: 3}
-  - {fileID: 21300000, guid: 9e9325b815c49e040983cdd445042f67, type: 3}
-  - {fileID: 21300000, guid: 68f1f4361cb7f5b40b30424beb80d0ca, type: 3}
-  - {fileID: 21300000, guid: f77e8ccdb8d9897498c0a7c0beaa16d4, type: 3}
-  - {fileID: 21300000, guid: e92856a2812b94348a650b5d82498a0e, type: 3}
+  spriteAtlas: {fileID: 100100200, guid: 6fa105248b079e74abd3f392f3afb59f, type: 3}
 --- !u!114 &7099280852617269894
 MonoBehaviour:
   m_ObjectHideFlags: 0

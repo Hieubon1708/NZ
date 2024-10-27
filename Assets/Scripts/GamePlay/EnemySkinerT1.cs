@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class EnemySkinerT1 : MonoBehaviour
 {
+    public int level;
+    public int amountSet;
+
     public SpriteRenderer face;
     public SpriteRenderer bodyUp;
     public SpriteRenderer bodyDown;
@@ -9,15 +13,39 @@ public class EnemySkinerT1 : MonoBehaviour
     public SpriteRenderer rightLeg;
     public SpriteRenderer leftLeg;
 
-    public Sprite[] faces;
-    public Sprite[] bodyUps;
-    public Sprite[] bodyDowns;
-    public Sprite[] bodyDownJoints;
-    public Sprite[] legs;
+    Sprite[] faces;
+    Sprite[] bodyUps;
+    Sprite[] bodyDowns;
+    Sprite[] bodyDownJoints;
+    Sprite[] legs;
+
+    public SpriteAtlas spriteAtlas;
+
+    private void Awake()
+    {
+        LoadSprites();
+    }
 
     public void OnEnable()
     {
         SkinChange();
+    }
+
+    void LoadSprites()
+    {
+        faces = new Sprite[amountSet];
+        bodyUps = new Sprite[amountSet];
+        bodyDowns = new Sprite[amountSet];
+        bodyDownJoints = new Sprite[amountSet];
+        legs = new Sprite[amountSet];
+        for (int i = 0; i < amountSet; i++)
+        {
+            faces[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Head");
+            bodyUps[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Body_up");
+            bodyDowns[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Body_down");
+            bodyDownJoints[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_body_down_joint");
+            legs[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_leg");
+        }
     }
     
     public void SkinChange()

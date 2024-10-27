@@ -3578,6 +3578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ae12ea6818a9441a43fd3d6e8d19be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
+  amountSet: 5
   head: {fileID: 212986605295626758}
   ass: {fileID: 212235060875842775}
   rightFang: {fileID: 212147416605474765}
@@ -3588,42 +3590,7 @@ MonoBehaviour:
   leftLeg:
   - {fileID: 212822191442437993}
   - {fileID: 212642327068351779}
-  heads:
-  - {fileID: 21300000, guid: 96ffec4eddde2494181c153bf78a3ade, type: 3}
-  - {fileID: 21300000, guid: 2963539a1d7da054ea7c1cab9ebbd755, type: 3}
-  - {fileID: 21300000, guid: 6dafd239c857bef4e82fd712ea40cba6, type: 3}
-  - {fileID: 21300000, guid: c7b8652e7bf4e374fae64271879baf3e, type: 3}
-  - {fileID: 21300000, guid: 0681d95197a494049959a26b11d9f1c6, type: 3}
-  asses:
-  - {fileID: 21300000, guid: 0695f6145a8213b40a074c560c7ed21a, type: 3}
-  - {fileID: 21300000, guid: 301852badffbe4e4a8aca73c37460513, type: 3}
-  - {fileID: 21300000, guid: be85eb68cd938cf46874cfb3a4deeb21, type: 3}
-  - {fileID: 21300000, guid: 4190808810b64d14980093c645f8d495, type: 3}
-  - {fileID: 21300000, guid: d251593664fa0b049a0be6620917b4c6, type: 3}
-  rightFangs:
-  - {fileID: 21300000, guid: 0be01f43f5853da4a90710e4db6353a5, type: 3}
-  - {fileID: 21300000, guid: 44ae5c4b6d3f1b14fb5611d139591cf4, type: 3}
-  - {fileID: 21300000, guid: 5d48b1348c756c24cbcbcaa3ab3eb66f, type: 3}
-  - {fileID: 21300000, guid: a75d0681cc4e8ad4e8fd4ac09954464b, type: 3}
-  - {fileID: 21300000, guid: 14d4b5117db4a904ca651032d2707058, type: 3}
-  leftFangs:
-  - {fileID: 21300000, guid: f64791720e3c3ad44be25de33b8fcde4, type: 3}
-  - {fileID: 21300000, guid: 2205435f96c7d324cbb9ed9d9f94c3ad, type: 3}
-  - {fileID: 21300000, guid: e5fe613813799464f89af49de86c7a3e, type: 3}
-  - {fileID: 21300000, guid: 8dc5e61e1b67b1247bdba58743a950f8, type: 3}
-  - {fileID: 21300000, guid: b0ba1b8d2ebeaac4690ef109718ea67b, type: 3}
-  rightLegs:
-  - {fileID: 21300000, guid: 4ff39374558b7144c9902b6f9f1eb326, type: 3}
-  - {fileID: 21300000, guid: dfb2a3e6689f5d8468da74e48f837d13, type: 3}
-  - {fileID: 21300000, guid: c168ec7bf1684094aa800cff20b11091, type: 3}
-  - {fileID: 21300000, guid: 7ce07ef2aa712094690f42453337ed68, type: 3}
-  - {fileID: 21300000, guid: 5e3d2f18b0e8cfd44b93a1e9e33f952a, type: 3}
-  leftLegs:
-  - {fileID: 21300000, guid: d7a6b48af4d195240a9cb3f3a534c011, type: 3}
-  - {fileID: 21300000, guid: 9af2dfb922f25624eba057bac38e90b0, type: 3}
-  - {fileID: 21300000, guid: ce28e0b5edadc2244b2610c3dbe1c2f9, type: 3}
-  - {fileID: 21300000, guid: a3fabc4b241a8b04e9ab54c07b3aa6d4, type: 3}
-  - {fileID: 21300000, guid: a6ede7fdf88e4514db34c140808cca7c, type: 3}
+  spriteAtlas: {fileID: 100100200, guid: 878908f283a577742b225c6837bc663b, type: 3}
 --- !u!114 &-2422824545140288885
 MonoBehaviour:
   m_ObjectHideFlags: 0

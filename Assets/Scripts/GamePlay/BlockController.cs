@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
-using static Unity.Collections.AllocatorManager;
 
 public class BlockController : MonoBehaviour
 {
@@ -48,7 +47,9 @@ public class BlockController : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, startY + distance * i);
-            BlockUpgradeHandler blockUpgradeHandler = GetScBlock(blocks[i]).blockUpgradeHandler;
+            Block sc = GetScBlock(blocks[i]);
+            sc.blockHandler.Restart();
+            BlockUpgradeHandler blockUpgradeHandler = sc.blockUpgradeHandler;
             if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.Restart();
             if (!blocks[i].activeSelf) blocks[i].SetActive(true);
         }
@@ -69,6 +70,21 @@ public class BlockController : MonoBehaviour
             }
         }
         return isExist;
+    }
+
+    public TutorialOject GetTutorialWeaponEvo(out int price)
+    {
+        price = 0;
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block scBlock = GetScBlock(blocks[i]);
+            if(scBlock.blockUpgradeHandler.weaponUpgradeHandler != null)
+            {
+                TutorialOject tutorialOject = scBlock.blockUpgradeHandler.weaponUpgradeHandler.GetTutorialOject(out price);
+                if(tutorialOject != null) return tutorialOject;
+            }
+        }
+        return null;
     }
 
     public void LoadData()
@@ -100,7 +116,7 @@ public class BlockController : MonoBehaviour
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
         energyUpgradee.LoadData();
         CheckButtonStateAll();
-        if(!UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(false);
+        if (UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(true);
     }
 
     public void SetActiveUI(bool isActive)
@@ -113,7 +129,7 @@ public class BlockController : MonoBehaviour
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);
-        if (!UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(isActive);
+        if (UIHandler.instance.tutorial.isFirstTimeDestroyTower) goldReward.SetActive(isActive);
     }
 
     public void CheckButtonStateAll()
@@ -139,7 +155,7 @@ public class BlockController : MonoBehaviour
             block.SetActive(true);
             player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
             scBlock.blockUpgradeHandler.UpgradeHandle();
-            scBlock.blockUpgradeHandler.LoadData();
+            scBlock.blockUpgradeHandler.LoadData(false);
             scBlock.AddBlockAni();
             CarController.instance.AddBookAni();
             PlayerController.instance.AddBookAni();
@@ -169,11 +185,6 @@ public class BlockController : MonoBehaviour
             float y = startY + distance * i;
             if (blocks[i] != block) blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, y);
             else frame.transform.position = new Vector2(frame.transform.position.x, y + CarController.instance.transform.localPosition.y);
-            if (blocks[i] != block)
-            {
-                Block sc = GetScBlock(blocks[i]);
-                sc.blockUpgradeHandler.UpdateUIPosition();
-            }
         }
     }
 

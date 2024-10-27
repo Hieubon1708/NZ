@@ -975,7 +975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 420
-  damage: 70
+  damage: 8
   bone: {fileID: 7825448298857881008}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
@@ -1099,6 +1099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c5e7edaa9877747b2aa308790cda6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
+  amountSet: 5
   face: {fileID: 2783849717978133849}
   bodyUp: {fileID: 7513844658712173236}
   bodyDown: {fileID: 5621911484681888871}
@@ -1135,6 +1137,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 885fd178f508a614893880cda30800a9, type: 3}
   - {fileID: 21300000, guid: c95b30fb5efb8e447a29ce9082ca7234, type: 3}
   - {fileID: 21300000, guid: 5a97592397e42a14bba1b9fc46f12ff7, type: 3}
+  spriteAtlas: {fileID: 100100200, guid: 6fa105248b079e74abd3f392f3afb59f, type: 3}
 --- !u!114 &7825448298857881008
 MonoBehaviour:
   m_ObjectHideFlags: 0

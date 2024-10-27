@@ -128,10 +128,9 @@ public class EnemyTowerController : MonoBehaviour
 
             es[index].SetActive(true);
             eSc.SpawnbyTime();
-            eSc.healthHandler.SetDefaultInfo(eSc.enemyInfo);
+            eSc.healthHandler.SetDefaultInfo(ref eSc.enemyInfo.hp);
             eSc.SetColNKinematicNRevival(true);
             eSc.animator.Rebind();
-            yield break;
             index++;
             if (index == es.Length) index = 0;
         }
@@ -180,7 +179,6 @@ public class EnemyTowerController : MonoBehaviour
     public void Restart()
     {
         DisableEs();
-
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
             for (int i = 0; i < eSpawnByTimes.Length; i++)

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,6 @@ public class BlockHandler : MonoBehaviour
     public Block blockInfo;
     public GameObject healthBar;
     public HealthHandler healthHandler;
-    public List<GameObject> listEnemies = new List<GameObject>();
     public SpriteRenderer[] fullBlocks;
     public HitEffect hitEffect;
 
@@ -48,5 +46,13 @@ public class BlockHandler : MonoBehaviour
         {
             SubtractHp(int.Parse(collision.gameObject.name));
         }
+    }
+
+    public void Restart()
+    {
+        healthHandler.SetDefaultInfo(ref blockInfo.hp);
+        Color color = blockInfo.sp.color;
+        color.a = 1;
+        blockInfo.sp.color = color;
     }
 }

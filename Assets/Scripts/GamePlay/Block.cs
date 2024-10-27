@@ -3,11 +3,12 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public int level;
-    public float hp;
+    public int hp;
     public Animation ani;
     public int sellingPrice;
     public BlockHandler blockHandler;
     public BlockUpgradeHandler blockUpgradeHandler;
+    public SpriteRenderer sp;
 
     AnimationClip[] animationClips = new AnimationClip[3];
     public ParticleSystem addBlock;
@@ -19,7 +20,7 @@ public class Block : MonoBehaviour
         animationClips[2] = ani.GetClip("upgradeBlock");
     }
 
-    public float SubtractHp(float hp)
+    public int SubtractHp(int hp)
     {
         this.hp -= hp;
         if(this.hp < 0) this.hp = 0;

@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class WeaponBooster : MonoBehaviour
@@ -24,15 +23,14 @@ public class WeaponBooster : MonoBehaviour
     }
 
 
-    public void OnClick(PointerEventData eventData)
+    public void OnClick()
     {
-        CheckTutorial(false);
+        CheckTutorial(false, true);
         isUseBooster = true;
         frame.sprite = booster.frameDelay;
         frame.raycastTarget = false;
         DOVirtual.DelayedCall(0.5f, delegate
         {
-            frame.raycastTarget = true;
             isUseBooster = false;
             CheckBooterState();
         });
@@ -41,15 +39,19 @@ public class WeaponBooster : MonoBehaviour
         UseBooster();
     }
 
-    void CheckTutorial(bool isActive)
+    void CheckTutorial(bool isActive, bool isEnoughEnergy)
     {
-        UIHandler.instance.tutorial.TutorialButtonBooserBoom(isActive, this);
-        UIHandler.instance.tutorial.TutorialButtonBooserSaw(isActive, this);
-        UIHandler.instance.tutorial.TutorialButtonBooserFlame(isActive, this);
-        UIHandler.instance.tutorial.TutorialButtonBooserMachineGun(isActive, this);
+        UIHandler.instance.tutorial.TutorialButtonBooserBoom(isActive, this, isEnoughEnergy);
+        UIHandler.instance.tutorial.TutorialButtonBooserSaw(isActive, this, isEnoughEnergy);
+        UIHandler.instance.tutorial.TutorialButtonBooserFlame(isActive, this, isEnoughEnergy);
+        UIHandler.instance.tutorial.TutorialButtonBooserMachineGun(isActive, this, isEnoughEnergy);
     }
 
     public virtual void UseBooster() { }
+    public virtual void Restart()
+    {
+        isUseBooster = false;
+    }
 
     public void ButtonActive(bool isActive)
     {
@@ -61,11 +63,12 @@ public class WeaponBooster : MonoBehaviour
         if (isUseBooster) return;
         if (booster.amoutEnergy < energy)
         {
+            CheckTutorial(false, false);
             UIHandler.instance.BoosterButtonChangeState(frame, false, this is BoomBooster);
         }
         else
         {
-            CheckTutorial(true);
+            CheckTutorial(true, true);
             UIHandler.instance.BoosterButtonChangeState(frame, true, this is BoomBooster);
         }
     }

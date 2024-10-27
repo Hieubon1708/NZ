@@ -13,6 +13,8 @@ public class UpgradeEvolutionController : MonoBehaviour
     public List<MACHINEGUNEVO> machineGuns;
     public List<SHOCKEREVO> shockers;
 
+    public WeaponUpgradeHandler weaponUpgradeHandler;
+
     public enum SAWEVO
     {
         PUSHESENEMIES, INCREASEDAMAGE, ADDFROMBOOSTER, DECREASEENERGY, STUNENEMY
@@ -129,6 +131,13 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         uIUpgradeEvolution.UpdateSawEvo();
         uIUpgradeEvolution.HidePanelSawEvo();
+        SetActiveButtonUpgradeWeapon();
+    }
+
+    void SetActiveButtonUpgradeWeapon()
+    {
+        weaponUpgradeHandler.gameObject.SetActive(true);
+        weaponUpgradeHandler.aniShowNewEvo.Play();
     }
     
     public void ShockerAddEvolution(int type)
@@ -145,6 +154,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         uIUpgradeEvolution.UpdateShockerEvo();
         uIUpgradeEvolution.HidePanelShockerEvo();
+        SetActiveButtonUpgradeWeapon();
     }
 
     public void FlameAddEvolution(int type)
@@ -180,6 +190,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         uIUpgradeEvolution.UpdateFlameEvo();
         uIUpgradeEvolution.HidePanelFlameEvo();
+        SetActiveButtonUpgradeWeapon();
     }
 
     public void MachineGunAddEvolution(int type)
@@ -211,6 +222,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         uIUpgradeEvolution.UpdateMachineGunEvo();
         uIUpgradeEvolution.HidePanelMachineGunEvo();
+        SetActiveButtonUpgradeWeapon();
     }
 
     public int GetAmoutSawEvo(SAWEVO type, int level)

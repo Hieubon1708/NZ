@@ -42,6 +42,7 @@ public class EnemyT4 : EnemyHandler
 
     protected override void DeathHandle()
     {
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         healthBar.SetActive(false);
         StopCoroutines();
@@ -66,11 +67,12 @@ public class EnemyT4 : EnemyHandler
     public override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
+        if (collision.gameObject.CompareTag("Block"))
         {
             animator.SetInteger("attackRandomizer", Random.Range(0, 2));
             animator.SetBool("attack", true);
             isAttack = true;
         }
+        if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
     }
 }

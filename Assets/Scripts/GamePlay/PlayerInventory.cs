@@ -61,17 +61,9 @@ public class PlayerInventory : MonoBehaviour
         textDush.text = UIHandler.instance.ConvertNumberAbbreviation(dush);
         textCogwheel.text = UIHandler.instance.ConvertNumberAbbreviation(cogwheel);
 
-        ChangeCap();
-        ChangeClothes();
-        ChangeGun();
-    }
-
-    public void ChangeCap()
-    {
-        cap.sprite = EquipmentController.instance.caps[capLevel];
-        Vector2 pivot = PlayerController.instance.player.playerSkiner.caps[capLevel].pivot;
-        Vector2 size = PlayerController.instance.player.playerSkiner.caps[capLevel].rect.size;
-        rectCap.pivot = new Vector2(pivot.x / size.x, pivot.y / size.y);
+        EquipmentController.instance.ChangeCap();
+        EquipmentController.instance.ChangeClothes();
+        EquipmentController.instance.ChangeGun();
     }
 
     public void RewardDesign(EquipmentController.EQUIPMENTTYPE type)
@@ -81,16 +73,6 @@ public class PlayerInventory : MonoBehaviour
         else if (type == EquipmentController.EQUIPMENTTYPE.CAP) amoutCapDesign++;
         else amoutClothesDesign++;
         dush += 10;
-    }
-
-    public void ChangeClothes()
-    {
-        clothes.sprite = EquipmentController.instance.clothess[clothesLevel];
-    }
-
-    public void ChangeGun()
-    {
-        gun.sprite = EquipmentController.instance.guns[gunLevel];
     }
 
     public void SubtractGem(int gem)

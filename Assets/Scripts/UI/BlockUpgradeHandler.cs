@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -27,37 +28,17 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public GameObject canvas;
     public WeaponUpgradeHandler weaponUpgradeHandler;
 
-    private void Start()
-    {
-        UpdateUIPosition();
-    }
-
-    public void UpdateUIPosition()
-    {
-        frame.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x - 1.75f, transform.position.y));
-        weaponBuyer.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x + 1.25f, transform.position.y));
-        weaponUpgrade.transform.position = instance.cam.WorldToScreenPoint(new Vector2(transform.position.x + 2.55f, transform.position.y));
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            UpdateUIPosition();
-        }
-    }
-
     public void LoadData(int blockLevel, WEAPON weaponType, int weaponLevel, int levelUpgrade)
     {
         blockInfo.level = blockLevel;
         UpgradeHandle();
-        LoadData();
+        LoadData(true);
         if (weaponType == WEAPON.NONE) return;
         weaponUpgradeHandler.LoadData(weaponLevel, levelUpgrade);
         BuyWeapon(weaponType, weaponLevel);
     }
 
-     public void LoadWeaponBuyButtonInCurrentLevel()
+    public void LoadWeaponBuyButtonInCurrentLevel()
     {
         WEAPON[] weaponUseds = EnemyTowerController.instance.weaponUseds;
         for (int i = 0; i < weaponBuyButtons.Length; i++)
@@ -76,11 +57,22 @@ public class BlockUpgradeHandler : ButtonUpgradee
         }
     }
 
-    public void LoadData()
+    public void LoadData(bool isLoadData)
     {
         for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
-            if (weaponBuyButtons[i].gameObject.activeSelf) weaponBuyButtons[i].LoadData();
+            if (weaponBuyButtons[i].gameObject.activeSelf)
+            {
+                weaponBuyButtons[i].LoadData();
+                if (!isLoadData)
+                {
+                    int index = i;
+                    DOVirtual.DelayedCall(index * 0.05f, delegate
+                    {
+                        weaponBuyButtons[index].EnableAniShowButton();
+                    });
+                }
+            }
         }
     }
 
@@ -114,7 +106,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
     {
         for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
-            if(weaponBuyButtons[i].gameObject.activeSelf) weaponBuyButtons[i].CheckButtonState();
+            if (weaponBuyButtons[i].gameObject.activeSelf) weaponBuyButtons[i].CheckButtonState();
         }
         CheckButtonState();
         weaponUpgradeHandler.CheckButtonState();

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,11 +67,13 @@ public class ProgressHandler : MonoBehaviour
 
     public void X2Gold()
     {
+        PlayerController.instance.player.PlusGold(gold);
         HideLose();
     }
 
     public void ShowReward()
     {
+        if (equipRewards.Count == 0) return;
         for (int i = 0; i < equips.Length; i++)
         {
             if (i < equipRewards.Count)
@@ -196,6 +199,7 @@ public class ProgressHandler : MonoBehaviour
     public void PlusGold(int gold)
     {
         this.gold += gold;
+        PlayerController.instance.player.PlusGold(gold);
         textGold.text = this.gold.ToString();
     }
 }

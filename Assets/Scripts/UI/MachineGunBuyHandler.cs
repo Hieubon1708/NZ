@@ -6,6 +6,7 @@ public class MachineGunBuyHandler : WeaponBuyButton
     {
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.MACHINE_GUN, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.MACHINE_GUN));
+        BlockController.instance.CheckButtonStateAll();
     }
 
     public override void LoadData()

@@ -32,19 +32,34 @@ public class PlayerController : MonoBehaviour
         BoomGenerate();
     }
 
+    public void StartGame()
+    {
+        StartCoroutine(StartFindTarget());
+    }
+
     public IEnumerator StartFindTarget()
     {
-        yield return new WaitForFixedUpdate();
-        target = GameController.instance.GetENearest(transform.position);
+        while (target == null || target == GameController.instance.defaultDir)
+        {
+            yield return new WaitForFixedUpdate();
+            target = GameController.instance.GetENearest(transform.position);
+        }
+        target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         isFindingTarget = true;
         ShotAni();
     }
 
     public void Restart()
     {
+        isFindingTarget = false;
+        target = null;
         playerAni.Rebind();
+        playerHandler.Resart();
         playerHandler.boxCollider.SetActive(true);
         BulletController.instance.EndShot();
+        isMouseDown = false;
+        traectory.SetActive(false);
+        gunPivot.localRotation = Quaternion.identity;
     }
 
     public void LoadData()
@@ -67,6 +82,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             target = GameController.instance.GetENearest(transform.position);
+            if (target != GameController.instance.defaultDir) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         }
         isFindingTarget = true;
     }
@@ -94,14 +110,12 @@ public class PlayerController : MonoBehaviour
 
     public void BoomChange()
     {
-        for (int i = 0; i < boomSpriteRenderers.Length; i++)
-        {
-            boomSpriteRenderers[i].sprite = player.playerSkiner.booms[EquipmentController.instance.playerInventory.boomLevel];
-        }
+        player.playerSkiner.BoomChange();
     }
 
     public void ThrowBoom()
     {
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.UseGrenade);
         GameObject b = listBooms[boomIndex].gameObject;
         Rigidbody2D rb = listBooms[boomIndex];
         b.SetActive(true);
@@ -110,8 +124,8 @@ public class PlayerController : MonoBehaviour
         float bgSpeed = GameController.instance.backgroundSpeed * 1.25f;
         float blockHeight = BlockController.instance.tempBlocks.Count == 0 ? 0 : (transform.position.y - BlockController.instance.tempBlocks[0].transform.position.y) * 0.1f;
 
-        rb.AddForce(new Vector2(Random.Range(2.5f + bgSpeed - blockHeight, 3f + bgSpeed - blockHeight), 7), ForceMode2D.Impulse);
-        rb.AddTorque(0.75f, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(Random.Range(3f + bgSpeed - blockHeight, 4f + bgSpeed - blockHeight), 10), ForceMode2D.Impulse);
+        rb.AddTorque(0.15f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;
     }
@@ -125,10 +139,6 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ThrowBoom();
-        }
         if (isMouseDown)
         {
             Vector2 mousePos = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);

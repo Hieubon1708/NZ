@@ -87,11 +87,13 @@ public class EnemyTowerHandler : MonoBehaviour
 
         if (hp == 0)
         {
+            UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyTower);
             towerInfo.gameObject.SetActive(false);
             damageTaken = 0;
             UIHandler.instance.FlyGold(enemyController.col.transform.position, 100);
             GameController.instance.EDeathAll(enemyController.col);
             GameController.instance.ShakeCam(0.35f);
+            if (!UIHandler.instance.tutorial.isFirstTimeDestroyTower) UIHandler.instance.tutorial.isFirstTimeDestroyTower = true;
             UIHandler.instance.progressHandler.ChestReward(EnemyTowerController.instance.indexTower);
             EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(view.transform.position.x + 1.5f, view.transform.position.y));

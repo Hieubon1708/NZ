@@ -194,10 +194,13 @@ public class GameController : MonoBehaviour
     {
         SetValue(false);
         EnemyTowerController.instance.Restart();
+        UIHandler.instance.Restart();
         PlayerController.instance.Restart();
         BlockController.instance.Restart();
         CarController.instance.Restart();
         Booster.instance.ResetBooster();
+        ParController.instance.SetActivePar(false);
+        listEVisible.Clear();
     }
 
     void Resize()
@@ -223,8 +226,9 @@ public class GameController : MonoBehaviour
         SetValue(true);
         BlockController.instance.StartGame();
         Booster.instance.StartGame();
-        UIHandler.instance.progressHandler.StartGame();
+        UIHandler.instance.StartGame();
         EnemyTowerController.instance.NextTower();
+        PlayerController.instance.StartGame();
     }
 
     void SetValue(bool isActive)
@@ -294,16 +298,19 @@ public class GameController : MonoBehaviour
             equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
         }
 
-        PlayerController.instance.player.gold += UIHandler.instance.progressHandler.gold;
         DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
         playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush,EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray(), UpgradeEvolutionController.instance.shockers.ToArray());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
-        TutorialDataStorage tutorialDataStorage = new TutorialDataStorage();
+        TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
+        DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
 
-        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive, playerDataStorage, blockDataStorages, energyDataStorage, weaponEvolutionDataStorge, chanceDataStorage, UIHandler.instance.progressHandler.progresses.ToArray(), tutorialDataStorage);
+        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive
+            , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewarHighest
+            , UIHandler.instance.progressHandler.progresses.ToArray(), dailyDataStorage, tutorialDataStorage
+            , playerDataStorage, blockDataStorages, energyDataStorage, chanceDataStorage, weaponEvolutionDataStorge);
 
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");

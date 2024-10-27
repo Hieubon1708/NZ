@@ -48,7 +48,7 @@ public class EnemyHandler : MonoBehaviour
     Coroutine shockerTrigger;
     Coroutine flameTrigger;
     Coroutine flameBurningTrigger;
-    Coroutine blockCollision;
+    protected Coroutine blockCollision;
     protected Coroutine playerCollision;
 
     protected LayerMask layerOrigin;
@@ -150,7 +150,7 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
-    IEnumerator BlockCollisionHandle(GameObject b, int subtractHp)
+    protected IEnumerator BlockCollisionHandle(GameObject b, int subtractHp)
     {
         if (b == null) yield break;
         BlockHandler scB = BlockController.instance.GetScBlock(b).blockHandler;
@@ -233,7 +233,6 @@ public class EnemyHandler : MonoBehaviour
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.collider.gameObject.activeSelf || !colObj.gameObject.activeSelf || !collision.gameObject.activeSelf) return;
-        if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
     }
 
@@ -386,11 +385,11 @@ public class EnemyHandler : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
-    void SubtractHp(float subtractHp)
+    void SubtractHp(int subtractHp)
     {
         if (enemyInfo.hp == 0) return;
         if (!healthBar.activeSelf) healthBar.SetActive(true);
-        float hp = enemyInfo.SubtractHp(subtractHp);
+        int hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         damage.ShowDamage(subtractHp.ToString(), hitObj);
         hitEffect.PlayHitEffect(fullBodies); 
@@ -405,6 +404,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void DeathHandle()
     {
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
@@ -497,7 +497,7 @@ public class EnemyHandler : MonoBehaviour
         colObj.SetActive(true);
         SetColNKinematicNRevival(true);
         healthBar.SetActive(false);
-        healthHandler.SetDefaultInfo(enemyInfo);
+        healthHandler.SetDefaultInfo(ref enemyInfo.hp);
     }
 
     IEnumerator SetFalseIsStunned(float time)

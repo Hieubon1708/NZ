@@ -1,18 +1,28 @@
 using Coffee.UIExtensions;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class TutorialOject : MonoBehaviour
 {
-    public Sprite targetButtonImage;
+    public string targetbuttonImageName;
+    public string targetOtherImageName;
+    Sprite targetButtonImage;
     public RectTransform targetButton;
     public RectTransform targetHand;
     public GameObject hand;
     public GameObject lig;
     public RectTransform otherTarget;
-    public Sprite targetOtherImage;
+    Sprite targetOtherImage;
     Tween delayFadeXUnmask;
+    public SpriteAtlas SpriteAtlas;
+
+    private void Awake()
+    {
+        if (targetbuttonImageName != "") targetButtonImage = SpriteAtlas.GetSprite(targetbuttonImageName);
+        if (targetOtherImageName != "") targetOtherImage = SpriteAtlas.GetSprite(targetOtherImageName);
+    }
 
     public void EnabledTutorial(bool isEnable, Unmask unmaskButton, Unmask unmaskHand
         , Unmask unmaskOther, GameObject unmaskParent, Image xUnmask, Image spButton, Image spOther)

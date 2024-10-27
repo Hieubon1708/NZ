@@ -19,11 +19,24 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     public BlockUpgradeHandler blockUpgradeHandler;
     public WeaponShoter weaponShoter;
     public WeaponConfig weaponConfig;
+    public TutorialOject tutorialOject;
+    public Animation aniShowNewEvo;
 
     public void LoadData(int level, int levelUpgrade)
     {
         this.levelUpgrade = levelUpgrade;
         this.level = level;
+    }
+
+    public TutorialOject GetTutorialOject(out int price)
+    {
+        price = 0;
+        if (evoUpgrade.activeSelf)
+        {
+            price = DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig);
+            return tutorialOject;
+        }
+        else return null;
     }
 
     public void StartGame()
@@ -53,7 +66,9 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             evoUpgrade.SetActive(false);
-
+            gameObject.SetActive(false);
+            UpgradeEvolutionController.instance.weaponUpgradeHandler = this;
+            UIHandler.instance.tutorial.TutorialUpgradeWeaponEvo(true);
             bool isEvoContains = false;
 
             if (weaponShoter.weaponType == GameController.WEAPON.SAW)
@@ -80,6 +95,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             if (!isEvoContains) weaponShoter.LoadData();
         }
         UpgradeHandle();
+        BlockController.instance.CheckButtonStateAll();
     }
 
     public override void UpgradeHandle()
@@ -110,6 +126,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
     void ChangeTextUpgrade()
     {
         evoUpgrade.SetActive(true);
+        UIHandler.instance.tutorial.TutorialUpgradeWeaponEvo(false);
         textEvoUpgrade.text = "Lv" + (level + 1) + " > " + "Lv" + (level + 2) + " EVOLUTION";
         textPriceUpgrade.text = DataManager.instance.GetEvolutionPriceWeaponConfig(level, weaponConfig).ToString();
     }

@@ -1,8 +1,9 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
@@ -16,7 +17,12 @@ public class UIHandler : MonoBehaviour
     public Setting setting;
     public Tutorial tutorial;
     public Menu menu;
+    public Daily daily;
 
+    public int goldRewarHighest;
+    public TextMeshProUGUI textRewardGold;
+    public DateTime lastRewardTime;
+    public Image frameRewardGold;
     public TextMeshProUGUI mapInfo;
     public GameObject goldFlyPrefab;
     public GameObject[] goldFlies;
@@ -29,15 +35,14 @@ public class UIHandler : MonoBehaviour
     public TextMeshProUGUI textGold;
     public TextMeshProUGUI textGem;
 
-    public Sprite[] frameButtonWeaponBuyers;
-    public Sprite[] frameButtonWeaponUpgradees;
-    public Sprite[] frameButtonWeaponEvoUpgradees;
-
-    public Sprite[] frameButtonBlockUpgradees;
-    public Sprite[] frameButtonEnergyUpgradees;
-
-    public Sprite[] frameButtonBooster;
-    public Sprite[] frameButtonBoomBooster;
+    Sprite[] frameButtonWeaponBuyers = new Sprite[2];
+    Sprite[] frameButtonWeaponUpgradees = new Sprite[3];
+    Sprite[] frameButtonWeaponEvoUpgradees = new Sprite[2];
+    Sprite[] frameButtonBlockUpgradees = new Sprite[3];
+    Sprite[] frameButtonEnergyUpgradees = new Sprite[2];
+    Sprite[] frameButtonRewardGold = new Sprite[2];
+    Sprite[] frameButtonBooster = new Sprite[2];
+    Sprite[] frameButtonBoomBooster = new Sprite[2];
 
     public Color framePriceNok;
     public Color framePriceOk;
@@ -51,23 +56,78 @@ public class UIHandler : MonoBehaviour
 
     public Image layerCover;
 
+    public SpriteAtlas spriteAtlas;
+
     public void Awake()
     {
         instance = this;
+        LoadSprites();
         Generate();
+    }
+
+    void LoadSprites()
+    {
+        frameButtonWeaponEvoUpgradees[0] = spriteAtlas.GetSprite("Button_Upgrade_WEAPON_Evolution_1");
+        frameButtonWeaponEvoUpgradees[1] = spriteAtlas.GetSprite("Button_Upgrade_WEAPON_2");
+        frameButtonBoomBooster[0] = spriteAtlas.GetSprite("Button_1");
+        frameButtonBoomBooster[1] = spriteAtlas.GetSprite("Button_Booster_2");
+        frameButtonRewardGold[0] = spriteAtlas.GetSprite("Button_ADS_COIN");
+        frameButtonRewardGold[1] = spriteAtlas.GetSprite("Button_Energy_Upgrade_2");
+
+        for (int i = 0; i < 2; i++)
+        {
+            frameButtonWeaponBuyers[i] = spriteAtlas.GetSprite("Button_Weapon_buy_" + (i + 1));
+            frameButtonEnergyUpgradees[i] = spriteAtlas.GetSprite("Button_Energy_Upgrade_" + (i + 1));
+            frameButtonBooster[i] = spriteAtlas.GetSprite("Button_Booster_" + (i + 1));
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            frameButtonBlockUpgradees[i] = spriteAtlas.GetSprite("Button_Upgrade_TOWER_" + (i + 1));
+            frameButtonWeaponUpgradees[i] = spriteAtlas.GetSprite("Button_Upgrade_WEAPON_" + (i + 1));
+        }
+    }
+
+    public IEnumerator CountdownRewardGold(int time)
+    {
+        frameRewardGold.raycastTarget = false;
+        frameRewardGold.sprite = frameButtonRewardGold[1];
+        while (time != -1)
+        {
+            int minutes = Mathf.FloorToInt(time / 60);
+            int seconds = Mathf.FloorToInt(time % 60);
+
+            string timeString = string.Format("{0:00}:{1:00}", minutes, seconds);
+            textRewardGold.text = timeString;
+            yield return new WaitForSeconds(1);
+            time--;
+        }
+        textRewardGold.text = ConvertNumberAbbreviation(goldRewarHighest);
+        frameRewardGold.raycastTarget = true;
+        frameRewardGold.sprite = frameButtonRewardGold[0];
+    }
+
+    public void Restart()
+    {
+        if (!daily.daily.activeSelf)
+        {
+            if (tutorial.isSecondTimeDestroyTower)
+            {
+                daily.LoadData();
+                daily.daily.SetActive(true);
+            }
+        }
     }
 
     public void Start()
     {
+        layerCover.gameObject.SetActive(true);
         DoLayerCover(0f, 0.5f, null);
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
     {
-        layerCover.gameObject.SetActive(true);
         layerCover.DOFade(alpha, duration).OnComplete(delegate
         {
-            layerCover.gameObject.SetActive(false);
             if (callback != null) callback.Invoke();
         }).SetEase(Ease.Linear);
     }
@@ -76,12 +136,39 @@ public class UIHandler : MonoBehaviour
     {
         if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
         GoldUpdatee();
+        
         summonEquipment.LoadData();
         progressHandler.LoadData();
         setting.LoadData();
-        //tutorial.LoadData();
+        tutorial.LoadData();
         menu.LoadData();
-        textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+        GemUpdatee();
+
+        if(DataManager.instance.dataStorage != null)
+        {
+            goldRewarHighest = DataManager.instance.dataStorage.goldRewardHighest;
+            lastRewardTime = DataManager.instance.dataStorage.lastRewardTime;
+        }
+
+        DateTime currentTime = DateTime.Now;
+        TimeSpan timeSinceLastReward = currentTime - lastRewardTime;
+        if (timeSinceLastReward.TotalMilliseconds >= 5)
+        {
+            textRewardGold.text = ConvertNumberAbbreviation(goldRewarHighest);
+        }
+        else
+        {
+            StartCoroutine(CountdownRewardGold((int)timeSinceLastReward.TotalSeconds));
+        }
+    }
+
+    public void StartGame()
+    {
+        progressHandler.StartGame();
+        tutorial.StartGame();
+        uIEffect.KillTw();
+        layerCover.DOKill();
+        DoLayerCover(0f, 0f, null);
     }
 
     void Generate()
@@ -102,6 +189,11 @@ public class UIHandler : MonoBehaviour
         gem.SetActive(!isActive);
     }
 
+    public void GoldRewardHighest()
+    {
+        if(goldRewarHighest < progressHandler.gold) goldRewarHighest = progressHandler.gold;
+    }
+
     public void FlyGold(Vector2 pos, int gold)
     {
         GameObject g = goldFlies[curentCountFlyGold];
@@ -116,11 +208,12 @@ public class UIHandler : MonoBehaviour
         });
     }
 
-    public void AddGold()
+    public void RewardGold()
     {
-        PlayerController.instance.player.gold += 100000;
+        PlayerController.instance.player.gold += goldRewarHighest;
         GoldUpdatee();
-        BlockController.instance.CheckButtonStateAll();
+        BlockController.instance.CheckButtonStateAll();       
+        StartCoroutine(CountdownRewardGold(5 * 60));
     }
 
     public void GoldUpdatee()
@@ -130,7 +223,12 @@ public class UIHandler : MonoBehaviour
 
     public void GemUpdatee()
     {
-        textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+        if (EquipmentController.instance.playerInventory.gem == 0) gem.SetActive(false);
+        else
+        {
+            gem.SetActive(true);
+            textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+        }
     }
 
     public void PlusGem(int gem)
@@ -164,6 +262,7 @@ public class UIHandler : MonoBehaviour
             if (isOk) frame.sprite = frameButtonBooster[0];
             else frame.sprite = frameButtonBooster[1];
         }
+        if (GameController.instance.isLose) return;
         if (isOk) frame.raycastTarget = true;
         else frame.raycastTarget = false;
     }

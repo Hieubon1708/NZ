@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -19,13 +20,21 @@ public class Menu : MonoBehaviour
 
     bool isChangingOptions;
 
-    public Sprite ok;
-    public Sprite nOk;
+    Sprite ok;
+    Sprite nOk;
 
     public GameObject battle;
     public GameObject inventory;
     public GameObject shop;
     public GameObject battleGamePlay;
+
+    public SpriteAtlas spriteAtlas;
+
+    private void Awake()
+    {
+        ok = spriteAtlas.GetSprite("Button_Chosen_section_1 1");
+        nOk = spriteAtlas.GetSprite("Button_Chosen_section_2 1");
+    }
 
     public void LoadData()
     {
