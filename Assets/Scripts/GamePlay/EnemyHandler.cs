@@ -404,7 +404,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void DeathHandle()
     {
-        UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
+        //UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);

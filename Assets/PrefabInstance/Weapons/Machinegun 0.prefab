@@ -370,16 +370,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
+  level: 0
   ani: {fileID: 95646249028905498}
   target: {fileID: 0}
   parent: {fileID: 4596171894691502}
   preBullet: {fileID: 1679334284406129, guid: 3c4c314e82ebdb8418f0243fa87ef814, type: 3}
   preBulletBooster: {fileID: 1870203721908051, guid: 88245f5a1e105e941b1faf292d7eb702, type: 3}
-  count: 25
-  timeDistance: 0.08
-  timeDistanceBooster: 0.15
-  speedBullet: 25
-  turnTimeDelay: 0.75
   listBulletBoosters: []
   listScBulletBoosters: []
   containers:
@@ -387,7 +383,11 @@ MonoBehaviour:
   - {fileID: 6321811550636308096}
   - {fileID: 3223990417389043819}
   block: {fileID: 0}
-  amoutLine: 1
+  startAmoutLine: 1
+  count: 25
+  timeDistance: 0.08
+  timeDistanceBooster: 0.15
+  speedBullet: 25
 --- !u!1 &1477458382013567
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,10 +514,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483828535347338}
   m_Enabled: 1
-  m_SortingLayerID: 939080219
-  m_SortingLayer: 5
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &1582556973441335
 GameObject:
   m_ObjectHideFlags: 0

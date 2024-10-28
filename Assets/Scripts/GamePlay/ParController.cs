@@ -208,6 +208,16 @@ public class ParController : MonoBehaviour
         if (currentCountZomHitOnRoad == zomHitOnRoads.Length) currentCountZomHitOnRoad = 0;
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
+    
+    public void PlayDestroyBlockParticle(Vector2 pos)
+    {
+        GameObject b = blockDestroys[currentCountBlockDestroy];
+        b.transform.position = pos;
+        b.SetActive(true);
+        currentCountBlockDestroy++;
+        if (currentCountBlockDestroy == blockDestroys.Length) currentCountBlockDestroy = 0;
+        DOVirtual.DelayedCall(1f, delegate { b.SetActive(false); });
+    }
 
     public void PlayZomHitOnHeroParticle(Vector2 pos)
     {

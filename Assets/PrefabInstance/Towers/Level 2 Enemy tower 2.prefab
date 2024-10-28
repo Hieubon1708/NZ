@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4864609611592455}
   - component: {fileID: 50775371816787015}
-  - component: {fileID: 9211298424982826055}
   - component: {fileID: -9180657258031006031}
   - component: {fileID: -8019583124124422244}
   - component: {fileID: 5863783749768097348}
@@ -66,18 +65,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!210 &9211298424982826055
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047445538173755}
-  m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!114 &-9180657258031006031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +850,7 @@ Transform:
   m_GameObject: {fileID: 1444125034556573}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.8711, y: 4.11, z: 0}
+  m_LocalPosition: {x: 22.2, y: 4.11, z: 0}
   m_LocalScale: {x: 81.38958, y: 50.3, z: 32.069}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -967,8 +954,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453430196178464}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 16
   m_SortAtRoot: 0
 --- !u!1 &1498971081497801
@@ -1424,6 +1411,7 @@ GameObject:
   - component: {fileID: 4818665518687590}
   - component: {fileID: 212223583792717306}
   - component: {fileID: 8196495856798526457}
+  - component: {fileID: 7148634197657539886}
   m_Layer: 0
   m_Name: Zombie_Base_Front
   m_TagString: Enemy
@@ -1511,6 +1499,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTowerHandler: {fileID: 5863783749768097348}
+--- !u!210 &7148634197657539886
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722109049953761}
+  m_Enabled: 1
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1767822702641565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4023723703198876}
   - component: {fileID: 212195644488225417}
+  - component: {fileID: 4928446264159151779}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1643,6 +1644,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &4928446264159151779
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969533646676143}
+  m_Enabled: 1
+  m_SortingLayerID: -1749266999
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1997226703160178
 GameObject:
   m_ObjectHideFlags: 0

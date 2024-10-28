@@ -191,7 +191,7 @@ public class ShockerHandler : WeaponShoter
             shockerScBoosters[countBooster].ZoomInBooster();
             countBooster++;
             if (countBooster == shockerBoosters.Length) countBooster = 0;
-            DOVirtual.DelayedCall(2f, delegate
+            DOVirtual.DelayedCall(1f, delegate
             {
                 s.SetActive(false);
             });

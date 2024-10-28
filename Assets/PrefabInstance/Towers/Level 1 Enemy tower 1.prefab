@@ -214,8 +214,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356904374502862}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_SortAtRoot: 0
 --- !u!1 &1471562470669133
@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 4363081047142096}
   - component: {fileID: 212648377551459711}
   - component: {fileID: 598526814664422716}
+  - component: {fileID: 6342444749219932998}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -556,6 +557,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTowerHandler: {fileID: 2833574505629969244}
+--- !u!210 &6342444749219932998
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548017753272564}
+  m_Enabled: 1
+  m_SortingLayerID: -1749266999
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1656541403474868
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,8 +786,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 95d91c493eb35e4478b316b157b29c85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -795,10 +808,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688412681906490}
   m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &1716845222680604
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +990,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4409471532168881}
   - component: {fileID: 50652127620861636}
-  - component: {fileID: 5550468534724939165}
   - component: {fileID: 5252272118276834461}
   - component: {fileID: -8882876489914271287}
   - component: {fileID: -743801041022967399}
@@ -1033,18 +1045,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!210 &5550468534724939165
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740088135779993}
-  m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
-  m_SortingOrder: 100
-  m_SortAtRoot: 0
 --- !u!114 &5252272118276834461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1485,7 +1485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5914431710733801655
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,7 +1495,7 @@ Transform:
   m_GameObject: {fileID: 2754633274360633799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.34, y: 4.11, z: 0}
+  m_LocalPosition: {x: 22.62, y: 4.11, z: 0}
   m_LocalScale: {x: 80.99015, y: 50.3, z: 32.069}
   m_ConstrainProportionsScale: 0
   m_Children: []

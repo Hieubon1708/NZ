@@ -2875,10 +2875,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  level: 1
   ani: {fileID: 95944292546024306}
   target: {fileID: 0}
   parent: {fileID: 4708699233875885}
-  level: 1
   sawAttackAni: {fileID: 111974256618156514}
   sawBlood: {fileID: 198391738484936160}
   sawBoosterPref: {fileID: 1106291111016258, guid: b467c4a0954d59b44b8ff7aba2a5be3b, type: 3}
@@ -2929,10 +2929,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761374629782067}
   m_Enabled: 1
-  m_SortingLayerID: 939080219
-  m_SortingLayer: 5
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &1812912826440160
 GameObject:
   m_ObjectHideFlags: 0

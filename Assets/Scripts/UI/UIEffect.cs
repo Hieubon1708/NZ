@@ -14,16 +14,19 @@ public class UIEffect : MonoBehaviour
     public RectTransform[] areaGems;
     public RectTransform[] areaIn;
     public RectTransform[] areaOut;
-    public GameObject targetGold;
+    public RectTransform rectIn;
+    public RectTransform rectOut;
+    public RectTransform targetGold;
+    public RectTransform targetGoldEnd;
     Tween[] delayCalls;
     Tween delayGoldUpdate;
     Tween delayGemUpdate;
-    Tween delayChangeDaily;
     float startScaleGem;
+    int indexGold;
 
     public void Start()
     {
-        golds = new GameObject[7];
+        golds = new GameObject[84];
         delayCalls = new Tween[golds.Length];
         for (int i = 0; i < golds.Length; i++)
         {
@@ -41,32 +44,7 @@ public class UIEffect : MonoBehaviour
 
     public void FlyGold()
     {
-        for (int i = 0; i < golds.Length; i++)
-        {
-            float xIn = Random.Range(areaIn[i].transform.position.x - areaIn[i].sizeDelta.x / 2, areaIn[i].transform.position.x + areaIn[i].sizeDelta.x / 2);
-            float yIn = Random.Range(areaIn[i].transform.position.y - areaIn[i].sizeDelta.y / 2, areaIn[i].transform.position.y + areaIn[i].sizeDelta.y / 2);
-
-            golds[i].transform.position = new Vector2(xIn, yIn);
-            golds[i].SetActive(true);
-
-            float xOut = Random.Range(areaOut[i].transform.position.x - areaOut[i].sizeDelta.x / 2, areaOut[i].transform.position.x + areaOut[i].sizeDelta.x / 2);
-            float yOut = Random.Range(areaOut[i].transform.position.y - areaOut[i].sizeDelta.y / 2, areaOut[i].transform.position.y + areaOut[i].sizeDelta.y / 2);
-
-            int index = i;
-
-            lightCircle.DOFade(1f, 0.35f).OnComplete(delegate
-            {
-                lightCircle.DOFade(0f, 0.85f);
-            });
-            golds[index].transform.DOMove(new Vector2(xOut, yOut), 0.35f).OnComplete(delegate
-            {
-                delayCalls[index] = DOVirtual.DelayedCall(Random.Range(0.35f, 0.45f), delegate
-                {
-                    golds[index].transform.DOMove(targetGold.transform.position, Random.Range(0.35f, 0.45f)).OnComplete(delegate { golds[index].SetActive(false); });
-                });
-
-            });
-        }
+        FlyGoldHandle(true, 7, new Vector2(Screen.width / 2, Screen.height / 2), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
         delayGoldUpdate = DOVirtual.DelayedCall(1.05f, delegate
         {
             UIHandler.instance.GoldUpdatee();
@@ -74,6 +52,44 @@ public class UIEffect : MonoBehaviour
             UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
             UIHandler.instance.progressHandler.ShowReward();
         });
+    }
+
+    void FlyGoldHandle(bool isUseLight, int amountGold, Vector2 pos, Vector2 target, float scale, float timeMoveInToOut, float randomTimeDelayMoveTarget1, float randomTimeDelayMoveTarget2, float randomTimeMoveToTarget1, float randomTimeMoveToTarget2)
+    {
+        rectIn.position = pos;
+        rectOut.position = pos;
+        for (int i = 0; i < amountGold; i++)
+        {
+            int index = indexGold;
+            float xIn = Random.Range(areaIn[i].transform.position.x - areaIn[i].sizeDelta.x / 2, areaIn[i].transform.position.x + areaIn[i].sizeDelta.x / 2);
+            float yIn = Random.Range(areaIn[i].transform.position.y - areaIn[i].sizeDelta.y / 2, areaIn[i].transform.position.y + areaIn[i].sizeDelta.y / 2);
+
+            golds[index].transform.position = new Vector2(xIn, yIn);
+            golds[index].transform.localScale = Vector3.one * scale;
+            golds[index].SetActive(true);
+
+            float xOut = Random.Range(areaOut[i].transform.position.x - areaOut[i].sizeDelta.x / 2, areaOut[i].transform.position.x + areaOut[i].sizeDelta.x / 2);
+            float yOut = Random.Range(areaOut[i].transform.position.y - areaOut[i].sizeDelta.y / 2, areaOut[i].transform.position.y + areaOut[i].sizeDelta.y / 2);
+
+            if (isUseLight) lightCircle.DOFade(1f, 0.35f).OnComplete(delegate
+             {
+                 lightCircle.DOFade(0f, 0.85f);
+             });
+            golds[index].transform.DOMove(new Vector2(xOut, yOut), timeMoveInToOut).OnComplete(delegate
+            {
+                delayCalls[index] = DOVirtual.DelayedCall(Random.Range(randomTimeDelayMoveTarget1, randomTimeDelayMoveTarget2), delegate
+                {
+                    golds[index].transform.DOMove(target, Random.Range(randomTimeMoveToTarget1, randomTimeMoveToTarget2)).OnComplete(delegate { golds[index].SetActive(false); });
+                });
+            });
+            indexGold++;
+            if (indexGold == golds.Length) indexGold = 0;
+        }
+    }
+
+    public void EndFlyGold(Vector2 pos)
+    {
+        FlyGoldHandle(false, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.15f, 0.205f);
     }
 
     private void Update()
@@ -96,11 +112,12 @@ public class UIEffect : MonoBehaviour
             float y = Random.Range(areaGems[i].transform.position.y - areaGems[i].sizeDelta.y / 2, areaGems[i].transform.position.y + areaGems[i].sizeDelta.y / 2);
 
             gems[i].transform.DOScale(startScaleGem + (i % 2 == 0 ? 0.15f : 0.5f), 0.45f).SetEase(Ease.OutQuad);
-            gems[i].transform.DORotate(new Vector3(0, 0, 360), 0.4f, RotateMode.FastBeyond360).SetLoops(2, LoopType.Incremental);
+            gems[i].transform.DORotate(new Vector3(0, 0, 360), 0.45f, RotateMode.FastBeyond360).SetEase(Ease.OutQuad);
             int index = i;
             gems[index].transform.DOMove(new Vector2(x, y), 0.45f).OnComplete(delegate
             {
                 gems[index].transform.DOScale(startScaleGem, 0.35f).SetEase(Ease.InQuad);
+                gems[index].transform.DORotate(new Vector3(0, 0, 360), 0.35f, RotateMode.FastBeyond360).SetEase(Ease.InQuad);
                 gems[index].transform.DOMove(targetGems.transform.position, 0.35f).OnComplete(delegate { gems[index].SetActive(false); }).SetEase(Ease.InQuad);
             }).SetEase(Ease.OutQuad);
         }
@@ -134,7 +151,7 @@ public class UIEffect : MonoBehaviour
 
     public void OnDestroy()
     {
-        KillTw();
+        //KillTw();
     }
 
     public void KillTw()

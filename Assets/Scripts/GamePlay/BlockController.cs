@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static GameController;
@@ -42,6 +43,37 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    public IEnumerator EndGame()
+    {
+        tempBlocks = new List<GameObject>(blocks);
+        int goldReward = UIHandler.instance.progressHandler.gold;
+        while(tempBlocks.Count > 0)
+        {
+            UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
+            UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
+            Block sc = GetScBlock(tempBlocks[tempBlocks.Count - 1]);
+            DeleteBlockInGame(tempBlocks[tempBlocks.Count - 1]);
+            goldReward += sc.sellingPrice;
+            int gold = goldReward;
+            int count = tempBlocks.Count;
+            DOVirtual.DelayedCall(0.65f, delegate
+            {
+                UIHandler.instance.progressHandler.textGold.text = gold.ToString();
+                if (count == 0) UIHandler.instance.progressHandler.textGold.text = PlayerController.instance.player.gold.ToString();
+            });
+            yield return new WaitForSeconds(0.25f);
+        }
+        
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StartCoroutine(EndGame());
+        }
+    }
+
     public void Restart()
     {
         for (int i = 0; i < blocks.Count; i++)
@@ -78,10 +110,10 @@ public class BlockController : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             Block scBlock = GetScBlock(blocks[i]);
-            if(scBlock.blockUpgradeHandler.weaponUpgradeHandler != null)
+            if (scBlock.blockUpgradeHandler.weaponUpgradeHandler != null)
             {
                 TutorialOject tutorialOject = scBlock.blockUpgradeHandler.weaponUpgradeHandler.GetTutorialOject(out price);
-                if(tutorialOject != null) return tutorialOject;
+                if (tutorialOject != null) return tutorialOject;
             }
         }
         return null;
@@ -229,11 +261,22 @@ public class BlockController : MonoBehaviour
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
     }
 
+    public void SellAllBlocks()
+    {
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block sc = GetScBlock(blocks[i]);
+            PlayerController.instance.player.gold += sc.sellingPrice;
+        }
+    }
+
     public void DeleteBlockInGame(GameObject block)
     {
         Block scBlock = GetScBlock(block);
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
+        scBlock.AddBlockParEvent();
+        ParController.instance.PlayBlockDestroyParticle(block.transform.position);
         if (!GameController.instance.isLose)
         {
             PlayerController.instance.DeleteBookAni();

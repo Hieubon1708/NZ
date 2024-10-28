@@ -17478,13 +17478,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetbuttonImageName: Button_Weapon_buy_1
   targetOtherImageName: weapon_saw_lv1_2
-  targetButtonImage: {fileID: 21300000, guid: 98c197cdbc1a5144fb6592cbc383714c, type: 3}
   targetButton: {fileID: 501256056561177213}
   targetHand: {fileID: 3414874275762524549}
   hand: {fileID: 7024316880503667741}
   lig: {fileID: 323341513641595783}
   otherTarget: {fileID: 8047060312179907699}
-  targetOtherImage: {fileID: 21300000, guid: 4cebb54e7e7b87043aa717f5f3ba3e23, type: 3}
   SpriteAtlas: {fileID: 100100200, guid: ea451cc565727514b97b1fc50902d5b4, type: 3}
 --- !u!114 &4181239261882734378
 MonoBehaviour:
@@ -19783,13 +19781,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetbuttonImageName: 
   targetOtherImageName: 
-  targetButtonImage: {fileID: 21300000, guid: 71c26f4931c521546aa19cfb1116e4f7, type: 3}
   targetButton: {fileID: 4923960574176172054}
   targetHand: {fileID: 593847648117725516}
   hand: {fileID: 9075475669450701092}
   lig: {fileID: 7046086122943230162}
   otherTarget: {fileID: 0}
-  targetOtherImage: {fileID: 0}
   SpriteAtlas: {fileID: 0}
 --- !u!1 &5927245879295130561
 GameObject:
@@ -20399,6 +20395,8 @@ GameObject:
   - component: {fileID: 8669946723151697497}
   - component: {fileID: 6737097860021179216}
   - component: {fileID: 6174395318329410891}
+  - component: {fileID: 3763223651461714924}
+  - component: {fileID: 6897550747536857687}
   m_Layer: 0
   m_Name: UpgradeBlock
   m_TagString: Untagged
@@ -20483,6 +20481,75 @@ MonoBehaviour:
   target: {fileID: 4689328177453823}
   x: -1.75
   y: 0
+--- !u!114 &3763223651461714924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698775674363995525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 6737097860021179216}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24971306725054711}
+        m_TargetAssemblyTypeName: BlockUpgradeHandler, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6897550747536857687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698775674363995525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec8e7990b40bdb44837fc195f274cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localScale: 0
 --- !u!1 &6814189233329014144
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,11 +40,11 @@ public class EnemySkinerT1 : MonoBehaviour
         legs = new Sprite[amountSet];
         for (int i = 0; i < amountSet; i++)
         {
-            faces[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Head");
-            bodyUps[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Body_up");
-            bodyDowns[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_Body_down");
-            bodyDownJoints[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_body_down_joint");
-            legs[i] = spriteAtlas.GetSprite("Zombie_" + level + "_" + (i + 1) + "_leg");
+            faces[i] = spriteAtlas.GetSprite("zombie_" + level + "_" + (i + 1) + "_head");
+            bodyUps[i] = spriteAtlas.GetSprite("zombie_" + level + "_" + (i + 1) + "_body_up");
+            bodyDowns[i] = spriteAtlas.GetSprite("zombie_" + level + "_" + (i + 1) + "_body_down");
+            bodyDownJoints[i] = spriteAtlas.GetSprite("zombie_" + level + "_" + (i + 1) + "_body_down_joint");
+            legs[i] = spriteAtlas.GetSprite("zombie_" + level + "_" + (i + 1) + "_leg");
         }
     }
     

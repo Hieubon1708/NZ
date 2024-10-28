@@ -342,7 +342,6 @@ GameObject:
   - component: {fileID: 50975204841333010}
   - component: {fileID: 5294805130344904689}
   - component: {fileID: 5599196776689415060}
-  - component: {fileID: 3623396429751235432}
   - component: {fileID: 5213358309602491864}
   - component: {fileID: 8705864562920221124}
   - component: {fileID: -2162843299084998848}
@@ -450,18 +449,6 @@ MonoBehaviour:
   isVisible: 0
   fullTowers: []
   hitEffect: {fileID: -2162843299084998848}
---- !u!210 &3623396429751235432
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213577617050126}
-  m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
-  m_SortingOrder: 100
-  m_SortAtRoot: 0
 --- !u!114 &5213358309602491864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +503,7 @@ GameObject:
   - component: {fileID: 4856660774188140}
   - component: {fileID: 212829182599306282}
   - component: {fileID: 2236750975415790732}
+  - component: {fileID: 4159354416006719988}
   m_Layer: 0
   m_Name: Zombie_Base_Front
   m_TagString: Enemy
@@ -603,6 +591,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTowerHandler: {fileID: 5599196776689415060}
+--- !u!210 &4159354416006719988
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250505932900614}
+  m_Enabled: 1
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1315006153627192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4383871364267874}
   - component: {fileID: 212335257909796058}
+  - component: {fileID: 4809331490940312261}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1268,6 +1269,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &4809331490940312261
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674009798719953}
+  m_Enabled: 1
+  m_SortingLayerID: -1749266999
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1756488591493443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,8 +1328,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756488591493443}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 16
   m_SortAtRoot: 0
 --- !u!1 &1798786143802898

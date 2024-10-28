@@ -186,7 +186,7 @@ public class SawHandler : WeaponShoter
             sawBoosters[countBooster].velocity = new Vector2(20, sawBoosters[countBooster].velocity.y);
             countBooster++;
             if (countBooster == sawBoosters.Length) countBooster = 0;
-            DOVirtual.DelayedCall(2f, delegate
+            DOVirtual.DelayedCall(1f, delegate
             {
                 s.SetActive(false);
             });

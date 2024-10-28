@@ -2960,6 +2960,7 @@ GameObject:
   - component: {fileID: 4902545752160015}
   - component: {fileID: 50567418034361857}
   - component: {fileID: 5462296914133460602}
+  - component: {fileID: -2318944648849539089}
   m_Layer: 17
   m_Name: Shocker booster
   m_TagString: Untagged
@@ -3035,6 +3036,18 @@ MonoBehaviour:
   targetHeightElectricity: 0.8
   targetScaleParBooster: 0.8
   time: 0.8
+--- !u!210 &-2318944648849539089
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673302001532738}
+  m_Enabled: 1
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
+  m_SortingOrder: 1
+  m_SortAtRoot: 1
 --- !u!1 &1676861282915355
 GameObject:
   m_ObjectHideFlags: 0

@@ -210,10 +210,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185012096791854}
   m_Enabled: 1
-  m_SortingLayerID: 939080219
-  m_SortingLayer: 5
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &1185038261627296
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,10 +461,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  level: 4
   ani: {fileID: 95730799012250251}
   target: {fileID: 0}
   parent: {fileID: 4273884649036109}
-  level: 4
   sawAttackAni: {fileID: 111527075121000270}
   sawBlood: {fileID: 198464099956926886}
   sawBoosterPref: {fileID: 1713520016362703, guid: dd9ce6bd92d4b214e9d75e1b36d93aa0, type: 3}

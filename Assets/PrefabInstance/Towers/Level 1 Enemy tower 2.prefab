@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 7e4618c664d9412409df79f4a33bb25f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,10 +94,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194325681529904}
   m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &1157195170077445323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +205,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4085561514440473}
   - component: {fileID: 50701928524112174}
-  - component: {fileID: 125022011739683783}
   - component: {fileID: -2110796626722167297}
   - component: {fileID: -4394416537802803902}
   - component: {fileID: -8501794509877524660}
@@ -261,18 +260,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!210 &125022011739683783
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345099119009694}
-  m_Enabled: 1
-  m_SortingLayerID: 1221242577
-  m_SortingLayer: 4
-  m_SortingOrder: 100
-  m_SortAtRoot: 0
 --- !u!114 &-2110796626722167297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,8 +1263,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764312923346581}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -466502789
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_SortAtRoot: 0
 --- !u!1 &1832518642273382
@@ -1451,6 +1438,7 @@ GameObject:
   - component: {fileID: 4009728043770179}
   - component: {fileID: 212357692926463117}
   - component: {fileID: 8977123170881830446}
+  - component: {fileID: 4327156739420410643}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
   m_TagString: Enemy
@@ -1538,6 +1526,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTowerHandler: {fileID: 6350634470192508310}
+--- !u!210 &4327156739420410643
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969052792649614}
+  m_Enabled: 1
+  m_SortingLayerID: -1749266999
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &15136396844651849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,7 +1554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8670896956349406550
 Transform:
   m_ObjectHideFlags: 0

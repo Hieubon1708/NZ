@@ -18,10 +18,7 @@ public class Daily : MonoBehaviour
     public DateTime lastUpdateDate;
     public int indexDaily;
     public int amount;
-    private void Start()
-    {
-        LoadData();
-    }
+
     public DailyDataStorage GetData()
     {
         return new DailyDataStorage(dailyOfDate, lastUpdateDate, indexDaily, amount);
@@ -53,8 +50,6 @@ public class Daily : MonoBehaviour
         DateTime currentDate = DateTime.Now;
         if (currentDate.Date > lastUpdateDate.Date)
         {
-            Debug.LogWarning(currentDate.Date.ToString());
-            Debug.LogWarning(lastUpdateDate.Date.ToString());
             RandomDaily();
             lastUpdateDate = currentDate;
         }
@@ -119,6 +114,6 @@ public class Daily : MonoBehaviour
 
     private void OnDestroy()
     {
-        canvasDaily.DOKill();
+        //canvasDaily.DOKill();
     }
 }

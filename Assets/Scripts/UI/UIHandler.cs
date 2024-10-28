@@ -65,6 +65,12 @@ public class UIHandler : MonoBehaviour
         Generate();
     }
 
+    public void SetActiveProgressNGem(bool isActive)
+    {
+        progressHandler.parent.SetActive(isActive);
+        gem.SetActive(isActive);
+    }
+
     void LoadSprites()
     {
         frameButtonWeaponEvoUpgradees[0] = spriteAtlas.GetSprite("Button_Upgrade_WEAPON_Evolution_1");
@@ -121,7 +127,7 @@ public class UIHandler : MonoBehaviour
     public void Start()
     {
         layerCover.gameObject.SetActive(true);
-        DoLayerCover(0f, 0.5f, null);
+        DoLayerCover(0f, 0.75f, null);
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
@@ -186,7 +192,7 @@ public class UIHandler : MonoBehaviour
         progressHandler.parent.SetActive(isActive);
         mapInfo.transform.parent.gameObject.SetActive(!isActive);
         gold.SetActive(!isActive);
-        gem.SetActive(!isActive);
+        if(EquipmentController.instance.playerInventory.gem != 0) gem.SetActive(!isActive);
     }
 
     public void GoldRewardHighest()

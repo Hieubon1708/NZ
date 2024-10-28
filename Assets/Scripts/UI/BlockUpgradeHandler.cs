@@ -100,6 +100,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
         blockInfo.level++;
         blockInfo.UpgradeBlockAni();
         UpgradeHandle();
+        BlockController.instance.CheckButtonStateAll();
     }
 
     public void CheckButtonStateInBlock()
@@ -144,15 +145,11 @@ public class BlockUpgradeHandler : ButtonUpgradee
 
     public void Selected()
     {
-        canvas.SetActive(false);
-        content.transform.localScale = Vector3.one * 1.55f;
-        sortingGroup.sortingLayerName = "UI";
+        gameObject.SetActive(false);
     }
 
     public void DeSelected()
     {
-        canvas.SetActive(true);
-        content.transform.localScale = Vector3.one;
-        sortingGroup.sortingLayerName = "Default";
+        gameObject.SetActive(true);
     }
 }

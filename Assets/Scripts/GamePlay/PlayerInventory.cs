@@ -66,6 +66,11 @@ public class PlayerInventory : MonoBehaviour
         EquipmentController.instance.ChangeGun();
     }
 
+    public void ConvertGoldToDush()
+    {
+        dush += PlayerController.instance.player.gold / 1000;
+    }
+
     public void RewardDesign(EquipmentController.EQUIPMENTTYPE type)
     {
         if (type == EquipmentController.EQUIPMENTTYPE.SHOTGUN) amoutGunDesign++;

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -434,16 +435,26 @@ public class EnemyTowerController : MonoBehaviour
     {
         if (indexTower == towers.Length - 1)
         {
-            Debug.Log("Win");
             DisableEs();
             CarController.instance.multiplier = 0;
-            return;
+            GameController.instance.level++;
+            UIHandler.instance.SetActiveProgressNGem(false);
+            BlockController.instance.SellAllBlocks();
+            BlockController.instance.blocks.Clear();
+            EquipmentController.instance.playerInventory.ConvertGoldToDush();
+            DOVirtual.DelayedCall(0.5f, delegate
+            {
+                UIHandler.instance.progressHandler.ShowReward();
+            });
         }
-        indexTower++;
-        CarController.instance.multiplier = 1;
-        AssignSpanwX();
-        RandomEs();
-        SetPosition();
-        EnableEs();
+        else
+        {
+            indexTower++;
+            CarController.instance.multiplier = 1;
+            AssignSpanwX();
+            RandomEs();
+            SetPosition();
+            EnableEs();
+        }
     }
 }

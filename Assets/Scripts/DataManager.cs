@@ -77,7 +77,6 @@ public class DataManager : MonoBehaviour
         TextAsset blockConfigJs = Resources.Load<TextAsset>("Datas/BlockConfig");
         TextAsset energyConfigJs = Resources.Load<TextAsset>("Datas/EnergyConfig");
         TextAsset weaponConfigJs = Resources.Load<TextAsset>("Datas/WeaponConfig");
-        TextAsset playerConfigJs = Resources.Load<TextAsset>("Datas/PlayerConfig");
         TextAsset chanceConfigJs = Resources.Load<TextAsset>("Datas/ChanceConfig");
         TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
         TextAsset rewardConfigJs = Resources.Load<TextAsset>("Datas/RewardConfig");

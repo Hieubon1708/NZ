@@ -35,12 +35,19 @@ public class ProgressHandler : MonoBehaviour
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage != null)
+        if (DataManager.instance.dataStorage.progresses != null)
         {
             progresses = DataManager.instance.dataStorage.progresses.ToList();
-            Restart();
+            for (int i = 0; i < progresses.Count; i++)
+            {
+                if (progresses[i] % 2 == 0)
+                {
+                    chests[i].SetActive(false);
+                }
+            }
             if (GameController.instance.level == 0) chests[0].SetActive(false);
         }
+        else progresses = new List<int>();
     }
 
     public void ShowLose()
@@ -62,7 +69,6 @@ public class ProgressHandler : MonoBehaviour
             });
             GameController.instance.Restart();
         });
-
     }
 
     public void X2Gold()
@@ -92,26 +98,12 @@ public class ProgressHandler : MonoBehaviour
                 textDesigns[i].text = des[i].ToString();
             }
         }
-        if (dush > 0)
-        {
-            textDush.text = dush.ToString(); textDush.transform.parent.gameObject.SetActive(true);
-            EquipmentController.instance.playerInventory.dush += dush;
-        }
-        if (gem > 0)
-        {
-            textGem.text = gem.ToString(); textGem.transform.parent.gameObject.SetActive(true);
-            UIHandler.instance.PlusGem(dush);
-        }
-        if (cogwheel > 0)
-        {
-            textCogwheel.text = cogwheel.ToString(); textCogwheel.transform.parent.gameObject.SetActive(true);
-            EquipmentController.instance.playerInventory.cogwheel += cogwheel;
-        }
-        if (key > 0)
-        {
-            textKey.text = key.ToString(); textKey.transform.parent.gameObject.SetActive(true);
-            EquipmentController.instance.playerInventory.key += key;
-        }
+
+        if (dush > 0) textDush.text = dush.ToString(); textDush.transform.parent.gameObject.SetActive(true);
+        if (gem > 0) textGem.text = gem.ToString(); textGem.transform.parent.gameObject.SetActive(true);
+        if (cogwheel > 0) textCogwheel.text = cogwheel.ToString(); textCogwheel.transform.parent.gameObject.SetActive(true);
+        if (key > 0) textKey.text = key.ToString(); textKey.transform.parent.gameObject.SetActive(true);
+
         panelReward.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelReward, rewardPopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
@@ -135,13 +127,18 @@ public class ProgressHandler : MonoBehaviour
         equipRewards.Clear();
         des = new int[4];
         dush = 0; gem = 0; key = 0; cogwheel = 0;
+        if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1)
+        {
+            UIHandler.instance.SetActiveProgressNGem(true);
+            StartCoroutine(BlockController.instance.EndGame());
+        }
     }
 
     public void ChestReward(int indexTower)
     {
-        indexTower += 1;
-        if (indexTower % 2 != 0 && indexTower > (progresses.Count != 0 ? progresses[progresses.Count - 1] : 0))
+        if (indexTower % 2 == 0 && chests[indexTower / 2].activeSelf)
         {
+            Debug.LogWarning(indexTower);
             chestCompleteds[indexTower / 2].SetActive(true);
             progresses.Add(indexTower);
             if (indexTower / 2 == 0 && GameController.instance.level == 0) return;
@@ -156,21 +153,26 @@ public class ProgressHandler : MonoBehaviour
             {
                 des[i] += rewardLevelConfig.desgins[i];
             }
+
             dush += rewardLevelConfig.dush;
             gem += rewardLevelConfig.gem;
             key += rewardLevelConfig.key;
             cogwheel += rewardLevelConfig.cogwheel;
+
+            EquipmentController.instance.playerInventory.dush += dush;
+            UIHandler.instance.PlusGem(gem);
+            EquipmentController.instance.playerInventory.cogwheel += cogwheel;
+            EquipmentController.instance.playerInventory.key += key;
         }
     }
 
     public void Restart()
     {
-        for (int i = 0; i < progresses.Count; i++)
+        progresses.Clear();
+        for (int i = 0; i < chests.Length; i++)
         {
-            if (progresses[i] % 2 != 0)
-            {
-                chests[i].SetActive(false);
-            }
+            chests[i].SetActive(true);
+            chestCompleteds[i].SetActive(false);
         }
     }
 

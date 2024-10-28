@@ -158,10 +158,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066342807276075}
   m_Enabled: 1
-  m_SortingLayerID: 939080219
-  m_SortingLayer: 5
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &1072725838702358
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,13 +881,10 @@ MonoBehaviour:
   - {fileID: 4243043845006410017}
   block: {fileID: 0}
   startAmoutLine: 1
-  amoutLine: 3
   count: 25
   timeDistance: 0.08
   timeDistanceBooster: 0.15
   speedBullet: 25
-  cooldown: 0
-  attackDuration: 0
 --- !u!1 &1712231822046489
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4802325873598834}
   - component: {fileID: 50299818505382611}
+  - component: {fileID: 2373520772745001122}
   m_Layer: 17
   m_Name: Saw booster 1
   m_TagString: SawBooster
@@ -62,6 +63,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &2373520772745001122
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106291111016258}
+  m_Enabled: 1
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
+  m_SortingOrder: 1
+  m_SortAtRoot: 1
 --- !u!1 &1241530087433250
 GameObject:
   m_ObjectHideFlags: 0

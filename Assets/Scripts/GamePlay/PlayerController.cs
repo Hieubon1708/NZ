@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
             target = GameController.instance.GetENearest(transform.position);
             if (target != GameController.instance.defaultDir) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         }
+        Debug.DrawLine(transform.position, target.position, Color.red, 1);
         isFindingTarget = true;
     }
 

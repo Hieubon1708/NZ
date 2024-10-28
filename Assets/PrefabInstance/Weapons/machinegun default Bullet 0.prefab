@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 50326041257008774}
   - component: {fileID: 61502129212449386}
   - component: {fileID: 592067702963307162}
+  - component: {fileID: 8350722854722784129}
   m_Layer: 13
   m_Name: machinegun default Bullet 0
   m_TagString: MachineGun
@@ -374,7 +375,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6e0e544dc5e4a43bba8b2b2ac3b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
   rb: {fileID: 50326041257008774}
+  isGunBooster: 0
+  colBooster: {fileID: 0}
+--- !u!210 &8350722854722784129
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679334284406129}
+  m_Enabled: 1
+  m_SortingLayerID: 222012207
+  m_SortingLayer: 8
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1969778090992521
 GameObject:
   m_ObjectHideFlags: 0
