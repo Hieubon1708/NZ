@@ -27,6 +27,8 @@ TagManager:
   - Weapon
   - FxTemporaire
   - Unflashable
+  - ShockerBooster
+  - Shocker
   layers:
   - Default
   - TransparentFX
@@ -64,6 +66,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TowerBack
+    uniqueID: 1221242577
+    locked: 0
   - name: Line_3
     uniqueID: 3130477219
     locked: 0
@@ -73,24 +78,18 @@ TagManager:
   - name: Line_1
     uniqueID: 4227567981
     locked: 0
-  - name: Tower
-    uniqueID: 1221242577
+  - name: Line_0
+    uniqueID: 222012207
+    locked: 0
+  - name: TowerFont
+    uniqueID: 2545700297
     locked: 0
   - name: Weapon
     uniqueID: 939080219
     locked: 0
-  - name: Damage
-    uniqueID: 3828464507
-    locked: 0
-  - name: Line_0
-    uniqueID: 222012207
-    locked: 0
-  - name: UI
-    uniqueID: 2545700297
-    locked: 0
-  - name: Bullet
-    uniqueID: 2504532037
-    locked: 0
   - name: Effect
     uniqueID: 2790197057
+    locked: 0
+  - name: Damage
+    uniqueID: 3828464507
     locked: 0

@@ -216,7 +216,7 @@ public class BlockController : MonoBehaviour
         {
             float y = startY + distance * i;
             if (blocks[i] != block) blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, y);
-            else frame.transform.position = new Vector2(frame.transform.position.x, y + CarController.instance.transform.localPosition.y);
+            else frame.transform.position = GameController.instance.cam.WorldToScreenPoint(new Vector2(CarController.instance.transform.position.x, y + CarController.instance.transform.localPosition.y));
         }
     }
 

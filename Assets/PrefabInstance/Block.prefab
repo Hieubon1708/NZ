@@ -19779,14 +19779,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522d1873657222c49ad0728aaeaf2e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetbuttonImageName: 
+  targetbuttonImageName: Button_Upgrade_WEAPON_1
   targetOtherImageName: 
   targetButton: {fileID: 4923960574176172054}
   targetHand: {fileID: 593847648117725516}
   hand: {fileID: 9075475669450701092}
   lig: {fileID: 7046086122943230162}
   otherTarget: {fileID: 0}
-  SpriteAtlas: {fileID: 0}
+  SpriteAtlas: {fileID: 100100200, guid: ea451cc565727514b97b1fc50902d5b4, type: 3}
 --- !u!1 &5927245879295130561
 GameObject:
   m_ObjectHideFlags: 0
@@ -21732,6 +21732,7 @@ GameObject:
   - component: {fileID: 593847648117725516}
   - component: {fileID: 5571443138980690067}
   - component: {fileID: 5137127693677414327}
+  - component: {fileID: 7213264987818336040}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -21796,6 +21797,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!111 &7213264987818336040
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075475669450701092}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ca09168693aabc7489fc1d6313e0392e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ca09168693aabc7489fc1d6313e0392e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &9195875288304818178
 GameObject:
   m_ObjectHideFlags: 0

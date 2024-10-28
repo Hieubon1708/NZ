@@ -10,7 +10,7 @@ public class EnemyT2 : EnemyHandler
     {
         base.Start();
         SetHp();
-        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 2, GameController.instance.xPlus2 - 1);
     }
 
     protected override void FixedUpdate()

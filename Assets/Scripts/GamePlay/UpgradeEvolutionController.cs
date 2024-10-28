@@ -13,6 +13,11 @@ public class UpgradeEvolutionController : MonoBehaviour
     public List<MACHINEGUNEVO> machineGuns;
     public List<SHOCKEREVO> shockers;
 
+    public bool isShowEvoSaw;
+    public bool isShowEvoShocker;
+    public bool isShowEvoFlame;
+    public bool isShowEvoMachineGun;
+
     public WeaponUpgradeHandler weaponUpgradeHandler;
 
     public enum SAWEVO
@@ -40,20 +45,26 @@ public class UpgradeEvolutionController : MonoBehaviour
         instance = this;
     }
 
-    public void Update()
+    public SAWEVO[] GetSAWEVOS()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            uIUpgradeEvolution.ShowPanelSawEvo();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            uIUpgradeEvolution.ShowPanelFlameEvo();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            uIUpgradeEvolution.ShowPanelMachineGunEvo();
-        }
+        if (isShowEvoSaw == true) saws.Add(uIUpgradeEvolution.sawRamdom1);
+        return saws.ToArray();
+    }
+    public FLAMEEVO[] GetFLAMEVOS()
+    {
+        if (isShowEvoFlame == true) flames.Add(uIUpgradeEvolution.flameRandom1);
+        return flames.ToArray();
+    }
+
+    public MACHINEGUNEVO[] GetMACHINEGUNEVOS()
+    {
+        if (isShowEvoMachineGun == true) machineGuns.Add(uIUpgradeEvolution.machineGunRandom1);
+        return machineGuns.ToArray();
+    }
+    public SHOCKEREVO[] GetSHOCKEREVOS()
+    {
+        if (isShowEvoShocker == true) shockers.Add(uIUpgradeEvolution.shockerRandom1);
+        return shockers.ToArray();
     }
 
     public void LoadData()
@@ -119,6 +130,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     public void SawAddEvolution(int type)
     {
+        isShowEvoSaw = false;
         saws.Add((SAWEVO)type);
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
@@ -142,6 +154,7 @@ public class UpgradeEvolutionController : MonoBehaviour
     
     public void ShockerAddEvolution(int type)
     {
+        isShowEvoShocker = false;
         shockers.Add((SHOCKEREVO)type);
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
@@ -159,6 +172,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     public void FlameAddEvolution(int type)
     {
+        isShowEvoFlame = false;
         flames.Add((FLAMEEVO)type);
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {
@@ -195,6 +209,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     public void MachineGunAddEvolution(int type)
     {
+        isShowEvoMachineGun = false;
         machineGuns.Add((MACHINEGUNEVO)type);
         for (int i = 0; i < BlockController.instance.blocks.Count; i++)
         {

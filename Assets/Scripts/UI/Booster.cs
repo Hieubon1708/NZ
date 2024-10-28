@@ -50,6 +50,7 @@ public class Booster : MonoBehaviour
     {
         amoutEnergy += 12;
         textAmoutEnergy.text = amoutEnergy.ToString();
+        CheckBoosterState();
     }
 
     public void ActiveBoosterButton(bool isActive)

@@ -476,6 +476,7 @@ public class TutorialDataStorage
     public bool isFirstTimeClickButtonBuyBlock;
     public bool isFirstTimeClickButtonBuyWeapon;
     public bool isFirstTimeClickButtonUpgradeEnergy;
+    public bool isFirstTimeClickUpgradeWeaponEvo;
 
     public bool isFirstTimeClickBoosterBoom;
     public bool isFirstTimeClickBoosterSaw;
@@ -491,12 +492,13 @@ public class TutorialDataStorage
     public bool isUnlockWeapon;
     public bool isUnlockBoss;
 
-    public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon, bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickBoosterBoom, bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun, bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory, bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss)
+    public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon, bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickUpgradeWeaponEvo, bool isFirstTimeClickBoosterBoom, bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun, bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory, bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss)
     {
         this.isFirstTimePlay = isFirstTimePlay;
         this.isFirstTimeClickButtonBuyBlock = isFirstTimeClickButtonBuyBlock;
         this.isFirstTimeClickButtonBuyWeapon = isFirstTimeClickButtonBuyWeapon;
         this.isFirstTimeClickButtonUpgradeEnergy = isFirstTimeClickButtonUpgradeEnergy;
+        this.isFirstTimeClickUpgradeWeaponEvo = isFirstTimeClickUpgradeWeaponEvo;
         this.isFirstTimeClickBoosterBoom = isFirstTimeClickBoosterBoom;
         this.isFirstTimeClickBoosterSaw = isFirstTimeClickBoosterSaw;
         this.isFirstTimeClickBoosterFlame = isFirstTimeClickBoosterFlame;

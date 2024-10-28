@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -21,6 +20,7 @@ public class EnemyHandler : MonoBehaviour
     public GameObject hitObj;
     public SpriteRenderer[] fullBodies;
     public HitEffect hitEffect;
+    public GameObject shadow;
 
     public float forceJump;
     public float multiplier;
@@ -212,6 +212,7 @@ public class EnemyHandler : MonoBehaviour
         {
             if (flameTrigger != null) StopCoroutine(flameTrigger);
         }
+        if (enemyInfo.hp == 0) return;
         if (collision.CompareTag("Boom")) SubtractHp(int.Parse(collision.attachedRigidbody.name));
     }
 
@@ -232,15 +233,19 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.gameObject.activeSelf || !collision.gameObject.activeSelf) return;
-        if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = true;
+        if (!collision.collider.gameObject.activeSelf) return;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            if (shadow != null) shadow.SetActive(true);
+            isCollisionWithGround = true;
+        }
     }
 
     public bool a;
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf && !colObj.gameObject.activeSelf || !collision.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -291,7 +296,11 @@ public class EnemyHandler : MonoBehaviour
             if (blockCollision != null) StopCoroutine(blockCollision);
         }
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
-        if (collision.gameObject.CompareTag("Ground")) isCollisionWithGround = false;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isCollisionWithGround = false;
+            if (shadow != null) shadow.SetActive(false);
+        }
 
         if (collision.gameObject == frontalCollision)
         {
@@ -344,7 +353,7 @@ public class EnemyHandler : MonoBehaviour
         }
         else
         {
-            walkSpeed = -rb.velocity.x * multiplier;
+            walkSpeed = (Mathf.Abs(rb.velocity.x) - GameController.instance.backgroundSpeed) * multiplier;
         }
 
         if (isCollisionWithCar
@@ -410,6 +419,7 @@ public class EnemyHandler : MonoBehaviour
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
         SetDeathAni();
         healthBar.SetActive(false);
+        if(shadow != null) shadow.SetActive(false);
         GameController.instance.listEVisible.Remove(gameObject);
 
         delayRevival = DOVirtual.DelayedCall(1f, delegate
@@ -497,6 +507,7 @@ public class EnemyHandler : MonoBehaviour
         colObj.SetActive(true);
         SetColNKinematicNRevival(true);
         healthBar.SetActive(false);
+        if (shadow != null) shadow.SetActive(true);
         healthHandler.SetDefaultInfo(ref enemyInfo.hp);
     }
 

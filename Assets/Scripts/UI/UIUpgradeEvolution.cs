@@ -518,8 +518,12 @@ public class UIUpgradeEvolution : MonoBehaviour
         return false;
     }
 
+    public SAWEVO sawRamdom1;
+    public SAWEVO sawRamdom2;
+
     public void ShowPanelSawEvo()
     {
+        instance.isShowEvoSaw = true;
         UpdateSawEvo();
 
         for (int i = 0; i < instance.saws.Count; i++)
@@ -535,13 +539,13 @@ public class UIUpgradeEvolution : MonoBehaviour
 
         List<SAWEVO> temp = new List<SAWEVO>(sawEvoTypes);
 
-        SAWEVO type1 = temp[Random.Range(0, temp.Count)];
-        temp.Remove(type1);
-        SAWEVO type2 = temp[Random.Range(0, temp.Count)];
+        sawRamdom1 = temp[Random.Range(0, temp.Count)];
+        temp.Remove(sawRamdom1);
+        sawRamdom2 = temp[Random.Range(0, temp.Count)];
 
         for (int i = 0; i < sawEvos.Length; i++)
         {
-            if (sawEvos[i].type == type1 || sawEvos[i].type == type2)
+            if (sawEvos[i].type == sawRamdom1 || sawEvos[i].type == sawRamdom2)
             {
                 sawEvos[i].gameObject.SetActive(true);
             }
@@ -554,9 +558,13 @@ public class UIUpgradeEvolution : MonoBehaviour
         panelSawEvo.SetActive(true);
         UIHandler.instance.uIEffect.FadeAll(sawCanvasGroup, 1, 0.15f);
     }
-    
-    public void ShowPanelShokerEvo()
+
+    public SHOCKEREVO shockerRandom1;
+    public SHOCKEREVO shockerRandom2;
+
+    public void ShowPanelShockerEvo()
     {
+        instance.isShowEvoShocker = true;
         UpdateShockerEvo();
 
         for (int i = 0; i < instance.shockers.Count; i++)
@@ -572,13 +580,13 @@ public class UIUpgradeEvolution : MonoBehaviour
 
         List<SHOCKEREVO> temp = new List<SHOCKEREVO>(shockerEvoTypes);
 
-        SHOCKEREVO type1 = temp[Random.Range(0, temp.Count)];
-        temp.Remove(type1);
-        SHOCKEREVO type2 = temp[Random.Range(0, temp.Count)];
+        shockerRandom1 = temp[Random.Range(0, temp.Count)];
+        temp.Remove(shockerRandom1);
+        shockerRandom2 = temp[Random.Range(0, temp.Count)];
 
         for (int i = 0; i < shockerEvos.Length; i++)
         {
-            if (shockerEvos[i].type == type1 || shockerEvos[i].type == type2)
+            if (shockerEvos[i].type == shockerRandom1 || shockerEvos[i].type == shockerRandom2)
             {
                 shockerEvos[i].gameObject.SetActive(true);
             }
@@ -592,8 +600,12 @@ public class UIUpgradeEvolution : MonoBehaviour
         UIHandler.instance.uIEffect.FadeAll(shockerCanvasGroup, 1, 0.15f);
     }
 
+    public FLAMEEVO flameRandom1;
+    public FLAMEEVO flameRandom2;
+
     public void ShowPanelFlameEvo()
     {
+        instance.isShowEvoFlame = true;
         UpdateFlameEvo();
 
         for (int i = 0; i < instance.flames.Count; i++)
@@ -609,13 +621,13 @@ public class UIUpgradeEvolution : MonoBehaviour
 
         List<FLAMEEVO> temp = new List<FLAMEEVO>(flameEvoTypes);
 
-        FLAMEEVO type1 = temp[Random.Range(0, temp.Count)];
-        temp.Remove(type1);
-        FLAMEEVO type2 = temp[Random.Range(0, temp.Count)];
+        flameRandom1 = temp[Random.Range(0, temp.Count)];
+        temp.Remove(flameRandom1);
+        flameRandom2 = temp[Random.Range(0, temp.Count)];
 
         for (int i = 0; i < flameEvos.Length; i++)
         {
-            if (flameEvos[i].type == type1 || flameEvos[i].type == type2)
+            if (flameEvos[i].type == flameRandom1 || flameEvos[i].type == flameRandom2)
             {
                 flameEvos[i].gameObject.SetActive(true);
             }
@@ -629,8 +641,12 @@ public class UIUpgradeEvolution : MonoBehaviour
         UIHandler.instance.uIEffect.FadeAll(flameCanvasGroup, 1, 0.15f);
     }
 
+    public MACHINEGUNEVO machineGunRandom1;
+    public MACHINEGUNEVO machineGunRandom2;
+
     public void ShowPanelMachineGunEvo()
     {
+        instance.isShowEvoMachineGun = true;
         UpdateMachineGunEvo();
 
         for (int i = 0; i < instance.machineGuns.Count; i++)
@@ -646,13 +662,13 @@ public class UIUpgradeEvolution : MonoBehaviour
 
         List<MACHINEGUNEVO> temp = new List<MACHINEGUNEVO>(machineGunEvoTypes);
 
-        MACHINEGUNEVO type1 = temp[Random.Range(0, temp.Count)];
-        temp.Remove(type1);
-        MACHINEGUNEVO type2 = temp[Random.Range(0, temp.Count)];
+        machineGunRandom1 = temp[Random.Range(0, temp.Count)];
+        temp.Remove(machineGunRandom1);
+        machineGunRandom2 = temp[Random.Range(0, temp.Count)];
 
         for (int i = 0; i < machineGunEvos.Length; i++)
         {
-            if (machineGunEvos[i].type == type1 || machineGunEvos[i].type == type2)
+            if (machineGunEvos[i].type == machineGunRandom1 || machineGunEvos[i].type == machineGunRandom2)
             {
                 machineGunEvos[i].gameObject.SetActive(true);
             }

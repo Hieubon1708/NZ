@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Unity.Collections.AllocatorManager;
 
 public class BlockUpgradeController : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class BlockUpgradeController : MonoBehaviour
 
     public void Update()
     {
+        if (GameController.instance.isStart) return;
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             isDrag = true;
@@ -34,7 +36,6 @@ public class BlockUpgradeController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isDrag = false;
-            if (GameController.instance.isStart) return;
             isHold = false;
             if (blockSelected != null)
             {
@@ -46,11 +47,14 @@ public class BlockUpgradeController : MonoBehaviour
                     scBlock.blockUpgradeHandler.ResetData();
                     BlockController.instance.CheckButtonStateAll();
                 }
-                blockSelected.transform.position = frame.transform.position;
-                scBlock.blockUpgradeHandler.DeSelected();
-                SetActiveFrame(false);
+                else
+                {
+                    blockSelected.transform.position = GameController.instance.cam.ScreenToWorldPoint(frame.transform.position);
+                    scBlock.blockUpgradeHandler.DeSelected();
+                }
                 RecyleChange(true);
                 blockUI.gameObject.SetActive(false);
+                SetActiveFrame(false);
                 blockSelected = null;
             }
         }
@@ -71,10 +75,10 @@ public class BlockUpgradeController : MonoBehaviour
                 {
                     UIHandler.instance.tutorial.TutorialDragBlock(true);
                     blockSelected = hit.rigidbody.gameObject;
-
-                    frame.transform.position = blockSelected.transform.position;
                     Block block = BlockController.instance.GetScBlock(blockSelected);
-
+                    
+                    frame.transform.position = GameController.instance.cam.WorldToScreenPoint(blockSelected.transform.position);
+                    blockUI.transform.position = Input.mousePosition;
                     block.blockUpgradeHandler.Selected();
                     SetActiveFrame(true);
                     RecyleChange(false);

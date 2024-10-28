@@ -95,14 +95,12 @@ public class GameController : MonoBehaviour
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
 
-        /*Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8, CarController.instance.transform.position.y + 3), Quaternion.identity);
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8 - 3, CarController.instance.transform.position.y + 3), Quaternion.identity);
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 3f, CarController.instance.transform.position.y + 8), Quaternion.identity);
-   */
+        /*Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
+        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
+*/
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
             StartGame();
-            //StartCoroutine(PlayerController.instance.StartFindTarget());
         }else
         {
             UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
@@ -136,6 +134,8 @@ public class GameController : MonoBehaviour
             if (listEVisible[i] != tower)
             {
                 ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
+                EnemyHandler sc = EnemyTowerController.instance.GetScE(listEVisible[i]);
+                sc.damage.ShowDamage(sc.enemyInfo.hp.ToString(), sc.hitObj);
             }
         }
         EnemyTowerController.instance.DisableEs();
@@ -302,7 +302,7 @@ public class GameController : MonoBehaviour
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
         playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush,EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
-        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.saws.ToArray(), UpgradeEvolutionController.instance.flames.ToArray(), UpgradeEvolutionController.instance.machineGuns.ToArray(), UpgradeEvolutionController.instance.shockers.ToArray());
+        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.GetSAWEVOS(), UpgradeEvolutionController.instance.GetFLAMEVOS(), UpgradeEvolutionController.instance.GetMACHINEGUNEVOS(), UpgradeEvolutionController.instance.GetSHOCKEREVOS());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
         TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
         DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();

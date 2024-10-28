@@ -582,7 +582,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4153994526180158}
   - {fileID: 4696558577076392}
   - {fileID: 4085638953479749}
   m_Father: {fileID: 4962553184771995}
@@ -881,6 +880,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4153994526180158}
   - {fileID: 4182649525718722}
   - {fileID: 4999844694009151}
   m_Father: {fileID: 4067482425717452}
@@ -1265,7 +1265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4153994526180158
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,11 +1275,11 @@ Transform:
   m_GameObject: {fileID: 1343045052300249}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.137, z: 0}
-  m_LocalScale: {x: 1.32, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -1.4277301, z: 0}
+  m_LocalScale: {x: 0.56, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4067482425717452}
+  m_Father: {fileID: 4085638953479749}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212367593488014653
 SpriteRenderer:
@@ -1322,7 +1322,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 53
-  m_Sprite: {fileID: 21300000, guid: 96cdf5bf51bd9f347892bea216ed0944, type: 2}
+  m_Sprite: {fileID: 21300000, guid: f4986e1dc17e1fd46b9e3d4cc9fd6a1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5039,7 +5039,7 @@ SortingGroup:
   m_GameObject: {fileID: 1748248514519542}
   m_Enabled: 1
   m_SortingLayerID: 222012207
-  m_SortingLayer: 7
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 1
 --- !u!114 &6902570907861161827
@@ -5102,6 +5102,7 @@ MonoBehaviour:
   - {fileID: 212966632248434396}
   - {fileID: 212625598598616073}
   hitEffect: {fileID: 3163262519825093646}
+  shadow: {fileID: 1343045052300249}
   forceJump: 0
   multiplier: 1
   realSpeed: 0

@@ -58,6 +58,7 @@ public class Tutorial : MonoBehaviour
             isFirstTimeClickButtonBuyBlock = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBuyBlock;
             isFirstTimeClickButtonBuyWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBuyWeapon;
             isFirstTimeClickButtonUpgradeEnergy = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeEnergy;
+            isFirstTimeClickUpgradeWeaponEvo = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickUpgradeWeaponEvo;
 
             isFirstTimeClickBoosterBoom = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterBoom;
             isFirstTimeClickBoosterSaw = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterSaw;
@@ -70,7 +71,7 @@ public class Tutorial : MonoBehaviour
             isUnlockBoss = DataManager.instance.dataStorage.tutorialDataStorage.isUnlockBoss;
 
             isFirstTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDestroyTower;
-            isFirstTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isSecondTimeDestroyTower;
+            isSecondTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isSecondTimeDestroyTower;
             isFirstTimeDragBlock = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDragBlock;
         }
         if(isSecondTimeDestroyTower) UIHandler.instance.daily.daily.SetActive(true);
@@ -79,7 +80,7 @@ public class Tutorial : MonoBehaviour
     public TutorialDataStorage GetData()
     {
         return new TutorialDataStorage(isFirstTimePlay, isFirstTimeClickButtonBuyBlock, isFirstTimeClickButtonBuyWeapon
-            , isFirstTimeClickButtonUpgradeEnergy, isFirstTimeClickBoosterBoom, isFirstTimeClickBoosterSaw
+            , isFirstTimeClickButtonUpgradeEnergy, isFirstTimeClickUpgradeWeaponEvo, isFirstTimeClickBoosterBoom, isFirstTimeClickBoosterSaw
             , isFirstTimeClickBoosterFlame, isFirstTimeClickBoosterMachineGun, isFirstTimeDestroyTower, isSecondTimeDestroyTower, isFirstTimeDragBlock
             , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss);
     }
@@ -148,7 +149,7 @@ public class Tutorial : MonoBehaviour
         }
         int price = 0;
         scButtonUpgradeWeaponEvo = BlockController.instance.GetTutorialWeaponEvo(out price);
-        if (!isClick && PlayerController.instance.player.gold < price || scButtonUpgradeWeaponEvo == null)
+        if (!isClick && PlayerController.instance.player.gold < price)
         {
             TutorialButtonUpgradeEnergy(false);
         }
