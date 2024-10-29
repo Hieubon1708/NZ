@@ -19,7 +19,7 @@ public class UIHandler : MonoBehaviour
     public Menu menu;
     public Daily daily;
 
-    public int goldRewarHighest;
+    public int goldRewardHighest;
     public TextMeshProUGUI textRewardGold;
     public DateTime lastRewardTime;
     public Image frameRewardGold;
@@ -32,6 +32,7 @@ public class UIHandler : MonoBehaviour
 
     public GameObject gold;
     public GameObject gem;
+    public GameObject adsReward;
     public TextMeshProUGUI textGold;
     public TextMeshProUGUI textGem;
 
@@ -97,6 +98,7 @@ public class UIHandler : MonoBehaviour
     {
         frameRewardGold.raycastTarget = false;
         frameRewardGold.sprite = frameButtonRewardGold[1];
+        adsReward.SetActive(false);
         while (time != -1)
         {
             int minutes = Mathf.FloorToInt(time / 60);
@@ -107,9 +109,15 @@ public class UIHandler : MonoBehaviour
             yield return new WaitForSeconds(1);
             time--;
         }
-        textRewardGold.text = ConvertNumberAbbreviation(goldRewarHighest);
+        textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
         frameRewardGold.raycastTarget = true;
         frameRewardGold.sprite = frameButtonRewardGold[0];
+        adsReward.SetActive(true);
+    }
+
+    public void EndGame()
+    {
+        tutorial.isFirstTimePlay = true;
     }
 
     public void Restart()
@@ -142,29 +150,29 @@ public class UIHandler : MonoBehaviour
     {
         if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
         GoldUpdatee();
-        
+        daily.LoadData();
         summonEquipment.LoadData();
         progressHandler.LoadData();
         setting.LoadData();
         tutorial.LoadData();
         menu.LoadData();
         GemUpdatee();
-
-        if(DataManager.instance.dataStorage != null)
+        if (daily.daily.activeSelf) gem.SetActive(true);
+        if (DataManager.instance.dataStorage != null)
         {
-            goldRewarHighest = DataManager.instance.dataStorage.goldRewardHighest;
+            goldRewardHighest = DataManager.instance.dataStorage.goldRewardHighest;
             lastRewardTime = DataManager.instance.dataStorage.lastRewardTime;
         }
 
         DateTime currentTime = DateTime.Now;
         TimeSpan timeSinceLastReward = currentTime - lastRewardTime;
-        if (timeSinceLastReward.TotalMilliseconds >= 5)
+        if (timeSinceLastReward.TotalMinutes >= 5)
         {
-            textRewardGold.text = ConvertNumberAbbreviation(goldRewarHighest);
+            textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
         }
         else
         {
-            StartCoroutine(CountdownRewardGold((int)timeSinceLastReward.TotalSeconds));
+            StartCoroutine(CountdownRewardGold(5 * 60 - (int)timeSinceLastReward.TotalSeconds));
         }
     }
 
@@ -192,12 +200,6 @@ public class UIHandler : MonoBehaviour
         progressHandler.parent.SetActive(isActive);
         mapInfo.transform.parent.gameObject.SetActive(!isActive);
         gold.SetActive(!isActive);
-        if(EquipmentController.instance.playerInventory.gem != 0) gem.SetActive(!isActive);
-    }
-
-    public void GoldRewardHighest()
-    {
-        if(goldRewarHighest < progressHandler.gold) goldRewarHighest = progressHandler.gold;
     }
 
     public void FlyGold(Vector2 pos, int gold)
@@ -206,20 +208,23 @@ public class UIHandler : MonoBehaviour
         g.transform.position = GameController.instance.cam.WorldToScreenPoint(pos);
         g.SetActive(true);
         curentCountFlyGold++;
+        progressHandler.PlusGoldInProgress(gold);
         if (curentCountFlyGold == goldFlies.Length) curentCountFlyGold = 0;
-        g.transform.DOMove(targetFlyGold.position, 0.75f).OnComplete(delegate
+        g.transform.DOMove(targetFlyGold.position, 0.55f).OnComplete(delegate
         {
             g.SetActive(false);
-            progressHandler.PlusGold(2);
+            progressHandler.textGold.text = progressHandler.gold.ToString();
         });
     }
 
     public void RewardGold()
     {
-        PlayerController.instance.player.gold += goldRewarHighest;
+        lastRewardTime = DateTime.Now;
+        PlayerController.instance.player.gold += goldRewardHighest;
         GoldUpdatee();
-        BlockController.instance.CheckButtonStateAll();       
+        BlockController.instance.CheckButtonStateAll();
         StartCoroutine(CountdownRewardGold(5 * 60));
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.WatchAds);
     }
 
     public void GoldUpdatee()
@@ -229,12 +234,7 @@ public class UIHandler : MonoBehaviour
 
     public void GemUpdatee()
     {
-        if (EquipmentController.instance.playerInventory.gem == 0) gem.SetActive(false);
-        else
-        {
-            gem.SetActive(true);
-            textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
-        }
+        textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
     }
 
     public void PlusGem(int gem)

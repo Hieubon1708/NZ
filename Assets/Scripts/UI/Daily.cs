@@ -3,13 +3,16 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Daily : MonoBehaviour
 {
     public GameObject daily;
     public GameObject dailyCompleted;
+    public Animation aniDailyCompleted;
     public CanvasGroup canvasDaily;
+    public Image dailyFrame;
     public TextMeshProUGUI content;
     public TextMeshProUGUI textGemReward;
     public TextMeshProUGUI indexCurrentDaily;
@@ -28,7 +31,10 @@ public class Daily : MonoBehaviour
     {
         if (!daily.activeSelf || type != dailyOfDate[indexDaily].dailyType || amount == dailyOfDate[indexDaily].amountTarget) return;
         amount++;
-        if(amount == dailyOfDate[indexDaily].amountTarget)
+        UpdateDaily();
+        dailyFrame.raycastTarget = true;
+        aniDailyCompleted.Play();
+        if (amount == dailyOfDate[indexDaily].amountTarget)
         {
             dailyCompleted.SetActive(true);
         }
@@ -40,7 +46,13 @@ public class Daily : MonoBehaviour
         {
             dailyOfDate = DataManager.instance.dataStorage.dailyDataStorage.dailyOfDate;
             amount = DataManager.instance.dataStorage.dailyDataStorage.amount;
+            indexDaily = DataManager.instance.dataStorage.dailyDataStorage.indexDaily;
             lastUpdateDate = DataManager.instance.dataStorage.dailyDataStorage.lastUpdateDate;
+            if (dailyOfDate[indexDaily].amountTarget == amount)
+            {
+                dailyCompleted.SetActive(true);
+                dailyFrame.raycastTarget = true;
+            }
         }
         InvokeRepeating("CheckAndUpdateDaily", 0f, 60f);
     }
@@ -82,6 +94,7 @@ public class Daily : MonoBehaviour
     public void RewardDaily()
     {
         EquipmentController.instance.playerInventory.gem += dailyOfDate[indexDaily].gemReward;
+        dailyFrame.raycastTarget = false;
         UIHandler.instance.uIEffect.FlyGem();
     }
 
@@ -96,7 +109,7 @@ public class Daily : MonoBehaviour
     {
         canvasDaily.alpha = 0;
         dailyCompleted.SetActive(false);
-        if(indexDaily < dailyOfDate.Count)
+        if (indexDaily < dailyOfDate.Count)
         {
             amount = 0;
             indexDaily++;
@@ -106,7 +119,7 @@ public class Daily : MonoBehaviour
 
     public void ChangeDaily()
     {
-        if(indexDaily == dailyOfDate.Count)
+        if (indexDaily != dailyOfDate.Count)
         {
             canvasDaily.DOFade(1, 0.5f);
         }

@@ -5,6 +5,7 @@ public class Block : MonoBehaviour
     public int level;
     public int hp;
     public Animation ani;
+    public Canvas canvas;
     public int sellingPrice;
     public BlockHandler blockHandler;
     public BlockUpgradeHandler blockUpgradeHandler;

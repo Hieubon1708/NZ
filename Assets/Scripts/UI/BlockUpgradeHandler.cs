@@ -67,7 +67,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
                 if (!isLoadData)
                 {
                     int index = i;
-                    DOVirtual.DelayedCall(index * 0.05f, delegate
+                    DOVirtual.DelayedCall(index * 0.1f, delegate
                     {
                         weaponBuyButtons[index].EnableAniShowButton();
                     });
@@ -145,11 +145,16 @@ public class BlockUpgradeHandler : ButtonUpgradee
 
     public void Selected()
     {
-        gameObject.SetActive(false);
+        canvas.SetActive(false);
+        content.transform.localScale = Vector3.one * 1.55f;
+        sortingGroup.sortingLayerName = "UI";
+        sortingGroup.sortingOrder = 999;
     }
 
     public void DeSelected()
     {
-        gameObject.SetActive(true);
+        canvas.SetActive(true);
+        content.transform.localScale = Vector3.one;
+        sortingGroup.sortingLayerName = "Default";
     }
 }

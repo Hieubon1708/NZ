@@ -66,6 +66,7 @@ public class ProgressHandler : MonoBehaviour
             UIHandler.instance.DoLayerCover(0f, 0.75f, delegate
             {
                 UIHandler.instance.uIEffect.FlyGold();
+                GameController.instance.isLose = false;
             });
             GameController.instance.Restart();
         });
@@ -84,8 +85,6 @@ public class ProgressHandler : MonoBehaviour
         {
             if (i < equipRewards.Count)
             {
-                EquipmentController.instance.SetEquip(equipRewards[i].type, equipRewards[i].level, equips[i]);
-                EquipmentController.instance.AddEquip(equipRewards[i].type, equipRewards[i].level);
                 equips[i].gameObject.SetActive(true);
             }
         }
@@ -138,7 +137,6 @@ public class ProgressHandler : MonoBehaviour
     {
         if (indexTower % 2 == 0 && chests[indexTower / 2].activeSelf)
         {
-            Debug.LogWarning(indexTower);
             chestCompleteds[indexTower / 2].SetActive(true);
             progresses.Add(indexTower);
             if (indexTower / 2 == 0 && GameController.instance.level == 0) return;
@@ -148,6 +146,8 @@ public class ProgressHandler : MonoBehaviour
             for (int i = 0; i < rewardLevelConfig.equips.Length; i++)
             {
                 equipRewards.Add(rewardLevelConfig.equips[i]);
+                EquipmentController.instance.SetEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level, equips[i]);
+                EquipmentController.instance.AddEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level);
             }
             for (int i = 0; i < rewardLevelConfig.desgins.Length; i++)
             {
@@ -159,10 +159,10 @@ public class ProgressHandler : MonoBehaviour
             key += rewardLevelConfig.key;
             cogwheel += rewardLevelConfig.cogwheel;
 
-            EquipmentController.instance.playerInventory.dush += dush;
-            UIHandler.instance.PlusGem(gem);
-            EquipmentController.instance.playerInventory.cogwheel += cogwheel;
-            EquipmentController.instance.playerInventory.key += key;
+            EquipmentController.instance.playerInventory.dush += rewardLevelConfig.dush;
+            UIHandler.instance.PlusGem(rewardLevelConfig.gem);
+            EquipmentController.instance.playerInventory.cogwheel += rewardLevelConfig.cogwheel;
+            EquipmentController.instance.playerInventory.key += rewardLevelConfig.key;
         }
     }
 
@@ -198,10 +198,10 @@ public class ProgressHandler : MonoBehaviour
         }
     }
 
-    public void PlusGold(int gold)
+    public void PlusGoldInProgress(int gold)
     {
         this.gold += gold;
+        if (UIHandler.instance.goldRewardHighest < this.gold) UIHandler.instance.goldRewardHighest = this.gold;
         PlayerController.instance.player.PlusGold(gold);
-        textGold.text = this.gold.ToString();
     }
 }

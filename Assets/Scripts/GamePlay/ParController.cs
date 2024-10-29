@@ -208,7 +208,7 @@ public class ParController : MonoBehaviour
         if (currentCountZomHitOnRoad == zomHitOnRoads.Length) currentCountZomHitOnRoad = 0;
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
-    
+
     public void PlayDestroyBlockParticle(Vector2 pos)
     {
         GameObject b = blockDestroys[currentCountBlockDestroy];
@@ -229,16 +229,21 @@ public class ParController : MonoBehaviour
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
 
-    public void PlayFlameThrowerParticle(Vector2 pos, Transform e, out int damage)
+    public void PlayFlameThrowerParticle(Vector2 pos, Transform e, Coroutine flameBurningTrigger)
     {
         GameObject f = flameThrowers[currentCountFlameThrower];
-        f.name = "50";
-        damage = int.Parse(f.name);
         f.transform.position = pos;
         f.transform.SetParent(e);
         f.SetActive(true);
         currentCountFlameThrower++;
         if (currentCountFlameThrower == flameThrowers.Length) currentCountFlameThrower = 0;
+        DOVirtual.DelayedCall(5f, delegate
+        {
+            f.SetActive(false);
+            f.transform.SetParent(container);
+            if (flameBurningTrigger != null) StopCoroutine(flameBurningTrigger);
+            flameBurningTrigger = null;
+        });
     }
 
     public void PlayStunOnEnemyParticle(Vector2 pos, float time, Transform e)

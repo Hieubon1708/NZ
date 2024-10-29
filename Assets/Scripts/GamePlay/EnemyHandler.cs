@@ -121,13 +121,13 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            subtractHp = int.Parse(collision.name);
             if (flameBurningTrigger == null && UpgradeEvolutionController.instance.flames.Contains(UpgradeEvolutionController.FLAMEEVO.BURNING))
             {
-                int damageBurning;
-                ParController.instance.PlayFlameThrowerParticle(transform.position, transform, out damageBurning);
+                int damageBurning = int.Parse(collision.name);
+                ParController.instance.PlayFlameThrowerParticle(transform.position, colObj.transform, flameBurningTrigger);
                 flameBurningTrigger = StartCoroutine(FlameBurningTriggerHandle(damageBurning));
             }
+            subtractHp = int.Parse(collision.name);
             flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
     }
@@ -413,7 +413,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void DeathHandle()
     {
-        //UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);

@@ -47,23 +47,43 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     public SAWEVO[] GetSAWEVOS()
     {
-        if (isShowEvoSaw == true) saws.Add(uIUpgradeEvolution.sawRamdom1);
+        if (isShowEvoSaw == true)
+        {
+            int random = Random.Range(0, 2);
+            if (random == 0) saws.Add(uIUpgradeEvolution.sawRamdom1);
+            else saws.Add(uIUpgradeEvolution.sawRamdom2);
+        }
         return saws.ToArray();
     }
     public FLAMEEVO[] GetFLAMEVOS()
     {
-        if (isShowEvoFlame == true) flames.Add(uIUpgradeEvolution.flameRandom1);
+        if (isShowEvoFlame == true)
+        {
+            int random = Random.Range(0, 2);
+            if (random == 0) flames.Add(uIUpgradeEvolution.flameRandom1);
+            else flames.Add(uIUpgradeEvolution.flameRandom2);
+        }
         return flames.ToArray();
     }
 
     public MACHINEGUNEVO[] GetMACHINEGUNEVOS()
     {
-        if (isShowEvoMachineGun == true) machineGuns.Add(uIUpgradeEvolution.machineGunRandom1);
+        if (isShowEvoMachineGun == true)
+        {
+            int random = Random.Range(0, 2);
+            if(random == 0) machineGuns.Add(uIUpgradeEvolution.machineGunRandom1);
+            else machineGuns.Add(uIUpgradeEvolution.machineGunRandom2);
+        }
         return machineGuns.ToArray();
     }
     public SHOCKEREVO[] GetSHOCKEREVOS()
     {
-        if (isShowEvoShocker == true) shockers.Add(uIUpgradeEvolution.shockerRandom1);
+        if (isShowEvoShocker == true)
+        {
+            int random = Random.Range(0, 2);
+            if (random == 0) shockers.Add(uIUpgradeEvolution.shockerRandom1);
+            else shockers.Add(uIUpgradeEvolution.shockerRandom2);
+        }
         return shockers.ToArray();
     }
 

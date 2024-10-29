@@ -56,11 +56,17 @@ public class FlameHandler : WeaponShoter
 
     public void SetBurning()
     {
-        if (instance.flames.Contains(FLAMEEVO.BURNING))
+        if (instance.IsFlameContains(FLAMEEVO.BURNING, level))
         {
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS, level);
+            float multiplier = 1;
+
+            if (amout == 1) multiplier = 0.75f;
+            else if (amout == 2) multiplier = 1.5f;
+            else if (amout == 3) multiplier = 2.25f;
             for (int i = 0; i < ParController.instance.flameThrowers.Length; i++)
             {
-                ParController.instance.flameThrowers[i].name = "50";
+                ParController.instance.flameThrowers[i].name = ((int)(int.Parse(BulletController.instance.listBullets[0].name) * multiplier)).ToString();
             }
         }
     }

@@ -69,6 +69,13 @@ public class GameController : MonoBehaviour
         ChangeCarSprites(level);
     }
 
+    public void EndGame()
+    {
+        ShakeCam(0.25f);
+        isLose = true;
+        touchScreen.SetActive(false);
+    }
+
     public void ShakeCam(float strength)
     {
         gameCamera.transform.DOComplete();
@@ -101,7 +108,8 @@ public class GameController : MonoBehaviour
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
             StartGame();
-        }else
+        }
+        else
         {
             UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
         }
@@ -300,7 +308,7 @@ public class GameController : MonoBehaviour
 
         DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
-        playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush,EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
+        playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.GetSAWEVOS(), UpgradeEvolutionController.instance.GetFLAMEVOS(), UpgradeEvolutionController.instance.GetMACHINEGUNEVOS(), UpgradeEvolutionController.instance.GetSHOCKEREVOS());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
@@ -308,7 +316,7 @@ public class GameController : MonoBehaviour
         DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
 
         DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive
-            , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewarHighest
+            , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewardHighest
             , UIHandler.instance.progressHandler.progresses.ToArray(), dailyDataStorage, tutorialDataStorage
             , playerDataStorage, blockDataStorages, energyDataStorage, chanceDataStorage, weaponEvolutionDataStorge);
 

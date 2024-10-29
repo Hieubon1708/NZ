@@ -1,24 +1,22 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using static Unity.Collections.AllocatorManager;
 
 public class BlockUpgradeController : MonoBehaviour
 {
     public static BlockUpgradeController instance;
 
+    public Canvas canvas;
     public float raycastDistance;
     public LayerMask layerMask;
-    public GameObject frame;
+    public GameObject frameInsert;
+    public GameObject frameChoice;
     public GameObject recyleClose;
     public GameObject recyleOpen;
     public TextMeshProUGUI goldInRecyle;
     GameObject blockSelected;
-    public GameObject blockUI;
-    public Image imageBlockUI;
     public WeaponBuyButton[] weaponBuyButtons;
-    bool isDrag;
+    public bool isDrag;
     bool isHold;
 
     private void Awake()
@@ -28,6 +26,10 @@ public class BlockUpgradeController : MonoBehaviour
 
     public void Update()
     {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.LogError("ok");
+        }
         if (GameController.instance.isStart) return;
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -40,22 +42,20 @@ public class BlockUpgradeController : MonoBehaviour
             if (blockSelected != null)
             {
                 Block scBlock = BlockController.instance.GetScBlock(blockSelected);
-                if (Vector2.Distance(blockSelected.transform.position, GameController.instance.cam.ScreenToWorldPoint(recyleOpen.transform.position)) <= 2f)
+                if (Vector2.Distance(blockSelected.transform.position, recyleOpen.transform.position) <= 2f)
                 {
                     scBlock.SubtractGold();
                     BlockController.instance.DeleteBlock(blockSelected);
                     scBlock.blockUpgradeHandler.ResetData();
                     BlockController.instance.CheckButtonStateAll();
                 }
-                else
-                {
-                    blockSelected.transform.position = GameController.instance.cam.ScreenToWorldPoint(frame.transform.position);
-                    scBlock.blockUpgradeHandler.DeSelected();
-                }
-                RecyleChange(true);
-                blockUI.gameObject.SetActive(false);
+                blockSelected.transform.position = frameInsert.transform.position;
+                scBlock.blockUpgradeHandler.DeSelected();
                 SetActiveFrame(false);
+                RecyleChange(true);
                 blockSelected = null;
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                BlockController.instance.ChangeModeCanvas(RenderMode.ScreenSpaceOverlay);
             }
         }
         if (isDrag)
@@ -63,9 +63,9 @@ public class BlockUpgradeController : MonoBehaviour
             if (blockSelected != null)
             {
                 Vector2 pos = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);
+                frameChoice.transform.position = pos;
                 blockSelected.transform.position = pos;
-                blockUI.transform.position = Input.mousePosition;
-                BlockController.instance.SetPositionNearest(blockSelected, frame);
+                BlockController.instance.SetPositionNearest(blockSelected, frameInsert);
             }
             if (!isHold)
             {
@@ -75,18 +75,18 @@ public class BlockUpgradeController : MonoBehaviour
                 {
                     UIHandler.instance.tutorial.TutorialDragBlock(true);
                     blockSelected = hit.rigidbody.gameObject;
+
                     Block block = BlockController.instance.GetScBlock(blockSelected);
-                    
-                    frame.transform.position = GameController.instance.cam.WorldToScreenPoint(blockSelected.transform.position);
-                    blockUI.transform.position = Input.mousePosition;
                     block.blockUpgradeHandler.Selected();
+
+                    canvas.renderMode = RenderMode.ScreenSpaceCamera;
+                    BlockController.instance.ChangeModeCanvas(RenderMode.ScreenSpaceCamera);
+
+                    frameChoice.transform.position = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);
+                    frameInsert.transform.position = blockSelected.transform.position;
+
                     SetActiveFrame(true);
                     RecyleChange(false);
-
-                    imageBlockUI.sprite = block.sp.sprite;
-                    imageBlockUI.SetNativeSize();
-                    blockUI.SetActive(true);
-
                     goldInRecyle.text = UIHandler.instance.ConvertNumberAbbreviation(block.sellingPrice);
                     isHold = true;
                 }
@@ -102,6 +102,7 @@ public class BlockUpgradeController : MonoBehaviour
 
     void SetActiveFrame(bool isActive)
     {
-        frame.SetActive(isActive);
+        frameInsert.SetActive(isActive);
+        frameChoice.SetActive(isActive);
     }
 }

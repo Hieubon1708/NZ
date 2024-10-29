@@ -6,9 +6,8 @@ public class test : MonoBehaviour
 {
     void Start()
     {
-        transform.DOMoveX(5,2).OnComplete(delegate
-        {
-            Debug.LogWarning("ok");
-        });
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.sortingOrder = 999; 
+        renderer.sortingLayerName = "UI"; 
     }
 }

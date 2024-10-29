@@ -29,6 +29,16 @@ public class BlockController : MonoBehaviour
         Generate();
     }
 
+    public void ChangeModeCanvas(RenderMode renderMode)
+    {
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block sc = GetScBlock(blocks[i]);
+            sc.canvas.renderMode = renderMode;
+            if(renderMode == RenderMode.ScreenSpaceCamera) sc.canvas.worldCamera = GameController.instance.cam;
+        }
+    }
+
     public void StartGame()
     {
         tempBlocks = new List<GameObject>(blocks);
@@ -47,7 +57,7 @@ public class BlockController : MonoBehaviour
     {
         tempBlocks = new List<GameObject>(blocks);
         int goldReward = UIHandler.instance.progressHandler.gold;
-        while(tempBlocks.Count > 0)
+        while (tempBlocks.Count > 0)
         {
             UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
             UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
@@ -63,7 +73,7 @@ public class BlockController : MonoBehaviour
             });
             yield return new WaitForSeconds(0.25f);
         }
-        
+
     }
 
     public void Update()
@@ -216,7 +226,7 @@ public class BlockController : MonoBehaviour
         {
             float y = startY + distance * i;
             if (blocks[i] != block) blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, y);
-            else frame.transform.position = GameController.instance.cam.WorldToScreenPoint(new Vector2(CarController.instance.transform.position.x, y + CarController.instance.transform.localPosition.y));
+            else frame.transform.position = new Vector2(frame.transform.position.x, y + CarController.instance.transform.localPosition.y);
         }
     }
 
@@ -275,7 +285,6 @@ public class BlockController : MonoBehaviour
         Block scBlock = GetScBlock(block);
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
-        scBlock.AddBlockParEvent();
         ParController.instance.PlayBlockDestroyParticle(block.transform.position);
         if (!GameController.instance.isLose)
         {

@@ -4828,11 +4828,12 @@ MonoBehaviour:
   level: 0
   hp: 100000
   ani: {fileID: 111116773769303830}
+  canvas: {fileID: 3468088509350652240}
   sellingPrice: 0
   blockHandler: {fileID: 2957189971103572244}
   blockUpgradeHandler: {fileID: 24971306725054711}
   sp: {fileID: 212773638200962692}
-  addBlock: {fileID: 198757935441744764}
+  addBlock: {fileID: 198467925170002540}
 --- !u!114 &2513861802699813261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5089,7 +5090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4673655085280031
 Transform:
   m_ObjectHideFlags: 0
@@ -9868,8 +9869,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1504770239
+  m_SortingLayer: 8
   m_SortingOrder: 57
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -12682,7 +12683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4580621451983492
 Transform:
   m_ObjectHideFlags: 0
@@ -15273,7 +15274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20.9}
+  m_AnchoredPosition: {x: 0, y: 20.900002}
   m_SizeDelta: {x: 100, y: 33}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8101821062545451530
@@ -15708,7 +15709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -15.3}
+  m_AnchoredPosition: {x: 25, y: -15.299999}
   m_SizeDelta: {x: 50, y: 33}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9126561722813375161
@@ -15976,7 +15977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -59.000053, y: -0}
+  m_AnchoredPosition: {x: -59.000053, y: 0}
   m_SizeDelta: {x: 84, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &368640494748077872
@@ -16051,7 +16052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 22.9}
+  m_AnchoredPosition: {x: 0, y: 22.900002}
   m_SizeDelta: {x: 70, y: 33}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2715098876183530758
@@ -17163,6 +17164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966d36772993ac3438498df03d860e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 3468088509350652240}
   target: {fileID: 4689328177453823}
   x: 1.25
   y: 0
@@ -19665,6 +19667,7 @@ MonoBehaviour:
     weaponType: 0
     price: 0
     distanceType: 0
+    weaponLevelConfigs: []
   tutorialOject: {fileID: 5610741044004222136}
   aniShowNewEvo: {fileID: 3114985060668150391}
 --- !u!114 &1350059336630134417
@@ -19679,6 +19682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966d36772993ac3438498df03d860e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 3468088509350652240}
   target: {fileID: 4689328177453823}
   x: 2.55
   y: 0
@@ -20478,6 +20482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966d36772993ac3438498df03d860e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 3468088509350652240}
   target: {fileID: 4689328177453823}
   x: -1.75
   y: 0
@@ -21455,7 +21460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -32.625015, y: -0}
+  m_AnchoredPosition: {x: -32.625015, y: 0}
   m_SizeDelta: {x: 104, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6202907019129595771

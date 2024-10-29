@@ -244,6 +244,7 @@ public class RewardConfig
     public RewardLevelConfig[] rewardLevelConfigs;
 }
 
+[System.Serializable]
 public class DailyConfig
 {
     public Daily.DailyType dailyType;
@@ -260,6 +261,7 @@ public class DailyConfig
     }
 }
 
+[System.Serializable]
 public class RewardLevelConfig
 {
     public EquipRewardConfig[] equips;
@@ -270,6 +272,7 @@ public class RewardLevelConfig
     public int cogwheel;
 }
 
+[System.Serializable]
 public class EquipRewardConfig
 {
     public int type;
@@ -292,6 +295,7 @@ public class EquipmentConfig
     public ClothesConfig clothesConfig;
 }
 
+[System.Serializable]
 public class GunConfig
 {
     public int startDamage;
@@ -299,6 +303,7 @@ public class GunConfig
     public float coefByRarity;
 }
 
+[System.Serializable]
 public class BoomConfig
 {
     public int startDamage;
@@ -306,6 +311,7 @@ public class BoomConfig
     public float coefByRarity;
 }
 
+[System.Serializable]
 public class CapConfig
 {
     public int startHp;
@@ -313,6 +319,7 @@ public class CapConfig
     public float coefByRarity;
 }
 
+[System.Serializable]
 public class ClothesConfig
 {
     public int startHp;
@@ -338,6 +345,7 @@ public class WeaponConfig
     }
 }
 
+[System.Serializable]
 public class WeaponLevelConfig
 {
     public PriceConfig priceConfig;
@@ -350,6 +358,7 @@ public class WeaponLevelConfig
     }
 }
 
+[System.Serializable]
 public class PriceConfig
 {
     public int startPrice;
@@ -364,6 +373,7 @@ public class PriceConfig
     }
 }
 
+[System.Serializable]
 public class AttackConfig
 {
     public int damageBooster;
@@ -441,6 +451,7 @@ public class DataStorage
     }
 }
 
+[System.Serializable]
 public class ChanceDataStorage
 {
     public int level;
@@ -453,6 +464,7 @@ public class ChanceDataStorage
     }
 }
 
+[System.Serializable]
 public class DailyDataStorage
 {
     public List<DailyConfig> dailyOfDate;
@@ -469,6 +481,7 @@ public class DailyDataStorage
     }
 }
 
+[System.Serializable]
 public class TutorialDataStorage
 {
     public bool isFirstTimePlay;
@@ -513,6 +526,7 @@ public class TutorialDataStorage
     }
 }
 
+[System.Serializable]
 public class EquipmentDataStorage
 {
     public int type;
@@ -525,6 +539,7 @@ public class EquipmentDataStorage
     }
 }
 
+[System.Serializable]
 public class EquipmentUpgradeDataStorage
 {
     public int gunLevelUpgrade;
@@ -541,6 +556,7 @@ public class EquipmentUpgradeDataStorage
     }
 }
 
+[System.Serializable]
 public class DesignDataStorage
 {
     public int gunAmout;
@@ -557,6 +573,7 @@ public class DesignDataStorage
     }
 }
 
+[System.Serializable]
 public class playerDataStorage
 {
     public int gold;
@@ -591,6 +608,7 @@ public class playerDataStorage
     }
 }
 
+[System.Serializable]
 public class EnergyDataStorage
 {
     public int level;
@@ -601,6 +619,7 @@ public class EnergyDataStorage
     }
 }
 
+[System.Serializable]
 public class BlockDataStorage
 {
     public int level;
@@ -615,6 +634,7 @@ public class BlockDataStorage
     }
 }
 
+[System.Serializable]
 public class WeaponDataStorage
 {
     public WEAPON weaponType;
@@ -629,6 +649,7 @@ public class WeaponDataStorage
     }
 }
 
+[System.Serializable]
 public class WeaponEvolutionDataStorge
 {
     public SAWEVO[] sawEvos;

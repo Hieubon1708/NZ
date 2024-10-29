@@ -442,6 +442,7 @@ public class EnemyTowerController : MonoBehaviour
             BlockController.instance.SellAllBlocks();
             BlockController.instance.blocks.Clear();
             EquipmentController.instance.playerInventory.ConvertGoldToDush();
+            UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);
             DOVirtual.DelayedCall(0.5f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();

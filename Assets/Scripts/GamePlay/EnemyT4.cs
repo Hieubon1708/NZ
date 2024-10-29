@@ -25,7 +25,7 @@ public class EnemyT4 : EnemyHandler
         }
         else
         {
-            walkSpeed = -rb.velocity.x * multiplier;
+            walkSpeed = (Mathf.Abs(rb.velocity.x) - GameController.instance.backgroundSpeed) * multiplier;
         }
 
         if (isCollisionWithCar || !colObj.activeSelf)

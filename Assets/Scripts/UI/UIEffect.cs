@@ -92,14 +92,6 @@ public class UIEffect : MonoBehaviour
         FlyGoldHandle(false, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.15f, 0.205f);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            UIHandler.instance.daily.RewardDaily();
-        }
-    }
-
     public void FlyGem()
     {
         UIHandler.instance.daily.HideDaily();

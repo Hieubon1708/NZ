@@ -51,6 +51,7 @@ public class Booster : MonoBehaviour
         amoutEnergy += 12;
         textAmoutEnergy.text = amoutEnergy.ToString();
         CheckBoosterState();
+        UIHandler.instance.daily.CheckDaily(Daily.DailyType.WatchAds);
     }
 
     public void ActiveBoosterButton(bool isActive)

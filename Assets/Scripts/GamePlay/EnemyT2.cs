@@ -10,7 +10,7 @@ public class EnemyT2 : EnemyHandler
     {
         base.Start();
         SetHp();
-        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 2, GameController.instance.xPlus2 - 1);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 1);
     }
 
     protected override void FixedUpdate()
@@ -24,7 +24,7 @@ public class EnemyT2 : EnemyHandler
         }
         else
         {
-            walkSpeed = -rb.velocity.x * multiplier;
+            walkSpeed = (Mathf.Abs(rb.velocity.x) - GameController.instance.backgroundSpeed) * multiplier;
         }
 
         if (isCollisionWithCar

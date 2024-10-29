@@ -24,8 +24,7 @@ public class PlayerHandler : MonoBehaviour
 
         if (hp == 0)
         {
-            GameController.instance.isLose = true;
-            GameController.instance.touchScreen.SetActive(false);
+            GameController.instance.EndGame();
             Booster.instance.KillEnergyNBoosterButton();
             PlayerController.instance.DeathAni();
             CarController.instance.DeathAni();
@@ -34,8 +33,7 @@ public class PlayerHandler : MonoBehaviour
             BlockController.instance.DisableWeapons();
             boxCollider.SetActive(false);
             healthBar.SetActive(false);
-            GameController.instance.ShakeCam(0.25f);
-            UIHandler.instance.tutorial.isFirstTimePlay = true;
+            UIHandler.instance.EndGame();
             if (EnemyTowerController.instance.indexTower == 1)
             {
                 if (!UIHandler.instance.tutorial.isSecondTimeDestroyTower) UIHandler.instance.tutorial.isSecondTimeDestroyTower = true;

@@ -43,7 +43,7 @@ public class EnemyAttackEventT2 : MonoBehaviour
         angle += 145 - angle;
 
         float distanceX = target.x - mouth.position.x;
-        float distanceY = Mathf.Clamp(target.y - mouth.position.y, 0f, float.MaxValue);
+        float distanceY = Mathf.Clamp(target.y - mouth.position.y, 0.0001f, float.MaxValue);
         float time = distanceX / (Mathf.Cos(angle * Mathf.Deg2Rad) * Mathf.Sqrt(distanceX * distanceX * Mathf.Abs(Physics2D.gravity.y) / (2 * distanceX * Mathf.Tan(angle * Mathf.Deg2Rad) + distanceY)));
         float velocityX = distanceX / time;
         float velocityY = (distanceY + 0.5f * Mathf.Abs(Physics2D.gravity.y) * time * time) / time;

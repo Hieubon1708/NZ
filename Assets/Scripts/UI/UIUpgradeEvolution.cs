@@ -537,6 +537,14 @@ public class UIUpgradeEvolution : MonoBehaviour
             sawSlotEvo.SetAmout(instance.GetAmoutSawEvo(instance.saws[i], instance.saws.Count));
         }
 
+        RandomSawEvo();
+
+        panelSawEvo.SetActive(true);
+        UIHandler.instance.uIEffect.FadeAll(sawCanvasGroup, 1, 0.15f);
+    }
+
+    public void RandomSawEvo()
+    {
         List<SAWEVO> temp = new List<SAWEVO>(sawEvoTypes);
 
         sawRamdom1 = temp[Random.Range(0, temp.Count)];
@@ -554,9 +562,6 @@ public class UIUpgradeEvolution : MonoBehaviour
                 sawEvos[i].gameObject.SetActive(false);
             }
         }
-
-        panelSawEvo.SetActive(true);
-        UIHandler.instance.uIEffect.FadeAll(sawCanvasGroup, 1, 0.15f);
     }
 
     public SHOCKEREVO shockerRandom1;
@@ -578,6 +583,14 @@ public class UIUpgradeEvolution : MonoBehaviour
             shockerSlotEvo.SetAmout(instance.GetAmoutShockerEvo(instance.shockers[i], instance.shockers.Count));
         }
 
+        RandomShockerEvo();
+
+        panelShockerEvo.SetActive(true);
+        UIHandler.instance.uIEffect.FadeAll(shockerCanvasGroup, 1, 0.15f);
+    }
+
+    public void RandomShockerEvo()
+    {
         List<SHOCKEREVO> temp = new List<SHOCKEREVO>(shockerEvoTypes);
 
         shockerRandom1 = temp[Random.Range(0, temp.Count)];
@@ -595,9 +608,6 @@ public class UIUpgradeEvolution : MonoBehaviour
                 shockerEvos[i].gameObject.SetActive(false);
             }
         }
-
-        panelShockerEvo.SetActive(true);
-        UIHandler.instance.uIEffect.FadeAll(shockerCanvasGroup, 1, 0.15f);
     }
 
     public FLAMEEVO flameRandom1;
@@ -619,6 +629,14 @@ public class UIUpgradeEvolution : MonoBehaviour
             flameSlotEvo.SetAmout(instance.GetAmoutFlameEvo(instance.flames[i], instance.flames.Count));
         }
 
+        RandomFlameEvo();
+
+        panelFlameEvo.SetActive(true);
+        UIHandler.instance.uIEffect.FadeAll(flameCanvasGroup, 1, 0.15f);
+    }
+
+    public void RandomFlameEvo()
+    {
         List<FLAMEEVO> temp = new List<FLAMEEVO>(flameEvoTypes);
 
         flameRandom1 = temp[Random.Range(0, temp.Count)];
@@ -636,9 +654,6 @@ public class UIUpgradeEvolution : MonoBehaviour
                 flameEvos[i].gameObject.SetActive(false);
             }
         }
-
-        panelFlameEvo.SetActive(true);
-        UIHandler.instance.uIEffect.FadeAll(flameCanvasGroup, 1, 0.15f);
     }
 
     public MACHINEGUNEVO machineGunRandom1;
@@ -660,6 +675,14 @@ public class UIUpgradeEvolution : MonoBehaviour
             machineGunSlotEvo.SetAmout(instance.GetAmoutMachineGunEvo(instance.machineGuns[i], instance.machineGuns.Count));
         }
 
+        RandomMachineGunEvo();
+
+        panelMachineGunEvo.SetActive(true);
+        UIHandler.instance.uIEffect.FadeAll(machineGunCanvasGroup, 1, 0.15f);
+    }
+
+    public void RandomMachineGunEvo()
+    {
         List<MACHINEGUNEVO> temp = new List<MACHINEGUNEVO>(machineGunEvoTypes);
 
         machineGunRandom1 = temp[Random.Range(0, temp.Count)];
@@ -677,9 +700,6 @@ public class UIUpgradeEvolution : MonoBehaviour
                 machineGunEvos[i].gameObject.SetActive(false);
             }
         }
-
-        panelMachineGunEvo.SetActive(true);
-        UIHandler.instance.uIEffect.FadeAll(machineGunCanvasGroup, 1, 0.15f);
     }
 
     public void HidePanelSawEvo()

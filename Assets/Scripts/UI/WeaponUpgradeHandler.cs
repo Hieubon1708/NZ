@@ -65,6 +65,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             level++;
             levelUpgrade = 0;
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
+            weaponShoter.LoadData();
             evoUpgrade.SetActive(false);
             gameObject.SetActive(false);
             UpgradeEvolutionController.instance.weaponUpgradeHandler = this;
