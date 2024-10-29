@@ -10,7 +10,7 @@ public class EnemyT2 : EnemyHandler
     {
         base.Start();
         SetHp();
-        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 1);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1+ 3, GameController.instance.xPlus2 - 0.5f);
     }
 
     protected override void FixedUpdate()
@@ -45,7 +45,8 @@ public class EnemyT2 : EnemyHandler
         }
         else
         {
-            if (Mathf.Abs(enemyInfo.transform.position.x - PlayerController.instance.transform.position.x) < targetX)
+            Debug.DrawLine(transform.position, new Vector2(CarController.instance.transform.position.x + targetX, transform.position.y), Color.red);
+            if (Mathf.Abs(enemyInfo.transform.position.x - CarController.instance.transform.position.x) <= targetX)
             {
                 walkSpeed = 0;
                 if (!animator.GetBool("attack"))
@@ -64,7 +65,7 @@ public class EnemyT2 : EnemyHandler
                 {
                     isShot = false;
                     animator.SetBool("attack", false);
-                    targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
+                    targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 0.5f);
                 }
             }
         }
@@ -77,7 +78,7 @@ public class EnemyT2 : EnemyHandler
     protected override void DeathHandle()
     {
         base.DeathHandle();
-        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1, GameController.instance.xPlus2);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 0.5f);
     }
 
     public override void SetDefaultField()

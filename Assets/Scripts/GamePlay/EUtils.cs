@@ -15,7 +15,7 @@ public static class EUtils
 
     public static float RandomXDistanceByCar(float xPlus1, float xPlus2)
     {
-        return Random.Range(CarController.instance.transform.position.x + xPlus1, CarController.instance.transform.position.x + xPlus2);
+        return Random.Range(xPlus1, xPlus2);
     }
 
     public static float RandomYDistanceByCar(float yPlus1, float yPlus2)

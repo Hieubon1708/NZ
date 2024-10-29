@@ -233,7 +233,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
         if (collision.gameObject.CompareTag("Ground"))
         {
             if (shadow != null) shadow.SetActive(true);
@@ -245,7 +245,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -293,7 +293,12 @@ public class EnemyHandler : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Block"))
         {
-            if (blockCollision != null) StopCoroutine(blockCollision);
+            if (blockCollision != null)
+            {
+                Debug.LogWarning("Exit");
+                StopCoroutine(blockCollision);
+                blockCollision = null;
+            }
         }
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground"))
@@ -424,7 +429,7 @@ public class EnemyHandler : MonoBehaviour
 
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
-            EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
+            //EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
         });
     }
 

@@ -14,8 +14,15 @@ public class EnemyT1 : EnemyHandler
     {
         if (!collision.collider.gameObject.activeSelf) return;
         base.OnCollisionEnter2D(collision);
+    }
+
+    protected override void OnCollisionStay2D(Collision2D collision)
+    {
+        base.OnCollisionStay2D(collision);
+        if (!collision.collider.gameObject.activeSelf || blockCollision != null || !colObj.activeSelf) return;
         if (collision.gameObject.CompareTag("Block"))
         {
+            Debug.LogWarning("Enter");
             blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
         }
     }

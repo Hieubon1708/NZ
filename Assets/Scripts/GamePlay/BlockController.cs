@@ -29,16 +29,6 @@ public class BlockController : MonoBehaviour
         Generate();
     }
 
-    public void ChangeModeCanvas(RenderMode renderMode)
-    {
-        for (int i = 0; i < blocks.Count; i++)
-        {
-            Block sc = GetScBlock(blocks[i]);
-            sc.canvas.renderMode = renderMode;
-            if(renderMode == RenderMode.ScreenSpaceCamera) sc.canvas.worldCamera = GameController.instance.cam;
-        }
-    }
-
     public void StartGame()
     {
         tempBlocks = new List<GameObject>(blocks);
@@ -74,14 +64,6 @@ public class BlockController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
 
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StartCoroutine(EndGame());
-        }
     }
 
     public void Restart()

@@ -88,9 +88,9 @@ public class EnemyT3 : EnemyHandler
 
     IEnumerator LevingCave()
     {
-        yield return new WaitUntil(() => Mathf.Abs(EnemyTowerController.instance.GetTower().col.transform.position.x - enemyInfo.transform.position.x) > 1.75f);
+        yield return new WaitWhile(() => Mathf.Abs(EnemyTowerController.instance.GetTower().col.transform.position.x - enemyInfo.transform.position.x) > 1.75f);
         rb.velocity = new Vector2(rb.velocity.x, 3.5f);
-        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomXDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2 / 2);
+        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2 / 2);
         yield return new WaitWhile(() => transform.position.y <= yRandomAfterLevingCave);
         rb.velocity = new Vector2(rb.velocity.x, 0);
         isLevingCave = true;

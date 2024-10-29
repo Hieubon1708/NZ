@@ -48,7 +48,7 @@ public class Daily : MonoBehaviour
             amount = DataManager.instance.dataStorage.dailyDataStorage.amount;
             indexDaily = DataManager.instance.dataStorage.dailyDataStorage.indexDaily;
             lastUpdateDate = DataManager.instance.dataStorage.dailyDataStorage.lastUpdateDate;
-            if (dailyOfDate[indexDaily].amountTarget == amount)
+            if (dailyOfDate.Count != 0 && dailyOfDate[indexDaily].amountTarget == amount)
             {
                 dailyCompleted.SetActive(true);
                 dailyFrame.raycastTarget = true;

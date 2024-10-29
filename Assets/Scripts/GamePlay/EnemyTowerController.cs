@@ -309,7 +309,7 @@ public class EnemyTowerController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = 1;//   remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 
@@ -443,6 +443,7 @@ public class EnemyTowerController : MonoBehaviour
             BlockController.instance.blocks.Clear();
             EquipmentController.instance.playerInventory.ConvertGoldToDush();
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);
+            BlockController.instance.DisableWeapons();
             DOVirtual.DelayedCall(0.5f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();

@@ -6,7 +6,6 @@ public class BlockUpgradeController : MonoBehaviour
 {
     public static BlockUpgradeController instance;
 
-    public Canvas canvas;
     public float raycastDistance;
     public LayerMask layerMask;
     public GameObject frameInsert;
@@ -16,7 +15,7 @@ public class BlockUpgradeController : MonoBehaviour
     public TextMeshProUGUI goldInRecyle;
     GameObject blockSelected;
     public WeaponBuyButton[] weaponBuyButtons;
-    public bool isDrag;
+    bool isDrag;
     bool isHold;
 
     private void Awake()
@@ -26,10 +25,6 @@ public class BlockUpgradeController : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.LogError("ok");
-        }
         if (GameController.instance.isStart) return;
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -54,8 +49,6 @@ public class BlockUpgradeController : MonoBehaviour
                 SetActiveFrame(false);
                 RecyleChange(true);
                 blockSelected = null;
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                BlockController.instance.ChangeModeCanvas(RenderMode.ScreenSpaceOverlay);
             }
         }
         if (isDrag)
@@ -78,9 +71,6 @@ public class BlockUpgradeController : MonoBehaviour
 
                     Block block = BlockController.instance.GetScBlock(blockSelected);
                     block.blockUpgradeHandler.Selected();
-
-                    canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                    BlockController.instance.ChangeModeCanvas(RenderMode.ScreenSpaceCamera);
 
                     frameChoice.transform.position = GameController.instance.cam.ScreenToWorldPoint(Input.mousePosition);
                     frameInsert.transform.position = blockSelected.transform.position;

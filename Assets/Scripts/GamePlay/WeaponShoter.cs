@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public abstract class WeaponShoter : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public abstract class WeaponShoter : MonoBehaviour
     public Transform target;
     public Transform parent;
     protected float distance;
+    public SortingGroup sortingGroup;
     protected Coroutine rotate;
     Quaternion targetRotation;
 

@@ -85,13 +85,6 @@ public class Tutorial : MonoBehaviour
             , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss);
     }
 
-    private void Start()
-    {
-        buttonUpgradeEnergy.transform.position = GameController.instance.cam.WorldToScreenPoint(new Vector2(CarController.instance.transform.position.x + 2f, CarController.instance.transform.transform.position.y - 1.25f));
-        buttonReward.transform.position = GameController.instance.cam.WorldToScreenPoint(new Vector2(CarController.instance.transform.position.x + 5.5f, CarController.instance.transform.transform.position.y - 1.25f));
-        buttonBuyBlock.transform.position = GameController.instance.cam.WorldToScreenPoint(new Vector2(CarController.instance.transform.position.x - 1.25f, CarController.instance.transform.transform.position.y - 1.25f));
-    }
-
     public void TutorialButtonBuyBlock(bool isClick)
     {
         if (isFirstTimeClickButtonBuyBlock || !isClick && PlayerController.instance.player.gold < DataManager.instance.blockConfig.startPrice)

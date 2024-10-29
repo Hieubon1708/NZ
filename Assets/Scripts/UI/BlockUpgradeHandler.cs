@@ -146,15 +146,18 @@ public class BlockUpgradeHandler : ButtonUpgradee
     public void Selected()
     {
         canvas.SetActive(false);
-        content.transform.localScale = Vector3.one * 1.55f;
+        transform.localScale = Vector3.one * 1.55f;
         sortingGroup.sortingLayerName = "UI";
-        sortingGroup.sortingOrder = 999;
+        if (weaponUpgradeHandler.weaponShoter != null) weaponUpgradeHandler.weaponShoter.sortingGroup.sortingLayerName = "UI";
+        sortingGroup.sortingOrder = 1997;
+        if (weaponUpgradeHandler.weaponShoter != null) weaponUpgradeHandler.weaponShoter.sortingGroup.sortingOrder = 1999;
     }
 
     public void DeSelected()
     {
         canvas.SetActive(true);
-        content.transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one;
         sortingGroup.sortingLayerName = "Default";
+        if (weaponUpgradeHandler.weaponShoter != null) weaponUpgradeHandler.weaponShoter.sortingGroup.sortingLayerName = "Weapon";
     }
 }

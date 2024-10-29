@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
 
     void MapGenerate(int index)
     {
-        Instantiate(mapLevels[index], transform);
+        Instantiate(mapLevels[index], new Vector2(0, 0.85f), Quaternion.identity, transform);
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
     }
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
 
-        /*Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
+       /* Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
 */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5425174551701494717}
   - component: {fileID: 6865674840672192862}
   m_Layer: 15
-  m_Name: Granade_1
+  m_Name: Granade
   m_TagString: Boom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8528538276528340235}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -184,7 +184,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.000000029802322, y: 0.0049999654}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
 --- !u!114 &6865674840672192862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +197,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4d1b7dd7889a74c827a451836f8b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 5425174551701494717}

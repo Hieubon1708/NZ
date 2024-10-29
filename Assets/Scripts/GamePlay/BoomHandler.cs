@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class BoomHandler : MonoBehaviour
 {
-    bool isOnGround;
+    public CircleCollider2D col;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && !isOnGround)
+        if (collision.gameObject.CompareTag("Ground") && !col.enabled)
         {
-            isOnGround = true;
+            col.enabled = true;
             DOVirtual.DelayedCall(0.75f, delegate
             {
-                isOnGround = false;
+                col.enabled = false;
                 GameController.instance.ShakeCam(0.25f);
                 gameObject.SetActive(false);
                 ParController.instance.PlayBoomParticle(gameObject.transform.position);
