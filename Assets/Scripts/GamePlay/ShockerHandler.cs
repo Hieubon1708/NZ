@@ -166,8 +166,6 @@ public class ShockerHandler : WeaponShoter
             {
                 EnemyHandler eSc = EnemyTowerController.instance.GetScE(listEs[i]);
                 eSc.Stun(time);
-                Vector2 topBound = eSc.GetPositionTopBound(eSc.col);
-                ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), time, eSc.healthBar.transform);
             }
         }
     }

@@ -112,7 +112,7 @@ public class Tutorial : MonoBehaviour
         int price = DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.SAW);
         if (isFirstTimeClickButtonBuyWeapon || !isClick && PlayerController.instance.player.gold < price || BlockController.instance.blocks.Count == 0)
         {
-            TutorialUpgradeWeaponEvo(false);
+            TutorialButtonUpgradeEnergy(false);
         }
         else
         {
@@ -123,7 +123,7 @@ public class Tutorial : MonoBehaviour
             {
                 EnableTutorial(false, scButtonBuyWeapon);
                 isFirstTimeClickButtonBuyWeapon = true;
-                TutorialUpgradeWeaponEvo(false);
+                TutorialButtonUpgradeEnergy(false);
             }
             else
             {
@@ -137,14 +137,14 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeClickUpgradeWeaponEvo)
         {
-            TutorialButtonUpgradeEnergy(false);
+            EnableTutorial(false, scSelected);
             return;
         }
         int price = 0;
         scButtonUpgradeWeaponEvo = BlockController.instance.GetTutorialWeaponEvo(out price);
         if (!isClick && PlayerController.instance.player.gold < price)
         {
-            TutorialButtonUpgradeEnergy(false);
+            EnableTutorial(false, scSelected);
         }
         else
         {
@@ -193,7 +193,7 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeDragBlock || BlockController.instance.blocks.Count < 4)
         {
-            EnableTutorial(false, scSelected);
+            TutorialUpgradeWeaponEvo(false);
         }
         else
         {
@@ -206,7 +206,7 @@ public class Tutorial : MonoBehaviour
             {
                 Vector2 pos = BlockController.instance.blocks[2].transform.position;
                 blockDragTutorial.transform.position = GameController.instance.cam.WorldToScreenPoint(pos);
-                EnableTutorial(false, scSelected);
+                TutorialUpgradeWeaponEvo(false);
                 blockDragTutorial.SetActive(true);
             }
         }

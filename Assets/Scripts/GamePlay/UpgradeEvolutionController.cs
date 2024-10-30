@@ -204,10 +204,6 @@ public class UpgradeEvolutionController : MonoBehaviour
                 {
                     flameHandler.AttackRadiusChange();
                 }
-                else if (type == 1)
-                {
-                    flameHandler.SetBurning();
-                }
                 else if (type == 3)
                 {
                     flameHandler.AttackDurationChange();

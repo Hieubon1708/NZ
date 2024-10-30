@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ParController : MonoBehaviour
@@ -229,32 +230,24 @@ public class ParController : MonoBehaviour
         DOVirtual.DelayedCall(1f, delegate { h.SetActive(false); });
     }
 
-    public void PlayFlameThrowerParticle(Vector2 pos, Transform e, Coroutine flameBurningTrigger)
+    public void PlayFlameThrowerParticle(Vector2 pos, Transform e, ref GameObject f)
     {
-        GameObject f = flameThrowers[currentCountFlameThrower];
+        f = flameThrowers[currentCountFlameThrower];
         f.transform.position = pos;
         f.transform.SetParent(e);
         f.SetActive(true);
         currentCountFlameThrower++;
         if (currentCountFlameThrower == flameThrowers.Length) currentCountFlameThrower = 0;
-        DOVirtual.DelayedCall(5f, delegate
-        {
-            f.SetActive(false);
-            f.transform.SetParent(container);
-            if (flameBurningTrigger != null) StopCoroutine(flameBurningTrigger);
-            flameBurningTrigger = null;
-        });
     }
 
-    public void PlayStunOnEnemyParticle(Vector2 pos, float time, Transform e)
+    public void PlayStunOnEnemyParticle(Vector2 pos, Transform e, ref GameObject d)
     {
-        GameObject d = stunOnEnemies[currentCountStunOnEnemy];
+        d = stunOnEnemies[currentCountStunOnEnemy];
         d.transform.position = pos;
         d.SetActive(true);
         d.transform.SetParent(e);
         currentCountStunOnEnemy++;
         if (currentCountStunOnEnemy == stunOnEnemies.Length) currentCountStunOnEnemy = 0;
-        DOVirtual.DelayedCall(time, delegate { d.SetActive(false); d.transform.SetParent(container); });
     }
 
     public void PlayRoadBulletHoleParticle(Vector2 pos)

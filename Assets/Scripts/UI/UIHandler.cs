@@ -135,8 +135,6 @@ public class UIHandler : MonoBehaviour
 
     public void Start()
     {
-        layerCover.gameObject.SetActive(true);
-        DoLayerCover(0f, 0.75f, null);
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)

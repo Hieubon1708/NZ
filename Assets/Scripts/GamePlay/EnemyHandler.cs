@@ -45,15 +45,15 @@ public class EnemyHandler : MonoBehaviour
     public Coroutine stunByWeapon;
     Coroutine stunnedDelay;
     Coroutine jump;
-    Coroutine[] sawTriggers = new Coroutine[6];
-    Coroutine[] shockerTriggers = new Coroutine[6];
-    Coroutine[] flameTriggers = new Coroutine[6];
 
-    List<GameObject> sawTriggerObjs = new List<GameObject>();
-    List<GameObject> shockerTriggerObjs = new List<GameObject>();
-    List<GameObject> flameTriggerObjs = new List<GameObject>();
+    Dictionary<GameObject, Coroutine> sawTriggers = new Dictionary<GameObject, Coroutine>();
+    Dictionary<GameObject, Coroutine> flameTriggers = new Dictionary<GameObject, Coroutine>();
+    Dictionary<GameObject, Coroutine> shockerTriggers = new Dictionary<GameObject, Coroutine>();
+    Dictionary<GameObject, Coroutine> flameBurningTriggers = new Dictionary<GameObject, Coroutine>();
 
-    Coroutine flameBurningTrigger;
+    public GameObject flameThower;
+    public GameObject sawStun;
+
     protected Coroutine blockCollision;
     protected Coroutine playerCollision;
 
@@ -114,14 +114,20 @@ public class EnemyHandler : MonoBehaviour
         if (collision.CompareTag("Saw"))
         {
             subtractHp = int.Parse(collision.name);
-            sawTriggers[sawTriggerObjs.Count] = StartCoroutine(SawTriggerHandle(subtractHp));
-            sawTriggerObjs.Add(collision.gameObject);
+            if (!sawTriggers.ContainsKey(collision.gameObject))
+            {
+                sawTriggers.Add(collision.gameObject, null);
+            }
+            sawTriggers[collision.gameObject] = StartCoroutine(ShockerTriggerHandle(subtractHp));
         }
         if (collision.CompareTag("Shocker"))
         {
             subtractHp = int.Parse(collision.name);
-            shockerTriggers[shockerTriggerObjs.Count] = StartCoroutine(ShockerTriggerHandle(subtractHp));
-            shockerTriggerObjs.Add(collision.gameObject);
+            if (!shockerTriggers.ContainsKey(collision.gameObject))
+            {
+                shockerTriggers.Add(collision.gameObject, null);
+            }
+            shockerTriggers[collision.gameObject] = StartCoroutine(ShockerTriggerHandle(subtractHp));
         }
         if (collision.CompareTag("ShockerBooster"))
         {
@@ -130,24 +136,49 @@ public class EnemyHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            if (flameBurningTrigger == null && UpgradeEvolutionController.instance.flames.Contains(UpgradeEvolutionController.FLAMEEVO.BURNING))
+            subtractHp = int.Parse(collision.name.Substring(0, collision.name.Length - 1));
+            int level = int.Parse(collision.name.Substring(collision.name.Length - 1, 1));
+            if (UpgradeEvolutionController.instance.IsFlameContains(UpgradeEvolutionController.FLAMEEVO.BURNING, level))
             {
-                int damageBurning = int.Parse(collision.name);
-                ParController.instance.PlayFlameThrowerParticle(transform.position, colObj.transform, flameBurningTrigger);
-                flameBurningTrigger = StartCoroutine(FlameBurningTriggerHandle(damageBurning));
+                int amout = UpgradeEvolutionController.instance.GetAmoutFlameEvo(UpgradeEvolutionController.FLAMEEVO.BURNING, level);
+                float multiplier = 1;
+                if (amout == 1) multiplier = 0.75f;
+                else if (amout == 2) multiplier = 1.5f;
+                else if (amout == 3) multiplier = 2.25f;
+
+                if (flameBurningTriggers.Count == 0) ParController.instance.PlayFlameThrowerParticle(transform.position, colObj.transform, ref flameThower);
+                if (!flameBurningTriggers.ContainsKey(collision.gameObject))
+                {
+                    flameBurningTriggers.Add(collision.gameObject, null);
+                }
+                if (flameBurningTriggers[collision.gameObject] != null) StopCoroutine(flameBurningTriggers[collision.gameObject]);
+
+                int damageBurning = (int)(int.Parse(BulletController.instance.listBullets[0].name) * multiplier);
+                flameBurningTriggers[collision.gameObject] = StartCoroutine(FlameBurningTriggerHandle(damageBurning, collision.gameObject));
             }
-            subtractHp = int.Parse(collision.name);
-            flameTriggers[flameTriggerObjs.Count] = StartCoroutine(FlameTriggerHandle(subtractHp));
-            flameTriggerObjs.Add(collision.gameObject);
+
+            if (!flameTriggers.ContainsKey(collision.gameObject))
+            {
+                flameTriggers.Add(collision.gameObject, null);
+            }
+            flameTriggers[collision.gameObject] = StartCoroutine(ShockerTriggerHandle(subtractHp));
         }
     }
 
-    IEnumerator FlameBurningTriggerHandle(int subtractHp)
+    IEnumerator FlameBurningTriggerHandle(int subtractHp, GameObject flame)
     {
-        while (enemyInfo.hp > 0)
+        float time = 5f;
+        while (enemyInfo.hp > 0 && time > 0)
         {
             SubtractHp(subtractHp);
             yield return new WaitForSeconds(GameController.instance.timeFlameBurningDamage);
+            time -= GameController.instance.timeFlameBurningDamage;
+        }
+        flameBurningTriggers.Remove(flame);
+        if (flameBurningTriggers.Count == 0)
+        {
+            flameThower.SetActive(false);
+            flameThower.transform.SetParent(ParController.instance.container);
         }
     }
 
@@ -216,27 +247,23 @@ public class EnemyHandler : MonoBehaviour
     {
         if (collision.CompareTag("Saw"))
         {
-            if (sawTriggers[sawTriggerObjs.IndexOf(collision.gameObject)] != null)
+            if (sawTriggers[collision.gameObject] != null)
             {
-                StopCoroutine(sawTriggers[sawTriggerObjs.IndexOf(collision.gameObject)]);
-                sawTriggerObjs.Remove(collision.gameObject);
+                StopCoroutine(sawTriggers[collision.gameObject]);
             }
         }
         if (collision.CompareTag("Flame"))
         {
-            if (flameTriggers[flameTriggerObjs.IndexOf(collision.gameObject)] != null)
+            if (flameTriggers[collision.gameObject] != null)
             {
-                Debug.LogWarning(flameTriggerObjs.IndexOf(collision.gameObject));
-                StopCoroutine(flameTriggers[flameTriggerObjs.IndexOf(collision.gameObject)]);
-                flameTriggerObjs.Remove(collision.gameObject);
+                StopCoroutine(flameTriggers[collision.gameObject]);
             }
         }
         if (collision.CompareTag("Shocker"))
         {
-            if (shockerTriggers[shockerTriggerObjs.IndexOf(collision.gameObject)] != null)
+            if (shockerTriggers[collision.gameObject] != null)
             {
-                StopCoroutine(shockerTriggers[shockerTriggerObjs.IndexOf(collision.gameObject)]);
-                shockerTriggerObjs.Remove(collision.gameObject);
+                StopCoroutine(shockerTriggers[collision.gameObject]);
             }
         }
         if (enemyInfo.hp == 0) return;
@@ -245,6 +272,11 @@ public class EnemyHandler : MonoBehaviour
 
     public void Stun(float time)
     {
+        if (!isStunByWeapon)
+        {
+            Vector2 topBound = GetPositionTopBound(col);
+            ParController.instance.PlayStunOnEnemyParticle(new Vector2(topBound.x, topBound.y + 0.35f), healthBar.transform, ref sawStun);
+        }
         if (animator.GetBool("attack")) animator.SetBool("attack", false);
         if (stunByWeapon != null) StopCoroutine(stunByWeapon);
         stunByWeapon = StartCoroutine(StunByWeapon(time));
@@ -256,11 +288,13 @@ public class EnemyHandler : MonoBehaviour
         yield return new WaitForSeconds(time);
         isStunByWeapon = false;
         if (isAttack) animator.SetBool("attack", true);
+        sawStun.SetActive(false);
+        sawStun.transform.SetParent(ParController.instance.container);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !enemyInfo.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
         if (collision.gameObject.CompareTag("Ground"))
         {
             if (shadow != null) shadow.SetActive(true);
@@ -272,7 +306,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !enemyInfo.gameObject.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -488,34 +522,36 @@ public class EnemyHandler : MonoBehaviour
         {
             StopCoroutine(jump);
         }
-        if (sawTriggers != null)
+        foreach (KeyValuePair<GameObject, Coroutine> keyValuePair in sawTriggers)
         {
-            for (int i = 0; i < sawTriggers.Length; i++)
+            if (keyValuePair.Value != null)
             {
-                if (sawTriggers[i] != null)
-                {
-                    StopCoroutine(sawTriggers[i]);
-                }
+                StopCoroutine(keyValuePair.Value);
+                sawTriggers.Remove(keyValuePair.Key);
             }
         }
-        if (shockerTriggers != null)
+        foreach (KeyValuePair<GameObject, Coroutine> keyValuePair in shockerTriggers)
         {
-            for (int i = 0; i < shockerTriggers.Length; i++)
+            if (keyValuePair.Value != null)
             {
-                if (shockerTriggers[i] != null)
-                {
-                    StopCoroutine(shockerTriggers[i]);
-                }
+                StopCoroutine(keyValuePair.Value);
+                shockerTriggers.Remove(keyValuePair.Key);
             }
         }
-        if (flameTriggers != null)
+        foreach (KeyValuePair<GameObject, Coroutine> keyValuePair in flameTriggers)
         {
-            for (int i = 0; i < flameTriggers.Length; i++)
+            if (keyValuePair.Value != null)
             {
-                if (flameTriggers[i] != null)
-                {
-                    StopCoroutine(flameTriggers[i]);
-                }
+                StopCoroutine(keyValuePair.Value);
+                flameTriggers.Remove(keyValuePair.Key);
+            }
+        }
+        foreach (KeyValuePair<GameObject, Coroutine> keyValuePair in flameBurningTriggers)
+        {
+            if (keyValuePair.Value != null)
+            {
+                StopCoroutine(keyValuePair.Value);
+                flameBurningTriggers.Remove(keyValuePair.Key);
             }
         }
         if (stunnedDelay != null)
@@ -534,14 +570,11 @@ public class EnemyHandler : MonoBehaviour
         {
             StopCoroutine(playerCollision);
         }
-        if (flameBurningTrigger != null)
-        {
-            StopCoroutine(flameBurningTrigger);
-        }
     }
 
     public virtual void SetDefaultField()
     {
+        if(flameThower != null) flameThower.transform.SetParent(ParController.instance.container);
         animator.Rebind();
         content.transform.DOKill();
         speed = startSpeed;

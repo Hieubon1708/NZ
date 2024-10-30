@@ -51,25 +51,7 @@ public class FlameHandler : WeaponShoter
         AttackRadiusChange();
         AttackCooldownChange();
         AttackDurationChange();
-        SetBurning();
         Booster.instance.DecreaseEnergyFlame(level);
-    }
-
-    public void SetBurning()
-    {
-        if (instance.IsFlameContains(FLAMEEVO.BURNING, level))
-        {
-            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.ATTACKRADIUS, level);
-            float multiplier = 1;
-
-            if (amout == 1) multiplier = 0.75f;
-            else if (amout == 2) multiplier = 1.5f;
-            else if (amout == 3) multiplier = 2.25f;
-            for (int i = 0; i < ParController.instance.flameThrowers.Length; i++)
-            {
-                ParController.instance.flameThrowers[i].name = ((int)(int.Parse(BulletController.instance.listBullets[0].name) * multiplier)).ToString();
-            }
-        }
     }
 
     public void AttackRadiusChange()
@@ -199,7 +181,7 @@ public class FlameHandler : WeaponShoter
 
         IncreaseDamage(ref multiplier);
 
-        colBooster.name = ((int)(damage * multiplier)).ToString();
+        colBooster.name = ((int)(damage * multiplier)).ToString() + " " + level;
     }
 
     public override void SetDamage(int damage)
@@ -208,7 +190,7 @@ public class FlameHandler : WeaponShoter
 
         IncreaseDamage(ref multiplier);
 
-        col.name = ((int)(damage * multiplier)).ToString();
+        col.name = ((int)(damage * multiplier)).ToString() + " " + level;
     }
 
     void IncreaseDamage(ref float multiplier)

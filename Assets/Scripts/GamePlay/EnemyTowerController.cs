@@ -97,9 +97,9 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < listRandomEs.Count; i++)
         {
             EnemyHandler eSc = GetScE(listRandomEs[i]);
-            listRandomEs[i].SetActive(false);
-            eSc.Restart();
             eSc.content.SetActive(false);
+            eSc.Restart();
+            listRandomEs[i].SetActive(false);
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
