@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyBulletHandler : MonoBehaviour
 {
     public Rigidbody2D rb;
     Vector2 anglePrevious;
     public int damage;
+    public SortingGroup sortingGroup;
 
     public void Start()
     {

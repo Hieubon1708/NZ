@@ -12,10 +12,15 @@ public abstract class WeaponShoter : MonoBehaviour
     public Transform parent;
     protected float distance;
     public SortingGroup sortingGroup;
+    public Animation scaleUpgrade;
     protected Coroutine rotate;
     Quaternion targetRotation;
 
-    public abstract void StartGame();
+    public virtual void StartGame()
+    {
+        ani.SetBool("startGame", true);
+    }
+
     public abstract void UseBooster();
     public abstract void DisableWeapon();
     public abstract void SetDamageBooster(int damage);
@@ -23,8 +28,8 @@ public abstract class WeaponShoter : MonoBehaviour
 
     public virtual void Restart()
     {
+        ani.SetBool("startGame", false);
         if (parent != null) parent.localRotation = Quaternion.identity;
-        if (rotate != null) StopCoroutine(rotate);
         target = null;
     }
 

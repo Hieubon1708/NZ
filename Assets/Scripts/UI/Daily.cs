@@ -33,10 +33,10 @@ public class Daily : MonoBehaviour
         amount++;
         UpdateDaily();
         dailyFrame.raycastTarget = true;
-        aniDailyCompleted.Play();
         if (amount == dailyOfDate[indexDaily].amountTarget)
         {
             dailyCompleted.SetActive(true);
+            aniDailyCompleted.Play();
         }
     }
 

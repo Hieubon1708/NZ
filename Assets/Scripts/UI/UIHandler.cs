@@ -18,6 +18,7 @@ public class UIHandler : MonoBehaviour
     public Tutorial tutorial;
     public Menu menu;
     public Daily daily;
+    public Map map;
 
     public int goldRewardHighest;
     public TextMeshProUGUI textRewardGold;
@@ -117,7 +118,7 @@ public class UIHandler : MonoBehaviour
 
     public void EndGame()
     {
-        tutorial.isFirstTimePlay = true;
+        if(!tutorial.isFirstTimePlay) tutorial.isFirstTimePlay = true;
     }
 
     public void Restart()
@@ -150,6 +151,7 @@ public class UIHandler : MonoBehaviour
     {
         if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
         GoldUpdatee();
+        map.LoadData();
         daily.LoadData();
         summonEquipment.LoadData();
         progressHandler.LoadData();
@@ -182,7 +184,7 @@ public class UIHandler : MonoBehaviour
         tutorial.StartGame();
         uIEffect.KillTw();
         layerCover.DOKill();
-        DoLayerCover(0f, 0f, null);
+        if(tutorial.isFirstTimePlay) DoLayerCover(0f, 0f, null);
     }
 
     void Generate()
@@ -205,7 +207,7 @@ public class UIHandler : MonoBehaviour
     public void FlyGold(Vector2 pos, int gold)
     {
         GameObject g = goldFlies[curentCountFlyGold];
-        g.transform.position = GameController.instance.cam.WorldToScreenPoint(pos);
+        g.transform.position = pos;
         g.SetActive(true);
         curentCountFlyGold++;
         progressHandler.PlusGoldInProgress(gold);

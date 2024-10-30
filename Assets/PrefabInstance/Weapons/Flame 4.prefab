@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4861412978896819}
   - component: {fileID: 210347853661160255}
+  - component: {fileID: 5261813523858642292}
   m_Layer: 0
   m_Name: Flame 4
   m_TagString: Untagged
@@ -48,6 +49,22 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!111 &5261813523858642292
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065521983732540}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1082297828435526
 GameObject:
   m_ObjectHideFlags: 0
@@ -19489,6 +19506,7 @@ MonoBehaviour:
   target: {fileID: 0}
   parent: {fileID: 4861412978896819}
   sortingGroup: {fileID: 210347853661160255}
+  scaleUpgrade: {fileID: 5261813523858642292}
   flameSmokeParticle: {fileID: 198361269003565209}
   flameSmokeParticleChild: {fileID: 198597757086277830}
   flameBoosterSmokeParticle: {fileID: 198435449461377498}

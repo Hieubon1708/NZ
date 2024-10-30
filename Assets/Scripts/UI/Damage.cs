@@ -10,11 +10,22 @@ public class Damage : MonoBehaviour
     public TextMeshProUGUI textDamage;
     public Rigidbody2D rb;
     bool isShowDamage;
+    public Color colorCritDamage;
 
-    public void ShowDamage(string text, GameObject content)
+    public void ShowDamage(string text, GameObject content, bool isCritDamage)
     {
         if (isShowDamage || !canvas.gameObject.activeSelf) return;
         canvas.SetParent(GameController.instance.poolDamages);
+        if(isCritDamage)
+        {
+            textDamage.transform.localScale = Vector3.one * 1.1f;
+            textDamage.color = colorCritDamage;
+        }
+        else
+        {
+            textDamage.transform.localScale = Vector3.one;
+            textDamage.color = Color.white;
+        }
         textDamage.text = text;
         isShowDamage = true;
         rb.isKinematic = false;

@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4156252987066043}
   - component: {fileID: 210765595691156857}
+  - component: {fileID: 7055501501239678352}
   m_Layer: 0
   m_Name: Shocker 2
   m_TagString: Untagged
@@ -299,6 +300,22 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!111 &7055501501239678352
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056957578717169}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1095643595448594
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,6 +2967,8 @@ MonoBehaviour:
   ani: {fileID: 95001286450075515}
   target: {fileID: 0}
   parent: {fileID: 4156252987066043}
+  sortingGroup: {fileID: 210765595691156857}
+  scaleUpgrade: {fileID: 7055501501239678352}
   shockerAttackAni: {fileID: 111308465764015488}
   shockerLight: {fileID: 198369067484964111}
   pointSpawnBooster: {fileID: 4582143552387908}

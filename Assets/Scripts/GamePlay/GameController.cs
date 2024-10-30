@@ -16,12 +16,9 @@ public class GameController : MonoBehaviour
     public List<GameObject> listEnemies;
     public List<GameObject> listEVisible = new List<GameObject>();
 
-    public GameObject[] mapLevels;
-
     public Transform poolDamages;
     public Transform poolWeapons;
     public Transform poolBullets;
-    public Transform poolEnemies;
     public Transform poolDynamics;
     public Transform poolPars;
     public Transform defaultDir;
@@ -62,9 +59,11 @@ public class GameController : MonoBehaviour
         Instantiate(colDisplay, new Vector2(sceenR.x + gameCamera.transform.position.x, sceenR.y), Quaternion.identity, transform);
     }
 
-    void MapGenerate(int index)
+    public void MapGenerate(int index)
     {
-        Instantiate(mapLevels[index], new Vector2(0, 0.85f), Quaternion.identity, transform);
+        if(EnemyTowerController.instance != null) Destroy(EnemyTowerController.instance.gameObject);
+        Restart();
+        Instantiate(Resources.Load(Path.Combine("Levels", index.ToString())), new Vector2(0, 0.85f), Quaternion.identity, transform);
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
     }
@@ -94,7 +93,7 @@ public class GameController : MonoBehaviour
     public void Start()
     {
         LoadData();
-        MapGenerate(level);
+        MapGenerate(level + 1);
 
         EquipmentController.instance.LoadData();
         PlayerController.instance.LoadData();
@@ -143,7 +142,7 @@ public class GameController : MonoBehaviour
             {
                 ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
                 EnemyHandler sc = EnemyTowerController.instance.GetScE(listEVisible[i]);
-                sc.damage.ShowDamage(sc.enemyInfo.hp.ToString(), sc.hitObj);
+                sc.damage.ShowDamage(sc.enemyInfo.hp.ToString(), sc.hitObj, false);
             }
         }
         EnemyTowerController.instance.DisableEs();
@@ -201,7 +200,7 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SetValue(false);
-        EnemyTowerController.instance.Restart();
+        if(EnemyTowerController.instance != null) EnemyTowerController.instance.Restart();
         UIHandler.instance.Restart();
         PlayerController.instance.Restart();
         BlockController.instance.Restart();

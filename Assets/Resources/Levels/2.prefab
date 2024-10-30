@@ -4504,6 +4504,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7869079098254766695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1516293065066784803}
+  m_Layer: 0
+  m_Name: PoolEnemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1516293065066784803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7869079098254766695}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 486651841617870419}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7925072464142177092
 GameObject:
   m_ObjectHideFlags: 0
@@ -4598,7 +4629,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486651841617870419}
-  - component: {fileID: 7920777270787124881}
   - component: {fileID: 8564156273966617754}
   - component: {fileID: 729454814644193020}
   m_Layer: 0
@@ -4627,20 +4657,9 @@ Transform:
   - {fileID: 7030896971727474225}
   - {fileID: 4338535074113781256}
   - {fileID: 1412358782787004105}
+  - {fileID: 1516293065066784803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &7920777270787124881
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7967148387835107803}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -10
-  m_SortAtRoot: 0
 --- !u!114 &8564156273966617754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4669,6 +4688,7 @@ MonoBehaviour:
   distanceTower: 25
   indexTower: -1
   lineRandoms: 
+  poolEnemies: {fileID: 1516293065066784803}
   enemies:
   - {fileID: 1087254144996759, guid: ac324d2676d40a84d9f31536972a883d, type: 3}
   - {fileID: 1667125860864603, guid: fcb326ce9d902da4da909be6d541e4b1, type: 3}

@@ -2534,6 +2534,7 @@ MonoBehaviour:
   target: {fileID: 0}
   parent: {fileID: 4721036834199841}
   sortingGroup: {fileID: 210277598310531466}
+  scaleUpgrade: {fileID: -6008291566636322236}
   flameSmokeParticle: {fileID: 198950690231065356}
   flameSmokeParticleChild: {fileID: 198223449155255887}
   flameBoosterSmokeParticle: {fileID: 198300990758189085}
@@ -4935,6 +4936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4721036834199841}
   - component: {fileID: 210277598310531466}
+  - component: {fileID: -6008291566636322236}
   m_Layer: 0
   m_Name: Flame 2
   m_TagString: Untagged
@@ -4953,7 +4955,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4364686293967615}
   - {fileID: 4495322765186937}
@@ -4972,6 +4974,22 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!111 &-6008291566636322236
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307240375371472}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1311829122622715
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class EnemyTowerController : MonoBehaviour
     public int indexTower;
     public int[] lineRandoms;
 
+    public Transform poolEnemies;
+
     List<int> remainingLines = new List<int>() { 0, 1, 2 };
     public GameObject[] enemies;
     public int[] amouts;
@@ -95,9 +97,9 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < listRandomEs.Count; i++)
         {
             EnemyHandler eSc = GetScE(listRandomEs[i]);
+            listRandomEs[i].SetActive(false);
             eSc.Restart();
             eSc.content.SetActive(false);
-            listRandomEs[i].SetActive(false);
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
@@ -144,7 +146,7 @@ public class EnemyTowerController : MonoBehaviour
             List<GameObject> es = new List<GameObject>();
             for (int j = 0; j < amouts[i]; j++)
             {
-                GameObject e = Instantiate(enemies[i], GameController.instance.poolEnemies);
+                GameObject e = Instantiate(enemies[i], poolEnemies);
                 EnemyHandler sc = e.GetComponent<EnemyHandler>();
                 sc.content.SetActive(false);
                 e.SetActive(false);
@@ -161,7 +163,7 @@ public class EnemyTowerController : MonoBehaviour
                 GameObject[] eSpawnbyTimes = new GameObject[amoutEnemySpawnByTimes[i]];
                 for (int j = 0; j < eSpawnbyTimes.Length; j++)
                 {
-                    eSpawnbyTimes[j] = Instantiate(enemySpawnByTimes[i], GameController.instance.poolEnemies);
+                    eSpawnbyTimes[j] = Instantiate(enemySpawnByTimes[i], poolEnemies);
                     eSpawnbyTimes[j].SetActive(false);
                     EnemyHandler sc = eSpawnbyTimes[j].GetComponent<EnemyHandler>();
                     if (sc is EnemyT4)
@@ -309,7 +311,7 @@ public class EnemyTowerController : MonoBehaviour
         {
             amout--;
             CheckAmoutEnemyEachLine();
-            int randomLine = 1;//   remainingLines[Random.Range(0, remainingLines.Count)];
+            int randomLine = remainingLines[Random.Range(0, remainingLines.Count)];
             int indexLine = randomLine + 1;
             int randomDistance = Random.Range(startDistance, endDistance);
 
@@ -386,6 +388,7 @@ public class EnemyTowerController : MonoBehaviour
         e.transform.position = new Vector2(x, y);
 
         eSc.SetDefaultField();
+        eSc.SetColNKinematicNRevival(true);
     }
 
     void SetLayer(int line, GameObject enemy)
@@ -439,12 +442,14 @@ public class EnemyTowerController : MonoBehaviour
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
             UIHandler.instance.SetActiveProgressNGem(false);
-            BlockController.instance.SellAllBlocks();
-            BlockController.instance.blocks.Clear();
-            EquipmentController.instance.playerInventory.ConvertGoldToDush();
+            /*BlockController.instance.SellAllBlocks();
+            BlockController.instance.blocks.Clear();*/
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);
             BlockController.instance.DisableWeapons();
-            DOVirtual.DelayedCall(0.5f, delegate
+            PlayerController.instance.DisableWeapons();
+            Booster.instance.KillEnergyNBoosterButton();
+            GameController.instance.isLose = true;
+            DOVirtual.DelayedCall(2f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();
             });

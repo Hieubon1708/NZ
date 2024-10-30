@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
         //StartCoroutine(StartFindTarget());
     }
 
+    public void DisableWeapons()
+    {
+        playerAni.SetBool("attack", false);
+    }
+
     public IEnumerator StartFindTarget()
     {
         while (target == null || target == GameController.instance.defaultDir)

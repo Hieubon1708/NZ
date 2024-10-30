@@ -84,16 +84,9 @@ public class MachineGunHandler : WeaponShoter
 
     public override void StartGame()
     {
+        base.StartGame();
         ShotAll();
         FindTarget();
-    }
-
-    public override void Restart()
-    {
-        base.Restart();
-        ani.SetBool("attack", false);
-        if (shotBoosters != null) StopCoroutine(shotBoosters);
-        StopAll();
     }
 
     void ShotAll()
@@ -256,9 +249,10 @@ public class MachineGunHandler : WeaponShoter
 
     public override void DisableWeapon()
     {
+        ani.Rebind();
+        ani.SetBool("startGame", true);
         if (shotBoosters != null) StopCoroutine(shotBoosters);
-        ani.SetBool("attack", false);
-        StopAll();
         if (rotate != null) StopCoroutine(rotate);
+        StopAll();
     }
 }

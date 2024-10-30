@@ -6,7 +6,7 @@ using static UpgradeEvolutionController;
 
 public class SawHandler : WeaponShoter
 {
-    int count;
+    public int count;
     public Animation sawAttackAni;
     public ParticleSystem sawBlood;
     Coroutine blood;
@@ -58,8 +58,11 @@ public class SawHandler : WeaponShoter
             {
                 listEs.Add(collision.attachedRigidbody.gameObject);
             }
-            if (count == 0) blood = StartCoroutine(SawBlood());
-            sawAttackAni.Play();
+            if (count == 0)
+            {
+                blood = StartCoroutine(SawBlood());
+                sawAttackAni.Play();
+            }
             count++;
         }
     }

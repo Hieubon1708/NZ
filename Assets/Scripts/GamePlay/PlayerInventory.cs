@@ -69,6 +69,7 @@ public class PlayerInventory : MonoBehaviour
     public void ConvertGoldToDush()
     {
         dush += PlayerController.instance.player.gold / 1000;
+        PlayerController.instance.player.gold = 0;
     }
 
     public void RewardDesign(EquipmentController.EQUIPMENTTYPE type)

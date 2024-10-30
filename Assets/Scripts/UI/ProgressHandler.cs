@@ -10,6 +10,9 @@ public class ProgressHandler : MonoBehaviour
 {
     public Image panelReward;
     public RectTransform rewardPopup;
+    public GameObject[] chestsInPopup;
+    public Image panelConvert;
+    public RectTransform convertPopup;
     public Image panelLose;
     public RectTransform losePopup;
     public GameObject parent;
@@ -22,6 +25,8 @@ public class ProgressHandler : MonoBehaviour
     public TextMeshProUGUI textKey;
     public TextMeshProUGUI textCogwheel;
     public TextMeshProUGUI textGoldReward;
+    public TextMeshProUGUI textGoldConvert;
+    public TextMeshProUGUI textDushConverted;
 
     public int gold;
     public TextMeshProUGUI textGold;
@@ -78,9 +83,40 @@ public class ProgressHandler : MonoBehaviour
         HideLose();
     }
 
+    public void ShowConvert(int totalGold)
+    {
+        textGoldConvert.text = totalGold.ToString();
+        textDushConverted.text = (totalGold / 1000).ToString();
+        panelConvert.gameObject.SetActive(true);
+        UIHandler.instance.uIEffect.ScalePopup(panelConvert, convertPopup, 222f / 255f, 0.1f, 1f, 0.5f);
+    }
+    
+    public void HideConvert()
+    {
+        EquipmentController.instance.playerInventory.ConvertGoldToDush();
+        UIHandler.instance.uIEffect.ScalePopup(panelConvert, convertPopup, 0f, 0f, 0.8f, 0f);
+        panelConvert.gameObject.SetActive(false);
+        DOVirtual.DelayedCall(0.5f, delegate
+        {
+            UIHandler.instance.DoLayerCover(1f, 0.75f, delegate
+            {
+                UIHandler.instance.map.ShowMap();
+            });
+        });
+    }
+
+    void ChestsInpopupActive(bool isActive)
+    {
+        chestsInPopup[0].SetActive(isActive);
+        chestsInPopup[1].SetActive(!isActive);
+    }
+
     public void ShowReward()
     {
         if (equipRewards.Count == 0) return;
+        UIHandler.instance.menu.CheckDisplayInventoryPage();
+        if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1) ChestsInpopupActive(false);
+        else ChestsInpopupActive(true);
         for (int i = 0; i < equips.Length; i++)
         {
             if (i < equipRewards.Count)

@@ -54,6 +54,7 @@ MonoBehaviour:
   rectDamage: {fileID: 6794498489523264144}
   textDamage: {fileID: 4806894517271360772}
   rb: {fileID: 4502626900472404923}
+  colorCritDamage: {r: 0.745283, g: 0.24959952, b: 0.24959952, a: 1}
 --- !u!1 &3571161364059412704
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +84,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6179988147239823511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

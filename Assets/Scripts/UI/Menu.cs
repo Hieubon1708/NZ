@@ -36,6 +36,11 @@ public class Menu : MonoBehaviour
         nOk = spriteAtlas.GetSprite("Button_Chosen_section_2 1");
     }
 
+    public void CheckDisplayInventoryPage()
+    {
+        if(!inventory.activeSelf) inventory.SetActive(true);
+    }
+
     public void LoadData()
     {
         if (UIHandler.instance.tutorial.isUnlockInventory)

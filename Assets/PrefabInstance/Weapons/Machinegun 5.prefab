@@ -225,6 +225,7 @@ MonoBehaviour:
   target: {fileID: 0}
   parent: {fileID: 4033039808479418}
   sortingGroup: {fileID: 210762466698240875}
+  scaleUpgrade: {fileID: 5923283032886279087}
   preBullet: {fileID: 1679334284406129, guid: 3c4c314e82ebdb8418f0243fa87ef814, type: 3}
   preBulletBooster: {fileID: 1870203721908051, guid: 88245f5a1e105e941b1faf292d7eb702, type: 3}
   listBulletBoosters: []
@@ -578,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4033039808479418}
   - component: {fileID: 210762466698240875}
+  - component: {fileID: 5923283032886279087}
   m_Layer: 0
   m_Name: Machinegun 5
   m_TagString: Untagged
@@ -615,6 +617,22 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!111 &5923283032886279087
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663779358228207}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1697471383355815
 GameObject:
   m_ObjectHideFlags: 0

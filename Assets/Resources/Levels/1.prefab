@@ -8351,7 +8351,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486651841617870419}
-  - component: {fileID: 7920777270787124881}
   - component: {fileID: 8564156273966617754}
   - component: {fileID: 7009180778381774957}
   m_Layer: 0
@@ -8382,20 +8381,9 @@ Transform:
   - {fileID: 4338535074113781256}
   - {fileID: 7187909752436779600}
   - {fileID: 1412358782787004105}
+  - {fileID: 152287362493903207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &7920777270787124881
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7967148387835107803}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -10
-  m_SortAtRoot: 0
 --- !u!114 &8564156273966617754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8411,7 +8399,10 @@ MonoBehaviour:
   weaponUseds: 010000000200000003000000
   towers:
   - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
-  - {fileID: 1511787952999719, guid: 29f1116e60ce5e0488550efe28311ee5, type: 3}
+  - {fileID: 1740088135779993, guid: a1d3b1b878886484f9364b997d7623dc, type: 3}
+  - {fileID: 1345099119009694, guid: fec5100b05ded1541a1933b88e5748b4, type: 3}
+  - {fileID: 1031862239864203, guid: 041032813e5433c44bc1a6cebbad3b46, type: 3}
+  - {fileID: 1817420996515325, guid: b382f86cd47872a43a24b7632a59b425, type: 3}
   scTowers: []
   backgroundMovements:
   - {fileID: 8482091236433487076}
@@ -8423,6 +8414,7 @@ MonoBehaviour:
   distanceTower: 25
   indexTower: -1
   lineRandoms: 
+  poolEnemies: {fileID: 152287362493903207}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}
   - {fileID: 3440869563518828017, guid: 6fd273e7a7103bd43a2b6615a32fce07, type: 3}
@@ -8698,6 +8690,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8050214188078129189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 152287362493903207}
+  m_Layer: 0
+  m_Name: PoolEnemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &152287362493903207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050214188078129189}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 486651841617870419}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8106514836050288831
 GameObject:
   m_ObjectHideFlags: 0

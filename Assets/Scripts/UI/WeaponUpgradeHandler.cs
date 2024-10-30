@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class WeaponUpgradeHandler : ButtonUpgradee
@@ -68,7 +67,6 @@ public class WeaponUpgradeHandler : ButtonUpgradee
             blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
             weaponShoter.LoadData();
             evoUpgrade.SetActive(false);
-            gameObject.SetActive(false);
             UpgradeEvolutionController.instance.weaponUpgradeHandler = this;
             UIHandler.instance.tutorial.TutorialUpgradeWeaponEvo(true);
             bool isEvoContains = false;
@@ -94,8 +92,13 @@ public class WeaponUpgradeHandler : ButtonUpgradee
                     UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo(); isEvoContains = true;
                 }
             }
-            if (!isEvoContains) weaponShoter.LoadData();
+            if (isEvoContains)
+            {
+                gameObject.SetActive(false);
+            }
         }
+        if(weaponShoter.scaleUpgrade.isPlaying) weaponShoter.scaleUpgrade.Stop();
+        weaponShoter.scaleUpgrade.Play();
         UpgradeHandle();
         BlockController.instance.CheckButtonStateAll();
     }

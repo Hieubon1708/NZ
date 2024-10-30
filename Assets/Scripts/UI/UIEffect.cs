@@ -61,15 +61,15 @@ public class UIEffect : MonoBehaviour
         for (int i = 0; i < amountGold; i++)
         {
             int index = indexGold;
-            float xIn = Random.Range(areaIn[i].transform.position.x - areaIn[i].sizeDelta.x / 2, areaIn[i].transform.position.x + areaIn[i].sizeDelta.x / 2);
-            float yIn = Random.Range(areaIn[i].transform.position.y - areaIn[i].sizeDelta.y / 2, areaIn[i].transform.position.y + areaIn[i].sizeDelta.y / 2);
+            float xIn = Random.Range(areaIn[i].transform.position.x - 0.5f, areaIn[i].transform.position.x + 0.5f);
+            float yIn = Random.Range(areaIn[i].transform.position.y - 0.5f, areaIn[i].transform.position.y + 0.5f);
 
             golds[index].transform.position = new Vector2(xIn, yIn);
             golds[index].transform.localScale = Vector3.one * scale;
             golds[index].SetActive(true);
 
-            float xOut = Random.Range(areaOut[i].transform.position.x - areaOut[i].sizeDelta.x / 2, areaOut[i].transform.position.x + areaOut[i].sizeDelta.x / 2);
-            float yOut = Random.Range(areaOut[i].transform.position.y - areaOut[i].sizeDelta.y / 2, areaOut[i].transform.position.y + areaOut[i].sizeDelta.y / 2);
+            float xOut = Random.Range(areaOut[i].transform.position.x - 1, areaOut[i].transform.position.x + 1);
+            float yOut = Random.Range(areaOut[i].transform.position.y - 1, areaOut[i].transform.position.y + 1);
 
             if (isUseLight) lightCircle.DOFade(1f, 0.35f).OnComplete(delegate
              {
@@ -89,7 +89,7 @@ public class UIEffect : MonoBehaviour
 
     public void EndFlyGold(Vector2 pos)
     {
-        FlyGoldHandle(false, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.15f, 0.205f);
+        FlyGoldHandle(false, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.25f, 0.35f);
     }
 
     public void FlyGem()
@@ -100,8 +100,8 @@ public class UIEffect : MonoBehaviour
             gems[i].transform.position = pointSpawnGems.position;
             gems[i].SetActive(true);
 
-            float x = Random.Range(areaGems[i].transform.position.x - areaGems[i].sizeDelta.x / 2, areaGems[i].transform.position.x + areaGems[i].sizeDelta.x / 2);
-            float y = Random.Range(areaGems[i].transform.position.y - areaGems[i].sizeDelta.y / 2, areaGems[i].transform.position.y + areaGems[i].sizeDelta.y / 2);
+            float x = Random.Range(areaGems[i].transform.position.x - 0.5f, areaGems[i].transform.position.x + 0.5f);
+            float y = Random.Range(areaGems[i].transform.position.y - 0.5f, areaGems[i].transform.position.y + 0.5f);
 
             gems[i].transform.DOScale(startScaleGem + (i % 2 == 0 ? 0.15f : 0.5f), 0.45f).SetEase(Ease.OutQuad);
             gems[i].transform.DORotate(new Vector3(0, 0, 360), 0.45f, RotateMode.FastBeyond360).SetEase(Ease.OutQuad);

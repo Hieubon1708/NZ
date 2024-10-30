@@ -2880,6 +2880,8 @@ MonoBehaviour:
   target: {fileID: 0}
   parent: {fileID: 4708699233875885}
   sortingGroup: {fileID: 210547374353131905}
+  scaleUpgrade: {fileID: -1268179344001702909}
+  count: 0
   sawAttackAni: {fileID: 111974256618156514}
   sawBlood: {fileID: 198391738484936160}
   sawBoosterPref: {fileID: 1106291111016258, guid: b467c4a0954d59b44b8ff7aba2a5be3b, type: 3}
@@ -2897,6 +2899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4708699233875885}
   - component: {fileID: 210547374353131905}
+  - component: {fileID: -1268179344001702909}
   m_Layer: 0
   m_Name: Saw 1
   m_TagString: Untagged
@@ -2934,6 +2937,22 @@ SortingGroup:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_SortAtRoot: 1
+--- !u!111 &-1268179344001702909
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761374629782067}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 962caa0df710f0f4e9cb1b409a69cf4a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1812912826440160
 GameObject:
   m_ObjectHideFlags: 0

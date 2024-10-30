@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 using static UpgradeEvolutionController;
@@ -122,6 +123,7 @@ public class FlameHandler : WeaponShoter
 
     public override void StartGame()
     {
+        base.StartGame();
         shot = StartCoroutine(Shot());
         FindTarget();
     }
@@ -133,14 +135,6 @@ public class FlameHandler : WeaponShoter
             MainModule mainModule = flameEvos[i].main;
             mainModule.startSize = new MinMaxCurve(startSizes[i] * multiplier);
         }
-    }
-
-    public override void Restart()
-    {
-        base.Restart();
-        if (shot != null) StopCoroutine(shot);
-        ShotHandle(false, 0f, 0.0f);
-        if (colBooster.activeSelf) colBooster.SetActive(false);
     }
 
     public void FlameOnceParticle()
@@ -231,9 +225,11 @@ public class FlameHandler : WeaponShoter
 
     public override void DisableWeapon()
     {
+        ani.Rebind();
+        ani.SetBool("startGame", true);
         if (shot != null) StopCoroutine(shot);
         if (rotate != null) StopCoroutine(rotate);
-        ShotHandle(false, 1f, 0.35f);
+        ShotHandle(false, 0f, 0.35f);
         colBooster.SetActive(false);
     }
 }

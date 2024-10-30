@@ -12664,7 +12664,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_SortAtRoot: 0
 --- !u!1 &1868954185512808
 GameObject:
@@ -16544,7 +16544,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 170, y: 120}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4943616995615568799
 CanvasRenderer:
@@ -17094,7 +17094,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8453865716811090197}
-  - component: {fileID: 9172310740170802933}
+  - component: {fileID: 3519822739419858151}
+  - component: {fileID: 6431825099706665589}
   m_Layer: 0
   m_Name: BuyWeapons
   m_TagString: Untagged
@@ -17114,18 +17115,18 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4513775261629644812}
-  - {fileID: 3094953125603001630}
-  - {fileID: 8278043968520199501}
   - {fileID: 5880160419250588510}
+  - {fileID: 8278043968520199501}
+  - {fileID: 3094953125603001630}
+  - {fileID: 4513775261629644812}
   m_Father: {fileID: 2161555475078925759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 110, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 315, y: 0}
+  m_SizeDelta: {x: 0, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9172310740170802933
+--- !u!114 &3519822739419858151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17134,7 +17135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2276785880224036623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -17143,14 +17144,26 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 1
+  m_StartAxis: 1
+  m_CellSize: {x: 170, y: 120}
+  m_Spacing: {x: -30, y: 0}
+  m_Constraint: 2
+  m_ConstraintCount: 1
+--- !u!114 &6431825099706665589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2276785880224036623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &2346063034147197563
 GameObject:
   m_ObjectHideFlags: 0
@@ -17420,7 +17433,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 170, y: 120}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8873227251745342675
 CanvasRenderer:
@@ -18147,7 +18160,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 170, y: 120}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3932899657812209494
 CanvasRenderer:
@@ -19911,7 +19924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4513775261629644812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19929,9 +19942,9 @@ RectTransform:
   - {fileID: 2916725110062243870}
   m_Father: {fileID: 8453865716811090197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 85, y: -120}
   m_SizeDelta: {x: 170, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4693171985244158638
@@ -20107,8 +20120,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 2126334607
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &537673682256825017
 MonoBehaviour:

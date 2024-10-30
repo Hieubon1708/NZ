@@ -45,12 +45,12 @@ public class BlockController : MonoBehaviour
 
     public IEnumerator EndGame()
     {
-        tempBlocks = new List<GameObject>(blocks);
+        yield return new WaitForSeconds(0.5f);
         int goldReward = UIHandler.instance.progressHandler.gold;
         while (tempBlocks.Count > 0)
         {
-            UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
-            UIHandler.instance.uIEffect.EndFlyGold(GameController.instance.cam.WorldToScreenPoint(tempBlocks[tempBlocks.Count - 1].transform.position));
+            UIHandler.instance.uIEffect.EndFlyGold(tempBlocks[tempBlocks.Count - 1].transform.position);
+            UIHandler.instance.uIEffect.EndFlyGold(tempBlocks[tempBlocks.Count - 1].transform.position);
             Block sc = GetScBlock(tempBlocks[tempBlocks.Count - 1]);
             DeleteBlockInGame(tempBlocks[tempBlocks.Count - 1]);
             goldReward += sc.sellingPrice;
@@ -63,7 +63,8 @@ public class BlockController : MonoBehaviour
             });
             yield return new WaitForSeconds(0.25f);
         }
-
+        yield return new WaitForSeconds(1f);
+        UIHandler.instance.progressHandler.ShowConvert(PlayerController.instance.player.gold);
     }
 
     public void Restart()
@@ -317,7 +318,7 @@ public class BlockController : MonoBehaviour
     {
         for (int i = 0; i < tempBlocks.Count; i++)
         {
-            scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
+            if(scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
         }
     }
 }
