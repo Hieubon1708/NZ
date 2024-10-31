@@ -33,7 +33,7 @@ public class TutorialOject : MonoBehaviour
             xUnmask.gameObject.SetActive(isEnable);
             if (isEnable)
             {
-                delayFadeXUnmask = DOVirtual.DelayedCall(1.5f, delegate
+                delayFadeXUnmask = DOVirtual.DelayedCall(2f, delegate
                 {
                     xUnmask.DOFade(1f, 0.35f);
                 });

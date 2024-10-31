@@ -72,15 +72,6 @@ public class PlayerInventory : MonoBehaviour
         PlayerController.instance.player.gold = 0;
     }
 
-    public void RewardDesign(EquipmentController.EQUIPMENTTYPE type)
-    {
-        if (type == EquipmentController.EQUIPMENTTYPE.SHOTGUN) amoutGunDesign++;
-        else if (type == EquipmentController.EQUIPMENTTYPE.GRENADE) amoutBoomDesign++;
-        else if (type == EquipmentController.EQUIPMENTTYPE.CAP) amoutCapDesign++;
-        else amoutClothesDesign++;
-        dush += 10;
-    }
-
     public void SubtractGem(int gem)
     {
         this.gem -= gem;

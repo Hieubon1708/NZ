@@ -83,7 +83,7 @@ public class EnemyT1 : EnemyHandler
         base.SetDefaultField();
         delayRevival.Kill();
         content.SetActive(false);
-        gameObject.layer = layerOrigin;
-        colObj.layer = layerOrigin;
+        /*gameObject.layer = layerOrigin;
+        colObj.layer = layerOrigin;*/
     }
 }

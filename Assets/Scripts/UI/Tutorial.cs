@@ -18,7 +18,16 @@ public class Tutorial : MonoBehaviour
     public bool isUnlockInventory;
     public bool isUnlockShop;
     public bool isUnlockWeapon;
-    public bool isUnlockBoss;
+    public bool isUnlockBoss; 
+    
+    public bool isFirstTimeClickButtonInventory;
+    public bool isFirstTimeClickButtonEquipInventory;
+    public bool isFirstTimeClickButtonSellInventory;
+    public bool isFirstTimeClickButtonUpgradeInventory;
+    public bool isFirstTimeClickButtonUpgradeLevelInventory;
+    public bool isFirstTimeClickButtonkShop;
+    public bool isFirstTimeClickButtonWeapon;
+    public bool isFirstTimeClickButtonBoss;
 
     public bool isFirstTimeDestroyTower;
     public bool isSecondTimeDestroyTower;
@@ -38,6 +47,11 @@ public class Tutorial : MonoBehaviour
     public TutorialOject scButtonBoosterSaw;
     public TutorialOject scButtonBoosterFlame;
     public TutorialOject scButtonBoosterMachineGun;
+    public TutorialOject scButtonInventory;
+    public TutorialOject scButtonEquipInventory;
+    public TutorialOject scButtonSellInventory;
+    public TutorialOject scButtonUpgradeInventory;
+    public TutorialOject scButtonUpgradeLevelInventory;
 
     public Unmask unmaskButton;
     public Unmask unmaskHand;
@@ -83,6 +97,114 @@ public class Tutorial : MonoBehaviour
             , isFirstTimeClickButtonUpgradeEnergy, isFirstTimeClickUpgradeWeaponEvo, isFirstTimeClickBoosterBoom, isFirstTimeClickBoosterSaw
             , isFirstTimeClickBoosterFlame, isFirstTimeClickBoosterMachineGun, isFirstTimeDestroyTower, isSecondTimeDestroyTower, isFirstTimeDragBlock
             , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss);
+    }
+
+    public void TutorialButtonInventory(bool isClick)
+    {
+        if (isFirstTimeClickButtonInventory || UIHandler.instance.menu.lockOptions[0].activeSelf)
+        {
+            TutorialButtonEquipInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonInventory);
+                isFirstTimeClickButtonInventory = true;
+                TutorialButtonEquipInventory(false);
+            }
+            else
+            {
+                scSelected = scButtonInventory;
+                EnableTutorial(true, scButtonInventory);
+            }
+        }
+    }
+    
+    public void TutorialButtonEquipInventory(bool isClick)
+    {
+        if (isFirstTimeClickButtonEquipInventory || !UIHandler.instance.menu.inventory.activeSelf || !EquipmentController.instance.isHaveEquipBest)
+        {
+            TutorialButtonSellInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonEquipInventory);
+                isFirstTimeClickButtonEquipInventory = true;
+                TutorialButtonSellInventory(false);
+            }
+            else
+            {
+                scSelected = scButtonEquipInventory;
+                EnableTutorial(true, scButtonEquipInventory);
+            }
+        }
+    }
+    
+    public void TutorialButtonSellInventory(bool isClick)
+    {
+        if (isFirstTimeClickButtonSellInventory || !UIHandler.instance.menu.inventory.activeSelf || !EquipmentController.instance.isHaveDuplicates)
+        {
+            TutorialButtonUpgradeInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonSellInventory);
+                isFirstTimeClickButtonSellInventory = true;
+            }
+            else
+            {
+                scSelected = scButtonSellInventory;
+                EnableTutorial(true, scButtonSellInventory);
+            }
+        }
+    }
+
+    public void TutorialButtonUpgradeInventory(bool isClick)
+    {
+        if (isFirstTimeClickButtonUpgradeInventory || !UIHandler.instance.menu.inventory.activeSelf || !EquipmentController.instance.isHaveUpgrade)
+        {
+            TutorialButtonUpgradeLevelInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonUpgradeInventory);
+                isFirstTimeClickButtonUpgradeInventory = true;
+            }
+            else
+            {
+                scSelected = scButtonUpgradeInventory;
+                EnableTutorial(true, scButtonUpgradeInventory);
+            }
+        }
+    }
+
+    public void TutorialButtonUpgradeLevelInventory(bool isClick)
+    {
+        if (isFirstTimeClickButtonUpgradeLevelInventory || !UIHandler.instance.menu.inventory.activeSelf)
+        {
+            //TutorialButtonSellInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonUpgradeLevelInventory);
+                isFirstTimeClickButtonUpgradeLevelInventory = true;
+                //TutorialButtonSellInventory(false);
+            }
+            else
+            {
+                scSelected = scButtonUpgradeLevelInventory;
+                EnableTutorial(true, scButtonUpgradeLevelInventory);
+            }
+        }
     }
 
     public void TutorialButtonBuyBlock(bool isClick)
@@ -137,14 +259,14 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeClickUpgradeWeaponEvo)
         {
-            EnableTutorial(false, scSelected);
+            TutorialButtonInventory(false);
             return;
         }
         int price = 0;
         scButtonUpgradeWeaponEvo = BlockController.instance.GetTutorialWeaponEvo(out price);
         if (!isClick && PlayerController.instance.player.gold < price)
         {
-            EnableTutorial(false, scSelected);
+            TutorialButtonInventory(false);
         }
         else
         {
@@ -152,7 +274,7 @@ public class Tutorial : MonoBehaviour
             {
                 EnableTutorial(false, scButtonUpgradeWeaponEvo);
                 isFirstTimeClickUpgradeWeaponEvo = true;
-                TutorialButtonUpgradeEnergy(false);
+                TutorialButtonInventory(false);
             }
             else
             {
@@ -257,6 +379,10 @@ public class Tutorial : MonoBehaviour
         if (scSelected == scButtonBuyWeapon) isFirstTimeClickButtonBuyWeapon = true;
         if (scSelected == scButtonUpgradeEnergy) isFirstTimeClickButtonUpgradeEnergy = true;
         if (scSelected == scButtonUpgradeWeaponEvo) isFirstTimeClickUpgradeWeaponEvo = true;
+        if (scSelected == scButtonInventory) isFirstTimeClickButtonInventory = true;
+        if (scSelected == scButtonSellInventory) isFirstTimeClickButtonSellInventory = true;
+        if (scSelected == scButtonUpgradeInventory) isFirstTimeClickButtonUpgradeInventory = true;
+        if (scSelected == scButtonUpgradeLevelInventory) isFirstTimeClickButtonUpgradeLevelInventory = true;
     }
 
     public void Restart()

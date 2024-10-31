@@ -230,11 +230,11 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        EnemyTowerController.instance.NextTower();
         SetValue(true);
         BlockController.instance.StartGame();
         Booster.instance.StartGame();
         UIHandler.instance.StartGame();
-        EnemyTowerController.instance.NextTower();
         PlayerController.instance.StartGame();
     }
 
@@ -311,7 +311,7 @@ public class GameController : MonoBehaviour
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.GetSAWEVOS(), UpgradeEvolutionController.instance.GetFLAMEVOS(), UpgradeEvolutionController.instance.GetMACHINEGUNEVOS(), UpgradeEvolutionController.instance.GetSHOCKEREVOS());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
-        TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
+        TutorialDataStorage tutorialDataStorage = new TutorialDataStorage();
         DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
 
         DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive

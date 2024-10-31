@@ -179,9 +179,22 @@ public class FlameHandler : WeaponShoter
     {
         float multiplier = 1;
 
+
         IncreaseDamage(ref multiplier);
 
-        colBooster.name = ((int)(damage * multiplier)).ToString() + " " + level;
+        colBooster.name = ((int)(damage * multiplier)).ToString() + " " + GetMultiplierBurning();
+    }
+
+    int GetMultiplierBurning()
+    {
+        if (instance.IsFlameContains(FLAMEEVO.BURNING, level))
+        {
+            int amout = instance.GetAmoutFlameEvo(FLAMEEVO.BURNING, level);
+            if (amout == 1) return 1;
+            else if (amout == 2) return 2;
+            else if (amout == 3) return 3;
+        }
+        return 0;
     }
 
     public override void SetDamage(int damage)
@@ -190,7 +203,7 @@ public class FlameHandler : WeaponShoter
 
         IncreaseDamage(ref multiplier);
 
-        col.name = ((int)(damage * multiplier)).ToString() + " " + level;
+        col.name = ((int)(damage * multiplier)).ToString() + " " + GetMultiplierBurning();
     }
 
     void IncreaseDamage(ref float multiplier)

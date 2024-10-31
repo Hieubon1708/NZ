@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class EquipmentController : MonoBehaviour
 {
@@ -40,6 +39,13 @@ public class EquipmentController : MonoBehaviour
     public TextMeshProUGUI[] damageOrHealthTypes;
     public TextMeshProUGUI textDamage;
     public TextMeshProUGUI textHealth;
+
+    public TutorialOject[] tutorialOjectEquipMains;
+
+    public Image panelRewardDesignNDush;
+    public RectTransform popupRewardDesignNDush;
+    public TextMeshProUGUI[] designsInPanelReward;
+    public TextMeshProUGUI dushInPanelReward;
 
     public Image panelUpgradeEquip;
     public RectTransform popupUpgradeEquip;
@@ -109,6 +115,10 @@ public class EquipmentController : MonoBehaviour
     public SpriteAtlas atlasUI;
     public SpriteAtlas atlasInventory;
 
+    public bool isHaveEquipBest;
+    public bool isHaveDuplicates;
+    public bool isHaveUpgrade;
+
     public void Awake()
     {
         instance = this;
@@ -135,6 +145,49 @@ public class EquipmentController : MonoBehaviour
         buttonNok = atlasUI.GetSprite("button_inventory_4");
         equipBest = atlasUI.GetSprite("button_inventory_1");
         sellDuplicates = atlasUI.GetSprite("button_inventory_2");
+    }
+
+    public void ShowRewardDesignNDush()
+    {
+        if(amoutGunDesign > 0)
+        {
+            designsInPanelReward[0].transform.parent.gameObject.SetActive(true);
+            designsInPanelReward[0].text = amoutGunDesign.ToString();
+        }
+        if(amoutBoomDesign > 0)
+        {
+            designsInPanelReward[1].transform.parent.gameObject.SetActive(true);
+            designsInPanelReward[1].text = amoutBoomDesign.ToString();
+        }
+        if(amoutCapDesign > 0)
+        {
+            designsInPanelReward[2].transform.parent.gameObject.SetActive(true);
+            designsInPanelReward[2].text = amoutCapDesign.ToString();
+        }
+        if(amoutClothesDesign > 0)
+        {
+            designsInPanelReward[3].transform.parent.gameObject.SetActive(true);
+            designsInPanelReward[3].text = amoutClothesDesign.ToString();
+        }
+        if(amoutDush > 0)
+        {
+            dushInPanelReward.transform.parent.gameObject.SetActive(true);
+            dushInPanelReward.text = amoutDush.ToString();
+        }
+        panelRewardDesignNDush.gameObject.SetActive(true);
+        UIHandler.instance.uIEffect.ScalePopup(panelRewardDesignNDush, popupRewardDesignNDush, 222f / 255f, 0.1f, 1f, 0.5f);
+    }
+    
+    public void HideRewardDesignNDush()
+    {
+        for (int i = 0; i < designsInPanelReward.Length; i++)
+        {
+            designsInPanelReward[i].transform.parent.gameObject.SetActive(false);
+        }
+        dushInPanelReward.transform.parent.gameObject.SetActive(false);
+        UIHandler.instance.uIEffect.ScalePopup(panelRewardDesignNDush, popupRewardDesignNDush, 0f, 0f, 0.8f, 0f);
+        panelRewardDesignNDush.gameObject.SetActive(false);
+        UIHandler.instance.tutorial.TutorialButtonSellInventory(false);
     }
 
     public void ChangeCap()
@@ -192,7 +245,6 @@ public class EquipmentController : MonoBehaviour
     public void LoadData()
     {
         playerInventory.LoadData();
-
         textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
         textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutBoomDesign);
         textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutCapDesign);
@@ -217,9 +269,15 @@ public class EquipmentController : MonoBehaviour
         UpdateDamage();
         UpdateHealth();
         CheckDisplayDesign();
-        CheckStateButtonEquipBestNSellDuplicates();
+        CheckStateNofi();
         QualitySort();
+    }
+
+    public void CheckStateNofi()
+    {
+        CheckStateButtonEquipBestNSellDuplicates();
         CheckWeaponUpgrade();
+        CheckNotif();
     }
 
     public void CheckStateButtonEquipBestNSellDuplicates()
@@ -267,6 +325,7 @@ public class EquipmentController : MonoBehaviour
             designContraint.label.SetActive(true);
             view.offsetMin = new Vector2(view.offsetMin.x, 345);
         }
+        CheckNotif();
     }
 
 
@@ -338,6 +397,8 @@ public class EquipmentController : MonoBehaviour
 
     void CheckWeaponUpgrade()
     {
+        isHaveUpgrade = false;
+
         for (int i = 0; i < equipMains.Length; i++)
         {
             bool isNok = false;
@@ -352,7 +413,12 @@ public class EquipmentController : MonoBehaviour
             }
 
             if (isNok) arrowEquipMains[i].SetActive(false);
-            else arrowEquipMains[i].SetActive(true);
+            else
+            {
+                arrowEquipMains[i].SetActive(true);
+                if(!UIHandler.instance.tutorial.isFirstTimeClickButtonUpgradeInventory) UIHandler.instance.tutorial.scButtonUpgradeInventory = tutorialOjectEquipMains[i];
+                isHaveUpgrade = true;
+            }
         }
     }
 
@@ -392,12 +458,20 @@ public class EquipmentController : MonoBehaviour
         HidePopupSwap();
         CheckStateEquipBest();
         CheckStateSellDuplicates();
+        CheckNotif();
+    }
+
+    public void CheckNotif()
+    {
+        if (isHaveUpgrade || isHaveEquipBest || isHaveDuplicates) UIHandler.instance.menu.notifOptions[0].SetActive(true);
+        else UIHandler.instance.menu.notifOptions[0].SetActive(false);
     }
 
     public void UpgradeAccept()
     {
         Upgrade();
         CheckDisplayDesign();
+        UIHandler.instance.tutorial.TutorialButtonUpgradeLevelInventory(true);
     }
 
     void Upgrade()
@@ -506,6 +580,7 @@ public class EquipmentController : MonoBehaviour
 
     void CheckStateEquipBest()
     {
+        isHaveEquipBest = false;
         bool isHave = false;
         bool[] isMaxOnce = new bool[equipMains.Length];
         for (int i = 0; i < equipMains.Length; i++)
@@ -515,7 +590,11 @@ public class EquipmentController : MonoBehaviour
             {
                 if (equipMains[i].type == equipments[j].type)
                 {
-                    if (equipMains[i].level < equipments[j].level) isHave = true;
+                    if (equipMains[i].level < equipments[j].level)
+                    {
+                        isHave = true;
+                        isHaveEquipBest = true;
+                    }
                     if ((int)equipments[j].level == max && !isMaxOnce[i] && equipMains[i].level != equipments[j].level)
                     {
                         isMaxOnce[i] = true;
@@ -535,6 +614,8 @@ public class EquipmentController : MonoBehaviour
 
     void CheckStateSellDuplicates()
     {
+        isHaveDuplicates = false;
+
         int maxGun = GetEquipMax(EQUIPMENTTYPE.SHOTGUN, equipMains[0].level);
         int maxBoom = GetEquipMax(EQUIPMENTTYPE.GRENADE, equipMains[1].level);
         int maxCap = GetEquipMax(EQUIPMENTTYPE.CAP, equipMains[2].level);
@@ -598,6 +679,7 @@ public class EquipmentController : MonoBehaviour
         {
             if (index != j && type == equipments[j].type && (int)equipments[j].level <= max)
             {
+                isHaveDuplicates = true;
                 frameSellDuplicates.raycastTarget = true;
                 frameSellDuplicates.sprite = sellDuplicates;
                 return true;
@@ -666,15 +748,53 @@ public class EquipmentController : MonoBehaviour
         {
             if (equipments[j].gameObject.activeSelf && index != j && type == equipments[j].type && (int)equipments[j].level <= max)
             {
-                playerInventory.RewardDesign(equipments[j].type);
+                RewardDesign(equipments[j].type);
                 equipments[j].gameObject.SetActive(false);
                 amoutEquip--;
             }
         }
     }
 
+    int amoutGunDesign;
+    int amoutBoomDesign;
+    int amoutCapDesign;
+    int amoutClothesDesign;
+    int amoutDush;
+
+    public void RewardDesign(EQUIPMENTTYPE type)
+    {
+        if (type == EQUIPMENTTYPE.SHOTGUN)
+        {
+            playerInventory.amoutGunDesign++;
+            amoutGunDesign++;
+        }
+        else if (type == EQUIPMENTTYPE.GRENADE)
+        {
+            playerInventory.amoutBoomDesign++;
+            amoutBoomDesign++;
+        }
+        else if (type == EQUIPMENTTYPE.CAP)
+        {
+            playerInventory.amoutCapDesign++;
+            amoutCapDesign++;
+        }
+        else
+        {
+            playerInventory.amoutClothesDesign++;
+            amoutClothesDesign++;
+        }
+        amoutDush += 10;
+        playerInventory.dush += 10;
+    }
+
     public void SellDuplicates()
     {
+        amoutGunDesign = 0;
+        amoutBoomDesign = 0;
+        amoutCapDesign = 0;
+        amoutClothesDesign = 0;
+        amoutDush = 0;
+
         int maxGun = GetEquipMax(EQUIPMENTTYPE.SHOTGUN, equipMains[0].level);
         int maxBoom = GetEquipMax(EQUIPMENTTYPE.GRENADE, equipMains[1].level);
         int maxCap = GetEquipMax(EQUIPMENTTYPE.CAP, equipMains[2].level);
@@ -725,11 +845,13 @@ public class EquipmentController : MonoBehaviour
                 }
             }
         }
+        UIHandler.instance.tutorial.TutorialButtonSellInventory(true);
         CheckDisplayDesign();
+        CheckWeaponUpgrade();
         CheckStateSellDuplicates();
         UpdateTextDush();
-        frameSellDuplicates.sprite = buttonNok;
-        frameSellDuplicates.raycastTarget = false;
+        CheckNotif();
+        ShowRewardDesignNDush();
     }
 
     public void UpdateTextDush()
@@ -762,12 +884,15 @@ public class EquipmentController : MonoBehaviour
                 }
             }
         }
-        CheckStateEquipBest();
         CheckStateSellDuplicates();
+        UIHandler.instance.tutorial.TutorialButtonEquipInventory(true);
+        CheckStateEquipBest();
     }
 
     public void ShowPopupUpgrade(EquipmentInfo eq)
     {
+        UIHandler.instance.tutorial.TutorialButtonUpgradeInventory(true);
+
         equipUpgradeSelected = eq;
 
         equipUpgradeBg.sprite = eq.bg.sprite;
@@ -810,6 +935,7 @@ public class EquipmentController : MonoBehaviour
 
         panelUpgradeEquip.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 222f / 255f, 0.1f, 1f, 0.5f);
+        UIHandler.instance.tutorial.TutorialButtonUpgradeInventory(false);
     }
 
     int GetDush(int levelUpgrade)

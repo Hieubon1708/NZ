@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartGame()
     {
-        //StartCoroutine(StartFindTarget());
+        StartCoroutine(StartFindTarget());
     }
 
     public void DisableWeapons()

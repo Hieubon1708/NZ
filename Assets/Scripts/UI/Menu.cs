@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
     public RectTransform[] options;
     public Image[] optionImages;
 
+    public GameObject[] notifOptions;
     public GameObject[] lockOptions;
 
     float startSizeX;
@@ -27,6 +28,7 @@ public class Menu : MonoBehaviour
     public GameObject inventory;
     public GameObject shop;
     public GameObject battleGamePlay;
+    public GameObject battleWorld;
 
     public SpriteAtlas spriteAtlas;
 
@@ -36,9 +38,9 @@ public class Menu : MonoBehaviour
         nOk = spriteAtlas.GetSprite("Button_Chosen_section_2 1");
     }
 
-    public void CheckDisplayInventoryPage()
+    public void CheckDisplayButtonPage()
     {
-        if(!inventory.activeSelf) inventory.SetActive(true);
+        LoadData();
     }
 
     public void LoadData()
@@ -46,21 +48,25 @@ public class Menu : MonoBehaviour
         if (UIHandler.instance.tutorial.isUnlockInventory)
         {
             lockOptions[0].SetActive(false);
+            optionImages[1].raycastTarget = true;
         }
         else optionImages[1].raycastTarget = false;
         if (UIHandler.instance.tutorial.isUnlockShop)
         {
             lockOptions[1].SetActive(false);
+            optionImages[0].raycastTarget = true;
         }
         else optionImages[0].raycastTarget = false;
         if (UIHandler.instance.tutorial.isUnlockBoss)
         {
             lockOptions[4].SetActive(false);
+            optionImages[3].raycastTarget = true;
         }
         else optionImages[3].raycastTarget = false;
         if (UIHandler.instance.tutorial.isUnlockWeapon)
         {
             lockOptions[3].SetActive(false);
+            optionImages[4].raycastTarget = true;
         }
         else optionImages[4].raycastTarget = false;
     }
@@ -125,6 +131,7 @@ public class Menu : MonoBehaviour
     {
         battle.SetActive(isActive);
         battleGamePlay.SetActive(isActive);
+        battleWorld.SetActive(isActive);
     }
 
     public void InventoryActive(bool isActive)
@@ -132,6 +139,7 @@ public class Menu : MonoBehaviour
         inventory.SetActive(isActive);
         if (isActive)
         {
+            UIHandler.instance.tutorial.TutorialButtonInventory(true);
             EquipmentController.instance.DesignUpdatePosition();
         }
     }

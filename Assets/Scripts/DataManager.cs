@@ -505,6 +505,10 @@ public class TutorialDataStorage
     public bool isUnlockWeapon;
     public bool isUnlockBoss;
 
+    public TutorialDataStorage()
+    {
+    }
+
     public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon, bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickUpgradeWeaponEvo, bool isFirstTimeClickBoosterBoom, bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun, bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory, bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss)
     {
         this.isFirstTimePlay = isFirstTimePlay;

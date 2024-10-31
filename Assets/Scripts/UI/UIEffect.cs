@@ -44,13 +44,13 @@ public class UIEffect : MonoBehaviour
 
     public void FlyGold()
     {
-        FlyGoldHandle(true, 7, new Vector2(Screen.width / 2, Screen.height / 2), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
-        delayGoldUpdate = DOVirtual.DelayedCall(1.05f, delegate
+        FlyGoldHandle(true, 7, GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
+        delayGoldUpdate = DOVirtual.DelayedCall(1.5f, delegate
         {
             UIHandler.instance.GoldUpdatee();
             BlockController.instance.CheckButtonStateAll();
-            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
             UIHandler.instance.progressHandler.ShowReward();
+            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
         });
     }
 

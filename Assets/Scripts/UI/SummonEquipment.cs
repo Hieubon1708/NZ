@@ -12,11 +12,18 @@ public class SummonEquipment : MonoBehaviour
     public Image progress;
     public Image frameRollX1;
     public Image frameRollX10;
+    public Image frameRollX1InPopup;
+    public Image frameRollX10InPopup;
     public TextMeshProUGUI textFrameRollX1;
     public TextMeshProUGUI textFrameRollX10;
+    public TextMeshProUGUI textFrameRollX1InPopup;
+    public TextMeshProUGUI textFrameRollX10InPopup;
     public Image framePriceRollX1;
     public Image framePriceRollX10;
+    public Image framePriceRollX1InPopup;
+    public Image framePriceRollX10InPopup;
     public GameObject[] frameInactive;
+    public GameObject[] frameInactiveInPopup;
 
     public float[][] chanceDatas;
 

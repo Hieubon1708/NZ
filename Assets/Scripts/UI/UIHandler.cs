@@ -118,7 +118,7 @@ public class UIHandler : MonoBehaviour
 
     public void EndGame()
     {
-        if(!tutorial.isFirstTimePlay) tutorial.isFirstTimePlay = true;
+        if (!tutorial.isFirstTimePlay) tutorial.isFirstTimePlay = true;
     }
 
     public void Restart()
@@ -131,10 +131,6 @@ public class UIHandler : MonoBehaviour
                 daily.daily.SetActive(true);
             }
         }
-    }
-
-    public void Start()
-    {
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
@@ -182,7 +178,7 @@ public class UIHandler : MonoBehaviour
         tutorial.StartGame();
         uIEffect.KillTw();
         layerCover.DOKill();
-        if(tutorial.isFirstTimePlay) DoLayerCover(0f, 0f, null);
+        DoLayerCover(0f, 0f, null);
     }
 
     void Generate()

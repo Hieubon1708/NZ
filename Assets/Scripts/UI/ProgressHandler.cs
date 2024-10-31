@@ -73,8 +73,17 @@ public class ProgressHandler : MonoBehaviour
                 UIHandler.instance.uIEffect.FlyGold();
                 GameController.instance.isLose = false;
             });
-            GameController.instance.Restart();
+            //GameController.instance.Restart();
         });
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            ChestReward(2);
+            HideLose();
+        }
     }
 
     public void X2Gold()
@@ -113,8 +122,13 @@ public class ProgressHandler : MonoBehaviour
 
     public void ShowReward()
     {
-        if (equipRewards.Count == 0) return;
-        UIHandler.instance.menu.CheckDisplayInventoryPage();
+        //if (equipRewards.Count == 0) return;
+        if (!UIHandler.instance.tutorial.isUnlockInventory)
+        {
+            UIHandler.instance.tutorial.isUnlockInventory = true;
+            UIHandler.instance.menu.CheckDisplayButtonPage();
+            EquipmentController.instance.CheckStateNofi();
+        }
         if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1) ChestsInpopupActive(false);
         else ChestsInpopupActive(true);
         for (int i = 0; i < equips.Length; i++)
