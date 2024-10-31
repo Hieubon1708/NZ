@@ -433,6 +433,15 @@ public class EnemyTowerController : MonoBehaviour
     {
         return scTowers[indexTower];
     }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
+            UIHandler.instance.menu.CheckDisplayButtonPage();
+            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
+        }
+    }
 
     public void NextTower()
     {
@@ -442,6 +451,8 @@ public class EnemyTowerController : MonoBehaviour
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
             UIHandler.instance.SetActiveProgressNGem(false);
+            UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
+            UIHandler.instance.menu.CheckDisplayButtonPage();
             /*BlockController.instance.SellAllBlocks();
             BlockController.instance.blocks.Clear();*/
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);

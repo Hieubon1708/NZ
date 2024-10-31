@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +8,9 @@ public class SummonEquipment : MonoBehaviour
 {
     public Image panelChances;
     public RectTransform chancePopup;
+
+    public Image panelRoll;
+    public RectTransform rollPopup;
 
     public TextMeshProUGUI textGem;
     public TextMeshProUGUI textKey;
@@ -26,6 +31,8 @@ public class SummonEquipment : MonoBehaviour
     public GameObject[] frameInactiveInPopup;
 
     public float[][] chanceDatas;
+    public EquipmentInfo equipmentInfoX1;
+    public EquipmentInfo[] equipmentInfosX10;
 
     public TextMeshProUGUI[] chancePercentages;
     public TextMeshProUGUI textLevel;
@@ -41,6 +48,8 @@ public class SummonEquipment : MonoBehaviour
     public int level;
     public int leveInPopUp;
     public int amout;
+
+    Coroutine scattered;
 
     public void Start()
     {
@@ -61,6 +70,34 @@ public class SummonEquipment : MonoBehaviour
         int amoutUpgradeLevel = DataManager.instance.chanceConfig.amoutUpgradeLevel[level];
         SetTextNFillAmout(amoutUpgradeLevel);
         ChanceSort(level);
+        CheckNotif();
+    }
+
+    void CheckNotif()
+    {
+        if (EquipmentController.instance.playerInventory.gem >= 5 || EquipmentController.instance.playerInventory.gem >= 45) UIHandler.instance.menu.notifOptions[1].SetActive(true);
+        else UIHandler.instance.menu.notifOptions[1].SetActive(false);
+    }
+
+    void ShowRoll()
+    {
+        panelRoll.gameObject.SetActive(true);
+        UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 222f / 255f, 0.1f, 1f, 0.5f);
+    }
+
+    public void HideRoll()
+    {
+        UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 0f, 0f, 0.8f, 0f);
+        panelRoll.gameObject.SetActive(false);
+    }
+
+    void ActiveEquipsFrame(bool isActive)
+    {
+        equipmentInfoX1.gameObject.SetActive(false);
+        for (int i = 0; i < equipmentInfosX10.Length; i++)
+        {
+            equipmentInfosX10[i].gameObject.SetActive(isActive);
+        }
     }
 
     public void UpdateText()
@@ -68,37 +105,44 @@ public class SummonEquipment : MonoBehaviour
         textGem.text = UIHandler.instance.ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
         textKey.text = UIHandler.instance.ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.key);
     }
-    
+
+    void ButtonStateX1Handle(bool isActive, Color colorFrame, Color colorText)
+    {
+        frameRollX1.raycastTarget = isActive;
+        frameRollX1InPopup.raycastTarget = isActive;
+        frameInactive[0].SetActive(!isActive);
+        frameInactiveInPopup[0].SetActive(!isActive);
+        framePriceRollX1.color = colorFrame;
+        framePriceRollX1InPopup.color = colorFrame;
+        textFrameRollX1.color = colorText;
+        textFrameRollX1InPopup.color = colorText;
+    }
+
+    void ButtonStateX10Handle(bool isActive, Color colorFrame, Color colorText)
+    {
+        frameRollX10.raycastTarget = isActive;
+        frameRollX10InPopup.raycastTarget = isActive;
+        frameInactive[1].SetActive(!isActive);
+        frameInactiveInPopup[1].SetActive(!isActive);
+        framePriceRollX10.color = colorFrame;
+        framePriceRollX10InPopup.color = colorFrame;
+        textFrameRollX10.color = colorText;
+        textFrameRollX10InPopup.color = colorText;
+    }
+
+    public void RewardGem()
+    {
+        EquipmentController.instance.playerInventory.gem += 10;
+        UpdateText();
+    }
+
     public void CheckButtonState()
     {
-        if (EquipmentController.instance.playerInventory.gem < 5)
-        {
-            frameRollX1.raycastTarget = false;
-            frameInactive[0].SetActive(true);
-            framePriceRollX1.color = notEnoughMoney;
-            textFrameRollX1.color = Color.white;
-        }
-        else
-        {
-            frameRollX1.raycastTarget = true;
-            frameInactive[0].SetActive(false);
-            framePriceRollX1.color = framePriceX1Original;
-            textFrameRollX1.color = textFrameOriginal;
-        }
-        if (EquipmentController.instance.playerInventory.gem < 45)
-        {
-            frameRollX10.raycastTarget = false;
-            frameInactive[1].SetActive(true);
-            framePriceRollX10.color = notEnoughMoney;
-            textFrameRollX10.color = Color.white;
-        }
-        else
-        {
-            frameRollX10.raycastTarget = true;
-            frameInactive[1].SetActive(false);
-            framePriceRollX10.color = framePriceX10Original;
-            textFrameRollX10.color = textFrameOriginal;
-        }
+        if (EquipmentController.instance.playerInventory.gem < 5) ButtonStateX1Handle(false, notEnoughMoney, Color.white);
+        else ButtonStateX1Handle(true, framePriceX1Original, textFrameOriginal);
+        if (EquipmentController.instance.playerInventory.gem < 45) ButtonStateX10Handle(false, notEnoughMoney, Color.white);
+        else ButtonStateX10Handle(true, framePriceX1Original, textFrameOriginal);
+        CheckNotif();
     }
 
     void ChanceSort(int level)
@@ -123,10 +167,16 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX1()
     {
+        GetMax();
+        ActiveEquipsFrame(false);
         SubtractGem(5);
-        Roll();
+        Roll(0, false);
+        if ((int)equipmentInfoX1.level > GetMaxType((int)equipmentInfoX1.type)) equipmentInfoX1.frameLight.SetActive(true);
+        else equipmentInfoX1.frameLight.SetActive(false);
+        equipmentInfoX1.gameObject.SetActive(true);
         EquipmentController.instance.SortEquip();
         CheckButtonState();
+        if (!panelRoll.gameObject.activeSelf) ShowRoll();
     }
 
     void SubtractGem(int gem)
@@ -135,18 +185,59 @@ public class SummonEquipment : MonoBehaviour
         UpdateText();
     }
 
+    int GetMaxType(int type)
+    {
+        if (type == 0) return maxGun;
+        if (type == 1) return maxBoom;
+        if (type == 2) return maxCap;
+        if (type == 3) return maxClothes;
+        else return -1;
+    }
+
+    int maxGun;
+    int maxBoom;
+    int maxCap;
+    int maxClothes;
+
+    void GetMax()
+    {
+        maxGun = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[0].type, EquipmentController.instance.equipMains[0].level);
+        maxBoom = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[1].type, EquipmentController.instance.equipMains[1].level);
+        maxCap = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[2].type, EquipmentController.instance.equipMains[2].level);
+        maxClothes = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[3].type, EquipmentController.instance.equipMains[3].level);
+    }
+
     public void RollX10()
     {
+        GetMax();
+        ActiveEquipsFrame(false);
         SubtractGem(45);
         for (int i = 0; i < 10; i++)
         {
-            Roll();
+            Roll(i, true);
         }
+        if (scattered != null) StopCoroutine(scattered);
+        scattered = StartCoroutine(Scattered(10));
         EquipmentController.instance.SortEquip();
         CheckButtonState();
+        if (!UIHandler.instance.tutorial.isFirstTimeClickButtonRoll) UIHandler.instance.tutorial.TutorialButtonRoll(true);
+        if (!panelRoll.gameObject.activeSelf) ShowRoll();
     }
 
-    void Roll()
+    IEnumerator Scattered(int amount)
+    {
+        int i = 0;
+        while (i < amount)
+        {
+            if ((int)equipmentInfosX10[i].level > GetMaxType((int)equipmentInfosX10[i].type)) equipmentInfosX10[i].frameLight.SetActive(true);
+            else equipmentInfosX10[i].frameLight.SetActive(false);
+            equipmentInfosX10[i].gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            i++;
+        }
+    }
+
+    void Roll(int index, bool isX10)
     {
         float rate = Random.Range(0f, 100f);
         amout++;
@@ -161,7 +252,10 @@ public class SummonEquipment : MonoBehaviour
                 Debug.LogWarning("totalPercent " + totalPercent);
                 int type = Random.Range(0, EquipmentController.instance.equipMains.Length);
                 Debug.LogWarning("weapon type " + type + " level " + GetRateLevel(chanceSorts[i]));
-                EquipmentController.instance.AddEquip(type, GetRateLevel(chanceSorts[i]));
+                int level = GetRateLevel(chanceSorts[i]);
+                if (isX10) EquipmentController.instance.SetEquip(type, level, equipmentInfosX10[index]);
+                else EquipmentController.instance.SetEquip(type, level, equipmentInfoX1);
+                EquipmentController.instance.AddEquip(type, level);
                 break;
             }
         }

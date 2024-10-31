@@ -27,6 +27,8 @@ public class Menu : MonoBehaviour
     public GameObject battle;
     public GameObject inventory;
     public GameObject shop;
+    public GameObject boss;
+    public GameObject weapon;
     public GameObject battleGamePlay;
     public GameObject battleWorld;
 
@@ -59,7 +61,7 @@ public class Menu : MonoBehaviour
         else optionImages[0].raycastTarget = false;
         if (UIHandler.instance.tutorial.isUnlockBoss)
         {
-            lockOptions[4].SetActive(false);
+            lockOptions[2].SetActive(false);
             optionImages[3].raycastTarget = true;
         }
         else optionImages[3].raycastTarget = false;
@@ -151,16 +153,17 @@ public class Menu : MonoBehaviour
 
     public void BoosActive(bool isActive)
     {
-
+        boss.SetActive(isActive);
     }
 
     public void ShopActive(bool isActive)
     {
         shop.SetActive(isActive);
-        if(isActive)
+        if (isActive)
         {
             UIHandler.instance.summonEquipment.UpdateText();
             UIHandler.instance.summonEquipment.CheckButtonState();
+            UIHandler.instance.tutorial.TutorialButtonShop(true);
         }
     }
 

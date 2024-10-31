@@ -79,11 +79,11 @@ public class ProgressHandler : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        /*if(Input.GetKeyDown(KeyCode.A))
         {
             ChestReward(2);
             HideLose();
-        }
+        }*/
     }
 
     public void X2Gold()

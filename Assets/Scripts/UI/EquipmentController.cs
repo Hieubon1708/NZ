@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -149,27 +150,27 @@ public class EquipmentController : MonoBehaviour
 
     public void ShowRewardDesignNDush()
     {
-        if(amoutGunDesign > 0)
+        if (amoutGunDesign > 0)
         {
             designsInPanelReward[0].transform.parent.gameObject.SetActive(true);
             designsInPanelReward[0].text = amoutGunDesign.ToString();
         }
-        if(amoutBoomDesign > 0)
+        if (amoutBoomDesign > 0)
         {
             designsInPanelReward[1].transform.parent.gameObject.SetActive(true);
             designsInPanelReward[1].text = amoutBoomDesign.ToString();
         }
-        if(amoutCapDesign > 0)
+        if (amoutCapDesign > 0)
         {
             designsInPanelReward[2].transform.parent.gameObject.SetActive(true);
             designsInPanelReward[2].text = amoutCapDesign.ToString();
         }
-        if(amoutClothesDesign > 0)
+        if (amoutClothesDesign > 0)
         {
             designsInPanelReward[3].transform.parent.gameObject.SetActive(true);
             designsInPanelReward[3].text = amoutClothesDesign.ToString();
         }
-        if(amoutDush > 0)
+        if (amoutDush > 0)
         {
             dushInPanelReward.transform.parent.gameObject.SetActive(true);
             dushInPanelReward.text = amoutDush.ToString();
@@ -177,7 +178,7 @@ public class EquipmentController : MonoBehaviour
         panelRewardDesignNDush.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelRewardDesignNDush, popupRewardDesignNDush, 222f / 255f, 0.1f, 1f, 0.5f);
     }
-    
+
     public void HideRewardDesignNDush()
     {
         for (int i = 0; i < designsInPanelReward.Length; i++)
@@ -416,7 +417,7 @@ public class EquipmentController : MonoBehaviour
             else
             {
                 arrowEquipMains[i].SetActive(true);
-                if(!UIHandler.instance.tutorial.isFirstTimeClickButtonUpgradeInventory) UIHandler.instance.tutorial.scButtonUpgradeInventory = tutorialOjectEquipMains[i];
+                if (!UIHandler.instance.tutorial.isFirstTimeClickButtonUpgradeInventory) UIHandler.instance.tutorial.scButtonUpgradeInventory = tutorialOjectEquipMains[i];
                 isHaveUpgrade = true;
             }
         }
@@ -859,7 +860,7 @@ public class EquipmentController : MonoBehaviour
         playerInventory.textDush.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.dush);
     }
 
-    int GetEquipMax(EQUIPMENTTYPE type, EQUIPMENTLEVEL level)
+    public int GetEquipMax(EQUIPMENTTYPE type, EQUIPMENTLEVEL level)
     {
         int result = (int)level;
         for (int i = 0; i < equipments.Count; i++)
@@ -892,7 +893,6 @@ public class EquipmentController : MonoBehaviour
     public void ShowPopupUpgrade(EquipmentInfo eq)
     {
         UIHandler.instance.tutorial.TutorialButtonUpgradeInventory(true);
-
         equipUpgradeSelected = eq;
 
         equipUpgradeBg.sprite = eq.bg.sprite;
@@ -1020,6 +1020,7 @@ public class EquipmentController : MonoBehaviour
     {
         UIHandler.instance.uIEffect.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 0f, 0f, 0.8f, 0f);
         panelUpgradeEquip.gameObject.SetActive(false);
+        UIHandler.instance.tutorial.TutorialButtonUpgradeLevelInventory(false);
     }
 
     public void ShowPopupSwap(EquipmentInfo eq)

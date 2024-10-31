@@ -25,9 +25,11 @@ public class Tutorial : MonoBehaviour
     public bool isFirstTimeClickButtonSellInventory;
     public bool isFirstTimeClickButtonUpgradeInventory;
     public bool isFirstTimeClickButtonUpgradeLevelInventory;
-    public bool isFirstTimeClickButtonkShop;
+    public bool isFirstTimeClickButtonShop;
+    public bool isFirstTimeClickButtonRoll;
     public bool isFirstTimeClickButtonWeapon;
     public bool isFirstTimeClickButtonBoss;
+    public bool isFirstTimeClickButtonPlayBoss;
 
     public bool isFirstTimeDestroyTower;
     public bool isSecondTimeDestroyTower;
@@ -52,6 +54,10 @@ public class Tutorial : MonoBehaviour
     public TutorialOject scButtonSellInventory;
     public TutorialOject scButtonUpgradeInventory;
     public TutorialOject scButtonUpgradeLevelInventory;
+    public TutorialOject scButtonShop;
+    public TutorialOject scButtonRoll;
+    public TutorialOject scButtonBoss;
+    public TutorialOject scButtonPlayBoss;
 
     public Unmask unmaskButton;
     public Unmask unmaskHand;
@@ -91,12 +97,104 @@ public class Tutorial : MonoBehaviour
         if(isSecondTimeDestroyTower) UIHandler.instance.daily.daily.SetActive(true);
     }
 
+    public void CheckTutorialShopNWeaponNBoss()
+    {
+        if(!isUnlockBoss) isUnlockBoss = true;
+        if(!isUnlockShop) isUnlockShop = true;
+        if(!isUnlockWeapon) isUnlockWeapon = true;
+    }
+
     public TutorialDataStorage GetData()
     {
         return new TutorialDataStorage(isFirstTimePlay, isFirstTimeClickButtonBuyBlock, isFirstTimeClickButtonBuyWeapon
             , isFirstTimeClickButtonUpgradeEnergy, isFirstTimeClickUpgradeWeaponEvo, isFirstTimeClickBoosterBoom, isFirstTimeClickBoosterSaw
             , isFirstTimeClickBoosterFlame, isFirstTimeClickBoosterMachineGun, isFirstTimeDestroyTower, isSecondTimeDestroyTower, isFirstTimeDragBlock
             , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss);
+    }
+
+    public void TutorialButtonShop(bool isClick)
+    {
+        if (isFirstTimeClickButtonShop || UIHandler.instance.menu.lockOptions[1].activeSelf)
+        {
+            TutorialButtonRoll(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonShop);
+                isFirstTimeClickButtonShop = true;
+                TutorialButtonRoll(false);
+            }
+            else
+            {
+                scSelected = scButtonShop;
+                EnableTutorial(true, scButtonShop);
+            }
+        }
+    }
+    
+    public void TutorialButtonBoss(bool isClick)
+    {
+        if (isFirstTimeClickButtonBoss || UIHandler.instance.menu.lockOptions[2].activeSelf)
+        {
+            TutorialButtonPlayBoss(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonBoss);
+                isFirstTimeClickButtonBoss = true;
+                TutorialButtonPlayBoss(false);
+            }
+            else
+            {
+                scSelected = scButtonBoss;
+                EnableTutorial(true, scButtonBoss);
+            }
+        }
+    }
+    
+    public void TutorialButtonPlayBoss(bool isClick)
+    {
+        if (isFirstTimeClickButtonPlayBoss || !UIHandler.instance.menu.boss.activeSelf)
+        {
+        }
+        else
+        {
+            if (isClick) 
+            {
+                EnableTutorial(false, scButtonPlayBoss);
+                isFirstTimeClickButtonPlayBoss = true;
+            }
+            else
+            {
+                scSelected = scButtonPlayBoss;
+                EnableTutorial(true, scButtonPlayBoss);
+            }
+        }
+    }
+    
+    public void TutorialButtonRoll(bool isClick) 
+    {
+        if (isFirstTimeClickButtonRoll || !UIHandler.instance.menu.shop.activeSelf || !isClick && EquipmentController.instance.playerInventory.gem < 45)
+        {
+            TutorialButtonInventory(false);
+        }
+        else
+        {
+            if (isClick)
+            {
+                EnableTutorial(false, scButtonRoll);
+                isFirstTimeClickButtonRoll = true;
+            }
+            else
+            {
+                scSelected = scButtonRoll;
+                EnableTutorial(true, scButtonRoll);
+            }
+        }
     }
 
     public void TutorialButtonInventory(bool isClick)
@@ -189,7 +287,7 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeClickButtonUpgradeLevelInventory || !UIHandler.instance.menu.inventory.activeSelf)
         {
-            //TutorialButtonSellInventory(false);
+            TutorialButtonBoss(false);
         }
         else
         {
@@ -197,7 +295,6 @@ public class Tutorial : MonoBehaviour
             {
                 EnableTutorial(false, scButtonUpgradeLevelInventory);
                 isFirstTimeClickButtonUpgradeLevelInventory = true;
-                //TutorialButtonSellInventory(false);
             }
             else
             {
@@ -259,14 +356,14 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeClickUpgradeWeaponEvo)
         {
-            TutorialButtonInventory(false);
+            TutorialButtonShop(false);
             return;
         }
         int price = 0;
         scButtonUpgradeWeaponEvo = BlockController.instance.GetTutorialWeaponEvo(out price);
         if (!isClick && PlayerController.instance.player.gold < price)
         {
-            TutorialButtonInventory(false);
+            TutorialButtonShop(false);
         }
         else
         {
@@ -274,7 +371,7 @@ public class Tutorial : MonoBehaviour
             {
                 EnableTutorial(false, scButtonUpgradeWeaponEvo);
                 isFirstTimeClickUpgradeWeaponEvo = true;
-                TutorialButtonInventory(false);
+                TutorialButtonShop(false);
             }
             else
             {
@@ -383,6 +480,10 @@ public class Tutorial : MonoBehaviour
         if (scSelected == scButtonSellInventory) isFirstTimeClickButtonSellInventory = true;
         if (scSelected == scButtonUpgradeInventory) isFirstTimeClickButtonUpgradeInventory = true;
         if (scSelected == scButtonUpgradeLevelInventory) isFirstTimeClickButtonUpgradeLevelInventory = true;
+        if (scSelected == scButtonShop) isFirstTimeClickButtonShop = true;
+        if (scSelected == scButtonRoll) isFirstTimeClickButtonRoll = true;
+        if (scSelected == scButtonBoss) isFirstTimeClickButtonBoss = true;
+        if (scSelected == scButtonPlayBoss) isFirstTimeClickButtonPlayBoss = true;
     }
 
     public void Restart()
