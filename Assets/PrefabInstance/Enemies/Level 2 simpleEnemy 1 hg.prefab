@@ -2961,6 +2961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4423232732882134}
   - component: {fileID: 212235060875842775}
+  - component: {fileID: 4957043421981387942}
   m_Layer: 6
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -3035,6 +3036,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4957043421981387942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347015860235459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1345313834295946}
 --- !u!1 &1356695783053886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3109,7 +3123,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4571657572876051}
   - component: {fileID: 212986605295626758}
-  - component: {fileID: 4636042669789540928}
   m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
@@ -3184,19 +3197,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4636042669789540928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371543720589430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1345313834295946}
 --- !u!1 &1431978883826598
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,6 +3490,7 @@ MonoBehaviour:
   - {fileID: 212822191442437993}
   - {fileID: 212642327068351779}
   hitEffect: {fileID: -2422824545140288885}
+  shadow: {fileID: 0}
   forceJump: 0
   multiplier: 1
   realSpeed: 0
@@ -3507,6 +3508,8 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
+  flameThower: {fileID: 0}
+  sawStun: {fileID: 0}
   a: 0
   targetX: 0
   silk: {fileID: 4490884765193982259}

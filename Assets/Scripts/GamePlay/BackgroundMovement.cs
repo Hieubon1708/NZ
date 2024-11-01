@@ -29,6 +29,9 @@ public class BackgroundMovement : MonoBehaviour
     public void Restart()
     {
         transform.localPosition = new Vector2(0, transform.localPosition.y);
+        parts[1].transform.localPosition = new Vector2(-distancePart, parts[1].transform.localPosition.y);
+        parts[0].transform.localPosition = new Vector2(0, parts[0].transform.localPosition.y);
+        parts[2].transform.localPosition = new Vector2(distancePart, parts[2].transform.localPosition.y);
         count = 1;
     }
 }

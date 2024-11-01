@@ -556,23 +556,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 1662500758019991}
   indexEs: 00000000
-  amoutIndexEs: 4b000000
+  amoutIndexEs: 01000000
   speeds:
   - 1.5
   defaultDistance: 0.75
-  amoutEs: 030000000300000003000000030000000300000003000000030000000300000003000000
+  amoutEs: 040000000400000004000000040000000400000004000000040000000400000004000000
   distances:
   - 0.55
-  - 0.45
   - 0.75
-  - 1.5
   - 0.75
-  - 1.5
   - 0.75
-  - 1.5
   - 0.75
-  startDistanceMultipliers: 040000000400000001000000
-  endDistanceMultipliers: 060000000600000001000000
+  - 0.75
+  - 0.75
+  - 0.75
+  - 0.75
+  startDistanceMultipliers: 040000000400000001000000020000000100000002000000010000000200000001000000
+  endDistanceMultipliers: 060000000600000001000000030000000100000003000000010000000300000001000000
   isSpawnByTime: 0
 --- !u!114 &-4761481621960193217
 MonoBehaviour:
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 6990292141081602105}
   m_Layer: 0
   m_Name: Zombie_Base_Front
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 6970052636772862681}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1743,7 +1743,7 @@ GameObject:
   - component: {fileID: 5821756479019007680}
   m_Layer: 0
   m_Name: Sprite Mask
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

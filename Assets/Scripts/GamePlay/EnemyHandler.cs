@@ -118,7 +118,7 @@ public class EnemyHandler : MonoBehaviour
             {
                 sawTriggers.Add(collision.gameObject, null);
             }
-            sawTriggers[collision.gameObject] = StartCoroutine(ShockerTriggerHandle(subtractHp));
+            sawTriggers[collision.gameObject] = StartCoroutine(SawTriggerHandle(subtractHp));
         }
         if (collision.CompareTag("Shocker"))
         {
@@ -156,7 +156,7 @@ public class EnemyHandler : MonoBehaviour
             {
                 flameTriggers.Add(collision.gameObject, null);
             }
-            flameTriggers[collision.gameObject] = StartCoroutine(ShockerTriggerHandle(subtractHp));
+            flameTriggers[collision.gameObject] = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
     }
 
@@ -289,7 +289,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !collision.gameObject || !content.activeSelf) return;
         if (collision.gameObject.CompareTag("Ground"))
         {
             if (shadow != null) shadow.SetActive(true);
@@ -301,7 +301,7 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !collision.gameObject || !content.activeSelf) return;
         if ((collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) && collision.contacts[0].normal.x >= 0.99f) isCollisionWithCar = true;
         if (collision.contacts[0].normal.y >= 0.99f && isJump) isJump = false;
         if (collision.gameObject.CompareTag("Enemy"))
@@ -347,14 +347,6 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Block"))
-        {
-            if (blockCollision != null)
-            {
-                StopCoroutine(blockCollision);
-                blockCollision = null;
-            }
-        }
         if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car")) isCollisionWithCar = false;
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -462,7 +454,7 @@ public class EnemyHandler : MonoBehaviour
         if (!healthBar.activeSelf) healthBar.SetActive(true);
         int hp = enemyInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(subtractHp.ToString(), hitObj, randomCrit <= 2f);
+        damage.ShowDamage(subtractHp, hitObj, randomCrit <= 2f);
         hitEffect.PlayHitEffect(fullBodies);
         if (hp == 0)
         {
@@ -479,7 +471,7 @@ public class EnemyHandler : MonoBehaviour
         SetColNKinematicNRevival(false);
         StopCoroutines();
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
-        SetDeathAni();
+        SetDeathAni(); 
         healthBar.SetActive(false);
         if (shadow != null) shadow.SetActive(false);
         GameController.instance.listEVisible.Remove(gameObject);
@@ -505,7 +497,7 @@ public class EnemyHandler : MonoBehaviour
         rb.isKinematic = !isEnable;
     }
 
-    public void Restart()
+    public virtual void Restart()
     {
         StopCoroutines();
         SetDefaultField();
@@ -569,7 +561,12 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void SetDefaultField()
     {
-        if (flameThower != null) flameThower.transform.SetParent(ParController.instance.container);
+        if (flameThower != null)
+        {
+            flameThower.transform.SetParent(ParController.instance.container);
+            flameThower.SetActive(false);
+        }
+
         animator.Rebind();
         content.transform.DOKill();
         speed = startSpeed;

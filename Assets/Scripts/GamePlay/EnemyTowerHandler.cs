@@ -82,7 +82,7 @@ public class EnemyTowerHandler : MonoBehaviour
         if (towerInfo.hp == 0) return;
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
-        damage.ShowDamage(substractHp.ToString(), null, false);
+        damage.ShowDamage(substractHp, null, false);
         hitEffect.PlayHitEffect(fullTowers);
 
         if (hp == 0)
@@ -94,6 +94,7 @@ public class EnemyTowerHandler : MonoBehaviour
             GameController.instance.ShakeCam(0.35f);
             towerInfo.gameObject.SetActive(false);
             if (!UIHandler.instance.tutorial.isFirstTimeDestroyTower) UIHandler.instance.tutorial.isFirstTimeDestroyTower = true;
+            if (EnemyTowerController.instance.indexTower > 1 && !UIHandler.instance.tutorial.isSecondTimeDestroyTower) UIHandler.instance.tutorial.isSecondTimeDestroyTower = true;
             UIHandler.instance.progressHandler.ChestReward(EnemyTowerController.instance.indexTower);
             EnemyTowerController.instance.NextTower();
             ParController.instance.PlayTowerExplosionParticle(new Vector2(view.transform.position.x + 1.5f, view.transform.position.y));

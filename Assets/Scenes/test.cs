@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    void Start()
+    public GameObject a;
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        Renderer renderer = GetComponent<Renderer>();
-        renderer.sortingOrder = 999; 
-        renderer.sortingLayerName = "UI"; 
+        Debug.LogWarning("En");
+
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.LogWarning("Ex");
     }
 }

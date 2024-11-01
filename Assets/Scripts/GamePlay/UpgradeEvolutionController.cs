@@ -168,6 +168,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     void SetActiveButtonUpgradeWeapon()
     {
+        weaponUpgradeHandler.EvoAccept();
         weaponUpgradeHandler.gameObject.SetActive(true);
         weaponUpgradeHandler.aniShowNewEvo.Play();
     }

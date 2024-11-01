@@ -417,7 +417,7 @@ public class EquipmentController : MonoBehaviour
             else
             {
                 arrowEquipMains[i].SetActive(true);
-                if (!UIHandler.instance.tutorial.isFirstTimeClickButtonUpgradeInventory) UIHandler.instance.tutorial.scButtonUpgradeInventory = tutorialOjectEquipMains[i];
+                if (!UIHandler.instance.tutorial.isFirstTimeClickButtonUpgradeInventory && !isHaveUpgrade) UIHandler.instance.tutorial.scButtonUpgradeInventory = tutorialOjectEquipMains[i];
                 isHaveUpgrade = true;
             }
         }

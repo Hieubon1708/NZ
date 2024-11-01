@@ -44,7 +44,7 @@ public class DataManager : MonoBehaviour
         LoadBlockNCarSprites(blockSpritesLv2, carSpritesLv2, spriteAtlas[1]);
     }
 
-    void LoadBlockNCarSprites(Sprite[] blockSps,Sprite[] carSps, SpriteAtlas atlas)
+    void LoadBlockNCarSprites(Sprite[] blockSps, Sprite[] carSps, SpriteAtlas atlas)
     {
         for (int i = 0; i < blockSps.Length; i++)
         {
@@ -505,11 +505,28 @@ public class TutorialDataStorage
     public bool isUnlockWeapon;
     public bool isUnlockBoss;
 
+    public bool isFirstTimeClickButtonInventory;
+    public bool isFirstTimeClickButtonEquipInventory;
+    public bool isFirstTimeClickButtonSellInventory;
+    public bool isFirstTimeClickButtonUpgradeInventory;
+    public bool isFirstTimeClickButtonUpgradeLevelInventory;
+    public bool isFirstTimeClickButtonShop;
+    public bool isFirstTimeClickButtonRoll;
+    public bool isFirstTimeClickButtonWeapon;
+    public bool isFirstTimeClickButtonBoss;
+    public bool isFirstTimeClickButtonPlayBoss;
+
     public TutorialDataStorage()
     {
     }
 
-    public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon, bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickUpgradeWeaponEvo, bool isFirstTimeClickBoosterBoom, bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun, bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory, bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss)
+    public TutorialDataStorage(bool isFirstTimePlay, bool isFirstTimeClickButtonBuyBlock, bool isFirstTimeClickButtonBuyWeapon
+        , bool isFirstTimeClickButtonUpgradeEnergy, bool isFirstTimeClickUpgradeWeaponEvo, bool isFirstTimeClickBoosterBoom
+        , bool isFirstTimeClickBoosterSaw, bool isFirstTimeClickBoosterFlame, bool isFirstTimeClickBoosterMachineGun
+        , bool isFirstTimeDestroyTower, bool isSecondTimeDestroyTower, bool isFirstTimeDragBlock, bool isUnlockInventory
+        , bool isUnlockShop, bool isUnlockWeapon, bool isUnlockBoss, bool isFirstTimeClickButtonInventory, bool isFirstTimeClickButtonEquipInventory
+        , bool isFirstTimeClickButtonSellInventory, bool isFirstTimeClickButtonUpgradeInventory, bool isFirstTimeClickButtonUpgradeLevelInventory
+        , bool isFirstTimeClickButtonShop, bool isFirstTimeClickButtonRoll, bool isFirstTimeClickButtonWeapon, bool isFirstTimeClickButtonBoss, bool isFirstTimeClickButtonPlayBoss)
     {
         this.isFirstTimePlay = isFirstTimePlay;
         this.isFirstTimeClickButtonBuyBlock = isFirstTimeClickButtonBuyBlock;
@@ -527,6 +544,16 @@ public class TutorialDataStorage
         this.isUnlockShop = isUnlockShop;
         this.isUnlockWeapon = isUnlockWeapon;
         this.isUnlockBoss = isUnlockBoss;
+        this.isFirstTimeClickButtonInventory = isFirstTimeClickButtonInventory;
+        this.isFirstTimeClickButtonEquipInventory = isFirstTimeClickButtonEquipInventory;
+        this.isFirstTimeClickButtonSellInventory = isFirstTimeClickButtonSellInventory;
+        this.isFirstTimeClickButtonUpgradeInventory = isFirstTimeClickButtonUpgradeInventory;
+        this.isFirstTimeClickButtonUpgradeLevelInventory = isFirstTimeClickButtonUpgradeLevelInventory;
+        this.isFirstTimeClickButtonShop = isFirstTimeClickButtonShop;
+        this.isFirstTimeClickButtonRoll = isFirstTimeClickButtonRoll;
+        this.isFirstTimeClickButtonWeapon = isFirstTimeClickButtonWeapon;
+        this.isFirstTimeClickButtonBoss = isFirstTimeClickButtonBoss;
+        this.isFirstTimeClickButtonPlayBoss = isFirstTimeClickButtonPlayBoss;
     }
 }
 

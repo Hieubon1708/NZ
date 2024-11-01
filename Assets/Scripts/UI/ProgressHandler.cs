@@ -36,7 +36,7 @@ public class ProgressHandler : MonoBehaviour
 
     public List<EquipRewardConfig> equipRewards = new List<EquipRewardConfig>();
     public int[] des = new int[4];
-    int dush, gem, key, cogwheel;
+    public int dush, gem, key, cogwheel;
 
     public void LoadData()
     {
@@ -73,17 +73,8 @@ public class ProgressHandler : MonoBehaviour
                 UIHandler.instance.uIEffect.FlyGold();
                 GameController.instance.isLose = false;
             });
-            //GameController.instance.Restart();
+            GameController.instance.Restart();
         });
-    }
-
-    public void Update()
-    {
-        /*if(Input.GetKeyDown(KeyCode.A))
-        {
-            ChestReward(2);
-            HideLose();
-        }*/
     }
 
     public void X2Gold()
@@ -122,7 +113,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void ShowReward()
     {
-        //if (equipRewards.Count == 0) return;
+        if (equipRewards.Count == 0) return;
         if (!UIHandler.instance.tutorial.isUnlockInventory)
         {
             UIHandler.instance.tutorial.isUnlockInventory = true;
@@ -148,10 +139,26 @@ public class ProgressHandler : MonoBehaviour
             }
         }
 
-        if (dush > 0) textDush.text = dush.ToString(); textDush.transform.parent.gameObject.SetActive(true);
-        if (gem > 0) textGem.text = gem.ToString(); textGem.transform.parent.gameObject.SetActive(true);
-        if (cogwheel > 0) textCogwheel.text = cogwheel.ToString(); textCogwheel.transform.parent.gameObject.SetActive(true);
-        if (key > 0) textKey.text = key.ToString(); textKey.transform.parent.gameObject.SetActive(true);
+        if (dush > 0)
+        {
+            textDush.text = dush.ToString(); 
+            textDush.transform.parent.gameObject.SetActive(true);
+        }
+        if (gem > 0)
+        {
+            textGem.text = gem.ToString(); 
+            textGem.transform.parent.gameObject.SetActive(true);
+        }
+        if (cogwheel > 0)
+        {
+            textCogwheel.text = cogwheel.ToString(); 
+            textCogwheel.transform.parent.gameObject.SetActive(true);
+        }
+        if (key > 0)
+        {
+            textKey.text = key.ToString(); 
+            textKey.transform.parent.gameObject.SetActive(true);
+        }
 
         panelReward.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelReward, rewardPopup, 222f / 255f, 0.1f, 1f, 0.5f);
@@ -195,9 +202,9 @@ public class ProgressHandler : MonoBehaviour
 
             for (int i = 0; i < rewardLevelConfig.equips.Length; i++)
             {
-                equipRewards.Add(rewardLevelConfig.equips[i]);
-                EquipmentController.instance.SetEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level, equips[i]);
+                EquipmentController.instance.SetEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level, equips[equipRewards.Count]);
                 EquipmentController.instance.AddEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level);
+                equipRewards.Add(rewardLevelConfig.equips[i]);
             }
             for (int i = 0; i < rewardLevelConfig.desgins.Length; i++)
             {

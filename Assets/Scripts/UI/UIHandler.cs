@@ -67,6 +67,12 @@ public class UIHandler : MonoBehaviour
         Generate();
     }
 
+    public void Start()
+    {
+        layerCover.gameObject.SetActive(true);
+        DoLayerCover(0f, 0.75f, null);
+    }
+
     public void SetActiveProgressNGem(bool isActive)
     {
         progressHandler.parent.SetActive(isActive);
@@ -131,6 +137,7 @@ public class UIHandler : MonoBehaviour
                 daily.daily.SetActive(true);
             }
         }
+        textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
@@ -145,12 +152,12 @@ public class UIHandler : MonoBehaviour
     {
         if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
         GoldUpdatee();
+        tutorial.LoadData();
         map.LoadData();
         daily.LoadData();
         summonEquipment.LoadData();
         progressHandler.LoadData();
         setting.LoadData();
-        tutorial.LoadData();
         menu.LoadData();
         GemUpdatee();
         if (daily.daily.activeSelf) gem.SetActive(true);
@@ -220,7 +227,7 @@ public class UIHandler : MonoBehaviour
         GoldUpdatee();
         BlockController.instance.CheckButtonStateAll();
         StartCoroutine(CountdownRewardGold(5 * 60));
-        UIHandler.instance.daily.CheckDaily(Daily.DailyType.WatchAds);
+        daily.CheckDaily(Daily.DailyType.WatchAds);
     }
 
     public void GoldUpdatee()

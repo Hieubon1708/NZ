@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,6 +88,7 @@ public class SummonEquipment : MonoBehaviour
     {
         UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 0f, 0f, 0.8f, 0f);
         panelRoll.gameObject.SetActive(false);
+        UIHandler.instance.tutorial.TutorialButtonBoss(false);
     }
 
     void ActiveEquipsFrame(bool isActive)

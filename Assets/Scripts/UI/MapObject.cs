@@ -12,10 +12,10 @@ public class MapObject : MonoBehaviour
     public void DoCompleted(GameObject mapTarget, Action callback)
     {
         tick.SetActive(true);
-        line.DOFillAmount(1f, 2f).OnComplete(delegate
+        line.DOFillAmount(0.9f, 1.5f).OnComplete(delegate
         {
             mapTarget.gameObject.SetActive(true);
             if(callback != null) callback.Invoke();
-        });
+        }).SetEase(Ease.Linear);
     }
 }

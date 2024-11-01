@@ -34,10 +34,6 @@ public class PlayerHandler : MonoBehaviour
             boxCollider.SetActive(false);
             healthBar.SetActive(false);
             UIHandler.instance.EndGame();
-            if (EnemyTowerController.instance.indexTower == 1)
-            {
-                if (!UIHandler.instance.tutorial.isSecondTimeDestroyTower) UIHandler.instance.tutorial.isSecondTimeDestroyTower = true;
-            }
             DOVirtual.DelayedCall(1.75f, delegate
             {
                 if (UIHandler.instance.tutorial.isFirstTimeDestroyTower) UIHandler.instance.progressHandler.ShowLose();

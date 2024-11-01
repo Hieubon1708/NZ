@@ -264,6 +264,7 @@ public class ParController : MonoBehaviour
     {
         playerDie.transform.position = pos;
         playerDie.SetActive(true);
+        DOVirtual.DelayedCall(1f, delegate { playerDie.SetActive(false); });
     }
 
     public void PlayTowerExplosionParticle(Vector2 pos)

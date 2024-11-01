@@ -42,6 +42,7 @@ public class Daily : MonoBehaviour
 
     public void LoadData()
     {
+        if (UIHandler.instance.tutorial.isSecondTimeDestroyTower) daily.SetActive(true);
         if (DataManager.instance.dataStorage.dailyDataStorage != null)
         {
             dailyOfDate = DataManager.instance.dataStorage.dailyDataStorage.dailyOfDate;

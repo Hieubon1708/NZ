@@ -316,7 +316,7 @@ public class BlockController : MonoBehaviour
 
     public void DisableWeapons()
     {
-        for (int i = 0; i < tempBlocks.Count; i++)
+        for (int i = 0; i < blocks.Count; i++)
         {
             if(scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
         }

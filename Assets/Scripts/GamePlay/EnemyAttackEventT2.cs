@@ -28,6 +28,14 @@ public class EnemyAttackEventT2 : MonoBehaviour
         }
     }
 
+    public void SetActiveBullet(bool isActive)
+    {
+        for (int i = 0; i < scBullets.Length; i++)
+        {
+            if (scBullets[i].gameObject.activeSelf) scBullets[i].gameObject.SetActive(isActive);
+        }
+    }
+
     public void ShotEvent()
     {
         scBullets[index].gameObject.SetActive(true);

@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
         map.SetActive(true);
         UIHandler.instance.DoLayerCover(0f, 0.75f, delegate
         {
-            DOVirtual.DelayedCall(0.5f, delegate
+            DOVirtual.DelayedCall(0.25f, delegate
             {
                 mapObjects[GameController.instance.level - 1].DoCompleted(mapObjects[GameController.instance.level].mapCompleted, delegate
                 {

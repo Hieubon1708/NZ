@@ -227,4 +227,12 @@ public class FlameHandler : WeaponShoter
         ShotHandle(false, 0f, 0.35f);
         colBooster.SetActive(false);
     }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            ani.Rebind();
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class Damage : MonoBehaviour
     bool isShowDamage;
     public Color colorCritDamage;
 
-    public void ShowDamage(string text, GameObject content, bool isCritDamage)
+    public void ShowDamage(int damage, GameObject content, bool isCritDamage)
     {
         if (isShowDamage || !canvas.gameObject.activeSelf) return;
         canvas.SetParent(GameController.instance.poolDamages);
@@ -26,7 +26,7 @@ public class Damage : MonoBehaviour
             textDamage.transform.localScale = Vector3.one;
             textDamage.color = Color.white;
         }
-        textDamage.text = text;
+        textDamage.text = UIHandler.instance.ConvertNumberAbbreviation(damage);
         isShowDamage = true;
         rb.isKinematic = false;
         textDamage.DOFade(1, 0);

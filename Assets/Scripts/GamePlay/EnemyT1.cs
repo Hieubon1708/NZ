@@ -13,10 +13,23 @@ public class EnemyT1 : EnemyHandler
     protected override void OnCollisionStay2D(Collision2D collision)
     {
         base.OnCollisionStay2D(collision);
-        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !content.activeSelf || blockCollision != null) return;
+        if (!collision.collider.gameObject.activeSelf || !colObj.activeSelf || !content.activeSelf || !collision.gameObject || blockCollision != null) return;
         if (collision.gameObject.CompareTag("Block"))
         {
             blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
+        }
+    }
+
+    public override void OnCollisionExit2D(Collision2D collision)
+    {
+        base.OnCollisionExit2D(collision); 
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            if (blockCollision != null)
+            {
+                StopCoroutine(blockCollision);
+                blockCollision = null;
+            }
         }
     }
 

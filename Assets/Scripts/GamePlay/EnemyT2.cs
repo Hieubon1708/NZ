@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyT2 : EnemyHandler
 {
     public float targetX;
+    public EnemyAttackEventT2 attackEventT2;
 
     public override void Start()
     {
@@ -45,7 +46,6 @@ public class EnemyT2 : EnemyHandler
         }
         else
         {
-            Debug.DrawLine(transform.position, new Vector2(CarController.instance.transform.position.x + targetX, transform.position.y), Color.red);
             if (Mathf.Abs(enemyInfo.transform.position.x - CarController.instance.transform.position.x) <= targetX)
             {
                 walkSpeed = 0;
@@ -73,6 +73,12 @@ public class EnemyT2 : EnemyHandler
         rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
         animator.SetFloat("velocityY", rb.velocity.y);
         animator.SetFloat("walkSpeed", walkSpeed);
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        attackEventT2.SetActiveBullet(false);
     }
 
     protected override void DeathHandle()

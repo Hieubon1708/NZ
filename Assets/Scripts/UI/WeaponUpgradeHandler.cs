@@ -56,6 +56,12 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         UpgradeHandle();
     }
 
+    public void EvoAccept()
+    {
+        blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
+        weaponShoter.LoadData();
+    }
+
     public override void Upgrade()
     {
         blockUpgradeHandler.blockInfo.PlusGold(DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig));
@@ -64,11 +70,9 @@ public class WeaponUpgradeHandler : ButtonUpgradee
         {
             level++;
             levelUpgrade = 0;
-            blockUpgradeHandler.BuyWeapon(weaponShoter.weaponType, level);
-            weaponShoter.LoadData();
-            evoUpgrade.SetActive(false);
             UpgradeEvolutionController.instance.weaponUpgradeHandler = this;
             UIHandler.instance.tutorial.TutorialUpgradeWeaponEvo(true);
+            evoUpgrade.SetActive(false);
             bool isEvoContains = false;
 
             if (weaponShoter.weaponType == GameController.WEAPON.SAW)

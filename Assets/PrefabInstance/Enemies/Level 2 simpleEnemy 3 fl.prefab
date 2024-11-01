@@ -514,7 +514,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4897103050014024}
   - component: {fileID: 212100921745570212}
-  - component: {fileID: 2451918962573874507}
   m_Layer: 0
   m_Name: Spider_2_1_Body
   m_TagString: Untagged
@@ -589,19 +588,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &2451918962573874507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561001423257140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1667125860864603}
 --- !u!1 &1571193443007499
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +862,7 @@ MonoBehaviour:
   - {fileID: 212658445031157597}
   - {fileID: 212665556441754785}
   hitEffect: {fileID: 4628645668783679784}
+  shadow: {fileID: 0}
   forceJump: 3
   multiplier: 1
   realSpeed: 0
@@ -893,6 +880,8 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
+  flameThower: {fileID: 0}
+  sawStun: {fileID: 0}
   a: 0
   targetPos: {x: 0, y: 0}
   isLevingCave: 0
@@ -1383,6 +1372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4946940804095964}
   - component: {fileID: 212997807068516231}
+  - component: {fileID: 4493423085613024372}
   m_Layer: 0
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -1459,6 +1449,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &4493423085613024372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909963973446080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1667125860864603}
 --- !u!1 &1937634799697948
 GameObject:
   m_ObjectHideFlags: 0

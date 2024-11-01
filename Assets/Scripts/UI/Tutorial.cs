@@ -9,7 +9,7 @@ public class Tutorial : MonoBehaviour
     public bool isFirstTimeClickButtonBuyBlock;
     public bool isFirstTimeClickButtonBuyWeapon;
     public bool isFirstTimeClickButtonUpgradeEnergy;
-                                                                                                                                                                                                                                                      
+
     public bool isFirstTimeClickBoosterBoom;
     public bool isFirstTimeClickBoosterSaw;
     public bool isFirstTimeClickBoosterFlame;
@@ -18,8 +18,8 @@ public class Tutorial : MonoBehaviour
     public bool isUnlockInventory;
     public bool isUnlockShop;
     public bool isUnlockWeapon;
-    public bool isUnlockBoss; 
-    
+    public bool isUnlockBoss;
+
     public bool isFirstTimeClickButtonInventory;
     public bool isFirstTimeClickButtonEquipInventory;
     public bool isFirstTimeClickButtonSellInventory;
@@ -93,15 +93,26 @@ public class Tutorial : MonoBehaviour
             isFirstTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDestroyTower;
             isSecondTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isSecondTimeDestroyTower;
             isFirstTimeDragBlock = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDragBlock;
+
+            isFirstTimeClickButtonInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonInventory;
+            isFirstTimeClickButtonEquipInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonEquipInventory;
+            isFirstTimeClickButtonSellInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonSellInventory;
+            isFirstTimeClickButtonUpgradeInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeInventory;
+            isFirstTimeClickButtonUpgradeLevelInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDestroyTower;
+            isFirstTimeClickButtonShop = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonShop;
+            isFirstTimeClickButtonRoll = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonRoll;
+            isFirstTimeClickButtonWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonWeapon;
+            isFirstTimeClickButtonBoss = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBoss;
+            isFirstTimeClickButtonPlayBoss = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonPlayBoss;
         }
-        if(isSecondTimeDestroyTower) UIHandler.instance.daily.daily.SetActive(true);
+        if (isSecondTimeDestroyTower) UIHandler.instance.daily.daily.SetActive(true);
     }
 
     public void CheckTutorialShopNWeaponNBoss()
     {
-        if(!isUnlockBoss) isUnlockBoss = true;
-        if(!isUnlockShop) isUnlockShop = true;
-        if(!isUnlockWeapon) isUnlockWeapon = true;
+        if (!isUnlockBoss) isUnlockBoss = true;
+        if (!isUnlockShop) isUnlockShop = true;
+        if (!isUnlockWeapon) isUnlockWeapon = true;
     }
 
     public TutorialDataStorage GetData()
@@ -109,7 +120,9 @@ public class Tutorial : MonoBehaviour
         return new TutorialDataStorage(isFirstTimePlay, isFirstTimeClickButtonBuyBlock, isFirstTimeClickButtonBuyWeapon
             , isFirstTimeClickButtonUpgradeEnergy, isFirstTimeClickUpgradeWeaponEvo, isFirstTimeClickBoosterBoom, isFirstTimeClickBoosterSaw
             , isFirstTimeClickBoosterFlame, isFirstTimeClickBoosterMachineGun, isFirstTimeDestroyTower, isSecondTimeDestroyTower, isFirstTimeDragBlock
-            , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss);
+            , isUnlockInventory, isUnlockShop, isUnlockWeapon, isUnlockBoss, isFirstTimeClickButtonInventory, isFirstTimeClickButtonEquipInventory
+            , isFirstTimeClickButtonSellInventory, isFirstTimeClickButtonUpgradeInventory, isFirstTimeClickButtonUpgradeLevelInventory
+            , isFirstTimeClickButtonShop, isFirstTimeClickButtonRoll, isFirstTimeClickButtonWeapon, isFirstTimeClickButtonBoss, isFirstTimeClickButtonPlayBoss);
     }
 
     public void TutorialButtonShop(bool isClick)
@@ -133,7 +146,7 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-    
+
     public void TutorialButtonBoss(bool isClick)
     {
         if (isFirstTimeClickButtonBoss || UIHandler.instance.menu.lockOptions[2].activeSelf)
@@ -155,15 +168,16 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-    
+
     public void TutorialButtonPlayBoss(bool isClick)
     {
         if (isFirstTimeClickButtonPlayBoss || !UIHandler.instance.menu.boss.activeSelf)
         {
+            TutorialDragBlock(false);
         }
         else
         {
-            if (isClick) 
+            if (isClick)
             {
                 EnableTutorial(false, scButtonPlayBoss);
                 isFirstTimeClickButtonPlayBoss = true;
@@ -175,8 +189,8 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-    
-    public void TutorialButtonRoll(bool isClick) 
+
+    public void TutorialButtonRoll(bool isClick)
     {
         if (isFirstTimeClickButtonRoll || !UIHandler.instance.menu.shop.activeSelf || !isClick && EquipmentController.instance.playerInventory.gem < 45)
         {
@@ -218,7 +232,7 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-    
+
     public void TutorialButtonEquipInventory(bool isClick)
     {
         if (isFirstTimeClickButtonEquipInventory || !UIHandler.instance.menu.inventory.activeSelf || !EquipmentController.instance.isHaveEquipBest)
@@ -240,7 +254,7 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-    
+
     public void TutorialButtonSellInventory(bool isClick)
     {
         if (isFirstTimeClickButtonSellInventory || !UIHandler.instance.menu.inventory.activeSelf || !EquipmentController.instance.isHaveDuplicates)
@@ -294,6 +308,7 @@ public class Tutorial : MonoBehaviour
             if (isClick)
             {
                 EnableTutorial(false, scButtonUpgradeLevelInventory);
+
                 isFirstTimeClickButtonUpgradeLevelInventory = true;
             }
             else
@@ -361,7 +376,7 @@ public class Tutorial : MonoBehaviour
         }
         int price = 0;
         scButtonUpgradeWeaponEvo = BlockController.instance.GetTutorialWeaponEvo(out price);
-        if (!isClick && PlayerController.instance.player.gold < price)
+        if (!isClick && PlayerController.instance.player.gold < price || scButtonUpgradeWeaponEvo == null)
         {
             TutorialButtonShop(false);
         }
@@ -383,7 +398,7 @@ public class Tutorial : MonoBehaviour
 
     public void TutorialButtonUpgradeEnergy(bool isClick)
     {
-        if(!scButtonUpgradeEnergy.hand.activeSelf && isClick)
+        if (!scButtonUpgradeEnergy.hand.activeSelf && isClick)
         {
             isFirstTimeClickButtonUpgradeEnergy = true;
             return;
@@ -391,7 +406,7 @@ public class Tutorial : MonoBehaviour
         int price = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(BlockController.instance.energyUpgradee.level) : DataManager.instance.energyConfig.startPrice;
         if (isFirstTimeClickButtonUpgradeEnergy || !isClick && PlayerController.instance.player.gold < price)
         {
-            TutorialDragBlock(false);
+            TutorialUpgradeWeaponEvo(false);
         }
         else
         {
@@ -412,7 +427,6 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeDragBlock || BlockController.instance.blocks.Count < 4)
         {
-            TutorialUpgradeWeaponEvo(false);
         }
         else
         {
@@ -424,8 +438,7 @@ public class Tutorial : MonoBehaviour
             else
             {
                 Vector2 pos = BlockController.instance.blocks[2].transform.position;
-                blockDragTutorial.transform.position = GameController.instance.cam.WorldToScreenPoint(pos);
-                TutorialUpgradeWeaponEvo(false);
+                blockDragTutorial.transform.position = pos;
                 blockDragTutorial.SetActive(true);
             }
         }
@@ -471,6 +484,7 @@ public class Tutorial : MonoBehaviour
 
     public void XUnmask()
     {
+        Debug.LogWarning("aaaaa");
         EnableTutorial(false, scSelected);
         if (scSelected == scButtonBuyBlock) isFirstTimeClickButtonBuyBlock = true;
         if (scSelected == scButtonBuyWeapon) isFirstTimeClickButtonBuyWeapon = true;

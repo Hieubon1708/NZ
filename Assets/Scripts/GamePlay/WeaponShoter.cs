@@ -28,8 +28,9 @@ public abstract class WeaponShoter : MonoBehaviour
 
     public virtual void Restart()
     {
-        ani.SetBool("startGame", false);
+        ani.Rebind();
         if (parent != null) parent.localRotation = Quaternion.identity;
+        if (rotate != null) StopCoroutine(rotate);
         target = null;
     }
 
@@ -50,14 +51,16 @@ public abstract class WeaponShoter : MonoBehaviour
                 if (esByDistance.Count != 0) target = esByDistance[Random.Range(0, esByDistance.Count)];
                 else isNearest = false;
             }
-            if (target.gameObject != EnemyTowerController.instance.GetTower().col)
+            if (target != EnemyTowerController.instance.GetTower().col.transform)
             {
                 targetDir = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform.position;
             }
         }
         targetDir = target.position;
         Vector2 direction = targetDir - (Vector2)parent.position;
-        targetRotation = Quaternion.Euler(0, 0, EUtils.GetAngle(direction));
+        float angle = EUtils.GetAngle(direction);
+        if(Vector2.Distance(transform.position, CarController.instance.transform.position) <= 1.5f) angle = Mathf.Clamp(angle, -7f, 180f);
+        targetRotation = Quaternion.Euler(0, 0, angle);
         rotate = StartCoroutine(Rotate());
     }
 

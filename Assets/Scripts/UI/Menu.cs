@@ -154,6 +154,10 @@ public class Menu : MonoBehaviour
     public void BoosActive(bool isActive)
     {
         boss.SetActive(isActive);
+        if(isActive)
+        {
+            UIHandler.instance.tutorial.TutorialButtonBoss(true);
+        }
     }
 
     public void ShopActive(bool isActive)

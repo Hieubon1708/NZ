@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765072076989993}
   - component: {fileID: 212341831688869971}
+  - component: {fileID: 5839788618540757976}
   m_Layer: 18
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -84,6 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &5839788618540757976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007796751515482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1748248514519542}
 --- !u!1 &1007896112070283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5120,6 +5134,8 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
+  flameThower: {fileID: 0}
+  sawStun: {fileID: 0}
   a: 0
   body: {fileID: 1612306808775884}
 --- !u!114 &597415628563155913
@@ -5379,7 +5395,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4906910912156687}
   - component: {fileID: 212832598922025753}
-  - component: {fileID: 6464308766555646545}
   m_Layer: 18
   m_Name: Head
   m_TagString: Untagged
@@ -5454,19 +5469,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &6464308766555646545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821477983111464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1748248514519542}
 --- !u!1 &1853282645668035
 GameObject:
   m_ObjectHideFlags: 0

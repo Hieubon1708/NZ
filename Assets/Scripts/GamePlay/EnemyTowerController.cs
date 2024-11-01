@@ -97,8 +97,8 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < listRandomEs.Count; i++)
         {
             EnemyHandler eSc = GetScE(listRandomEs[i]);
-            eSc.content.SetActive(false);
             listRandomEs[i].SetActive(false);
+            eSc.content.SetActive(false);
             eSc.Restart();
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
@@ -453,13 +453,13 @@ public class EnemyTowerController : MonoBehaviour
             UIHandler.instance.SetActiveProgressNGem(false);
             UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
             UIHandler.instance.menu.CheckDisplayButtonPage();
-            /*BlockController.instance.SellAllBlocks();
-            BlockController.instance.blocks.Clear();*/
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);
             BlockController.instance.DisableWeapons();
             PlayerController.instance.DisableWeapons();
             Booster.instance.KillEnergyNBoosterButton();
             GameController.instance.isLose = true;
+            BlockController.instance.SellAllBlocks();
+            BlockController.instance.blocks.Clear();
             DOVirtual.DelayedCall(2f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();

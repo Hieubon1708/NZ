@@ -142,7 +142,8 @@ public class GameController : MonoBehaviour
             {
                 ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
                 EnemyHandler sc = EnemyTowerController.instance.GetScE(listEVisible[i]);
-                sc.damage.ShowDamage(sc.enemyInfo.hp.ToString(), sc.hitObj, false);
+                sc.damage.ShowDamage(sc.enemyInfo.hp, sc.hitObj, false);
+                UIHandler.instance.FlyGold(sc.enemyInfo.transform.position, 2);
             }
         }
         EnemyTowerController.instance.DisableEs();
@@ -311,14 +312,15 @@ public class GameController : MonoBehaviour
         EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
         WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.GetSAWEVOS(), UpgradeEvolutionController.instance.GetFLAMEVOS(), UpgradeEvolutionController.instance.GetMACHINEGUNEVOS(), UpgradeEvolutionController.instance.GetSHOCKEREVOS());
         ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
-        TutorialDataStorage tutorialDataStorage = new TutorialDataStorage();
+
+        TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
         DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
 
         DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive
             , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewardHighest
             , UIHandler.instance.progressHandler.progresses.ToArray(), dailyDataStorage, tutorialDataStorage
             , playerDataStorage, blockDataStorages, energyDataStorage, chanceDataStorage, weaponEvolutionDataStorge);
-
+         
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");
         File.WriteAllText(path, dataStorageJs);
