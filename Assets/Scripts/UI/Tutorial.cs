@@ -69,6 +69,8 @@ public class Tutorial : MonoBehaviour
 
     public TutorialOject scSelected;
 
+    public ScrollRect scrollBoss;
+
     public void LoadData()
     {
         if (DataManager.instance.dataStorage.tutorialDataStorage != null)
@@ -179,11 +181,13 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
+                scrollBoss.vertical = true;
                 EnableTutorial(false, scButtonPlayBoss);
                 isFirstTimeClickButtonPlayBoss = true;
             }
             else
             {
+                scrollBoss.vertical = false;
                 scSelected = scButtonPlayBoss;
                 EnableTutorial(true, scButtonPlayBoss);
             }
@@ -484,7 +488,6 @@ public class Tutorial : MonoBehaviour
 
     public void XUnmask()
     {
-        Debug.LogWarning("aaaaa");
         EnableTutorial(false, scSelected);
         if (scSelected == scButtonBuyBlock) isFirstTimeClickButtonBuyBlock = true;
         if (scSelected == scButtonBuyWeapon) isFirstTimeClickButtonBuyWeapon = true;

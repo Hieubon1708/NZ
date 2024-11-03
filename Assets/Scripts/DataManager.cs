@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
 
     public DataStorage dataStorage;
     public BlockConfig blockConfig;
+    public BossConfig bossConfig;
     public EnergyConfig energyConfig;
     public ChanceConfig chanceConfig;
     public RewardConfig[] rewardConfigs;
@@ -81,8 +82,10 @@ public class DataManager : MonoBehaviour
         TextAsset equipmentConfigJs = Resources.Load<TextAsset>("Datas/EquipmentConfig");
         TextAsset rewardConfigJs = Resources.Load<TextAsset>("Datas/RewardConfig");
         TextAsset dailyConfigJs = Resources.Load<TextAsset>("Datas/DailyConfig");
+        TextAsset bossConfigJs = Resources.Load<TextAsset>("Datas/BossConfig");
 
         blockConfig = JsonConvert.DeserializeObject<BlockConfig>(blockConfigJs.text);
+        bossConfig = JsonConvert.DeserializeObject<BossConfig>(bossConfigJs.text);
         energyConfig = JsonConvert.DeserializeObject<EnergyConfig>(energyConfigJs.text);
         chanceConfig = JsonConvert.DeserializeObject<ChanceConfig>(chanceConfigJs.text);
         equipmentConfig = JsonConvert.DeserializeObject<EquipmentConfig>(equipmentConfigJs.text);
@@ -229,6 +232,17 @@ public class BlockConfig
     public int startPrice;
     public int[] hpUpgrades;
     public int[] priceUpgrades;
+    public WEAPON[][] weaponTypes;
+}
+
+[System.Serializable]
+public class BossConfig
+{
+    public string[] title;
+    public string[] titleInPanel;
+    public int[] damage;
+    public int[] key;
+    public int[] targetProgress;
 }
 
 [System.Serializable]
@@ -411,6 +425,34 @@ public class ProgressConfig
     public int[] towerRewards;
 }
 
+
+[System.Serializable]
+public class BossDataStorage
+{
+    public int level;
+    public int gold;
+    public int levelEnergy;
+    public DateTime lastRewardTime;
+    public int goldRewardHighest;
+    public int progress;
+    public BlockDataStorage[] blockDataStorage;
+    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
+
+    public BossDataStorage(int level, int gold, int levelEnergy, DateTime lastRewardTime
+        , int goldRewardHighest, int progress, BlockDataStorage[] blockDataStorage
+        , WeaponEvolutionDataStorge weaponEvolutionDataStorge)
+    {
+        this.level = level;
+        this.gold = gold;
+        this.levelEnergy = levelEnergy;
+        this.lastRewardTime = lastRewardTime;
+        this.goldRewardHighest = goldRewardHighest;
+        this.progress = progress;
+        this.blockDataStorage = blockDataStorage;
+        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
+    }
+}
+
 [System.Serializable]
 public class DataStorage
 {
@@ -430,10 +472,11 @@ public class DataStorage
     public EnergyDataStorage energyDataStorage;
     public ChanceDataStorage chanceDataStorage;
     public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
+    public BossDataStorage bossDataStorage;
 
     public DataStorage() { }
 
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, DateTime lastRewardTime, int goldRewardHighest, int[] progresses, DailyDataStorage dailyDataStorage, TutorialDataStorage tutorialDataStorage, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, ChanceDataStorage chanceDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, DateTime lastRewardTime, int goldRewardHighest, int[] progresses, DailyDataStorage dailyDataStorage, TutorialDataStorage tutorialDataStorage, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, ChanceDataStorage chanceDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, BossDataStorage bossDataStorage)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
@@ -448,6 +491,7 @@ public class DataStorage
         this.energyDataStorage = energyDataStorage;
         this.chanceDataStorage = chanceDataStorage;
         this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
+        this.bossDataStorage = bossDataStorage;
     }
 }
 

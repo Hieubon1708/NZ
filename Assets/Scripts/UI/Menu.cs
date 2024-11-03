@@ -25,11 +25,11 @@ public class Menu : MonoBehaviour
     Sprite nOk;
 
     public GameObject battle;
+    public GameObject battleGameplay;
     public GameObject inventory;
     public GameObject shop;
     public GameObject boss;
     public GameObject weapon;
-    public GameObject battleGamePlay;
     public GameObject battleWorld;
 
     public SpriteAtlas spriteAtlas;
@@ -43,6 +43,13 @@ public class Menu : MonoBehaviour
     public void CheckDisplayButtonPage()
     {
         LoadData();
+    }
+
+    public void CheckNotifAll()
+    {
+        EquipmentController.instance.CheckNotif();
+        UIHandler.instance.summonEquipment.CheckNotif();
+        UIBoss.instance.CheckNotif();
     }
 
     public void LoadData()
@@ -93,11 +100,9 @@ public class Menu : MonoBehaviour
             float screen = 1080 + (1080 - 1080 * ((float)1920 / Screen.height));
             minSizeX = (screen - bigSizeX) / (options.Length - 1);
         }
-
-        ScaleOption(2, 0f);
     }
 
-    void ScaleOption(int index, float duration)
+    public void ScaleOption(int index, float duration)
     {
         if (isChangingOptions) return;
 
@@ -132,7 +137,7 @@ public class Menu : MonoBehaviour
     public void BattleActive(bool isActive)
     {
         battle.SetActive(isActive);
-        battleGamePlay.SetActive(isActive);
+        battleGameplay.SetActive(isActive);
         battleWorld.SetActive(isActive);
     }
 

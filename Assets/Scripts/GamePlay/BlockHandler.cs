@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class BlockHandler : MonoBehaviour
@@ -8,6 +8,7 @@ public class BlockHandler : MonoBehaviour
     public HealthHandler healthHandler;
     public SpriteRenderer[] fullBlocks;
     public HitEffect hitEffect;
+    Coroutine bossTrigger;
 
     public void SetTotalHp()
     {
@@ -22,6 +23,14 @@ public class BlockHandler : MonoBehaviour
     public void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison--;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Boss"))
+        {
+            if (bossTrigger != null) StopCoroutine(bossTrigger);
+        }
     }
 
     public void SubtractHp(int subtractHp)
@@ -45,6 +54,19 @@ public class BlockHandler : MonoBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             SubtractHp(int.Parse(collision.gameObject.name));
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            bossTrigger = StartCoroutine(BossTriggerHandle(DataManager.instance.bossConfig.damage[UIBoss.instance.level]));
+        }
+    }
+
+    IEnumerator BossTriggerHandle(int subtractHp)
+    {
+        while (blockInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeBossDamage);
         }
     }
 

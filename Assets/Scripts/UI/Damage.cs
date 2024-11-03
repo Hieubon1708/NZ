@@ -64,6 +64,6 @@ public class Damage : MonoBehaviour
 
     private void OnDestroy()
     {
-        //textDamage.DOKill();
+        textDamage.DOKill();
     }
 }

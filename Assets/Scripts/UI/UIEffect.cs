@@ -48,9 +48,11 @@ public class UIEffect : MonoBehaviour
         delayGoldUpdate = DOVirtual.DelayedCall(1.5f, delegate
         {
             UIHandler.instance.GoldUpdatee();
-            BlockController.instance.CheckButtonStateAll();
-            UIHandler.instance.progressHandler.ShowReward();
-            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
+            if (!GameController.instance.isPLayBoss)
+            {
+                UIHandler.instance.progressHandler.ShowReward();
+                UIHandler.instance.tutorial.TutorialButtonInventory(false);
+            }
         });
     }
 

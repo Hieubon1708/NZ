@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public int level;
 
     public bool isLose;
+    public bool isPLayBoss;
 
     public List<GameObject> listEnemies;
     public List<GameObject> listEVisible = new List<GameObject>();
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
     public float timeShockerDamage;
     public float timeFlameDamage;
     public float timeFlameBurningDamage;
+    public float timeBossDamage;
     public float backgroundSpeed;
 
     public GameObject menuCamera;
@@ -39,6 +41,9 @@ public class GameController : MonoBehaviour
     public GameObject touchScreen;
     public GameObject colDisplay;
     public GameObject menu;
+
+    public GameObject boss;
+    public GameObject main;
 
     public bool isStart;
     public Camera cam;
@@ -61,9 +66,12 @@ public class GameController : MonoBehaviour
 
     public void MapGenerate(int index)
     {
-        if(EnemyTowerController.instance != null) Destroy(EnemyTowerController.instance.gameObject);
-        Restart();
-        Instantiate(Resources.Load(Path.Combine("Levels", index.ToString())), new Vector2(0, 0.85f), Quaternion.identity, transform);
+        if (EnemyTowerController.instance != null)
+        {
+            Destroy(EnemyTowerController.instance.gameObject);
+            Restart();
+        }
+        main = (GameObject)Instantiate(Resources.Load(Path.Combine("Levels", index.ToString())), new Vector2(0, 0.85f), Quaternion.identity, transform);
         ChangeBlockSprites(level);
         ChangeCarSprites(level);
     }
@@ -94,16 +102,19 @@ public class GameController : MonoBehaviour
     {
         LoadData();
         MapGenerate(level + 1);
-
+        boss = (GameObject)Instantiate(Resources.Load(Path.Combine("BossLevels", DataManager.instance.dataStorage.bossDataStorage != null ? (DataManager.instance.dataStorage.bossDataStorage.level + 1).ToString() : "1")), new Vector2(0, 0.85f), Quaternion.identity, transform);
+        UIBoss.instance.bossHandler = boss.GetComponentInChildren<BossHandler>();
+        boss.SetActive(false);
         EquipmentController.instance.LoadData();
         PlayerController.instance.LoadData();
         UIHandler.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
+        UIBoss.instance.LoadData();
 
-       /* Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
-        Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
-*/
+        /* Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
+         Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
+ */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
             StartGame();
@@ -168,7 +179,7 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Restart();
+            PlayerController.instance.StartGame();
         }
     }
 
@@ -201,7 +212,11 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SetValue(false);
-        if(EnemyTowerController.instance != null) EnemyTowerController.instance.Restart();
+        if (!isPLayBoss) EnemyTowerController.instance.Restart();
+        else
+        {
+            UIBoss.instance.bossHandler.Restart();
+        }
         UIHandler.instance.Restart();
         PlayerController.instance.Restart();
         BlockController.instance.Restart();
@@ -231,21 +246,22 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        EnemyTowerController.instance.NextTower();
+        if (!isPLayBoss) EnemyTowerController.instance.NextTower();
         SetValue(true);
         BlockController.instance.StartGame();
         Booster.instance.StartGame();
         UIHandler.instance.StartGame();
-        PlayerController.instance.StartGame();
+        if (!isPLayBoss) PlayerController.instance.StartGame();
     }
 
     void SetValue(bool isActive)
     {
         menuCamera.SetActive(!isActive);
         gameCamera.SetActive(isActive);
-        touchScreen.SetActive(isActive);
+        if (!isPLayBoss || !isActive) touchScreen.SetActive(isActive);
+        else UIBoss.instance.ActiveButtonBack(!isActive);
         buttonStart.SetActive(!isActive);
-        menu.SetActive(!isActive);
+        if (!isPLayBoss) menu.SetActive(!isActive);
         isStart = isActive;
         Booster.instance.SetActiveBooster(isActive);
         BlockUpgradeController.instance.recyleClose.SetActive(!isActive);
@@ -279,25 +295,8 @@ public class GameController : MonoBehaviour
 
     public void OnDestroy()
     {
-        BlockDataStorage[] blockDataStorages = new BlockDataStorage[BlockController.instance.blocks.Count];
-
-        for (int i = 0; i < BlockController.instance.blocks.Count; i++)
-        {
-            Block scBlock = BlockController.instance.blocks[i].GetComponent<Block>();
-
-            int blockLevel = scBlock.level;
-            int blockGold = scBlock.sellingPrice;
-
-            WEAPON weaponType = WEAPON.NONE;
-
-            if (scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) weaponType = scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType;
-
-            int weaponLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.level;
-            int weaponUpgradeLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.levelUpgrade;
-
-            WeaponDataStorage weaponDataStorage = new WeaponDataStorage(weaponType, weaponLevel, weaponUpgradeLevel);
-            blockDataStorages[i] = new BlockDataStorage(blockLevel, blockGold, weaponDataStorage);
-        }
+        if (!isPLayBoss) BlockController.instance.SaveData();
+        else UIBoss.instance.SaveData();
 
         EquipmentDataStorage[] equipmentConfigs = new EquipmentDataStorage[EquipmentController.instance.amoutEquip];
 
@@ -308,19 +307,20 @@ public class GameController : MonoBehaviour
 
         DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
         EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
-        playerDataStorage playerDataStorage = new playerDataStorage(PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
-        EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
-        WeaponEvolutionDataStorge weaponEvolutionDataStorge = new WeaponEvolutionDataStorge(UpgradeEvolutionController.instance.GetSAWEVOS(), UpgradeEvolutionController.instance.GetFLAMEVOS(), UpgradeEvolutionController.instance.GetMACHINEGUNEVOS(), UpgradeEvolutionController.instance.GetSHOCKEREVOS());
-        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(0, 0);
+        playerDataStorage playerDataStorage = new playerDataStorage(DataManager.instance.dataStorage.playerDataStorage != null ? DataManager.instance.dataStorage.playerDataStorage.gold : PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
+        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.level, UIHandler.instance.summonEquipment.amout);
 
         TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
         DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
+        BossDataStorage bossDataStorage = UIBoss.instance.GetData();
 
         DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive
-            , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewardHighest
+            , DataManager.instance.dataStorage.lastRewardTime, DataManager.instance.dataStorage.goldRewardHighest
             , UIHandler.instance.progressHandler.progresses.ToArray(), dailyDataStorage, tutorialDataStorage
-            , playerDataStorage, blockDataStorages, energyDataStorage, chanceDataStorage, weaponEvolutionDataStorge);
-         
+            , playerDataStorage, DataManager.instance.dataStorage.blockDataStorage, DataManager.instance.dataStorage.energyDataStorage
+            , chanceDataStorage, DataManager.instance.dataStorage.weaponEvolutionDataStorge
+            , bossDataStorage);
+
         string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
         string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");
         File.WriteAllText(path, dataStorageJs);

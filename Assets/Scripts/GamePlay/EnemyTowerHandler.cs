@@ -26,13 +26,13 @@ public class EnemyTowerHandler : MonoBehaviour
         int subtractHp = 0;
         if (collision.CompareTag("Bullet"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
         if (collision.CompareTag("MachineGun"))
         {
-            subtractHp = int.Parse(collision.gameObject.name);
+            subtractHp = int.Parse(collision.name);
             collision.gameObject.SetActive(false);
             SubtractHp(subtractHp);
         }
@@ -48,7 +48,7 @@ public class EnemyTowerHandler : MonoBehaviour
         }
         if (collision.CompareTag("Flame"))
         {
-            subtractHp = int.Parse(collision.gameObject.name.Substring(0, collision.name.Length - 1));
+            subtractHp = int.Parse(collision.name.Substring(0, collision.name.Length - 1));
             flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
         damageTaken += subtractHp;

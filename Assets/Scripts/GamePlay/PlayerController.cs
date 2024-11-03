@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
             target = GameController.instance.GetENearest(transform.position);
         }
-        target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
+        if(target.CompareTag("Enemy")) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         isFindingTarget = true;
         ShotAni();
     }
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             target = GameController.instance.GetENearest(transform.position);
-            if (target != GameController.instance.defaultDir) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
+            if (target.CompareTag("Enemy")) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         }
         //Debug.DrawLine(transform.position, target.position, Color.red, 1);
         isFindingTarget = true;

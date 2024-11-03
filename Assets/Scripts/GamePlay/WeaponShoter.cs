@@ -51,7 +51,7 @@ public abstract class WeaponShoter : MonoBehaviour
                 if (esByDistance.Count != 0) target = esByDistance[Random.Range(0, esByDistance.Count)];
                 else isNearest = false;
             }
-            if (target != EnemyTowerController.instance.GetTower().col.transform)
+            if (target.CompareTag("Enemy"))
             {
                 targetDir = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform.position;
             }

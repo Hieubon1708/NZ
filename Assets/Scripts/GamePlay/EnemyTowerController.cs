@@ -51,7 +51,7 @@ public class EnemyTowerController : MonoBehaviour
     {
         milestone = amoutLimit;
         eSpawnByTimes = new Coroutine[enemySpawnByTimes.Length];
-        BlockController.instance.LoadWeaponBuyButtonInCurrentLevel();
+        BlockController.instance.LoadWeaponBuyButtonInCurrentLevel(GameController.instance.level);
     }
 
     void AssignSpanwX()
@@ -445,11 +445,12 @@ public class EnemyTowerController : MonoBehaviour
 
     public void NextTower()
     {
-        if (indexTower == towers.Length - 1)
+        if (indexTower == towers.Length)
         {
             DisableEs();
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
+            GameController.instance.isStart = false;
             UIHandler.instance.SetActiveProgressNGem(false);
             UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
             UIHandler.instance.menu.CheckDisplayButtonPage();
@@ -460,6 +461,8 @@ public class EnemyTowerController : MonoBehaviour
             GameController.instance.isLose = true;
             BlockController.instance.SellAllBlocks();
             BlockController.instance.blocks.Clear();
+            UIHandler.instance.menu.CheckNotifAll();
+            UIHandler.instance.progressHandler.Restart();
             DOVirtual.DelayedCall(2f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();
@@ -467,12 +470,12 @@ public class EnemyTowerController : MonoBehaviour
         }
         else
         {
-            indexTower++;
             CarController.instance.multiplier = 1;
             AssignSpanwX();
             RandomEs();
             SetPosition();
             EnableEs();
+            indexTower++;
         }
     }
 }

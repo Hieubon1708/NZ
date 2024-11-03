@@ -7,5 +7,7 @@ public class TowerVisible : MonoBehaviour
     public void OnBecameVisible()
     {
         enemyTowerHandler.isVisible = true;
+        enemyTowerHandler.enemyController.col.SetActive(false);
+        enemyTowerHandler.enemyController.col.SetActive(true);
     }
 }

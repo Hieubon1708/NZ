@@ -150,7 +150,7 @@ public class BlockController : MonoBehaviour
         {
             Block scBlock = GetScBlock(blocks[i]);
             scBlock.blockUpgradeHandler.canvas.SetActive(isActive);
-            if (!isActive) scBlock.blockUpgradeHandler.weaponUpgradeHandler.StartGame();
+            if (!isActive && !GameController.instance.isPLayBoss) scBlock.blockUpgradeHandler.weaponUpgradeHandler.StartGame();
         }
         energyUpgradee.gameObject.SetActive(isActive);
         blockBuyer.gameObject.SetActive(isActive);
@@ -263,6 +263,37 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    public BlockDataStorage[] GetBlocks()
+    {
+        BlockDataStorage[] blockDataStorages = new BlockDataStorage[blocks.Count];
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block scBlock = GetScBlock(blocks[i]);
+            int blockLevel = scBlock.level;
+            int blockGold = scBlock.sellingPrice;
+
+            WEAPON weaponType = WEAPON.NONE;
+
+            if (scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) weaponType = scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.weaponType;
+
+            int weaponLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.level;
+            int weaponUpgradeLevel = scBlock.blockUpgradeHandler.weaponUpgradeHandler.levelUpgrade;
+
+            WeaponDataStorage weaponDataStorage = new WeaponDataStorage(weaponType, weaponLevel, weaponUpgradeLevel);
+            blockDataStorages[i] = new BlockDataStorage(blockLevel, blockGold, weaponDataStorage);
+        }
+        return blockDataStorages;
+    }
+
+    public void SaveData()
+    {
+        DataManager.instance.dataStorage.blockDataStorage = GetBlocks();
+        DataManager.instance.dataStorage.energyDataStorage.level = energyUpgradee.level;
+        DataManager.instance.dataStorage.playerDataStorage.gold = PlayerController.instance.player.gold;
+        DataManager.instance.dataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
+        DataManager.instance.dataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
+    }
+
     public void DeleteBlockInGame(GameObject block)
     {
         Block scBlock = GetScBlock(block);
@@ -276,9 +307,22 @@ public class BlockController : MonoBehaviour
         }
         for (int i = 0; i < tempBlocks.Count; i++)
         {
+            tempBlocks[i].transform.DOComplete();
             tempBlocks[i].transform.DOLocalMoveY(startY + distance * i, 0.25f).SetEase(Ease.Linear);
         }
         player.transform.DOLocalMoveY(startYPlayer + distance * tempBlocks.Count, 0.25f).SetEase(Ease.Linear).OnComplete(delegate { block.SetActive(false); });
+    }
+
+    public void ClearBlocks()
+    {
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            Block sc = GetScBlock(blocks[i]);
+            sc.blockUpgradeHandler.ResetData();
+            blockPools.Add(blocks[i]);
+            blocks[i].SetActive(false);
+        }
+        blocks.Clear();
     }
 
     public Block GetScBlock(GameObject block)
@@ -306,11 +350,11 @@ public class BlockController : MonoBehaviour
         }
     }
 
-    public void LoadWeaponBuyButtonInCurrentLevel()
+    public void LoadWeaponBuyButtonInCurrentLevel(int level)
     {
         for (int i = 0; i < scBlocks.Count; i++)
         {
-            scBlocks[i].blockUpgradeHandler.LoadWeaponBuyButtonInCurrentLevel();
+            scBlocks[i].blockUpgradeHandler.LoadWeaponBuyButtonInCurrentLevel(level);
         }
     }
 
@@ -318,7 +362,7 @@ public class BlockController : MonoBehaviour
     {
         for (int i = 0; i < blocks.Count; i++)
         {
-            if(scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
+            if (scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
         }
     }
 }

@@ -72,7 +72,7 @@ public class SummonEquipment : MonoBehaviour
         CheckNotif();
     }
 
-    void CheckNotif()
+    public void CheckNotif()
     {
         if (EquipmentController.instance.playerInventory.gem >= 5 || EquipmentController.instance.playerInventory.gem >= 45) UIHandler.instance.menu.notifOptions[1].SetActive(true);
         else UIHandler.instance.menu.notifOptions[1].SetActive(false);
@@ -88,7 +88,7 @@ public class SummonEquipment : MonoBehaviour
     {
         UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 0f, 0f, 0.8f, 0f);
         panelRoll.gameObject.SetActive(false);
-        UIHandler.instance.tutorial.TutorialButtonBoss(false);
+        UIHandler.instance.tutorial.TutorialButtonRoll(false);
     }
 
     void ActiveEquipsFrame(bool isActive)
@@ -97,6 +97,14 @@ public class SummonEquipment : MonoBehaviour
         for (int i = 0; i < equipmentInfosX10.Length; i++)
         {
             equipmentInfosX10[i].gameObject.SetActive(isActive);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            RollX10();
         }
     }
 
@@ -134,6 +142,7 @@ public class SummonEquipment : MonoBehaviour
     {
         EquipmentController.instance.playerInventory.gem += 10;
         UpdateText();
+        CheckButtonState();
     }
 
     public void CheckButtonState()
@@ -142,7 +151,7 @@ public class SummonEquipment : MonoBehaviour
         else ButtonStateX1Handle(true, framePriceX1Original, textFrameOriginal);
         if (EquipmentController.instance.playerInventory.gem < 45) ButtonStateX10Handle(false, notEnoughMoney, Color.white);
         else ButtonStateX10Handle(true, framePriceX1Original, textFrameOriginal);
-        CheckNotif();
+        UIHandler.instance.menu.CheckNotifAll();
     }
 
     void ChanceSort(int level)

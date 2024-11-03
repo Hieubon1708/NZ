@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerHandler : MonoBehaviour
     public GameObject boxCollider;
     public SpriteRenderer[] fullBodies;
     public HitEffect hitEffect;
+    Coroutine bossTrigger;
 
     public void LoadData()
     {
@@ -24,6 +26,11 @@ public class PlayerHandler : MonoBehaviour
 
         if (hp == 0)
         {
+            GameController.instance.isStart = false;
+            if (GameController.instance.isPLayBoss)
+            {
+                UIBoss.instance.bossHandler.End();
+            }
             GameController.instance.EndGame();
             Booster.instance.KillEnergyNBoosterButton();
             PlayerController.instance.DeathAni();
@@ -42,6 +49,14 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Boss"))
+        {
+            if (bossTrigger != null) StopCoroutine(bossTrigger);
+        }
+    }
+
     public void Resart()
     {
         healthHandler.SetDefaultInfo(ref playerInfo.hp);
@@ -54,6 +69,19 @@ public class PlayerHandler : MonoBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             SubtractHp(int.Parse(collision.gameObject.name));
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            bossTrigger = StartCoroutine(BossTriggerHandle(DataManager.instance.bossConfig.damage[UIBoss.instance.level]));
+        }
+    }
+
+    IEnumerator BossTriggerHandle(int subtractHp)
+    {
+        while (playerInfo.hp > 0)
+        {
+            SubtractHp(subtractHp);
+            yield return new WaitForSeconds(GameController.instance.timeBossDamage);
         }
     }
 }

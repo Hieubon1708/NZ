@@ -38,9 +38,9 @@ public class BlockUpgradeHandler : ButtonUpgradee
         BuyWeapon(weaponType, weaponLevel);
     }
 
-    public void LoadWeaponBuyButtonInCurrentLevel()
+    public void LoadWeaponBuyButtonInCurrentLevel(int level)
     {
-        WEAPON[] weaponUseds = EnemyTowerController.instance.weaponUseds;
+        WEAPON[] weaponUseds = DataManager.instance.blockConfig.weaponTypes[level];
         for (int i = 0; i < weaponBuyButtons.Length; i++)
         {
             weaponBuyButtons[i].gameObject.SetActive(false);

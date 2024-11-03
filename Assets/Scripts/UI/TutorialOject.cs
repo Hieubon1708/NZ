@@ -8,7 +8,7 @@ public class TutorialOject : MonoBehaviour
 {
     public string targetbuttonImageName;
     public string targetOtherImageName;
-    Sprite targetButtonImage;
+    public Sprite targetButtonImage;
     public RectTransform targetButton;
     public RectTransform targetHand;
     public GameObject hand;

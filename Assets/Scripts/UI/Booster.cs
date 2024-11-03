@@ -35,9 +35,15 @@ public class Booster : MonoBehaviour
         {
             weaponBoosters[i].UpdateTextEnergy();
         }
+
+        sawBooster.SetActive(false);
+        flameBooster.SetActive(false);
+        machineGunBooster.SetActive(false);
+        shockerBooster.SetActive(false);
+
         EnableBooster();
         CheckBoosterState();
-        DoFill();
+        if (!GameController.instance.isPLayBoss) DoFill();
     }
 
     public void KillEnergyNBoosterButton()
@@ -62,7 +68,7 @@ public class Booster : MonoBehaviour
         }
     }
 
-    void DoFill()
+    public void DoFill()
     {
         float time = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetSecondsUpgradeEnergyConfig(DataManager.instance.dataStorage.energyDataStorage.level) : DataManager.instance.energyConfig.startSeconds;
         energyBar.DOFillAmount(1, 1 / time).SetEase(Ease.Linear).OnComplete(delegate
@@ -153,7 +159,7 @@ public class Booster : MonoBehaviour
             }
         }
     }
-    
+
     public void DecreaseEnergyShocker(int level)
     {
         if (UpgradeEvolutionController.instance.IsShockerContains(SHOCKEREVO.DECREASEENERGY, level))

@@ -19,7 +19,7 @@ public class MachineGunBulletHandler : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
-    { 
+    {
         if (collision.CompareTag("Enemy"))
         {
             if (UpgradeEvolutionController.instance.IsMachineGunContains(UpgradeEvolutionController.MACHINEGUNEVO.PUSHESENEMIES, level))
@@ -44,11 +44,6 @@ public class MachineGunBulletHandler : MonoBehaviour
                 if (random <= percentage)
                 {
                     EnemyHandler eSc = EnemyTowerController.instance.GetScE(collision.attachedRigidbody.gameObject);
-                    if(eSc == null)
-                    {
-                        Debug.LogWarning(collision.attachedRigidbody.gameObject.name);
-
-                    }
                     eSc.StartBumpByWeapon();
                     if (endBump != null && endBump.IsActive()) endBump.Kill();
                     endBump = DOVirtual.DelayedCall(0.125f, delegate
@@ -58,14 +53,21 @@ public class MachineGunBulletHandler : MonoBehaviour
                 }
             }
         }
-        if (collision.CompareTag("Road_" + indexRoadCollider) || collision.CompareTag("Tower"))
+        if (collision.CompareTag("Road_" + indexRoadCollider))
         {
-            gameObject.SetActive(false);
             if (!isGunBooster) ParController.instance.PlayRoadBulletHoleParticle(transform.position);
-            else ParController.instance.PlayGunHitOnRoadParticle(transform.position);
+            else
+            {
+                ParController.instance.PlayGunHitOnRoadParticle(transform.position);
+                colBooster.enabled = true;
+            }
         }
 
-        if (colBooster != null && (collision.CompareTag("Enemy") || collision.CompareTag("Tower"))) colBooster.enabled = true;
+        if (isGunBooster && (collision.CompareTag("Enemy") || collision.CompareTag("Tower")))
+        {
+            ParController.instance.PlayGunHitOnEnemyParticle(transform.position);
+            colBooster.enabled = true;
+        }
     }
 
     private void OnDisable()

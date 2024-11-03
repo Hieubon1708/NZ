@@ -25,6 +25,7 @@ public class UIHandler : MonoBehaviour
     public DateTime lastRewardTime;
     public Image frameRewardGold;
     public TextMeshProUGUI mapInfo;
+    public TextMeshProUGUI mapInfoBot;
     public GameObject goldFlyPrefab;
     public GameObject[] goldFlies;
     public int amout;
@@ -32,6 +33,7 @@ public class UIHandler : MonoBehaviour
     int curentCountFlyGold;
 
     public GameObject gold;
+    public GameObject goldStart;
     public GameObject gem;
     public GameObject adsReward;
     public TextMeshProUGUI textGold;
@@ -59,6 +61,7 @@ public class UIHandler : MonoBehaviour
     public Image layerCover;
 
     public SpriteAtlas spriteAtlas;
+    public Coroutine countdownRewardGold;
 
     public void Awake()
     {
@@ -116,6 +119,11 @@ public class UIHandler : MonoBehaviour
             yield return new WaitForSeconds(1);
             time--;
         }
+        ActiveButtonReward();
+    }
+
+    void ActiveButtonReward()
+    {
         textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
         frameRewardGold.raycastTarget = true;
         frameRewardGold.sprite = frameButtonRewardGold[0];
@@ -129,7 +137,7 @@ public class UIHandler : MonoBehaviour
 
     public void Restart()
     {
-        if (!daily.daily.activeSelf)
+        if (!daily.daily.activeSelf && !GameController.instance.isPLayBoss)
         {
             if (tutorial.isSecondTimeDestroyTower)
             {
@@ -138,6 +146,7 @@ public class UIHandler : MonoBehaviour
             }
         }
         textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
+        menu.CheckNotifAll();
     }
 
     public void DoLayerCover(float alpha, float duration, Action callback)
@@ -148,9 +157,16 @@ public class UIHandler : MonoBehaviour
         }).SetEase(Ease.Linear);
     }
 
-    public void LoadData()
+    public void UpdateTextMap()
     {
         if (GameController.instance.level == 0) mapInfo.text = "1. Forbidden Jungle";
+        else if (GameController.instance.level == 1) mapInfo.text = "2. stempunk bugs invasion";
+        mapInfoBot.text = "difficulty 1." + (GameController.instance.level + 1);
+    }
+
+    public void LoadData()
+    {
+        UpdateTextMap();
         GoldUpdatee();
         tutorial.LoadData();
         map.LoadData();
@@ -166,16 +182,22 @@ public class UIHandler : MonoBehaviour
             goldRewardHighest = DataManager.instance.dataStorage.goldRewardHighest;
             lastRewardTime = DataManager.instance.dataStorage.lastRewardTime;
         }
+        CheckRewardGold();
+        menu.ScaleOption(2, 0f);
+    }
 
+    public void CheckRewardGold()
+    {
         DateTime currentTime = DateTime.Now;
         TimeSpan timeSinceLastReward = currentTime - lastRewardTime;
+        if (countdownRewardGold != null) StopCoroutine(countdownRewardGold);
         if (timeSinceLastReward.TotalMinutes >= 5)
         {
-            textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
+            ActiveButtonReward();
         }
         else
         {
-            StartCoroutine(CountdownRewardGold(5 * 60 - (int)timeSinceLastReward.TotalSeconds));
+            countdownRewardGold = StartCoroutine(CountdownRewardGold(5 * 60 - (int)timeSinceLastReward.TotalSeconds));
         }
     }
 
@@ -200,9 +222,13 @@ public class UIHandler : MonoBehaviour
 
     public void SetValue(bool isActive)
     {
-        progressHandler.parent.SetActive(isActive);
-        mapInfo.transform.parent.gameObject.SetActive(!isActive);
+        if(!GameController.instance.isPLayBoss)
+        {
+            progressHandler.parent.SetActive(isActive);
+            mapInfo.transform.parent.gameObject.SetActive(!isActive);
+        }
         gold.SetActive(!isActive);
+        goldStart.SetActive(isActive);
     }
 
     public void FlyGold(Vector2 pos, int gold)
@@ -226,7 +252,7 @@ public class UIHandler : MonoBehaviour
         PlayerController.instance.player.gold += goldRewardHighest;
         GoldUpdatee();
         BlockController.instance.CheckButtonStateAll();
-        StartCoroutine(CountdownRewardGold(5 * 60));
+        countdownRewardGold = StartCoroutine(CountdownRewardGold(5 * 60));
         daily.CheckDaily(Daily.DailyType.WatchAds);
     }
 

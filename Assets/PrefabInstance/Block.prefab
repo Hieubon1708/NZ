@@ -4891,9 +4891,9 @@ MonoBehaviour:
   blockHandler: {fileID: 2957189971103572244}
   weaponBuyButtons:
   - {fileID: 5093503683493936208}
+  - {fileID: 5892755528148589941}
   - {fileID: 1411778025174414651}
   - {fileID: 7135567256935585298}
-  - {fileID: 5892755528148589941}
   spriteRenderer: {fileID: 212773638200962692}
   sortingGroup: {fileID: 6568284615067922207}
   textLv: {fileID: 293646685912890721}
@@ -17476,6 +17476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetbuttonImageName: Button_Weapon_buy_1
   targetOtherImageName: weapon_saw_lv1_2
+  targetButtonImage: {fileID: 0}
   targetButton: {fileID: 501256056561177213}
   targetHand: {fileID: 3414874275762524549}
   hand: {fileID: 7024316880503667741}
@@ -19764,6 +19765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetbuttonImageName: Button_Upgrade_WEAPON_1
   targetOtherImageName: 
+  targetButtonImage: {fileID: 0}
   targetButton: {fileID: 4923960574176172054}
   targetHand: {fileID: 593847648117725516}
   hand: {fileID: 9075475669450701092}

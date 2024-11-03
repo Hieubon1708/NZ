@@ -45,6 +45,14 @@ public class UpgradeEvolutionController : MonoBehaviour
         instance = this;
     }
 
+    public void SetData(WeaponEvolutionDataStorge weaponEvolutionDataStorge)
+    {
+        saws = weaponEvolutionDataStorge.sawEvos != null ? weaponEvolutionDataStorge.sawEvos.ToList() : new List<SAWEVO>();
+        shockers = weaponEvolutionDataStorge.shockerEvos != null ? weaponEvolutionDataStorge.shockerEvos.ToList() : new List<SHOCKEREVO>();
+        flames = weaponEvolutionDataStorge.flameEvos != null ? weaponEvolutionDataStorge.flameEvos.ToList() : new List<FLAMEEVO>();
+        machineGuns = weaponEvolutionDataStorge.machineGunEvos != null ? weaponEvolutionDataStorge.machineGunEvos.ToList() : new List<MACHINEGUNEVO>();
+    }
+
     public SAWEVO[] GetSAWEVOS()
     {
         if (isShowEvoSaw == true)

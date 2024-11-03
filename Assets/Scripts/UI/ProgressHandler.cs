@@ -118,7 +118,7 @@ public class ProgressHandler : MonoBehaviour
         {
             UIHandler.instance.tutorial.isUnlockInventory = true;
             UIHandler.instance.menu.CheckDisplayButtonPage();
-            EquipmentController.instance.CheckStateNofi();
+            UIHandler.instance.menu.CheckNotifAll();
         }
         if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1) ChestsInpopupActive(false);
         else ChestsInpopupActive(true);
@@ -237,10 +237,13 @@ public class ProgressHandler : MonoBehaviour
     {
         gold = 0;
         textGold.text = gold.ToString();
-        progress.fillAmount = 0;
-        Transform target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.towers.Length - 1].col.transform;
-        float distance = Mathf.Abs(PlayerController.instance.transform.position.x - target.position.x);
-        StartCoroutine(LaunchProgress(distance, target));
+        if (!GameController.instance.isPLayBoss)
+        {
+            progress.fillAmount = 0;
+            Transform target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.towers.Length - 1].col.transform;
+            float distance = Mathf.Abs(PlayerController.instance.transform.position.x - target.position.x);
+            StartCoroutine(LaunchProgress(distance, target));
+        }
     }
 
     IEnumerator LaunchProgress(float distance, Transform target)
