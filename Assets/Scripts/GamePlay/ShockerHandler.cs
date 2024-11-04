@@ -22,6 +22,7 @@ public class ShockerHandler : WeaponShoter
     public Transform container;
     public List<GameObject> listEs = new List<GameObject>();
     CircleCollider2D col;
+    ShockerBooster booster;
 
     public void Awake()
     {
@@ -39,6 +40,7 @@ public class ShockerHandler : WeaponShoter
     public void Start()
     {
         col = GetComponent<CircleCollider2D>();
+        booster = Booster.instance.weaponBoosters[4] as ShockerBooster;
     }
 
     public override void LoadData()
@@ -195,6 +197,8 @@ public class ShockerHandler : WeaponShoter
             });
             yield return new WaitForSeconds(0.2f);
         }
+        booster.isUseBooster = false;
+        booster.CheckBooterState();
     }
 
     public override void SetDamageBooster(int damage)

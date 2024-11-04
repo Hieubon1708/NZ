@@ -9,7 +9,7 @@ public class WeaponBooster : MonoBehaviour
     public Booster booster;
     public Image frame;
     public TextMeshProUGUI textEnergy;
-    bool isUseBooster;
+    public bool isUseBooster;
 
     public void UpdateTextEnergy()
     {
@@ -29,11 +29,6 @@ public class WeaponBooster : MonoBehaviour
         isUseBooster = true;
         frame.sprite = booster.frameDelay;
         frame.raycastTarget = false;
-        DOVirtual.DelayedCall(0.5f, delegate
-        {
-            isUseBooster = false;
-            CheckBooterState();
-        });
         booster.amoutEnergy -= energy;
         booster.CheckBoosterState();
         UseBooster();

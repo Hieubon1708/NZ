@@ -31,10 +31,16 @@ public class MachineGunHandler : WeaponShoter
     float attackDuration = 2;
     float startCooldown = 1;
     float startAttackDuration = 2;
+    MachineGunBooster booster;
 
     public void Awake()
     {
         Generate();
+    }
+
+    public void Start()
+    {
+        booster = Booster.instance.weaponBoosters[3] as MachineGunBooster;
     }
 
     public override void LoadData()
@@ -187,6 +193,8 @@ public class MachineGunHandler : WeaponShoter
 
     void EndBooster()
     {
+        booster.isUseBooster = false;
+        booster.CheckBooterState();
         endBooster = StartCoroutine(EndBoosterHandle());
     }
 

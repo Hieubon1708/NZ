@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 using static UpgradeEvolutionController;
@@ -18,6 +17,7 @@ public class FlameHandler : WeaponShoter
     public BoxCollider2D[] colEvos;
     public Vector2[] startColSizes;
     public float[] startSizes;
+    FlameBooster booster;
 
     Coroutine shot;
     EmissionModule esmission;
@@ -32,6 +32,7 @@ public class FlameHandler : WeaponShoter
     {
         esmission = flameSmokeParticle.emission;
         esmissionChild = flameSmokeParticleChild.emission;
+        booster = Booster.instance.weaponBoosters[2] as FlameBooster;
     }
 
     public override void LoadData()
@@ -136,6 +137,8 @@ public class FlameHandler : WeaponShoter
 
     void FadeOut()
     {
+        booster.isUseBooster = false;
+        booster.CheckBooterState();
         colBooster.SetActive(false);
         FlameThrover(0f, 0.35f);
     }

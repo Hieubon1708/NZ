@@ -19,6 +19,7 @@ public class SawHandler : WeaponShoter
     public Transform container;
     public List<GameObject> listEs = new List<GameObject>();
     CircleCollider2D col;
+    SawBooster booster;
 
     public void Awake()
     {
@@ -34,6 +35,7 @@ public class SawHandler : WeaponShoter
     public void Start()
     {
         col = GetComponent<CircleCollider2D>();
+        booster = Booster.instance.weaponBoosters[1] as SawBooster;
     }
 
     public override void LoadData()
@@ -193,6 +195,8 @@ public class SawHandler : WeaponShoter
             });
             yield return new WaitForSeconds(0.3f);
         }
+        booster.isUseBooster = false;
+        booster.CheckBooterState();
     }
 
     public override void SetDamageBooster(int damage)

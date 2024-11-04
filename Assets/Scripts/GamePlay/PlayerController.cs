@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform container;
     public CapsuleCollider2D col;
     public Transform target;
+    BoomBooster booster;
 
     int boomIndex;
     public int boomCount;
@@ -30,6 +32,11 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
         BoomGenerate();
+    }
+
+    public void Start()
+    {
+        booster = Booster.instance.weaponBoosters[0] as BoomBooster;
     }
 
     public void StartGame()
@@ -135,6 +142,11 @@ public class PlayerController : MonoBehaviour
         rb.AddTorque(0.15f, ForceMode2D.Impulse);
         boomIndex++;
         if (boomIndex == listBooms.Length) boomIndex = 0;
+        DOVirtual.DelayedCall(0.25f, delegate
+        {
+            booster.isUseBooster = false;
+            booster.CheckBooterState();
+        });
     }
 
     public void MouseDown()
