@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
-  damage: 8
+  hp: 508
+  damage: 15
   bone: {fileID: 4071663012114496927}
 --- !u!114 &3314828209548918623
 MonoBehaviour:
@@ -264,6 +264,8 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
+  flameThower: {fileID: 0}
+  sawStun: {fileID: 0}
   a: 0
 --- !u!114 &4071663012114496927
 MonoBehaviour:

@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preBullet: {fileID: 1630107590413180, guid: 31130c7e19851ff43946c80ef4710b24, type: 3}
+  sortingGroupParent: {fileID: 1809012738413118221}
   scBullets: []
   count: 3
   tail: {fileID: 4439838192978769}
@@ -809,8 +810,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
-  damage: 100
+  hp: 194
+  damage: 0
   bone: {fileID: 7514071291464706062}
 --- !u!114 &2275816579339763939
 MonoBehaviour:
@@ -913,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc9845844ac4ae4f9f4f94e8825a051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 3
+  level: 4
   amountSet: 5
   head: {fileID: 212665556441754785}
   body: {fileID: 212100921745570212}

@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffd5cd797071042b672420131453aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
-  damage: 0
+  hp: 1404
+  damage: 19
   bone: {fileID: 3473601751738921539}
 --- !u!114 &4872907933322860918
 MonoBehaviour:
@@ -169,6 +169,8 @@ MonoBehaviour:
   isShot: 0
   amoutCollision: 0
   lineIndex: 0
+  flameThower: {fileID: 0}
+  sawStun: {fileID: 0}
   a: 0
 --- !u!114 &3473601751738921539
 MonoBehaviour:
@@ -197,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ae12ea6818a9441a43fd3d6e8d19be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 4
+  level: 3
   amountSet: 5
   head: {fileID: 212397272727557950}
   ass: {fileID: 212451239856233975}
