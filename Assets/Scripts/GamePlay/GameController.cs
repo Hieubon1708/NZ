@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     public GameObject buttonStart;
     public GameObject touchScreen;
     public GameObject colDisplay;
+    public GameObject colStopTower;
     public GameObject menu;
 
     public GameObject boss;
@@ -117,7 +118,7 @@ public class GameController : MonoBehaviour
  */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
-            StartGame();
+            //StartGame();
         }
         else
         {
@@ -259,7 +260,7 @@ public class GameController : MonoBehaviour
         menuCamera.SetActive(!isActive);
         gameCamera.SetActive(isActive);
         if (!isPLayBoss || !isActive) touchScreen.SetActive(isActive);
-        else UIBoss.instance.ActiveButtonBack(!isActive);
+        if(isPLayBoss) UIBoss.instance.ActiveButtonBack(!isActive);
         buttonStart.SetActive(!isActive);
         if (!isPLayBoss) menu.SetActive(!isActive);
         isStart = isActive;

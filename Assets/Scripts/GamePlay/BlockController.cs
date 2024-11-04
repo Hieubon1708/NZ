@@ -59,12 +59,12 @@ public class BlockController : MonoBehaviour
             DOVirtual.DelayedCall(0.65f, delegate
             {
                 UIHandler.instance.progressHandler.textGold.text = gold.ToString();
-                if (count == 0) UIHandler.instance.progressHandler.textGold.text = PlayerController.instance.player.gold.ToString();
+                if (count == 0) UIHandler.instance.progressHandler.textGold.text = UIHandler.instance.goldTemp.ToString();
             });
             yield return new WaitForSeconds(0.25f);
         }
         yield return new WaitForSeconds(1f);
-        UIHandler.instance.progressHandler.ShowConvert(PlayerController.instance.player.gold);
+        UIHandler.instance.progressHandler.ShowConvert(UIHandler.instance.goldTemp);
     }
 
     public void Restart()
@@ -79,8 +79,6 @@ public class BlockController : MonoBehaviour
             if (!blocks[i].activeSelf) blocks[i].SetActive(true);
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
-        energyUpgradee.LoadData();
-        CheckButtonStateAll();
     }
 
     public bool IsWeaponExistBlock(WEAPON type)
@@ -240,11 +238,9 @@ public class BlockController : MonoBehaviour
     public void DeleteBlock(GameObject block)
     {
         if (blockPools.Count == 0) blockBuyer.gameObject.SetActive(true);
-        Block scBlock = GetScBlock(block);
         block.SetActive(false);
         blockPools.Add(block);
         blocks.Remove(block);
-        scBlock.DeleteBlockAni();
         CarController.instance.DeleteMenuBookAni();
         PlayerController.instance.DeleteBookAni();
         for (int i = 0; i < blocks.Count; i++)
@@ -292,6 +288,7 @@ public class BlockController : MonoBehaviour
         DataManager.instance.dataStorage.playerDataStorage.gold = PlayerController.instance.player.gold;
         DataManager.instance.dataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
         DataManager.instance.dataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
+        DataManager.instance.dataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
     }
 
     public void DeleteBlockInGame(GameObject block)

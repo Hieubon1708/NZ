@@ -6,6 +6,6 @@ public class EnemyVisible : MonoBehaviour
 
     private void OnBecameVisible()
     {
-        GameController.instance.listEVisible.Add(parent);
+        //GameController.instance.listEVisible.Add(parent);
     }
 }

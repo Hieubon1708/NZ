@@ -91,6 +91,7 @@ public class EnemyHandler : MonoBehaviour
             speed = realSpeed;
             col.enabled = false;
             col.enabled = true;
+            GameController.instance.listEVisible.Add(enemyInfo.gameObject);
         }
         if (!content.activeSelf || enemyInfo.hp == 0) return;
         int subtractHp;
@@ -474,7 +475,7 @@ public class EnemyHandler : MonoBehaviour
         SetDeathAni(); 
         healthBar.SetActive(false);
         if (shadow != null) shadow.SetActive(false);
-        GameController.instance.listEVisible.Remove(gameObject);
+        GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
 
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {

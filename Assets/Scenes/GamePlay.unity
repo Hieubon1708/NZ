@@ -44908,8 +44908,8 @@ RectTransform:
   m_GameObject: {fileID: 931418670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1042387269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51334,7 +51334,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 543618903}
   - {fileID: 931418671}
@@ -59870,8 +59870,8 @@ RectTransform:
   m_GameObject: {fileID: 1197598348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 984934806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -70579,7 +70579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -29.379883, y: -342}
+  m_AnchoredPosition: {x: -29.379883, y: -319}
   m_SizeDelta: {x: 485, y: 108}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1405754345
@@ -96564,7 +96564,9 @@ MonoBehaviour:
   amout: 50
   targetFlyGold: {fileID: 1197598349}
   gold: {fileID: 1042387268}
+  iconGold: {fileID: 931418670}
   goldStart: {fileID: 984934805}
+  iconGoldStart: {fileID: 1197598348}
   gem: {fileID: 2039588635}
   adsReward: {fileID: 7005810064223314220}
   textGold: {fileID: 543618904}
@@ -97356,6 +97358,7 @@ MonoBehaviour:
   buttonStart: {fileID: 78977791}
   touchScreen: {fileID: 1234753979230016849}
   colDisplay: {fileID: 431566763661507359, guid: 15487ee5d3f302644a020059fbba39a3, type: 3}
+  colStopTower: {fileID: 2967414182282208342}
   menu: {fileID: 645878767}
   boss: {fileID: 0}
   main: {fileID: 0}
@@ -125109,7 +125112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5016199298461635887
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,17 +58,27 @@ public class PlayerInventory : MonoBehaviour
             amoutClothesDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.clothesAmout;
         }
 
-        textDush.text = UIHandler.instance.ConvertNumberAbbreviation(dush);
-        textCogwheel.text = UIHandler.instance.ConvertNumberAbbreviation(cogwheel);
-
+        UpdateTextDush();
+        UpdateTextCogwheel();
         EquipmentController.instance.ChangeCap();
         EquipmentController.instance.ChangeClothes();
         EquipmentController.instance.ChangeGun();
     }
 
+    public void UpdateTextDush()
+    {
+        textDush.text = UIHandler.instance.ConvertNumberAbbreviation(dush);
+    }
+    
+    public void UpdateTextCogwheel()
+    {
+        textCogwheel.text = UIHandler.instance.ConvertNumberAbbreviation(cogwheel);
+    }
+
     public void ConvertGoldToDush()
     {
         dush += PlayerController.instance.player.gold / 1000;
+        UIHandler.instance.goldTemp = PlayerController.instance.player.gold;
         PlayerController.instance.player.gold = 0;
     }
 

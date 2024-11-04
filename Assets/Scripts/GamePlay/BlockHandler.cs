@@ -72,6 +72,7 @@ public class BlockHandler : MonoBehaviour
 
     public void Restart()
     {
+        healthBar.gameObject.SetActive(false);
         healthHandler.SetDefaultInfo(ref blockInfo.hp);
         Color color = blockInfo.sp.color;
         color.a = 1;

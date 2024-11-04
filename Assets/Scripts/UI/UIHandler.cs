@@ -33,7 +33,9 @@ public class UIHandler : MonoBehaviour
     int curentCountFlyGold;
 
     public GameObject gold;
+    public GameObject iconGold;
     public GameObject goldStart;
+    public GameObject iconGoldStart;
     public GameObject gem;
     public GameObject adsReward;
     public TextMeshProUGUI textGold;
@@ -62,6 +64,7 @@ public class UIHandler : MonoBehaviour
 
     public SpriteAtlas spriteAtlas;
     public Coroutine countdownRewardGold;
+    public int goldTemp;
 
     public void Awake()
     {
@@ -80,6 +83,7 @@ public class UIHandler : MonoBehaviour
     {
         progressHandler.parent.SetActive(isActive);
         gem.SetActive(isActive);
+        goldStart.SetActive(isActive);
     }
 
     void LoadSprites()
@@ -122,9 +126,14 @@ public class UIHandler : MonoBehaviour
         ActiveButtonReward();
     }
 
-    void ActiveButtonReward()
+    public void UpdateTextRewardHoldHighest()
     {
         textRewardGold.text = "+" + ConvertNumberAbbreviation(goldRewardHighest);
+    }
+
+    void ActiveButtonReward()
+    {
+        UpdateTextRewardHoldHighest();
         frameRewardGold.raycastTarget = true;
         frameRewardGold.sprite = frameButtonRewardGold[0];
         adsReward.SetActive(true);
@@ -241,6 +250,7 @@ public class UIHandler : MonoBehaviour
         if (curentCountFlyGold == goldFlies.Length) curentCountFlyGold = 0;
         g.transform.DOMove(targetFlyGold.position, 0.55f).OnComplete(delegate
         {
+            uIEffect.Scale(iconGoldStart);
             g.SetActive(false);
             progressHandler.textGold.text = progressHandler.gold.ToString();
         });
@@ -264,6 +274,7 @@ public class UIHandler : MonoBehaviour
     public void GemUpdatee()
     {
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
+        if(!gem.activeSelf) gameObject.SetActive(true);
     }
 
     public void PlusGem(int gem)

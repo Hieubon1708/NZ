@@ -220,6 +220,7 @@ public class FlameHandler : WeaponShoter
 
     public override void DisableWeapon()
     {
+        Debug.LogWarning("dis");
         ani.Rebind();
         ani.SetBool("startGame", true);
         if (shot != null) StopCoroutine(shot);

@@ -47,7 +47,7 @@ public class Menu : MonoBehaviour
 
     public void CheckNotifAll()
     {
-        EquipmentController.instance.CheckNotif();
+        EquipmentController.instance.CheckStateNofi();
         UIHandler.instance.summonEquipment.CheckNotif();
         UIBoss.instance.CheckNotif();
     }
@@ -143,6 +143,11 @@ public class Menu : MonoBehaviour
 
     public void InventoryActive(bool isActive)
     {
+        if(isActive)
+        {
+            EquipmentController.instance.playerInventory.UpdateTextCogwheel();
+            EquipmentController.instance.playerInventory.UpdateTextDush();
+        }
         inventory.SetActive(isActive);
         if (isActive)
         {
@@ -158,6 +163,10 @@ public class Menu : MonoBehaviour
 
     public void BoosActive(bool isActive)
     {
+        if (isActive)
+        {
+            UIBoss.instance.UpdatePanel();
+        }
         boss.SetActive(isActive);
         if(isActive)
         {
@@ -167,11 +176,14 @@ public class Menu : MonoBehaviour
 
     public void ShopActive(bool isActive)
     {
-        shop.SetActive(isActive);
         if (isActive)
         {
             UIHandler.instance.summonEquipment.UpdateText();
             UIHandler.instance.summonEquipment.CheckButtonState();
+        }
+        shop.SetActive(isActive);
+        if (isActive)
+        {
             UIHandler.instance.tutorial.TutorialButtonShop(true);
         }
     }

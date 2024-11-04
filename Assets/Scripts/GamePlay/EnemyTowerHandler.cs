@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerHandler : MonoBehaviour
@@ -10,7 +12,7 @@ public class EnemyTowerHandler : MonoBehaviour
     public EnemyController enemyController;
     public bool isVisible;
     int damageTaken;
-    Coroutine flameTrigger;
+    Dictionary<GameObject, Coroutine> flameTriggers = new Dictionary<GameObject, Coroutine>();
     public SpriteRenderer[] fullTowers;
     public HitEffect hitEffect;
 
@@ -49,13 +51,11 @@ public class EnemyTowerHandler : MonoBehaviour
         if (collision.CompareTag("Flame"))
         {
             subtractHp = int.Parse(collision.name.Substring(0, collision.name.Length - 1));
-            flameTrigger = StartCoroutine(FlameTriggerHandle(subtractHp));
-        }
-        damageTaken += subtractHp;
-        if (damageTaken >= 100)
-        {
-            UIHandler.instance.FlyGold(enemyController.col.transform.position, 1);
-            damageTaken -= 100;
+            if (!flameTriggers.ContainsKey(collision.gameObject))
+            {
+                flameTriggers.Add(collision.gameObject, null);
+            }
+            flameTriggers[collision.gameObject] = StartCoroutine(FlameTriggerHandle(subtractHp));
         }
     }
 
@@ -70,16 +70,30 @@ public class EnemyTowerHandler : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!view.activeSelf || towerInfo.hp == 0) return;
         if (collision.CompareTag("Flame"))
         {
-            if (flameTrigger != null) StopCoroutine(flameTrigger);
+            if (flameTriggers.ContainsKey(collision.gameObject) && flameTriggers[collision.gameObject] != null)
+            {
+                StopCoroutine(flameTriggers[collision.gameObject]);
+            }
         }
+    }
+
+    public void Resart()
+    {
+        healthHandler.SetDefaultInfo(ref towerInfo.hp);
+        towerInfo.ChangeTextHp();
     }
 
     void SubtractHp(int substractHp)
     {
         if (towerInfo.hp == 0) return;
+        damageTaken += substractHp;
+        if (damageTaken >= 100)
+        {
+            UIHandler.instance.FlyGold(enemyController.col.transform.position, 1);
+            damageTaken -= 100;
+        }
         float hp = towerInfo.SubstractHp(substractHp);
         healthHandler.SubtractHp(hp);
         damage.ShowDamage(substractHp, null, false);

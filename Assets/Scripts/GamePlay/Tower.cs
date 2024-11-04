@@ -11,7 +11,7 @@ public class Tower : MonoBehaviour
         ChangeTextHp();
     }
 
-    void ChangeTextHp()
+    public void ChangeTextHp()
     {
         textHp.text = UIHandler.instance.ConvertNumberAbbreviation(hp).ToString();
     }

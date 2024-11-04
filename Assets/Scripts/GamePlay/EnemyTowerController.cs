@@ -192,9 +192,11 @@ public class EnemyTowerController : MonoBehaviour
                 }
             }
         }
-        for (int i = indexTower; i >= 0; i--)
+
+        for (int i = 0; i < scTowers.Length; i++)
         {
-            if (!towers[i].activeSelf) towers[i].SetActive(true);
+            scTowers[i].gameObject.SetActive(true);
+            scTowers[i].enemyTowerHandler.Resart();
         }
         indexTower = -1;
         for (int i = 0; i < backgroundMovements.Length; i++)
@@ -423,7 +425,9 @@ public class EnemyTowerController : MonoBehaviour
         enemyTowerMovements = new EnemyTowerMovement[towers.Length];
         for (int i = 0; i < towers.Length; i++)
         {
-            GameObject t = Instantiate(towers[i], new Vector2(CarController.instance.transform.position.x + (distanceTower * (i + 1)), CarController.instance.transform.position.y - 0.25f), Quaternion.identity, transform);
+            //Debug.LogWarning(CarController.instance.transform.localPosition.x + (distanceTower * (i + 1)));
+            GameObject t = Instantiate(towers[i], new Vector2(CarController.instance.transform.localPosition.x + (distanceTower * (i + 1)), CarController.instance.transform.position.y - 0.25f), Quaternion.identity, transform);
+            //Debug.Log(CarController.instance.transform.position.x - t.transform.position.x);
             scTowers[i] = t.GetComponent<EnemyController>();
             enemyTowerMovements[i] = t.GetComponentInChildren<EnemyTowerMovement>();
         }
@@ -445,24 +449,30 @@ public class EnemyTowerController : MonoBehaviour
 
     public void NextTower()
     {
-        if (indexTower == towers.Length)
+        if (indexTower == towers.Length - 1)
         {
             DisableEs();
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
             GameController.instance.isStart = false;
-            UIHandler.instance.SetActiveProgressNGem(false);
+            //UIHandler.instance.SetActiveProgressNGem(false);
             UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
             UIHandler.instance.menu.CheckDisplayButtonPage();
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.CompleteLevel);
             BlockController.instance.DisableWeapons();
             PlayerController.instance.DisableWeapons();
             Booster.instance.KillEnergyNBoosterButton();
+            BlockController.instance.energyUpgradee.level = 0;
+            UIHandler.instance.goldRewardHighest = 500;
+            UIHandler.instance.UpdateTextRewardHoldHighest();
+            BlockController.instance.energyUpgradee.UpgradeHandle();
             GameController.instance.isLose = true;
             BlockController.instance.SellAllBlocks();
             BlockController.instance.blocks.Clear();
             UIHandler.instance.menu.CheckNotifAll();
             UIHandler.instance.progressHandler.Restart();
+            EquipmentController.instance.playerInventory.ConvertGoldToDush();
+            BlockController.instance.CheckButtonStateAll();
             DOVirtual.DelayedCall(2f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();
@@ -470,12 +480,13 @@ public class EnemyTowerController : MonoBehaviour
         }
         else
         {
+            indexTower++;
             CarController.instance.multiplier = 1;
             AssignSpanwX();
             RandomEs();
             SetPosition();
             EnableEs();
-            indexTower++;
+            UIHandler.instance.progressHandler.StartLauchProgress();
         }
     }
 }

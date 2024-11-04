@@ -20,6 +20,7 @@ public class PlayerHandler : MonoBehaviour
     public void SubtractHp(int subtractHp)
     {
         if (playerInfo.hp == 0) return;
+        if(!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = playerInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         hitEffect.PlayHitEffect(fullBodies);
@@ -60,7 +61,6 @@ public class PlayerHandler : MonoBehaviour
     public void Resart()
     {
         healthHandler.SetDefaultInfo(ref playerInfo.hp);
-        healthBar.SetActive(true);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

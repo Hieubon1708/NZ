@@ -21,6 +21,7 @@ public class UIEffect : MonoBehaviour
     Tween[] delayCalls;
     Tween delayGoldUpdate;
     Tween delayGemUpdate;
+    Tween scaleObj;
     float startScaleGem;
     int indexGold;
 
@@ -42,6 +43,12 @@ public class UIEffect : MonoBehaviour
         startScaleGem = gems[0].transform.localScale.x;
     }
 
+    public void Scale(GameObject obj)
+    {
+        scaleObj.Complete();
+        scaleObj = obj.transform.DOScale(obj.transform.localScale.x * 1.15f, 0.125f).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
+    }
+
     public void FlyGold()
     {
         FlyGoldHandle(true, 7, GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
@@ -50,8 +57,9 @@ public class UIEffect : MonoBehaviour
             UIHandler.instance.GoldUpdatee();
             if (!GameController.instance.isPLayBoss)
             {
+                BlockController.instance.CheckButtonStateAll();
                 UIHandler.instance.progressHandler.ShowReward();
-                UIHandler.instance.tutorial.TutorialButtonInventory(false);
+                UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
             }
         });
     }
@@ -81,7 +89,7 @@ public class UIEffect : MonoBehaviour
             {
                 delayCalls[index] = DOVirtual.DelayedCall(Random.Range(randomTimeDelayMoveTarget1, randomTimeDelayMoveTarget2), delegate
                 {
-                    golds[index].transform.DOMove(target, Random.Range(randomTimeMoveToTarget1, randomTimeMoveToTarget2)).OnComplete(delegate { golds[index].SetActive(false); });
+                    golds[index].transform.DOMove(target, Random.Range(randomTimeMoveToTarget1, randomTimeMoveToTarget2)).OnComplete(delegate { golds[index].SetActive(false); Scale(UIHandler.instance.iconGold); });
                 });
             });
             indexGold++;

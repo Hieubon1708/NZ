@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public EnemyTowerHandler enemyTowerHandler;
     public GameObject col;
     public int[] indexEs;
     public int[] amoutIndexEs;

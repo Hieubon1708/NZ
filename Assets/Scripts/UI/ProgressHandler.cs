@@ -18,6 +18,8 @@ public class ProgressHandler : MonoBehaviour
     public GameObject parent;
     public Image progress;
 
+    float[] progressValueBar = new float[5] { 0.178f, 0.37f, 0.56f, 0.753f, 0.948f };
+
     public EquipmentInfo[] equips;
     public TextMeshProUGUI[] textDesigns;
     public TextMeshProUGUI textDush;
@@ -38,21 +40,27 @@ public class ProgressHandler : MonoBehaviour
     public int[] des = new int[4];
     public int dush, gem, key, cogwheel;
 
+    Coroutine lauchProgress;
+
     public void LoadData()
     {
         if (DataManager.instance.dataStorage.progresses != null)
         {
             progresses = DataManager.instance.dataStorage.progresses.ToList();
-            for (int i = 0; i < progresses.Count; i++)
-            {
-                if (progresses[i] % 2 == 0)
-                {
-                    chests[i].SetActive(false);
-                }
-            }
-            if (GameController.instance.level == 0) chests[0].SetActive(false);
+            CheckChestCompleted();
         }
-        else progresses = new List<int>();
+    }
+
+    void CheckChestCompleted()
+    {
+        for (int i = 0; i < progresses.Count; i++)
+        {
+            if (progresses[i] % 2 == 0)
+            {
+                chests[i].SetActive(false);
+            }
+        }
+        if (GameController.instance.level == 0) chests[0].SetActive(false);
     }
 
     public void ShowLose()
@@ -90,10 +98,9 @@ public class ProgressHandler : MonoBehaviour
         panelConvert.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelConvert, convertPopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
-    
+
     public void HideConvert()
     {
-        EquipmentController.instance.playerInventory.ConvertGoldToDush();
         UIHandler.instance.uIEffect.ScalePopup(panelConvert, convertPopup, 0f, 0f, 0.8f, 0f);
         panelConvert.gameObject.SetActive(false);
         DOVirtual.DelayedCall(0.5f, delegate
@@ -118,7 +125,6 @@ public class ProgressHandler : MonoBehaviour
         {
             UIHandler.instance.tutorial.isUnlockInventory = true;
             UIHandler.instance.menu.CheckDisplayButtonPage();
-            UIHandler.instance.menu.CheckNotifAll();
         }
         if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1) ChestsInpopupActive(false);
         else ChestsInpopupActive(true);
@@ -141,22 +147,22 @@ public class ProgressHandler : MonoBehaviour
 
         if (dush > 0)
         {
-            textDush.text = dush.ToString(); 
+            textDush.text = dush.ToString();
             textDush.transform.parent.gameObject.SetActive(true);
         }
         if (gem > 0)
         {
-            textGem.text = gem.ToString(); 
+            textGem.text = gem.ToString();
             textGem.transform.parent.gameObject.SetActive(true);
         }
         if (cogwheel > 0)
         {
-            textCogwheel.text = cogwheel.ToString(); 
+            textCogwheel.text = cogwheel.ToString();
             textCogwheel.transform.parent.gameObject.SetActive(true);
         }
         if (key > 0)
         {
-            textKey.text = key.ToString(); 
+            textKey.text = key.ToString();
             textKey.transform.parent.gameObject.SetActive(true);
         }
 
@@ -185,14 +191,14 @@ public class ProgressHandler : MonoBehaviour
         dush = 0; gem = 0; key = 0; cogwheel = 0;
         if (EnemyTowerController.instance.indexTower == EnemyTowerController.instance.towers.Length - 1)
         {
-            UIHandler.instance.SetActiveProgressNGem(true);
+            //UIHandler.instance.SetActiveProgressNGem(true);
             StartCoroutine(BlockController.instance.EndGame());
         }
     }
 
     public void ChestReward(int indexTower)
     {
-        if (indexTower % 2 == 0 && chests[indexTower / 2].activeSelf)
+        if (indexTower % 2 == 0 && !progresses.Contains(indexTower))
         {
             chestCompleteds[indexTower / 2].SetActive(true);
             progresses.Add(indexTower);
@@ -225,7 +231,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void Restart()
     {
-        progresses.Clear();
+        StopProgress();
         for (int i = 0; i < chests.Length; i++)
         {
             chests[i].SetActive(true);
@@ -240,20 +246,36 @@ public class ProgressHandler : MonoBehaviour
         if (!GameController.instance.isPLayBoss)
         {
             progress.fillAmount = 0;
-            Transform target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.towers.Length - 1].col.transform;
-            float distance = Mathf.Abs(PlayerController.instance.transform.position.x - target.position.x);
-            StartCoroutine(LaunchProgress(distance, target));
+            StartLauchProgress();
         }
+        CheckChestCompleted();
     }
 
-    IEnumerator LaunchProgress(float distance, Transform target)
+    public void StartLauchProgress()
     {
-        float startPos = target.position.x;
-        while (progress.fillAmount <= 1 && GameController.instance.isStart)
+        if(lauchProgress != null) StopCoroutine(lauchProgress);
+        lauchProgress = StartCoroutine(LaunchProgress());
+    }
+
+    public void StopProgress()
+    {
+        if (lauchProgress != null) StopCoroutine(lauchProgress);
+    }
+
+    IEnumerator LaunchProgress()
+    {
+        Transform target = EnemyTowerController.instance.scTowers[EnemyTowerController.instance.indexTower].col.transform;
+        float distanceCol = Mathf.Abs(CarController.instance.transform.position.x - GameController.instance.colStopTower.transform.position.x);
+        float distance = Mathf.Abs(CarController.instance.transform.position.x - target.position.x) - distanceCol;
+        float startPos = target.position.x - distanceCol + 2f;
+        float targetFill = progressValueBar[EnemyTowerController.instance.indexTower];
+        float previousValueBar = progress.fillAmount;
+        float totalValueBar = progressValueBar[EnemyTowerController.instance.indexTower] - previousValueBar;
+        while (progress.fillAmount <= targetFill)
         {
-            float distanceLaunch = Mathf.Abs(target.position.x - startPos);
-            float percentage = distanceLaunch / distance;
-            progress.fillAmount = Mathf.Lerp(progress.fillAmount, percentage, 0.1f);
+            float distanceLaunch = Mathf.Abs(target.position.x - distanceCol - startPos);
+            float percentage = distanceLaunch / distance * 100;
+            progress.fillAmount = Mathf.Lerp(progress.fillAmount, percentage * totalValueBar / 100 + previousValueBar, 0.1f);
             yield return new WaitForFixedUpdate();
         }
     }

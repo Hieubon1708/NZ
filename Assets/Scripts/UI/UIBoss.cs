@@ -57,12 +57,8 @@ public class UIBoss : MonoBehaviour
         {
             level = DataManager.instance.dataStorage.bossDataStorage.level;
             progress = DataManager.instance.dataStorage.bossDataStorage.progress;
+            if (DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest == 0) DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest = 500;
         }
-        else
-        {
-            DataManager.instance.dataStorage.bossDataStorage = new BossDataStorage(0, 0, 0, new DateTime(), 500, 0, null, null);
-        }
-        UpdatePanel();
         CheckNotif();
     }
 
@@ -193,5 +189,6 @@ public class UIBoss : MonoBehaviour
         DataManager.instance.dataStorage.bossDataStorage.gold = PlayerController.instance.player.gold;
         DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
         DataManager.instance.dataStorage.bossDataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
+        DataManager.instance.dataStorage.bossDataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
     }
 }
