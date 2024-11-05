@@ -21,6 +21,7 @@ public class Daily : MonoBehaviour
     public DateTime lastUpdateDate;
     public int indexDaily;
     public int amount;
+    bool isCheckFirst;
 
     public DailyDataStorage GetData()
     {
@@ -43,12 +44,12 @@ public class Daily : MonoBehaviour
     public void LoadData()
     {
         if (UIHandler.instance.tutorial.isSecondTimeDestroyTower) daily.SetActive(true);
-        if (DataManager.instance.dataStorage.dailyDataStorage != null)
+        if (DataManager.instance.dailyDataStorage != null)
         {
-            dailyOfDate = DataManager.instance.dataStorage.dailyDataStorage.dailyOfDate;
-            amount = DataManager.instance.dataStorage.dailyDataStorage.amount;
-            indexDaily = DataManager.instance.dataStorage.dailyDataStorage.indexDaily;
-            lastUpdateDate = DataManager.instance.dataStorage.dailyDataStorage.lastUpdateDate;
+            dailyOfDate = DataManager.instance.dailyDataStorage.dailyOfDate;
+            amount = DataManager.instance.dailyDataStorage.amount;
+            indexDaily = DataManager.instance.dailyDataStorage.indexDaily;
+            lastUpdateDate = DataManager.instance.dailyDataStorage.lastUpdateDate;
             if (dailyOfDate.Count != 0 && dailyOfDate[indexDaily].amountTarget == amount)
             {
                 dailyCompleted.SetActive(true);
@@ -66,7 +67,11 @@ public class Daily : MonoBehaviour
             RandomDaily();
             lastUpdateDate = currentDate;
         }
-        UpdateDaily();
+        if (!isCheckFirst)
+        {
+            isCheckFirst = true;
+            UpdateDaily();
+        }
     }
 
     void RandomDaily()
@@ -85,6 +90,7 @@ public class Daily : MonoBehaviour
         dailyOfDate.Add(new DailyConfig(DailyType.CompleteLevel, 1, "Complete Level", 10));
         amount = 0;
         indexDaily = 0;
+        DataManager.instance.SaveDaily();
     }
 
     public enum DailyType

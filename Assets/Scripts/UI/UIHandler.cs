@@ -263,6 +263,7 @@ public class UIHandler : MonoBehaviour
         BlockController.instance.CheckButtonStateAll();
         countdownRewardGold = StartCoroutine(CountdownRewardGold(5 * 60));
         daily.CheckDaily(Daily.DailyType.WatchAds);
+        DataManager.instance.SaveData();
     }
 
     public void GoldUpdatee()

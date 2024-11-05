@@ -8,7 +8,7 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage.energyDataStorage != null) level = DataManager.instance.dataStorage.energyDataStorage.level;
+        level = DataManager.instance.energyDataStorage.level;
         UpgradeHandle();
     }
 
@@ -33,6 +33,7 @@ public class EnergyUpgradeHandler : ButtonUpgradee
         UIHandler.instance.tutorial.TutorialButtonUpgradeEnergy(true);
         UpgradeHandle();
         BlockController.instance.CheckButtonStateAll();
+        DataManager.instance.SaveEnergy();
     }
 
     public override void UpgradeHandle()

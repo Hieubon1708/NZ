@@ -60,10 +60,10 @@ public class SummonEquipment : MonoBehaviour
     {
         chanceDatas = DataManager.instance.chanceConfig.chances;
         chanceSorts = new float[chanceDatas[level].Length];
-        if (DataManager.instance.dataStorage.chanceDataStorage != null)
+        if (DataManager.instance.chanceDataStorage != null)
         {
-            level = DataManager.instance.dataStorage.chanceDataStorage.level;
-            amout = DataManager.instance.dataStorage.chanceDataStorage.amout;
+            level = DataManager.instance.chanceDataStorage.level;
+            amout = DataManager.instance.chanceDataStorage.amout;
         }
         textLevel.text = "Lv." + (level + 1);
         int amoutUpgradeLevel = DataManager.instance.chanceConfig.amoutUpgradeLevel[level];
@@ -76,6 +76,7 @@ public class SummonEquipment : MonoBehaviour
     {
         if (EquipmentController.instance.playerInventory.gem >= 5 || EquipmentController.instance.playerInventory.gem >= 45) UIHandler.instance.menu.notifOptions[1].SetActive(true);
         else UIHandler.instance.menu.notifOptions[1].SetActive(false);
+        DataManager.instance.SaveChance();
     }
 
     void ShowRoll()

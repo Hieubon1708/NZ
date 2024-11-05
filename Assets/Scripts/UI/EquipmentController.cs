@@ -247,11 +247,11 @@ public class EquipmentController : MonoBehaviour
     {
         playerInventory.LoadData();
 
-        if (DataManager.instance.dataStorage.playerDataStorage != null)
+        if (DataManager.instance.playerDataStorage != null)
         {
-            for (int i = 0; i < DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages.Length; i++)
+            for (int i = 0; i < DataManager.instance.playerDataStorage.equipmentDataStorages.Length; i++)
             {
-                EquipmentDataStorage eq = DataManager.instance.dataStorage.playerDataStorage.equipmentDataStorages[i];
+                EquipmentDataStorage eq = DataManager.instance.playerDataStorage.equipmentDataStorages[i];
                 AddEquip(eq.type, eq.level);
             }
         }
@@ -468,6 +468,7 @@ public class EquipmentController : MonoBehaviour
     {
         if (isHaveUpgrade || isHaveEquipBest || isHaveDuplicates) UIHandler.instance.menu.notifOptions[0].SetActive(true);
         else UIHandler.instance.menu.notifOptions[0].SetActive(false);
+        DataManager.instance.SavePlayer();
     }
 
     public void UpgradeAccept()

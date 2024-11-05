@@ -20,6 +20,15 @@ public class DataManager : MonoBehaviour
     public Sprite[] blockSprites;
 
     public DataStorage dataStorage;
+    public DailyDataStorage dailyDataStorage;
+    public TutorialDataStorage tutorialDataStorage;
+    public PlayerDataStorage playerDataStorage;
+    public BlockDataStorage[] blockDataStorage;
+    public EnergyDataStorage energyDataStorage;
+    public ChanceDataStorage chanceDataStorage;
+    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
+    public BossDataStorage bossDataStorage;
+
     public BlockConfig blockConfig;
     public BossConfig bossConfig;
     public EnergyConfig energyConfig;
@@ -93,11 +102,53 @@ public class DataManager : MonoBehaviour
         rewardConfigs = JsonConvert.DeserializeObject<RewardConfig[]>(rewardConfigJs.text);
         dailyConfigs = JsonConvert.DeserializeObject<DailyConfig[]>(dailyConfigJs.text);
 
-        string dataStorageJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
-        if (File.Exists(dataStorageJs))
+        string dataJs = Path.Combine(Application.persistentDataPath, "DataStorage.json");
+        if (File.Exists(dataJs))
         {
-            string DataStorageContent = File.ReadAllText(dataStorageJs);
+            string DataStorageContent = File.ReadAllText(dataJs);
             dataStorage = JsonConvert.DeserializeObject<DataStorage>(DataStorageContent);
+        }
+        string dailyJs = Path.Combine(Application.persistentDataPath, "DailyDataStorage.json");
+        if (File.Exists(dailyJs))
+        {
+            string js = File.ReadAllText(dailyJs);
+            dailyDataStorage = JsonConvert.DeserializeObject<DailyDataStorage>(js);
+        }
+        string chanceJs = Path.Combine(Application.persistentDataPath, "ChanceDataStorage.json");
+        if (File.Exists(chanceJs))
+        {
+            string js = File.ReadAllText(chanceJs);
+            chanceDataStorage = JsonConvert.DeserializeObject<ChanceDataStorage>(js);
+        }
+        string evoJs = Path.Combine(Application.persistentDataPath, "EvoDataStorage.json");
+        if (File.Exists(evoJs))
+        {
+            string js = File.ReadAllText(evoJs);
+            weaponEvolutionDataStorge = JsonConvert.DeserializeObject<WeaponEvolutionDataStorge>(js);
+        }
+        string playerJs = Path.Combine(Application.persistentDataPath, "PlayerDataStorage.json");
+        if (File.Exists(playerJs))
+        {
+            string js = File.ReadAllText(playerJs);
+            playerDataStorage = JsonConvert.DeserializeObject<PlayerDataStorage>(js);
+        }
+        string tutorialJs = Path.Combine(Application.persistentDataPath, "TutorialDataStorage.json");
+        if (File.Exists(tutorialJs))
+        {
+            string js = File.ReadAllText(tutorialJs);
+            tutorialDataStorage = JsonConvert.DeserializeObject<TutorialDataStorage>(js);
+        }
+        string energyJs = Path.Combine(Application.persistentDataPath, "EnergyDataStorage.json");
+        if (File.Exists(energyJs))
+        {
+            string js = File.ReadAllText(energyJs);
+            energyDataStorage = JsonConvert.DeserializeObject<EnergyDataStorage>(js);
+        }
+        string blockJs = Path.Combine(Application.persistentDataPath, "BlockDataStorage.json");
+        if (File.Exists(blockJs))
+        {
+            string js = File.ReadAllText(blockJs);
+            blockDataStorage = JsonConvert.DeserializeObject<BlockDataStorage[]>(js);
         }
     }
 
@@ -220,7 +271,93 @@ public class DataManager : MonoBehaviour
         AttackConfig attackConfig = new AttackConfig(damageBooster, startAttackPower, critChance, critDamageScale, upgradeCoefAttack, attackTime, reloadTime);
         return new WeaponLevelConfig(priceConfig, attackConfig);
     }
+
+    public void SaveFile(string dataJs, string path)
+    {
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, path), dataJs);
+    }
+
+    public void SaveData()
+    {
+        DataStorage dataStorage = new DataStorage(GameController.instance.level
+            , UIHandler.instance.setting.isSoundActive
+            , UIHandler.instance.setting.isMusicActive
+            , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewardHighest
+            , UIHandler.instance.progressHandler.progresses.ToArray());
+        SaveFile(JsonConvert.SerializeObject(dataStorage), "DataStorage.json");
+    }
+    
+    public void SaveDaily()
+    {
+        DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
+        SaveFile(JsonConvert.SerializeObject(dailyDataStorage), "DailyDataStorage.json");
+    }
+    
+    public void SaveChance()
+    {
+        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.level, UIHandler.instance.summonEquipment.amout);
+        SaveFile(JsonConvert.SerializeObject(chanceDataStorage), "ChanceDataStorage.json");
+    }
+    
+    public void SaveTutorial()
+    {
+        TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
+        SaveFile(JsonConvert.SerializeObject(tutorialDataStorage), "TutorialDataStorage.json");
+    }
+    
+    public void SaveEnergy()
+    {
+        EnergyDataStorage energyDataStorage = new EnergyDataStorage(BlockController.instance.energyUpgradee.level);
+        SaveFile(JsonConvert.SerializeObject(energyDataStorage), "EnergyDataStorage.json");
+    }
+
+    public void SaveBlock()
+    {
+        BlockDataStorage[] blockDataStorages = BlockController.instance.GetBlocks();
+        SaveFile(JsonConvert.SerializeObject(blockDataStorages), "BlockDataStorage.json");
+    }
+    
+    public void SaveEvo()
+    {
+        WeaponEvolutionDataStorge weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
+        SaveFile(JsonConvert.SerializeObject(weaponEvolutionDataStorge), "EvoDataStorage.json");
+    }
+
+    public void SavePlayer()
+    {
+        EquipmentDataStorage[] equipmentConfigs = new EquipmentDataStorage[EquipmentController.instance.amoutEquip];
+        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(
+            EquipmentController.instance.playerInventory.gunLevelUpgrade
+            , EquipmentController.instance.playerInventory.boomLevelUpgrade
+            , EquipmentController.instance.playerInventory.capLevelUpgrade
+            , EquipmentController.instance.playerInventory.clothesLevelUpgrade);
+
+        DesignDataStorage designDataStorage = new DesignDataStorage(
+            EquipmentController.instance.playerInventory.amoutGunDesign
+            , EquipmentController.instance.playerInventory.amoutCapDesign
+            , EquipmentController.instance.playerInventory.amoutBoomDesign
+            , EquipmentController.instance.playerInventory.amoutClothesDesign);
+
+        for (int i = 0; i < equipmentConfigs.Length; i++)
+        {
+            equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
+        }
+        PlayerDataStorage playerDataStorage = new PlayerDataStorage(
+            PlayerController.instance.player.gold
+            , EquipmentController.instance.playerInventory.gem
+            , EquipmentController.instance.playerInventory.dush
+            , EquipmentController.instance.playerInventory.key
+            , EquipmentController.instance.playerInventory.cogwheel
+            , EquipmentController.instance.playerInventory.gunLevel
+            , EquipmentController.instance.playerInventory.boomLevel
+            , EquipmentController.instance.playerInventory.clothesLevel
+            , EquipmentController.instance.playerInventory.clothesLevel
+            , equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
+
+        SaveFile(JsonConvert.SerializeObject(playerDataStorage), "PlayerDataStorage.json");
+    }
 }
+
 
 [System.Serializable]
 public class BlockConfig
@@ -455,24 +592,11 @@ public class DataStorage
     public int level;
     public bool isSoundActive;
     public bool isMusicActive;
-
     public DateTime lastRewardTime;
     public int goldRewardHighest;
-
     public int[] progresses;
 
-    public DailyDataStorage dailyDataStorage;
-    public TutorialDataStorage tutorialDataStorage;
-    public playerDataStorage playerDataStorage;
-    public BlockDataStorage[] blockDataStorage;
-    public EnergyDataStorage energyDataStorage;
-    public ChanceDataStorage chanceDataStorage;
-    public WeaponEvolutionDataStorge weaponEvolutionDataStorge;
-    public BossDataStorage bossDataStorage;
-
-    public DataStorage() { }
-
-    public DataStorage(int level, bool isSoundActive, bool isMusicActive, DateTime lastRewardTime, int goldRewardHighest, int[] progresses, DailyDataStorage dailyDataStorage, TutorialDataStorage tutorialDataStorage, playerDataStorage playerDataStorage, BlockDataStorage[] blockDataStorage, EnergyDataStorage energyDataStorage, ChanceDataStorage chanceDataStorage, WeaponEvolutionDataStorge weaponEvolutionDataStorge, BossDataStorage bossDataStorage)
+    public DataStorage(int level, bool isSoundActive, bool isMusicActive, DateTime lastRewardTime, int goldRewardHighest, int[] progresses)
     {
         this.level = level;
         this.isSoundActive = isSoundActive;
@@ -480,14 +604,6 @@ public class DataStorage
         this.lastRewardTime = lastRewardTime;
         this.goldRewardHighest = goldRewardHighest;
         this.progresses = progresses;
-        this.dailyDataStorage = dailyDataStorage;
-        this.tutorialDataStorage = tutorialDataStorage;
-        this.playerDataStorage = playerDataStorage;
-        this.blockDataStorage = blockDataStorage;
-        this.energyDataStorage = energyDataStorage;
-        this.chanceDataStorage = chanceDataStorage;
-        this.weaponEvolutionDataStorge = weaponEvolutionDataStorge;
-        this.bossDataStorage = bossDataStorage;
     }
 }
 
@@ -645,7 +761,7 @@ public class DesignDataStorage
 }
 
 [System.Serializable]
-public class playerDataStorage
+public class PlayerDataStorage
 {
     public int gold;
     public int gem;
@@ -662,7 +778,7 @@ public class playerDataStorage
     public EquipmentUpgradeDataStorage equipmentUpgradeDataStorages;
     public EquipmentDataStorage[] equipmentDataStorages;
 
-    public playerDataStorage(int gold, int gem, int dush, int key, int cogwheel, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
+    public PlayerDataStorage(int gold, int gem, int dush, int key, int cogwheel, int gunLevel, int boomLevel, int capLevel, int clothesLevel, EquipmentDataStorage[] equipmentDataStorages, EquipmentUpgradeDataStorage equipmentUpgradeDataStorages, DesignDataStorage designDataStorage)
     {
         this.gold = gold;
         this.gem = gem;

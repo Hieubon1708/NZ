@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage.playerDataStorage != null) gold = DataManager.instance.dataStorage.playerDataStorage.gold;
+        gold = DataManager.instance.playerDataStorage.gold;
         HpChange();
     }
 

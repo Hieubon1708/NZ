@@ -53,18 +53,18 @@ public class UIBoss : MonoBehaviour
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage.bossDataStorage != null)
+        if (DataManager.instance.bossDataStorage != null)
         {
-            level = DataManager.instance.dataStorage.bossDataStorage.level;
-            progress = DataManager.instance.dataStorage.bossDataStorage.progress;
-            if (DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest == 0) DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest = 500;
+            level = DataManager.instance.bossDataStorage.level;
+            progress = DataManager.instance.bossDataStorage.progress;
+            if (DataManager.instance.bossDataStorage.goldRewardHighest == 0) DataManager.instance.bossDataStorage.goldRewardHighest = 500;
         }
         CheckNotif();
     }
 
     public void SetUp()
     {
-        BossDataStorage dataStorage = DataManager.instance.dataStorage.bossDataStorage;
+        BossDataStorage dataStorage = DataManager.instance.bossDataStorage;
         if (dataStorage != null)
         {
             if (dataStorage.blockDataStorage != null)
@@ -93,12 +93,12 @@ public class UIBoss : MonoBehaviour
         }
         BlockController.instance.player.transform.localPosition = new Vector2(BlockController.instance.player.transform.localPosition.x, BlockController.instance.startYPlayer + BlockController.instance.distance * BlockController.instance.blocks.Count);
 
-        UIHandler.instance.lastRewardTime = DataManager.instance.dataStorage.bossDataStorage.lastRewardTime;
-        UIHandler.instance.goldRewardHighest = DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest;
-        BlockController.instance.energyUpgradee.level = DataManager.instance.dataStorage.bossDataStorage.levelEnergy;
-        PlayerController.instance.player.gold = DataManager.instance.dataStorage.bossDataStorage.gold;
+        UIHandler.instance.lastRewardTime = DataManager.instance.bossDataStorage.lastRewardTime;
+        UIHandler.instance.goldRewardHighest = DataManager.instance.bossDataStorage.goldRewardHighest;
+        BlockController.instance.energyUpgradee.level = DataManager.instance.bossDataStorage.levelEnergy;
+        PlayerController.instance.player.gold = DataManager.instance.bossDataStorage.gold;
 
-        UpgradeEvolutionController.instance.SetData(DataManager.instance.dataStorage.bossDataStorage.weaponEvolutionDataStorge);
+        UpgradeEvolutionController.instance.SetData(DataManager.instance.bossDataStorage.weaponEvolutionDataStorge);
         UIHandler.instance.GoldUpdatee();
         BlockController.instance.energyUpgradee.UpgradeHandle();
         UIHandler.instance.CheckRewardGold();
@@ -123,13 +123,13 @@ public class UIBoss : MonoBehaviour
     public BossDataStorage GetData()
     {
         return new BossDataStorage(level
-            , DataManager.instance.dataStorage.bossDataStorage.gold
-            , DataManager.instance.dataStorage.bossDataStorage.levelEnergy
-            , DataManager.instance.dataStorage.bossDataStorage.lastRewardTime
-            , DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest
+            , DataManager.instance.bossDataStorage.gold
+            , DataManager.instance.bossDataStorage.levelEnergy
+            , DataManager.instance.bossDataStorage.lastRewardTime
+            , DataManager.instance.bossDataStorage.goldRewardHighest
             , progress
-            , DataManager.instance.dataStorage.bossDataStorage.blockDataStorage
-            , DataManager.instance.dataStorage.bossDataStorage.weaponEvolutionDataStorge);
+            , DataManager.instance.bossDataStorage.blockDataStorage
+            , DataManager.instance.bossDataStorage.weaponEvolutionDataStorge);
     }
 
     public void UpdateFillProgress()
@@ -169,8 +169,8 @@ public class UIBoss : MonoBehaviour
         SaveData();
         BlockController.instance.ClearBlocks();
 
-        PlayerController.instance.player.gold = DataManager.instance.dataStorage.playerDataStorage.gold;
-        BlockController.instance.energyUpgradee.level = DataManager.instance.dataStorage.energyDataStorage.level;
+        PlayerController.instance.player.gold = DataManager.instance.playerDataStorage.gold;
+        BlockController.instance.energyUpgradee.level = DataManager.instance.energyDataStorage.level;
         UIHandler.instance.lastRewardTime = DataManager.instance.dataStorage.lastRewardTime;
         UIHandler.instance.goldRewardHighest = DataManager.instance.dataStorage.goldRewardHighest;
 
@@ -178,17 +178,17 @@ public class UIBoss : MonoBehaviour
         UIHandler.instance.CheckRewardGold();
         BlockController.instance.LoadData();
 
-        UpgradeEvolutionController.instance.SetData(DataManager.instance.dataStorage.weaponEvolutionDataStorge);
+        UpgradeEvolutionController.instance.SetData(DataManager.instance.weaponEvolutionDataStorge);
         ActiveMode(false);
     }
 
     public void SaveData()
     {
-        DataManager.instance.dataStorage.bossDataStorage.blockDataStorage = BlockController.instance.GetBlocks();
-        DataManager.instance.dataStorage.bossDataStorage.levelEnergy = BlockController.instance.energyUpgradee.level;
-        DataManager.instance.dataStorage.bossDataStorage.gold = PlayerController.instance.player.gold;
-        DataManager.instance.dataStorage.bossDataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
-        DataManager.instance.dataStorage.bossDataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
-        DataManager.instance.dataStorage.bossDataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
+        DataManager.instance.bossDataStorage.blockDataStorage = BlockController.instance.GetBlocks();
+        DataManager.instance.bossDataStorage.levelEnergy = BlockController.instance.energyUpgradee.level;
+        DataManager.instance.bossDataStorage.gold = PlayerController.instance.player.gold;
+        DataManager.instance.bossDataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
+        DataManager.instance.bossDataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
+        DataManager.instance.bossDataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
     }
 }

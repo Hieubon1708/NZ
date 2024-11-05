@@ -35,27 +35,27 @@ public class PlayerInventory : MonoBehaviour
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage.playerDataStorage != null)
+        if (DataManager.instance.playerDataStorage != null)
         {
-            gem = DataManager.instance.dataStorage.playerDataStorage.gem;
-            dush = DataManager.instance.dataStorage.playerDataStorage.dush;
-            key = DataManager.instance.dataStorage.playerDataStorage.key;
-            cogwheel = DataManager.instance.dataStorage.playerDataStorage.cogwheel;
+            gem = DataManager.instance.playerDataStorage.gem;
+            dush = DataManager.instance.playerDataStorage.dush;
+            key = DataManager.instance.playerDataStorage.key;
+            cogwheel = DataManager.instance.playerDataStorage.cogwheel;
 
-            gunLevel = DataManager.instance.dataStorage.playerDataStorage.gunLevel;
-            boomLevel = DataManager.instance.dataStorage.playerDataStorage.boomLevel;
-            capLevel = DataManager.instance.dataStorage.playerDataStorage.capLevel;
-            clothesLevel = DataManager.instance.dataStorage.playerDataStorage.clothesLevel;
+            gunLevel = DataManager.instance.playerDataStorage.gunLevel;
+            boomLevel = DataManager.instance.playerDataStorage.boomLevel;
+            capLevel = DataManager.instance.playerDataStorage.capLevel;
+            clothesLevel = DataManager.instance.playerDataStorage.clothesLevel;
 
-            gunLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
-            boomLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
-            capLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
-            clothesLevelUpgrade = DataManager.instance.dataStorage.playerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
+            gunLevelUpgrade = DataManager.instance.playerDataStorage.equipmentUpgradeDataStorages.gunLevelUpgrade;
+            boomLevelUpgrade = DataManager.instance.playerDataStorage.equipmentUpgradeDataStorages.boomLevelUpgrade;
+            capLevelUpgrade = DataManager.instance.playerDataStorage.equipmentUpgradeDataStorages.capLevelUpgrade;
+            clothesLevelUpgrade = DataManager.instance.playerDataStorage.equipmentUpgradeDataStorages.clothesLevelUpgrade;
 
-            amoutGunDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.gunAmout;
-            amoutBoomDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.boomAmout;
-            amoutCapDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.capAmout;
-            amoutClothesDesign = DataManager.instance.dataStorage.playerDataStorage.designDataStorage.clothesAmout;
+            amoutGunDesign = DataManager.instance.playerDataStorage.designDataStorage.gunAmout;
+            amoutBoomDesign = DataManager.instance.playerDataStorage.designDataStorage.boomAmout;
+            amoutCapDesign = DataManager.instance.playerDataStorage.designDataStorage.capAmout;
+            amoutClothesDesign = DataManager.instance.playerDataStorage.designDataStorage.clothesAmout;
         }
 
         UpdateTextDush();

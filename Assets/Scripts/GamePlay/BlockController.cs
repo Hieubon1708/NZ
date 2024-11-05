@@ -122,29 +122,25 @@ public class BlockController : MonoBehaviour
 
     public void LoadData()
     {
-        DataStorage dataStorage = DataManager.instance.dataStorage;
-        if (dataStorage.blockDataStorage != null)
+        for (int i = 0; i < DataManager.instance.blockDataStorage.Length; i++)
         {
-            for (int i = 0; i < dataStorage.blockDataStorage.Length; i++)
-            {
-                GameObject block = blockPools[0];
-                blockPools.Remove(block);
-                block.transform.localPosition = new Vector2(block.transform.localPosition.x, startY + distance * blocks.Count);
-                blocks.Add(block);
-                block.SetActive(true);
-                Block scBlock = GetScBlock(block);
-                scBlock.sellingPrice = dataStorage.blockDataStorage[i].sellingPrice;
+            GameObject block = blockPools[0];
+            blockPools.Remove(block);
+            block.transform.localPosition = new Vector2(block.transform.localPosition.x, startY + distance * blocks.Count);
+            blocks.Add(block);
+            block.SetActive(true);
+            Block scBlock = GetScBlock(block);
+            scBlock.sellingPrice = DataManager.instance.blockDataStorage[i].sellingPrice;
 
-                BlockUpgradeHandler blockUpgradeHandler = GetScBlock(block).blockUpgradeHandler;
+            BlockUpgradeHandler blockUpgradeHandler = GetScBlock(block).blockUpgradeHandler;
 
-                int blockLevel = dataStorage.blockDataStorage[i].level;
-                WEAPON weaponType = dataStorage.blockDataStorage[i].weaponDataStorage.weaponType;
-                int weaponLevel = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevel;
-                int weaponLevelUpgrade = dataStorage.blockDataStorage[i].weaponDataStorage.weaponLevelUpgrade;
+            int blockLevel = DataManager.instance.blockDataStorage[i].level;
+            WEAPON weaponType = DataManager.instance.blockDataStorage[i].weaponDataStorage.weaponType;
+            int weaponLevel = DataManager.instance.blockDataStorage[i].weaponDataStorage.weaponLevel;
+            int weaponLevelUpgrade = DataManager.instance.blockDataStorage[i].weaponDataStorage.weaponLevelUpgrade;
 
-                blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
-                if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.LoadData();
-            }
+            blockUpgradeHandler.LoadData(blockLevel, weaponType, weaponLevel, weaponLevelUpgrade);
+            if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.LoadData();
         }
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
         energyUpgradee.LoadData();
@@ -174,6 +170,7 @@ public class BlockController : MonoBehaviour
         }
         blockBuyer.CheckButtonState();
         energyUpgradee.CheckButtonState();
+        DataManager.instance.SaveBlock();
     }
 
     public void AddBlock()
@@ -294,12 +291,12 @@ public class BlockController : MonoBehaviour
 
     public void SaveData()
     {
-        DataManager.instance.dataStorage.blockDataStorage = GetBlocks();
+        /*DataManager.instance.dataStorage.blockDataStorage = GetBlocks();
         DataManager.instance.dataStorage.energyDataStorage.level = energyUpgradee.level;
         DataManager.instance.dataStorage.playerDataStorage.gold = PlayerController.instance.player.gold;
         DataManager.instance.dataStorage.lastRewardTime = UIHandler.instance.lastRewardTime;
         DataManager.instance.dataStorage.goldRewardHighest = UIHandler.instance.goldRewardHighest;
-        DataManager.instance.dataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();
+        DataManager.instance.dataStorage.weaponEvolutionDataStorge = UpgradeEvolutionController.instance.GetData();*/
     }
 
     public void DeleteBlockInGame(GameObject block)

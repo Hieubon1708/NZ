@@ -75,48 +75,48 @@ public class Tutorial : MonoBehaviour
 
     public void LoadData()
     {
-        if (DataManager.instance.dataStorage.tutorialDataStorage != null)
+        if (DataManager.instance.tutorialDataStorage != null)
         {
-            isFirstTimePlay = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimePlay;
+            isFirstTimePlay = DataManager.instance.tutorialDataStorage.isFirstTimePlay;
 
-            isFirstTimeClickButtonBuyBlock = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBuyBlock;
-            isFirstTimeClickButtonBuyWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBuyWeapon;
-            isFirstTimeClickButtonUpgradeEnergy = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeEnergy;
-            isFirstTimeClickUpgradeWeaponEvo = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickUpgradeWeaponEvo;
+            isFirstTimeClickButtonBuyBlock = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonBuyBlock;
+            isFirstTimeClickButtonBuyWeapon = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonBuyWeapon;
+            isFirstTimeClickButtonUpgradeEnergy = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonUpgradeEnergy;
+            isFirstTimeClickUpgradeWeaponEvo = DataManager.instance.tutorialDataStorage.isFirstTimeClickUpgradeWeaponEvo;
 
-            isFirstTimeClickBoosterBoom = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterBoom;
-            isFirstTimeClickBoosterSaw = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterSaw;
-            isFirstTimeClickBoosterFlame = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterFlame;
-            isFirstTimeClickBoosterMachineGun = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickBoosterMachineGun;
+            isFirstTimeClickBoosterBoom = DataManager.instance.tutorialDataStorage.isFirstTimeClickBoosterBoom;
+            isFirstTimeClickBoosterSaw = DataManager.instance.tutorialDataStorage.isFirstTimeClickBoosterSaw;
+            isFirstTimeClickBoosterFlame = DataManager.instance.tutorialDataStorage.isFirstTimeClickBoosterFlame;
+            isFirstTimeClickBoosterMachineGun = DataManager.instance.tutorialDataStorage.isFirstTimeClickBoosterMachineGun;
 
-            isUnlockInventory = DataManager.instance.dataStorage.tutorialDataStorage.isUnlockInventory;
-            isUnlockShop = DataManager.instance.dataStorage.tutorialDataStorage.isUnlockShop;
-            isUnlockWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isUnlockWeapon;
-            isUnlockBoss = DataManager.instance.dataStorage.tutorialDataStorage.isUnlockBoss;
+            isUnlockInventory = DataManager.instance.tutorialDataStorage.isUnlockInventory;
+            isUnlockShop = DataManager.instance.tutorialDataStorage.isUnlockShop;
+            isUnlockWeapon = DataManager.instance.tutorialDataStorage.isUnlockWeapon;
+            isUnlockBoss = DataManager.instance.tutorialDataStorage.isUnlockBoss;
 
-            isFirstTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDestroyTower;
-            isSecondTimeDestroyTower = DataManager.instance.dataStorage.tutorialDataStorage.isSecondTimeDestroyTower;
-            isFirstTimeDragBlock = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDragBlock;
+            isFirstTimeDestroyTower = DataManager.instance.tutorialDataStorage.isFirstTimeDestroyTower;
+            isSecondTimeDestroyTower = DataManager.instance.tutorialDataStorage.isSecondTimeDestroyTower;
+            isFirstTimeDragBlock = DataManager.instance.tutorialDataStorage.isFirstTimeDragBlock;
 
-            isFirstTimeClickButtonInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonInventory;
-            isFirstTimeClickButtonEquipInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonEquipInventory;
-            isFirstTimeClickButtonSellInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonSellInventory;
-            isFirstTimeClickButtonUpgradeInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeInventory;
-            isFirstTimeClickButtonUpgradeLevelInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeLevelInventory;
-            isFirstTimeClickButtonShop = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonShop;
-            isFirstTimeClickButtonRoll = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonRoll;
-            isFirstTimeClickButtonWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonWeapon;
-            isFirstTimeClickButtonBoss = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonBoss;
-            isFirstTimeClickButtonPlayBoss = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonPlayBoss;
+            isFirstTimeClickButtonInventory = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonInventory;
+            isFirstTimeClickButtonEquipInventory = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonEquipInventory;
+            isFirstTimeClickButtonSellInventory = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonSellInventory;
+            isFirstTimeClickButtonUpgradeInventory = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonUpgradeInventory;
+            isFirstTimeClickButtonUpgradeLevelInventory = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonUpgradeLevelInventory;
+            isFirstTimeClickButtonShop = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonShop;
+            isFirstTimeClickButtonRoll = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonRoll;
+            isFirstTimeClickButtonWeapon = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonWeapon;
+            isFirstTimeClickButtonBoss = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonBoss;
+            isFirstTimeClickButtonPlayBoss = DataManager.instance.tutorialDataStorage.isFirstTimeClickButtonPlayBoss;
         }
         if (isSecondTimeDestroyTower) UIHandler.instance.daily.daily.SetActive(true);
     }
 
     public void CheckTutorialShopNWeaponNBoss()
     {
-        if (!isUnlockBoss) isUnlockBoss = true;
+        //if (!isUnlockBoss) isUnlockBoss = true;
         if (!isUnlockShop) isUnlockShop = true;
-        if (!isUnlockWeapon) isUnlockWeapon = true;
+        //if (!isUnlockWeapon) isUnlockWeapon = true;
     }
 
     public TutorialDataStorage GetData()
@@ -409,7 +409,7 @@ public class Tutorial : MonoBehaviour
             isFirstTimeClickButtonUpgradeEnergy = true;
             return;
         }
-        int price = DataManager.instance.dataStorage.energyDataStorage != null ? DataManager.instance.GetPriceUpgradeEnergyConfig(BlockController.instance.energyUpgradee.level) : DataManager.instance.energyConfig.startPrice;
+        int price = DataManager.instance.GetPriceUpgradeEnergyConfig(BlockController.instance.energyUpgradee.level);
         if (isFirstTimeClickButtonUpgradeEnergy || !isClick && PlayerController.instance.player.gold < price)
         {
             TutorialUpgradeWeaponEvo(false);
@@ -487,6 +487,7 @@ public class Tutorial : MonoBehaviour
 
     public void EnableTutorial(bool isEnable, TutorialOject tutorialOject)
     {
+        DataManager.instance.SaveTutorial();
         if (tutorialOject != null) tutorialOject.EnabledTutorial(isEnable, unmaskButton, unmaskHand, unmaskOther, unmaskParent, xUnMask, spButtonUnmask, spOtherUnmask);
     }
 
@@ -505,6 +506,7 @@ public class Tutorial : MonoBehaviour
         if (scSelected == scButtonRoll) isFirstTimeClickButtonRoll = true;
         if (scSelected == scButtonBoss) isFirstTimeClickButtonBoss = true;
         if (scSelected == scButtonPlayBoss) isFirstTimeClickButtonPlayBoss = true;
+        DataManager.instance.SaveTutorial();
     }
 
     public void Restart()

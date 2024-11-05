@@ -58,6 +58,16 @@ public class UpgradeEvolutionController : MonoBehaviour
         return new WeaponEvolutionDataStorge(saws.ToArray(), flames.ToArray(), machineGuns.ToArray(), shockers.ToArray());
     }
 
+    private void OnDestroy()
+    {
+        if (isShowEvoSaw) GetSAWEVOS();
+        if (isShowEvoMachineGun) GetMACHINEGUNEVOS();
+        if (isShowEvoFlame) GetFLAMEVOS();
+        if (isShowEvoShocker) GetSHOCKEREVOS();
+
+        DataManager.instance.SaveEvo();
+    }
+
     public SAWEVO[] GetSAWEVOS()
     {
         if (isShowEvoSaw == true)
@@ -102,10 +112,10 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     public void LoadData()
     {
-        saws = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.sawEvos.ToList() : new List<SAWEVO>();
-        flames = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.flameEvos.ToList() : new List<FLAMEEVO>();
-        machineGuns = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.machineGunEvos.ToList() : new List<MACHINEGUNEVO>();
-        shockers = DataManager.instance.dataStorage.weaponEvolutionDataStorge != null ? DataManager.instance.dataStorage.weaponEvolutionDataStorge.shockerEvos.ToList() : new List<SHOCKEREVO>();
+        saws = DataManager.instance.weaponEvolutionDataStorge != null ? DataManager.instance.weaponEvolutionDataStorge.sawEvos.ToList() : new List<SAWEVO>();
+        flames = DataManager.instance.weaponEvolutionDataStorge != null ? DataManager.instance.weaponEvolutionDataStorge.flameEvos.ToList() : new List<FLAMEEVO>();
+        machineGuns = DataManager.instance.weaponEvolutionDataStorge != null ? DataManager.instance.weaponEvolutionDataStorge.machineGunEvos.ToList() : new List<MACHINEGUNEVO>();
+        shockers = DataManager.instance.weaponEvolutionDataStorge != null ? DataManager.instance.weaponEvolutionDataStorge.shockerEvos.ToList() : new List<SHOCKEREVO>();
 
         uIUpgradeEvolution.UpdateShockerEvo();
         uIUpgradeEvolution.UpdateSawEvo();
@@ -184,8 +194,9 @@ public class UpgradeEvolutionController : MonoBehaviour
         weaponUpgradeHandler.EvoAccept();
         weaponUpgradeHandler.gameObject.SetActive(true);
         weaponUpgradeHandler.aniShowNewEvo.Play();
+        DataManager.instance.SaveEvo();
     }
-    
+
     public void ShockerAddEvolution(int type)
     {
         isShowEvoShocker = false;

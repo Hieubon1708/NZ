@@ -103,15 +103,15 @@ public class GameController : MonoBehaviour
     {
         LoadData();
         MapGenerate(level + 1);
-        boss = (GameObject)Instantiate(Resources.Load(Path.Combine("BossLevels", DataManager.instance.dataStorage.bossDataStorage != null ? (DataManager.instance.dataStorage.bossDataStorage.level + 1).ToString() : "1")), new Vector2(0, 0.85f), Quaternion.identity, transform);
-        UIBoss.instance.bossHandler = boss.GetComponentInChildren<BossHandler>();
-        boss.SetActive(false);
+        //boss = (GameObject)Instantiate(Resources.Load(Path.Combine("BossLevels", DataManager.instance.dataStorage.bossDataStorage != null ? (DataManager.instance.dataStorage.bossDataStorage.level + 1).ToString() : "1")), new Vector2(0, 0.85f), Quaternion.identity, transform);
+        //UIBoss.instance.bossHandler = boss.GetComponentInChildren<BossHandler>();
+        //boss.SetActive(false);
         EquipmentController.instance.LoadData();
         PlayerController.instance.LoadData();
         UIHandler.instance.LoadData();
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
-        UIBoss.instance.LoadData();
+        //UIBoss.instance.LoadData();
 
         /* Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
          Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
@@ -225,6 +225,11 @@ public class GameController : MonoBehaviour
         CarController.instance.Restart();
         Booster.instance.ResetBooster();
         listEVisible.Clear();
+
+        DataManager.instance.SaveDaily();
+        DataManager.instance.SavePlayer();
+        DataManager.instance.SaveTutorial();
+        DataManager.instance.SaveData();
     }
 
     void Resize()
@@ -292,38 +297,5 @@ public class GameController : MonoBehaviour
             }
         }
         return listEVisible[index].transform;
-    }
-
-    public void OnDestroy()
-    {
-        if (!isPLayBoss) BlockController.instance.SaveData();
-        else UIBoss.instance.SaveData();
-
-        EquipmentDataStorage[] equipmentConfigs = new EquipmentDataStorage[EquipmentController.instance.amoutEquip];
-
-        for (int i = 0; i < equipmentConfigs.Length; i++)
-        {
-            equipmentConfigs[i] = new EquipmentDataStorage((int)EquipmentController.instance.equipments[i].type, (int)EquipmentController.instance.equipments[i].level);
-        }
-
-        DesignDataStorage designDataStorage = new DesignDataStorage(EquipmentController.instance.playerInventory.amoutGunDesign, EquipmentController.instance.playerInventory.amoutCapDesign, EquipmentController.instance.playerInventory.amoutBoomDesign, EquipmentController.instance.playerInventory.amoutClothesDesign);
-        EquipmentUpgradeDataStorage equipmentUpgradeDataStorage = new EquipmentUpgradeDataStorage(EquipmentController.instance.playerInventory.gunLevelUpgrade, EquipmentController.instance.playerInventory.boomLevelUpgrade, EquipmentController.instance.playerInventory.capLevelUpgrade, EquipmentController.instance.playerInventory.clothesLevelUpgrade);
-        playerDataStorage playerDataStorage = new playerDataStorage(DataManager.instance.dataStorage.playerDataStorage != null ? DataManager.instance.dataStorage.playerDataStorage.gold : PlayerController.instance.player.gold, EquipmentController.instance.playerInventory.gem, EquipmentController.instance.playerInventory.dush, EquipmentController.instance.playerInventory.key, EquipmentController.instance.playerInventory.cogwheel, EquipmentController.instance.playerInventory.gunLevel, EquipmentController.instance.playerInventory.boomLevel, EquipmentController.instance.playerInventory.clothesLevel, EquipmentController.instance.playerInventory.clothesLevel, equipmentConfigs, equipmentUpgradeDataStorage, designDataStorage);
-        ChanceDataStorage chanceDataStorage = new ChanceDataStorage(UIHandler.instance.summonEquipment.level, UIHandler.instance.summonEquipment.amout);
-
-        TutorialDataStorage tutorialDataStorage = UIHandler.instance.tutorial.GetData();
-        DailyDataStorage dailyDataStorage = UIHandler.instance.daily.GetData();
-        BossDataStorage bossDataStorage = UIBoss.instance.GetData();
-
-        DataStorage dataStorage = new DataStorage(level, UIHandler.instance.setting.isSoundActive, UIHandler.instance.setting.isMusicActive
-            , DataManager.instance.dataStorage.lastRewardTime, DataManager.instance.dataStorage.goldRewardHighest
-            , UIHandler.instance.progressHandler.progresses.ToArray(), dailyDataStorage, tutorialDataStorage
-            , playerDataStorage, DataManager.instance.dataStorage.blockDataStorage, DataManager.instance.dataStorage.energyDataStorage
-            , chanceDataStorage, DataManager.instance.dataStorage.weaponEvolutionDataStorge
-            , bossDataStorage);
-
-        string dataStorageJs = JsonConvert.SerializeObject(dataStorage);
-        string path = Path.Combine(Application.persistentDataPath, "DataStorage.json");
-        File.WriteAllText(path, dataStorageJs);
     }
 }
