@@ -178,6 +178,14 @@ public class SawHandler : WeaponShoter
         sawBooster = StartCoroutine(ThrowSaw());
     }
 
+    public void OnDisable()
+    {
+        if (sawBooster != null)
+        {
+            StopCoroutine(sawBooster);
+        }
+    }
+
     IEnumerator ThrowSaw()
     {
         Vector2 startPos = transform.position;

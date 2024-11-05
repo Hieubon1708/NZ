@@ -96,10 +96,13 @@ public class EnemyTowerController : MonoBehaviour
     {
         for (int i = 0; i < listRandomEs.Count; i++)
         {
+            UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
             EnemyHandler eSc = GetScE(listRandomEs[i]);
-            listRandomEs[i].SetActive(false);
+            eSc.col.enabled = false;
             eSc.content.SetActive(false);
+            listRandomEs[i].SetActive(false);
             eSc.Restart();
+            eSc.col.enabled = true;
         }
         if (enemySpawnByTimes != null && scTowers[indexTower].isSpawnByTime)
         {
@@ -112,9 +115,25 @@ public class EnemyTowerController : MonoBehaviour
             }
             for (int i = 0; i < poolScEByTimes.Count; i++)
             {
+                if (!poolScEByTimes[i].gameObject.activeSelf) continue;
                 EnemyHandler eSc = GetScE(poolScEByTimes[i].gameObject);
-                eSc.Restart();
-                listRandomEs[i].gameObject.SetActive(false);
+                if (GameController.instance.isLose)
+                {
+                    eSc.Restart();
+                    poolScEByTimes[i].gameObject.SetActive(false);
+                }
+                else
+                {
+                    if(eSc as EnemyT5)
+                    {
+                        (eSc as EnemyT5).isDeadByTower = true;
+                    }
+                    if(eSc as EnemyT4)
+                    {
+                        (eSc as EnemyT4).isDeadByTower = true;
+                    }
+                    eSc.DeathHandle();
+                }
             }
         }
     }
@@ -437,15 +456,6 @@ public class EnemyTowerController : MonoBehaviour
     {
         return scTowers[indexTower];
     }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
-            UIHandler.instance.menu.CheckDisplayButtonPage();
-            UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
-        }
-    }
 
     public void NextTower()
     {
@@ -454,6 +464,7 @@ public class EnemyTowerController : MonoBehaviour
             DisableEs();
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
+            if (GameController.instance.level > 1) GameController.instance.level = 0;
             GameController.instance.isStart = false;
             //UIHandler.instance.SetActiveProgressNGem(false);
             UIHandler.instance.tutorial.CheckTutorialShopNWeaponNBoss();
@@ -468,9 +479,9 @@ public class EnemyTowerController : MonoBehaviour
             BlockController.instance.energyUpgradee.UpgradeHandle();
             GameController.instance.isLose = true;
             BlockController.instance.SellAllBlocks();
-            BlockController.instance.blocks.Clear();
+            BlockController.instance.ClearBlocks();
             UIHandler.instance.menu.CheckNotifAll();
-            UIHandler.instance.progressHandler.Restart();
+            UIHandler.instance.progressHandler.StopProgress();
             EquipmentController.instance.playerInventory.ConvertGoldToDush();
             BlockController.instance.CheckButtonStateAll();
             DOVirtual.DelayedCall(2f, delegate

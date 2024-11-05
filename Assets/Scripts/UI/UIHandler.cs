@@ -185,7 +185,6 @@ public class UIHandler : MonoBehaviour
         setting.LoadData();
         menu.LoadData();
         GemUpdatee();
-        if (daily.daily.activeSelf) gem.SetActive(true);
         if (DataManager.instance.dataStorage != null)
         {
             goldRewardHighest = DataManager.instance.dataStorage.goldRewardHighest;
@@ -274,7 +273,8 @@ public class UIHandler : MonoBehaviour
     public void GemUpdatee()
     {
         textGem.text = ConvertNumberAbbreviation(EquipmentController.instance.playerInventory.gem);
-        if(!gem.activeSelf) gameObject.SetActive(true);
+        if(EquipmentController.instance.playerInventory.gem > 0) gem.SetActive(true);
+        else gem.SetActive(false);
     }
 
     public void PlusGem(int gem)

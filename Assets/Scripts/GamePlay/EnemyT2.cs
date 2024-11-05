@@ -11,9 +11,16 @@ public class EnemyT2 : EnemyHandler
     {
         base.Start();
         SetHp();
-        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1+ 3, GameController.instance.xPlus2 - 0.5f);
+        targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 0.5f);
     }
-
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if (collision.CompareTag("ColDisplay"))
+        {
+            Debug.DrawLine(transform.position, new Vector2(CarController.instance.transform.position.x + targetX, transform.position.y), Color.red, 1);
+        }
+    }
     protected override void FixedUpdate()
     {
         float walkSpeed = 0f;
@@ -36,7 +43,7 @@ public class EnemyT2 : EnemyHandler
             speed = 0;
         }
 
-        if(GameController.instance.isLose && BlockController.instance.tempBlocks.Count == 0)
+        if (GameController.instance.isLose && BlockController.instance.tempBlocks.Count == 0)
         {
             if (animator.GetBool("attack"))
             {
@@ -54,7 +61,7 @@ public class EnemyT2 : EnemyHandler
                     isShot = true;
                     animator.SetBool("attack", true);
                 }
-                if(isCollisionWithGround)
+                if (isCollisionWithGround)
                 {
                     speed = 0;
                 }
@@ -69,7 +76,7 @@ public class EnemyT2 : EnemyHandler
                 }
             }
         }
-        
+
         rb.velocity = new Vector2(-(speed + GameController.instance.backgroundSpeed) * multiplier, rb.velocity.y);
         animator.SetFloat("velocityY", rb.velocity.y);
         animator.SetFloat("walkSpeed", walkSpeed);
@@ -77,11 +84,11 @@ public class EnemyT2 : EnemyHandler
 
     public override void Restart()
     {
-        base.Restart();
         attackEventT2.SetActiveBullet(false);
+        base.Restart();
     }
 
-    protected override void DeathHandle()
+    public override void DeathHandle()
     {
         base.DeathHandle();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 3, GameController.instance.xPlus2 - 0.5f);

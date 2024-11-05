@@ -99,10 +99,6 @@ public class DataManager : MonoBehaviour
             string DataStorageContent = File.ReadAllText(dataStorageJs);
             dataStorage = JsonConvert.DeserializeObject<DataStorage>(DataStorageContent);
         }
-        else
-        {
-            Debug.LogWarning("File not found: " + dataStorageJs);
-        }
     }
 
     public WeaponConfig FindWeaponConfigByType(WEAPON type)

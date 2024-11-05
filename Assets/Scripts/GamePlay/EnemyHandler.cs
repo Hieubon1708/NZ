@@ -466,13 +466,13 @@ public class EnemyHandler : MonoBehaviour
 
     public Tween delayRevival;
 
-    protected virtual void DeathHandle()
+    public virtual void DeathHandle()
     {
         UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();
         UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
-        SetDeathAni(); 
+        SetDeathAni();
         healthBar.SetActive(false);
         if (shadow != null) shadow.SetActive(false);
         GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
@@ -584,6 +584,7 @@ public class EnemyHandler : MonoBehaviour
         healthBar.SetActive(false);
         //if (shadow != null) shadow.SetActive(true);
         healthHandler.SetDefaultInfo(ref enemyInfo.hp);
+        enemyInfo.bone.ResetBone();
     }
 
     IEnumerator SetFalseIsStunned(float time)

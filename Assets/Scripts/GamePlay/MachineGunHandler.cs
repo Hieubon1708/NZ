@@ -257,6 +257,7 @@ public class MachineGunHandler : WeaponShoter
 
     public override void DisableWeapon()
     {
+        Debug.LogWarning("Dis");
         ani.Rebind();
         ani.SetBool("startGame", true);
         if (shotBoosters != null) StopCoroutine(shotBoosters);

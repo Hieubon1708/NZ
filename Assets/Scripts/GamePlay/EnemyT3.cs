@@ -23,7 +23,7 @@ public class EnemyT3 : EnemyHandler
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Tower") && EnemyTowerController.instance.GetTower().col == collision.gameObject) levingCave = StartCoroutine(LevingCave());
+        if (collision.CompareTag("Tower") && col.enabled && EnemyTowerController.instance.GetTower().col == collision.gameObject) levingCave = StartCoroutine(LevingCave());
     }
 
     protected override void FixedUpdate()
@@ -71,7 +71,7 @@ public class EnemyT3 : EnemyHandler
         animator.SetFloat("walkSpeed", walkSpeed + Mathf.Clamp(velocity.y, -0.5f, 0.5f));
     }
 
-    protected override void DeathHandle()
+    public override void DeathHandle()
     {
         base.DeathHandle();
         isLevingCave = false;
@@ -89,8 +89,8 @@ public class EnemyT3 : EnemyHandler
     IEnumerator LevingCave()
     {
         yield return new WaitWhile(() => Mathf.Abs(EnemyTowerController.instance.GetTower().col.transform.position.x - enemyInfo.transform.position.x) > 1.75f);
-        rb.velocity = new Vector2(rb.velocity.x, 3.5f);
-        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1, GameController.instance.yPlus2 / 2);
+        rb.velocity = new Vector2(rb.velocity.x, 2.5f);
+        if (transform.position.x <= targetX) yRandomAfterLevingCave = EUtils.RandomYDistanceByCar(GameController.instance.yPlus1 * 1.35f, GameController.instance.yPlus2 * 0.75f);
         yield return new WaitWhile(() => transform.position.y <= yRandomAfterLevingCave);
         rb.velocity = new Vector2(rb.velocity.x, 0);
         isLevingCave = true;
@@ -112,11 +112,13 @@ public class EnemyT3 : EnemyHandler
         content.SetActive(false);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if(levingCave != null)
-        {
-            StopCoroutine(levingCave);
-        }
+        col.enabled = false;
+    }
+
+    public void OnEnable()
+    {
+        col.enabled = true;
     }
 }

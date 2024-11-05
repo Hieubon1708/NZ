@@ -56,12 +56,19 @@ public class BlockController : MonoBehaviour
             goldReward += sc.sellingPrice;
             int gold = goldReward;
             int count = tempBlocks.Count;
+            sc.sellingPrice = 0;
             DOVirtual.DelayedCall(0.65f, delegate
             {
                 UIHandler.instance.progressHandler.textGold.text = gold.ToString();
                 if (count == 0) UIHandler.instance.progressHandler.textGold.text = UIHandler.instance.goldTemp.ToString();
             });
             yield return new WaitForSeconds(0.25f);
+        }
+        for (int i = 0; i < blockPools.Count; i++)
+        {
+            Block sc = GetScBlock(blockPools[i]);
+            sc.sellingPrice = 0;
+            sc.blockUpgradeHandler.ResetData();
         }
         yield return new WaitForSeconds(1f);
         UIHandler.instance.progressHandler.ShowConvert(UIHandler.instance.goldTemp);
@@ -71,13 +78,16 @@ public class BlockController : MonoBehaviour
     {
         for (int i = 0; i < blocks.Count; i++)
         {
+            blocks[i].transform.DOKill();
             blocks[i].transform.localPosition = new Vector2(blocks[i].transform.localPosition.x, startY + distance * i);
             Block sc = GetScBlock(blocks[i]);
+            sc.StopDeleteBlockAni();
             sc.blockHandler.Restart();
             BlockUpgradeHandler blockUpgradeHandler = sc.blockUpgradeHandler;
             if (blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.Restart();
             if (!blocks[i].activeSelf) blocks[i].SetActive(true);
         }
+        player.transform.DOKill();
         player.transform.localPosition = new Vector2(player.transform.localPosition.x, startYPlayer + distance * blocks.Count);
     }
 
@@ -190,6 +200,7 @@ public class BlockController : MonoBehaviour
     {
         for (int i = 0; i < blocks.Count; i++)
         {
+            if (!blocks[i].activeSelf) continue;
             Block sc = GetScBlock(blocks[i]);
             if (weaponType == WEAPON.SAW && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is SawHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
             else if (weaponType == WEAPON.FLAME && sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter is FlameHandler) sc.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.UseBooster();
@@ -296,6 +307,7 @@ public class BlockController : MonoBehaviour
         Block scBlock = GetScBlock(block);
         tempBlocks.Remove(block);
         scBlock.DeleteBlockAni();
+        if (scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlock.blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
         ParController.instance.PlayBlockDestroyParticle(block.transform.position);
         if (!GameController.instance.isLose)
         {
@@ -307,17 +319,15 @@ public class BlockController : MonoBehaviour
             tempBlocks[i].transform.DOComplete();
             tempBlocks[i].transform.DOLocalMoveY(startY + distance * i, 0.25f).SetEase(Ease.Linear);
         }
-        player.transform.DOLocalMoveY(startYPlayer + distance * tempBlocks.Count, 0.25f).SetEase(Ease.Linear).OnComplete(delegate { block.SetActive(false); });
+        player.transform.DOComplete();
+        player.transform.DOLocalMoveY(startYPlayer + distance * tempBlocks.Count, 0.25f).SetEase(Ease.Linear).OnComplete(delegate { scBlock.gameObject.SetActive(false); });
     }
 
     public void ClearBlocks()
     {
         for (int i = 0; i < blocks.Count; i++)
         {
-            Block sc = GetScBlock(blocks[i]);
-            sc.blockUpgradeHandler.ResetData();
             blockPools.Add(blocks[i]);
-            blocks[i].SetActive(false);
         }
         blocks.Clear();
     }
@@ -357,9 +367,12 @@ public class BlockController : MonoBehaviour
 
     public void DisableWeapons()
     {
-        for (int i = 0; i < blocks.Count; i++)
+        for (int i = 0; i < scBlocks.Count; i++)
         {
-            if (scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null) scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
+            if (scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter != null && scBlocks[i].gameObject.activeSelf)
+            {
+                scBlocks[i].blockUpgradeHandler.weaponUpgradeHandler.weaponShoter.DisableWeapon();
+            }
         }
     }
 }

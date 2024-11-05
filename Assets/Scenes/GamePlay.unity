@@ -7787,6 +7787,7 @@ MonoBehaviour:
   booster: {fileID: 1528667896}
   frame: {fileID: 173683858}
   textEnergy: {fileID: 1963775076}
+  isUseBooster: 0
 --- !u!114 &173683862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8200,6 +8201,7 @@ MonoBehaviour:
   booster: {fileID: 1528667896}
   frame: {fileID: 182928601}
   textEnergy: {fileID: 883156639}
+  isUseBooster: 0
 --- !u!114 &182928604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22623,6 +22625,7 @@ MonoBehaviour:
   booster: {fileID: 1528667896}
   frame: {fileID: 489920864}
   textEnergy: {fileID: 795652237}
+  isUseBooster: 0
 --- !u!114 &489920867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30847,6 +30850,7 @@ MonoBehaviour:
   booster: {fileID: 1528667896}
   frame: {fileID: 651605883}
   textEnergy: {fileID: 1521439704}
+  isUseBooster: 0
 --- !u!114 &651605887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36435,7 +36439,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 1c7e0eb3ea717ac459c92399301240c0, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -88770,7 +88774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255, y: -50}
+  m_AnchoredPosition: {x: 540, y: -50}
   m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1807874431
@@ -90862,7 +90866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1855158552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -96582,6 +96586,7 @@ MonoBehaviour:
   arrowNOk: {r: 0.98823535, g: 0.98823535, b: 0.98823535, a: 1}
   layerCover: {fileID: 869623259}
   spriteAtlas: {fileID: 100100200, guid: ea451cc565727514b97b1fc50902d5b4, type: 3}
+  goldTemp: 0
 --- !u!114 &1965687204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97082,6 +97087,7 @@ MonoBehaviour:
   xUnMask: {fileID: 1516662953}
   spButtonUnmask: {fileID: 915348826}
   spOtherUnmask: {fileID: 45302978}
+  isTutorialDragBlock: 0
   scSelected: {fileID: 0}
   scrollBoss: {fileID: 954241221}
 --- !u!114 &1965687215
@@ -104881,6 +104887,7 @@ MonoBehaviour:
   booster: {fileID: 1528667896}
   frame: {fileID: 2113893546}
   textEnergy: {fileID: 1271203551}
+  isUseBooster: 0
 --- !u!114 &2113893549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111433,7 +111440,7 @@ Transform:
   - {fileID: 8873363929553040680}
   - {fileID: 4796508872399717415}
   m_Father: {fileID: 4699804629347893043}
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: 0}
 --- !u!212 &502493426935319564
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -125276,7 +125283,7 @@ Transform:
   m_GameObject: {fileID: 7017647423100144153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128712,8 +128719,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2126334607
-  m_SortingLayer: 10
+  m_SortingLayerID: -1504770239
+  m_SortingLayer: 8
   m_SortingOrder: 999
   m_Sprite: {fileID: 21300000, guid: 41368065d3ce1f54eb40221e6fca6960, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}

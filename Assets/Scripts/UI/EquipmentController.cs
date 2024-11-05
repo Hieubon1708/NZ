@@ -216,8 +216,7 @@ public class EquipmentController : MonoBehaviour
     IEnumerator SetPosition()
     {
         yield return new WaitForFixedUpdate();
-        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
-        designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
+        DesignContraint();
     }
 
     void Generate()
@@ -239,17 +238,14 @@ public class EquipmentController : MonoBehaviour
 
     public void DesignContraint()
     {
-        float y = Mathf.Clamp(container.position.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
-        designContraint.transform.position = new Vector2(designContraint.transform.position.x, y);
+        Vector2 screenPosContainer = GameController.instance.cam.WorldToScreenPoint(container.position);
+        float y = Mathf.Clamp(screenPosContainer.y - container.sizeDelta.y - 260, float.MinValue, designContraint.startY);
+        designContraint.transform.position = GameController.instance.cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, y, GameController.instance.cam.nearClipPlane));
     }
 
     public void LoadData()
     {
         playerInventory.LoadData();
-        textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
-        textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutBoomDesign);
-        textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutCapDesign);
-        textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutClothesDesign);
 
         if (DataManager.instance.dataStorage.playerDataStorage != null)
         {
@@ -272,6 +268,7 @@ public class EquipmentController : MonoBehaviour
         CheckDisplayDesign();
         CheckStateNofi();
         QualitySort();
+
     }
 
     public void CheckStateNofi()
@@ -326,6 +323,11 @@ public class EquipmentController : MonoBehaviour
             designContraint.label.SetActive(true);
             view.offsetMin = new Vector2(view.offsetMin.x, 345);
         }
+
+        textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
+        textBoomDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutBoomDesign);
+        textCapDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutCapDesign);
+        textClothesDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutClothesDesign);
         CheckNotif();
     }
 
@@ -499,6 +501,7 @@ public class EquipmentController : MonoBehaviour
             GetEquipValue(EQUIPMENTTYPE.CAP, playerInventory.capLevel, ++playerInventory.capLevelUpgrade);
             UpdateHealth();
             PlayerController.instance.player.HpChange();
+            PlayerController.instance.playerHandler.LoadData();
             equipCurrentLevels[2].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
         }
         else
@@ -506,6 +509,7 @@ public class EquipmentController : MonoBehaviour
             GetEquipValue(EQUIPMENTTYPE.ARMOR, playerInventory.clothesLevel, ++playerInventory.clothesLevelUpgrade);
             UpdateHealth();
             PlayerController.instance.player.HpChange();
+            PlayerController.instance.playerHandler.LoadData();
             equipCurrentLevels[3].text = "Lv." + UIHandler.instance.ConvertNumberAbbreviation(playerInventory.gunLevelUpgrade + 1);
         }
         UpdateInfoUpgrade(equipUpgradeSelected);
@@ -713,6 +717,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.capLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.CapChange();
             PlayerController.instance.player.HpChange();
+            PlayerController.instance.playerHandler.LoadData();
             ChangeCap();
         }
         else
@@ -721,6 +726,7 @@ public class EquipmentController : MonoBehaviour
             playerInventory.clothesLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.ClothesChange();
             PlayerController.instance.player.HpChange();
+            PlayerController.instance.playerHandler.LoadData();
             ChangeClothes();
         }
 

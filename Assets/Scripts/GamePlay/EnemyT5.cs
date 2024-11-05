@@ -9,18 +9,17 @@ public class EnemyT5 : EnemyHandler
     public GameObject v;
     public GameObject objScaler;
     Coroutine breakingSilk;
+    public bool isDeadByTower;
 
     public override void Start() { }
     public override void SetDefaultField() { }
 
     public override void SpawnbyTime()
     {
-        if (healthHandler.startHp == 0)
-        {
-            SetDamage();
-            SetHp();
-            hitObj = objScaler;
-        }
+        isDeadByTower = false;
+        SetDamage();
+        SetHp();
+        hitObj = objScaler;
         RestartSilk();
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 4, GameController.instance.xPlus2);
         transform.position = new Vector2(targetX, CarController.instance.spawnY[Random.Range(0, CarController.instance.spawnY.Length)].transform.position.y);
@@ -68,8 +67,19 @@ public class EnemyT5 : EnemyHandler
         }
     }
 
+    public override void Restart()
+    {
+        base.Restart();
+        StopCoroutines();
+        RestartSilk();
+        healthBar.SetActive(false);
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+        SetColNKinematicNRevival(false);
+    }
 
-    protected override void DeathHandle()
+
+    public override void DeathHandle()
     {
         UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         rb.gravityScale = 0;
@@ -82,7 +92,7 @@ public class EnemyT5 : EnemyHandler
         }
         SetColNKinematicNRevival(false);
         healthBar.SetActive(false);
-        UIHandler.instance.FlyGold(hitObj.transform.position, 2);
+        if(!isDeadByTower) UIHandler.instance.FlyGold(hitObj.transform.position, 2);
         SetDeathAni();
         GameController.instance.listEVisible.Remove(colObj);
     }

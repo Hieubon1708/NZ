@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyT4 : EnemyHandler
 {
     public GameObject body;
+    public bool isDeadByTower;
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,25 +41,23 @@ public class EnemyT4 : EnemyHandler
 
     public override void SetDefaultField() { }
 
-    protected override void DeathHandle()
+    public override void DeathHandle()
     {
         UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         healthBar.SetActive(false);
         StopCoroutines();
-        UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
+        if(!isDeadByTower) UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
         SetDeathAni();
         GameController.instance.listEVisible.Remove(gameObject);
     }
 
     public override void SpawnbyTime()
     {
-        if (healthHandler.startHp == 0)
-        {
-            SetDamage();
-            SetHp();
-            hitObj = content;
-        }
+        isDeadByTower = false;
+        SetDamage();
+        SetHp();
+        hitObj = content;
         float x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
         float y = CarController.instance.spawnY[0].transform.position.y;
         transform.position = new Vector2(x, y);

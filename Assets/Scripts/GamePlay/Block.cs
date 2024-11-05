@@ -11,7 +11,7 @@ public class Block : MonoBehaviour
     public BlockUpgradeHandler blockUpgradeHandler;
     public SpriteRenderer sp;
 
-    AnimationClip[] animationClips = new AnimationClip[3];
+    public AnimationClip[] animationClips = new AnimationClip[3];
     public ParticleSystem addBlock;
 
     public void Awake()
@@ -45,20 +45,26 @@ public class Block : MonoBehaviour
     public void AddBlockAni()
     {
         ani.clip = animationClips[0];
-        ani.Play("addBlock");
+        ani.Play();
+    }
+
+    public void StopDeleteBlockAni()
+    {
+        ani.clip = animationClips[1];
+        ani.Stop();
     }
 
     public void DeleteBlockAni()
     {
         ani.clip = animationClips[1];
-        ani.Play("destroyBlock");
+        ani.Play();
     }
 
     public void UpgradeBlockAni()
     {
         if(ani.isPlaying) ani.Stop();
         ani.clip = animationClips[2];
-        ani.Play("upgradeBlock");
+        ani.Play();
     }
 
     public void AddBlockParEvent()

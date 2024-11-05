@@ -58,7 +58,7 @@ public class EnemySkinerT3 : MonoBehaviour
         body.sprite = bodys[index];
         ass.sprite = asses[index];
         sting.sprite = stings[index];
-        rightLeg.sprite = rightLegs[index];
-        leftLeg.sprite = leftLegs[index];
+        rightLeg.sprite = leftLegs[index];
+        leftLeg.sprite = rightLegs[index];
     }
 }

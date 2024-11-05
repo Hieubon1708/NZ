@@ -5,16 +5,22 @@ public class Bone : MonoBehaviour
     public Transform view;
     public Transform[] bones;
     public SpriteRenderer[] spriteInfoOrigin;
-    public BoneTran[] infoOrigin;
+    public float[] alphaOrigin;
+    public BoneInfo[] tranOrigin;
 
-    public void Start()
+    public void Awake()
     {
-        bones = view.GetComponentsInChildren<Transform>();
-        spriteInfoOrigin = view.GetComponentsInChildren<SpriteRenderer>();
-        infoOrigin = new BoneTran[bones.Length];
+        bones = view.GetComponentsInChildren<Transform>(true);
+        spriteInfoOrigin = view.GetComponentsInChildren<SpriteRenderer>(true);
+        tranOrigin = new BoneInfo[bones.Length];
+        alphaOrigin = new float[spriteInfoOrigin.Length];
+        for (int i = 0; i < spriteInfoOrigin.Length; i++)
+        {
+            alphaOrigin[i] = spriteInfoOrigin[i].color.a;
+        }
         for (int i = 0; i < bones.Length; i++)
         {
-            infoOrigin[i] = new BoneTran(bones[i].localPosition, bones[i].localRotation);
+            tranOrigin[i] = new BoneInfo(bones[i].localPosition, bones[i].localRotation, bones[i].localScale, bones[i].gameObject.activeSelf);
         }
     }
 
@@ -23,27 +29,31 @@ public class Bone : MonoBehaviour
         for (int i = 0; i < spriteInfoOrigin.Length; i++)
         {
             Color color = spriteInfoOrigin[i].color;
-            color.a = 1;
+            color.a = alphaOrigin[i];
             spriteInfoOrigin[i].color = color;
         }
         for (int i = 0; i < bones.Length; i++)
         {
-            if (!bones[i].gameObject.activeSelf) bones[i].gameObject.SetActive(true);
-            bones[i].localPosition = infoOrigin[i].pos;
-            bones[i].localRotation = infoOrigin[i].rot;
-            bones[i].localScale = Vector3.one;
+            bones[i].gameObject.SetActive(tranOrigin[i].isActive);
+            bones[i].localPosition = tranOrigin[i].pos;
+            bones[i].localRotation = tranOrigin[i].rot;
+            bones[i].localScale = tranOrigin[i].scale;
         }
     }
 }
-
-public class BoneTran
+[System.Serializable]
+public class BoneInfo
 {
     public Vector2 pos;
     public Quaternion rot;
+    public Vector3 scale;
+    public bool isActive;
 
-    public BoneTran(Vector2 pos, Quaternion rot)
+    public BoneInfo(Vector2 pos, Quaternion rot, Vector3 scale, bool isActive)
     {
         this.pos = pos;
         this.rot = rot;
+        this.scale = scale;
+        this.isActive = isActive;
     }
 }

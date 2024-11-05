@@ -4,7 +4,7 @@ public class BulletHandler : MonoBehaviour
 {
     public Rigidbody2D rb;
     public TrailRenderer trailRenderer;
-    int indexRoadCollider;
+    public int indexRoadCollider;
 
     public void Shot(float speed, Vector2 dir)
     {

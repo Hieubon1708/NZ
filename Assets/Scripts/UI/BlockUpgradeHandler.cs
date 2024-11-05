@@ -139,7 +139,7 @@ public class BlockUpgradeHandler : ButtonUpgradee
         weaponUpgrade.SetActive(false);
         textPriceUpgrade.gameObject.SetActive(true);
         textMax.gameObject.SetActive(false);
-
+        blockHandler.Restart();
         weaponUpgradeHandler.ResetData();
     }
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerHandler : MonoBehaviour
@@ -10,7 +9,6 @@ public class EnemyTowerHandler : MonoBehaviour
     public HealthHandler healthHandler;
     public Damage damage;
     public EnemyController enemyController;
-    public bool isVisible;
     int damageTaken;
     Dictionary<GameObject, Coroutine> flameTriggers = new Dictionary<GameObject, Coroutine>();
     public SpriteRenderer[] fullTowers;
@@ -23,8 +21,17 @@ public class EnemyTowerHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isVisible) return;
-        if (towerInfo.hp == 0) return;
+        if (collision.CompareTag("ColStopTower"))
+        {
+            CarController.instance.multiplier = 0;
+        }
+        if (collision.CompareTag("ColDisplay") && !GameController.instance.listEVisible.Contains(enemyController.col))
+        {
+            GameController.instance.listEVisible.Add(enemyController.col);
+            enemyController.col.SetActive(false);
+            enemyController.col.SetActive(true);
+        }
+        if (towerInfo.hp == 0 || !GameController.instance.listEVisible.Contains(enemyController.col)) return;
         int subtractHp = 0;
         if (collision.CompareTag("Bullet"))
         {

@@ -32,7 +32,7 @@ public class EnemyAttackEventT2 : MonoBehaviour
     {
         for (int i = 0; i < scBullets.Length; i++)
         {
-            if (scBullets[i].gameObject.activeSelf) scBullets[i].gameObject.SetActive(isActive);
+            scBullets[i].gameObject.SetActive(isActive);
         }
     }
 

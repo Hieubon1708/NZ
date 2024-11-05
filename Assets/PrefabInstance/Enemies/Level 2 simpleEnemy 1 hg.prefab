@@ -3515,6 +3515,7 @@ MonoBehaviour:
   silk: {fileID: 4490884765193982259}
   v: {fileID: 1866626148859237}
   objScaler: {fileID: 1729801483369198}
+  isDeadByTower: 0
 --- !u!50 &2887219471394199083
 Rigidbody2D:
   serializedVersion: 4
@@ -3550,8 +3551,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613438774475295}
   m_Enabled: 1
-  m_SortingLayerID: 222012207
-  m_SortingLayer: 5
+  m_SortingLayerID: -67399315
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 1
 --- !u!114 &690481407306403437
@@ -3569,6 +3570,8 @@ MonoBehaviour:
   view: {fileID: 4184996150959588}
   bones: []
   spriteInfoOrigin: []
+  alphaOrigin: []
+  tranOrigin: []
 --- !u!114 &6881620890844791376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4633,9 +4636,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 222012207
-  m_SortingLayer: 5
-  m_SortingOrder: -7
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: eae657f7e4c449e43bf906645e61b2e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -67,6 +67,8 @@ public class Tutorial : MonoBehaviour
     public Image spButtonUnmask;
     public Image spOtherUnmask;
 
+    public bool isTutorialDragBlock;
+
     public TutorialOject scSelected;
 
     public ScrollRect scrollBoss;
@@ -100,7 +102,7 @@ public class Tutorial : MonoBehaviour
             isFirstTimeClickButtonEquipInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonEquipInventory;
             isFirstTimeClickButtonSellInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonSellInventory;
             isFirstTimeClickButtonUpgradeInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeInventory;
-            isFirstTimeClickButtonUpgradeLevelInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeDestroyTower;
+            isFirstTimeClickButtonUpgradeLevelInventory = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonUpgradeLevelInventory;
             isFirstTimeClickButtonShop = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonShop;
             isFirstTimeClickButtonRoll = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonRoll;
             isFirstTimeClickButtonWeapon = DataManager.instance.dataStorage.tutorialDataStorage.isFirstTimeClickButtonWeapon;
@@ -437,10 +439,12 @@ public class Tutorial : MonoBehaviour
             if (isClick)
             {
                 isFirstTimeDragBlock = true;
+                isTutorialDragBlock = true;
                 blockDragTutorial.SetActive(false);
             }
             else
             {
+                isTutorialDragBlock = false;
                 Vector2 pos = BlockController.instance.blocks[2].transform.position;
                 blockDragTutorial.transform.position = pos;
                 blockDragTutorial.SetActive(true);

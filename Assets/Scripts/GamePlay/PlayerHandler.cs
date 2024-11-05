@@ -28,6 +28,7 @@ public class PlayerHandler : MonoBehaviour
         if (hp == 0)
         {
             GameController.instance.isStart = false;
+            GameController.instance.isLose = true;
             if (GameController.instance.isPLayBoss)
             {
                 UIBoss.instance.bossHandler.End();

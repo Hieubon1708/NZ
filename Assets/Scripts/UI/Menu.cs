@@ -139,6 +139,7 @@ public class Menu : MonoBehaviour
         battle.SetActive(isActive);
         battleGameplay.SetActive(isActive);
         battleWorld.SetActive(isActive);
+        if( UIHandler.instance.tutorial.isTutorialDragBlock) UIHandler.instance.tutorial.blockDragTutorial.SetActive(isActive);
     }
 
     public void InventoryActive(bool isActive)

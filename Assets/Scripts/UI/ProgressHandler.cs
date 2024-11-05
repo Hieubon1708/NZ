@@ -42,6 +42,8 @@ public class ProgressHandler : MonoBehaviour
 
     Coroutine lauchProgress;
 
+    bool isHaveReward;
+
     public void LoadData()
     {
         if (DataManager.instance.dataStorage.progresses != null)
@@ -120,7 +122,8 @@ public class ProgressHandler : MonoBehaviour
 
     public void ShowReward()
     {
-        if (equipRewards.Count == 0) return;
+        if (!isHaveReward) return;
+        isHaveReward = false;
         if (!UIHandler.instance.tutorial.isUnlockInventory)
         {
             UIHandler.instance.tutorial.isUnlockInventory = true;
@@ -205,7 +208,7 @@ public class ProgressHandler : MonoBehaviour
             if (indexTower / 2 == 0 && GameController.instance.level == 0) return;
             RewardConfig rewardConfig = DataManager.instance.rewardConfigs[GameController.instance.level];
             RewardLevelConfig rewardLevelConfig = rewardConfig.rewardLevelConfigs[indexTower / 2];
-
+            isHaveReward = true;
             for (int i = 0; i < rewardLevelConfig.equips.Length; i++)
             {
                 EquipmentController.instance.SetEquip(rewardLevelConfig.equips[i].type, rewardLevelConfig.equips[i].level, equips[equipRewards.Count]);
@@ -231,7 +234,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void Restart()
     {
-        StopProgress();
+        progresses.Clear();
         for (int i = 0; i < chests.Length; i++)
         {
             chests[i].SetActive(true);

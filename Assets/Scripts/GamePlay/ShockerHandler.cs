@@ -180,6 +180,14 @@ public class ShockerHandler : WeaponShoter
         shockerBooster = StartCoroutine(ThrowLight());
     }
 
+    public void OnDisable()
+    {
+        if(shockerBooster != null)
+        {
+            StopCoroutine(shockerBooster);
+        }
+    }
+
     IEnumerator ThrowLight()
     {
         for (int i = 0; i < amoutShockerBooster; i++)

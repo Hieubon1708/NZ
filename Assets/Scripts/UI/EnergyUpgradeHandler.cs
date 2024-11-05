@@ -29,8 +29,8 @@ public class EnergyUpgradeHandler : ButtonUpgradee
         int price = DataManager.instance.GetPriceUpgradeEnergyConfig(level);
         PlayerController.instance.player.gold -= price;
         UIHandler.instance.GoldUpdatee();
-        UIHandler.instance.tutorial.TutorialButtonUpgradeEnergy(true);
         level++;
+        UIHandler.instance.tutorial.TutorialButtonUpgradeEnergy(true);
         UpgradeHandle();
         BlockController.instance.CheckButtonStateAll();
     }

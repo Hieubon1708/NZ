@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
  */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
-            //StartGame();
+            StartGame();
         }
         else
         {
@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < listEVisible.Count; i++)
         {
-            if (listEVisible[i] != tower)
+            if (listEVisible[i] != tower && listEVisible[i].CompareTag("Enemy"))
             {
                 ParController.instance.PlayZomDieParticle(listEVisible[i].transform.position);
                 EnemyHandler sc = EnemyTowerController.instance.GetScE(listEVisible[i]);
@@ -220,10 +220,10 @@ public class GameController : MonoBehaviour
         }
         UIHandler.instance.Restart();
         PlayerController.instance.Restart();
+        ParController.instance.SetActivePar(false);
         BlockController.instance.Restart();
         CarController.instance.Restart();
         Booster.instance.ResetBooster();
-        ParController.instance.SetActivePar(false);
         listEVisible.Clear();
     }
 

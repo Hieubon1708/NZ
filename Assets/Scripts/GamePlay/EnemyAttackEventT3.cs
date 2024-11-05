@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyAttackEventT3 : MonoBehaviour
 {
     public GameObject preBullet;
     public EnemyBulletHandler[] scBullets;
+    public SortingGroup sortingGroupParent;
     public int count;
     public Transform tail;
     public Enemy enemy;
@@ -30,6 +32,7 @@ public class EnemyAttackEventT3 : MonoBehaviour
     {
         scBullets[index].gameObject.SetActive(true);
         scBullets[index].transform.position = tail.position;
+        scBullets[index].sortingGroup.sortingLayerName = sortingGroupParent.sortingLayerName;
         float YUnder = PlayerController.instance.transform.position.y;
         if(BlockController.instance.blocks.Count > 0 ) YUnder = BlockController.instance.blocks[0].transform.position.y;
         float YAbove = PlayerController.instance.transform.position.y + 0.7f;

@@ -25,6 +25,14 @@ public class Map : MonoBehaviour
     {
         map.SetActive(true);
         UIHandler.instance.GoldUpdatee();
+        UIHandler.instance.progressHandler.Restart();
+        GameController.instance.isLose = false;
+        BlockController.instance.SetActiveUI(true);
+        if (GameController.instance.level > 1) return;
+        for (int i = 0; i < BlockController.instance.scBlocks.Count; i++)
+        {
+            BlockController.instance.scBlocks[i].blockUpgradeHandler.canvas.SetActive(true);
+        }
         UIHandler.instance.DoLayerCover(0f, 0.75f, delegate
         {
             DOVirtual.DelayedCall(0.25f, delegate

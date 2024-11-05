@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
             target = GameController.instance.GetENearest(transform.position);
         }
-        if(target.CompareTag("Enemy")) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
+        if (target.CompareTag("Enemy")) target = EnemyTowerController.instance.GetScE(target.gameObject).colObj.transform;
         isFindingTarget = true;
         ShotAni();
     }
@@ -65,13 +65,14 @@ public class PlayerController : MonoBehaviour
     {
         isFindingTarget = false;
         target = null;
+        gunPivot.localRotation = Quaternion.identity;
+        gunPivotForAni.localRotation = Quaternion.identity;
         playerAni.Rebind();
         playerHandler.Resart();
         playerHandler.boxCollider.SetActive(true);
         BulletController.instance.EndShot();
         isMouseDown = false;
         traectory.SetActive(false);
-        gunPivot.localRotation = Quaternion.identity;
     }
 
     public void LoadData()
@@ -155,7 +156,6 @@ public class PlayerController : MonoBehaviour
         traectory.SetActive(true);
         isFindingTarget = false;
     }
-
     public void Update()
     {
         if (isMouseDown)
