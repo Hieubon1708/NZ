@@ -54,6 +54,15 @@ public class EnemyTowerController : MonoBehaviour
         BlockController.instance.LoadWeaponBuyButtonInCurrentLevel(GameController.instance.level);
     }
 
+    public bool IsExistAudioFly()
+    {
+        for (int i = 0; i < GameController.instance.listEVisible.Count; i++)
+        {
+            if (GameController.instance.listEVisible[i].name.Contains("fl")) return true;
+        }
+        return false;
+    }
+
     void AssignSpanwX()
     {
         spawnX = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
@@ -124,11 +133,11 @@ public class EnemyTowerController : MonoBehaviour
                 }
                 else
                 {
-                    if(eSc as EnemyT5)
+                    if (eSc as EnemyT5)
                     {
                         (eSc as EnemyT5).isDeadByTower = true;
                     }
-                    if(eSc as EnemyT4)
+                    if (eSc as EnemyT4)
                     {
                         (eSc as EnemyT4).isDeadByTower = true;
                     }
@@ -136,6 +145,7 @@ public class EnemyTowerController : MonoBehaviour
                 }
             }
         }
+        AudioController.instance.DisAuEnemy(0);
     }
 
     IEnumerator SpawnEnemyByTime(GameObject[] es, float timeSpawn)
@@ -462,6 +472,7 @@ public class EnemyTowerController : MonoBehaviour
         if (indexTower == towers.Length - 1)
         {
             DisableEs();
+            AudioController.instance.EnableMusic(false, 0.75f);
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
             if (GameController.instance.level > 1) GameController.instance.level = 0;

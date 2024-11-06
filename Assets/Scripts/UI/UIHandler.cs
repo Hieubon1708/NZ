@@ -257,7 +257,7 @@ public class UIHandler : MonoBehaviour
 
     public void RewardGold()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         lastRewardTime = DateTime.Now;
         PlayerController.instance.player.gold += goldRewardHighest;
         GoldUpdatee();

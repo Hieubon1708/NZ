@@ -23,7 +23,7 @@ public class WeaponBooster : MonoBehaviour
 
     public void OnClick()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         CheckTutorial(false, true);
         isUseBooster = true;
         frame.sprite = booster.frameDelay;

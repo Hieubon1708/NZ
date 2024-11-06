@@ -65,8 +65,12 @@ public class ShockerHandler : WeaponShoter
             {
                 listEs.Add(collision.attachedRigidbody.gameObject);
             }
-            if (count == 0) light = StartCoroutine(ShockerLight());
-            shockerAttackAni.Play();
+            if (count == 0)
+            {
+                AudioController.instance.PlaySoundWeapon1(AudioController.instance.shocker, 0.25f);
+                light = StartCoroutine(ShockerLight());
+                shockerAttackAni.Play();
+            }
             count++;
         }
     }
@@ -84,6 +88,7 @@ public class ShockerHandler : WeaponShoter
             count--;
             if (count == 0)
             {
+                AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0.25f);
                 if (light != null) StopCoroutine(light);
                 shockerAttackAni.Stop();
             }
@@ -246,6 +251,7 @@ public class ShockerHandler : WeaponShoter
     {
         col.enabled = false;
         shockerAttackAni.Stop();
+        AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0f);
         if (light != null) StopCoroutine(light);
         if (shockerBooster != null) StopCoroutine(shockerBooster);
         if (rotate != null) StopCoroutine(rotate);

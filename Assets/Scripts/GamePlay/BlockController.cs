@@ -170,6 +170,7 @@ public class BlockController : MonoBehaviour
         }
         blockBuyer.CheckButtonState();
         energyUpgradee.CheckButtonState();
+        DataManager.instance.SavePlayer();
         DataManager.instance.SaveBlock();
     }
 

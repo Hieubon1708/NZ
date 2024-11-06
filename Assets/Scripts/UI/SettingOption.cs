@@ -9,18 +9,13 @@ public class SettingOption : MonoBehaviour
     public RectTransform dot;
     float targetX = 38.5f;
 
-    public void LoadData(bool isActive)
-    {
-        SwitchStateHandle(isActive, 0f);
-    }
-
     public void SwitchState()
     {
         UIHandler.instance.setting.SetBoolType(type, buttonInactive.activeSelf);
         SwitchStateHandle(buttonInactive.activeSelf, 0.25f);
     }
 
-    void SwitchStateHandle(bool isActive, float duration)
+    public void SwitchStateHandle(bool isActive, float duration)
     {
         DoDot(isActive ? targetX : -targetX, duration);
         IconActive(isActive);

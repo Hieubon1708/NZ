@@ -191,7 +191,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     void SetActiveButtonUpgradeWeapon()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         weaponUpgradeHandler.EvoAccept();
         weaponUpgradeHandler.gameObject.SetActive(true);
         weaponUpgradeHandler.aniShowNewEvo.Play();

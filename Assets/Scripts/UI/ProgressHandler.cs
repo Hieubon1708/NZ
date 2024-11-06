@@ -74,7 +74,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void HideLose()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelLose, losePopup, 0f, 0f, 0.8f, 0f);
         panelLose.gameObject.SetActive(false);
         UIHandler.instance.DoLayerCover(1f, 0.75f, delegate
@@ -96,7 +96,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void ShowConvert(int totalGold)
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.convert);
+        AudioController.instance.PlaySound(AudioController.instance.convert);
         textGoldConvert.text = totalGold.ToString();
         textDushConverted.text = (totalGold / 1000).ToString();
         panelConvert.gameObject.SetActive(true);
@@ -105,7 +105,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void HideConvert()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelConvert, convertPopup, 0f, 0f, 0.8f, 0f);
         panelConvert.gameObject.SetActive(false);
         DOVirtual.DelayedCall(0.5f, delegate
@@ -126,7 +126,7 @@ public class ProgressHandler : MonoBehaviour
     public void ShowReward()
     {
         if (!isHaveReward) return;
-        AudioController.instance.PlaySoundButton(AudioController.instance.reward);
+        AudioController.instance.PlaySound(AudioController.instance.reward);
         isHaveReward = false;
         if (!UIHandler.instance.tutorial.isUnlockInventory)
         {
@@ -179,7 +179,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void HideReward()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelReward, rewardPopup, 0f, 0f, 0.8f, 0f);
         panelReward.gameObject.SetActive(false);
         for (int i = 0; i < equips.Length; i++)
@@ -234,6 +234,8 @@ public class ProgressHandler : MonoBehaviour
             UIHandler.instance.PlusGem(rewardLevelConfig.gem);
             EquipmentController.instance.playerInventory.cogwheel += rewardLevelConfig.cogwheel;
             EquipmentController.instance.playerInventory.key += rewardLevelConfig.key;
+
+            EquipmentController.instance.UpdateDesignPosition();
         }
     }
 

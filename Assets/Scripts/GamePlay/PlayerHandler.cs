@@ -27,7 +27,8 @@ public class PlayerHandler : MonoBehaviour
 
         if (hp == 0)
         {
-            AudioController.instance.PlaySoundPlayer(AudioController.instance.playerDie);
+            AudioController.instance.PlaySound(AudioController.instance.playerDie);
+            AudioController.instance.EnableMusic(false, 0.75f);
             GameController.instance.isStart = false;
             GameController.instance.isLose = true;
             if (GameController.instance.isPLayBoss)

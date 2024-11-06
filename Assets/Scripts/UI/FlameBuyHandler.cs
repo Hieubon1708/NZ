@@ -2,7 +2,7 @@ public class FlameBuyHandler : WeaponBuyButton
 {
     public override void Buy()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.FLAME, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.FLAME));
         BlockController.instance.CheckButtonStateAll();

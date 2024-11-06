@@ -74,4 +74,9 @@ public class EnemyT4 : EnemyHandler
         }
         if (collision.gameObject.CompareTag("Block")) blockCollision = StartCoroutine(BlockCollisionHandle(collision.rigidbody.gameObject, int.Parse(name)));
     }
+
+    public override void OnCollisionExit2D(Collision2D collision)
+    {
+        base.OnCollisionExit2D(collision);
+    }
 }

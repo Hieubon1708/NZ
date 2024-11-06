@@ -26,7 +26,7 @@ public class EnergyUpgradeHandler : ButtonUpgradee
 
     public override void Upgrade()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         int price = DataManager.instance.GetPriceUpgradeEnergyConfig(level);
         PlayerController.instance.player.gold -= price;
         UIHandler.instance.GoldUpdatee();

@@ -30,13 +30,13 @@ public class EquipmentInfo : MonoBehaviour
 
     public void ShowPopupSwap()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         EquipmentController.instance.ShowPopupSwap(this);
     }
     
     public void ShowPopupUpgrade()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         EquipmentController.instance.ShowPopupUpgrade(this);
     }
 

@@ -147,6 +147,7 @@ public class MachineGunHandler : WeaponShoter
         {
             float time = 0;
             ani.SetBool("attack", true);
+            AudioController.instance.PlaySoundWeapon3(AudioController.instance.machineGun, 0);
             while (time <= attackDuration)
             {
                 time += timeDistance;
@@ -158,6 +159,7 @@ public class MachineGunHandler : WeaponShoter
                 if (currentCountBullet == listB.Count) currentCountBullet = 0;
                 yield return new WaitForSeconds(timeDistance);
             }
+            AudioController.instance.StopSoundWeapon(AudioController.instance.weapon3, 0);
             ani.SetBool("attack", false);
             yield return new WaitForSeconds(cooldown);
         }
@@ -172,6 +174,7 @@ public class MachineGunHandler : WeaponShoter
 
     public IEnumerator BoosterShot(List<GameObject> listB, List<MachineGunBulletHandler> listScB, int index, float timeDistance)
     {
+        AudioController.instance.PlaySoundWeapon3(AudioController.instance.machineGunBooster, 0);
         while (true)
         {
             SetDefaultBullet(listB[currentCountBoosterBullet], listScB[currentCountBoosterBullet], 0);
@@ -193,6 +196,7 @@ public class MachineGunHandler : WeaponShoter
 
     void EndBooster()
     {
+        AudioController.instance.StopSoundWeapon(AudioController.instance.weapon3, 0);
         booster.isUseBooster = false;
         booster.CheckBooterState();
         endBooster = StartCoroutine(EndBoosterHandle());
@@ -201,7 +205,7 @@ public class MachineGunHandler : WeaponShoter
     IEnumerator EndBoosterHandle()
     {
         if (shotBoosters != null) StopCoroutine(shotBoosters);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(cooldown);
         ShotAll();
     }
 
@@ -257,8 +261,8 @@ public class MachineGunHandler : WeaponShoter
 
     public override void DisableWeapon()
     {
-        Debug.LogWarning("Dis");
         ani.Rebind();
+        AudioController.instance.StopSoundWeapon(AudioController.instance.weapon3, 0);
         ani.SetBool("startGame", true);
         if (shotBoosters != null) StopCoroutine(shotBoosters);
         if (rotate != null) StopCoroutine(rotate);

@@ -2,7 +2,7 @@ public class BlockBuyHandler : ButtonBuyer
 {
     public override void Buy()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         BlockController.instance.AddBlock();
         UIHandler.instance.tutorial.TutorialButtonBuyBlock(true);
         if (BlockController.instance.blockPools.Count == 0) gameObject.SetActive(false);

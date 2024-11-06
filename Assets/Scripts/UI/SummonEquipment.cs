@@ -88,7 +88,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void HideRoll()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 0f, 0f, 0.8f, 0f);
         panelRoll.gameObject.SetActive(false);
         UIHandler.instance.tutorial.TutorialButtonRoll(false);
@@ -135,7 +135,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void RewardGem()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         EquipmentController.instance.playerInventory.gem += 10;
         UpdateText();
         CheckButtonState();
@@ -183,6 +183,7 @@ public class SummonEquipment : MonoBehaviour
         EquipmentController.instance.SortEquip();
         CheckButtonState();
         if (!panelRoll.gameObject.activeSelf) ShowRoll();
+        EquipmentController.instance.UpdateDesignPosition();
     }
 
     void SubtractGem(int gem)
@@ -207,10 +208,10 @@ public class SummonEquipment : MonoBehaviour
 
     void GetMax()
     {
-        maxGun = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[0].type, EquipmentController.instance.equipMains[0].level);
-        maxBoom = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[1].type, EquipmentController.instance.equipMains[1].level);
-        maxCap = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[2].type, EquipmentController.instance.equipMains[2].level);
-        maxClothes = EquipmentController.instance. GetEquipMax(EquipmentController.instance.equipMains[3].type, EquipmentController.instance.equipMains[3].level);
+        maxGun = EquipmentController.instance.GetEquipMax(EquipmentController.instance.equipMains[0].type, EquipmentController.instance.equipMains[0].level);
+        maxBoom = EquipmentController.instance.GetEquipMax(EquipmentController.instance.equipMains[1].type, EquipmentController.instance.equipMains[1].level);
+        maxCap = EquipmentController.instance.GetEquipMax(EquipmentController.instance.equipMains[2].type, EquipmentController.instance.equipMains[2].level);
+        maxClothes = EquipmentController.instance.GetEquipMax(EquipmentController.instance.equipMains[3].type, EquipmentController.instance.equipMains[3].level);
     }
 
     public void RollX10()
@@ -229,6 +230,7 @@ public class SummonEquipment : MonoBehaviour
         CheckButtonState();
         if (!UIHandler.instance.tutorial.isFirstTimeClickButtonRoll) UIHandler.instance.tutorial.TutorialButtonRoll(true);
         if (!panelRoll.gameObject.activeSelf) ShowRoll();
+        EquipmentController.instance.UpdateDesignPosition();
     }
 
     IEnumerator Scattered(int amount)
@@ -296,7 +298,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void ShowChances()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         leveInPopUp = level;
         LoadChances(leveInPopUp);
         panelChances.gameObject.SetActive(true);
@@ -316,20 +318,20 @@ public class SummonEquipment : MonoBehaviour
     public void ChanceNextLevel()
     {
         if (leveInPopUp + 1 == chanceDatas.Length) return;
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         LoadChances(++leveInPopUp);
     }
 
     public void ChanceBackLevel()
     {
         if (leveInPopUp - 1 == -1) return;
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         LoadChances(--leveInPopUp);
     }
 
     public void HideChances()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelChances, chancePopup, 0f, 0f, 0.8f, 0f);
         panelChances.gameObject.SetActive(false);
     }

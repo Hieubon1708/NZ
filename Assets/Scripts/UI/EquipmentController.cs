@@ -1,8 +1,5 @@
-﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -185,7 +182,7 @@ public class EquipmentController : MonoBehaviour
 
     public void HideRewardDesignNDush()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         for (int i = 0; i < designsInPanelReward.Length; i++)
         {
             designsInPanelReward[i].transform.parent.gameObject.SetActive(false);
@@ -231,8 +228,8 @@ public class EquipmentController : MonoBehaviour
 
     public void DesignContraint()
     {
-        float y = Mathf.Clamp(container.anchoredPosition.y - container.sizeDelta.y, float.MinValue, -433);
-        //designContraint.rect.anchoredPosition = new Vector2(0, y);
+        float y = Mathf.Clamp(container.anchoredPosition.y - container.sizeDelta.y, float.MinValue, designClampY);
+        designContraint.rect.anchoredPosition = new Vector2(0, y);
     }
 
     public void LoadData()
@@ -261,13 +258,13 @@ public class EquipmentController : MonoBehaviour
         CheckStateNofi();
         QualitySort();
 
+        Vector2 temp = designContraint.transform.position;
         designContraint.rect.anchorMax = Vector2.one;
         designContraint.rect.anchorMin = new Vector2(0f, 1f);
-        Debug.LogWarning(designClampY);
-        designContraint.rect.InverseTransformPoint(designContraint.transform.position);
+        designContraint.transform.position = new Vector3(temp.x, temp.y, 90);
+
         designClampY = designContraint.rect.anchoredPosition.y;
-        Debug.LogWarning(designClampY);
-        //UpdateDesignPosition();
+        UpdateDesignPosition();
     }
 
     public void UpdateDesignPosition()
@@ -291,12 +288,13 @@ public class EquipmentController : MonoBehaviour
         amountCol -= 1;
         while (true)
         {
-            amountCol *= amountRow;
-            if (amountCol >= amoutEquip) break;
+            float total = amountRow * amountCol;
+            if (total >= amoutEquip) break;
             amountRow++;
         }
         float sizeHeight = (amountRow * euipSize) + (spacingY * (amountRow - 1)) + paddingTopBot;
-        designContraint.rect.anchoredPosition = new Vector2(0, designClampY);
+        float y = Mathf.Clamp(container.anchoredPosition.y - sizeHeight, float.MinValue, designClampY);
+        designContraint.rect.anchoredPosition = new Vector2(0, y);
     }
 
     public void CheckStateNofi()
@@ -344,12 +342,12 @@ public class EquipmentController : MonoBehaviour
         if (playerInventory.amoutClothesDesign == 0 && playerInventory.amoutCapDesign == 0 && playerInventory.amoutBoomDesign == 0 && playerInventory.amoutGunDesign == 0)
         {
             designContraint.label.SetActive(false);
-            view.offsetMin = new Vector2(view.offsetMin.x, 30);
+            view.offsetMin = new Vector2(view.offsetMin.x, 0);
         }
         else
         {
             designContraint.label.SetActive(true);
-            view.offsetMin = new Vector2(view.offsetMin.x, 345);
+            view.offsetMin = new Vector2(view.offsetMin.x, 300);
         }
 
         textGunDesign.text = UIHandler.instance.ConvertNumberAbbreviation(playerInventory.amoutGunDesign);
@@ -397,7 +395,7 @@ public class EquipmentController : MonoBehaviour
 
     public void QualityNClass()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         isQuality = !isQuality;
 
         textQualityNClass.text = isQuality ? "Quality" : "Class";
@@ -502,7 +500,7 @@ public class EquipmentController : MonoBehaviour
 
     public void UpgradeAccept()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         Upgrade();
         CheckDisplayDesign();
         UIHandler.instance.tutorial.TutorialButtonUpgradeLevelInventory(true);
@@ -607,7 +605,7 @@ public class EquipmentController : MonoBehaviour
 
     public void UpradeMaxAccept()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         while (GetAmoutDesign(equipUpgradeSelected.type) >= designSelected && playerInventory.dush >= dushSelected)
         {
             Upgrade();
@@ -730,7 +728,7 @@ public class EquipmentController : MonoBehaviour
         SwapValueEquip(eq1, eq2);
         if (eq1.type == EQUIPMENTTYPE.SHOTGUN)
         {
-            AudioController.instance.PlaySoundButton(AudioController.instance.gunEquip);
+            AudioController.instance.PlaySound(AudioController.instance.gunEquip);
             UpdateDamage();
             playerInventory.gunLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.GunChange();
@@ -739,7 +737,7 @@ public class EquipmentController : MonoBehaviour
         }
         else if (eq1.type == EQUIPMENTTYPE.GRENADE)
         {
-            AudioController.instance.PlaySoundButton(AudioController.instance.boomEquip);
+            AudioController.instance.PlaySound(AudioController.instance.boomEquip);
             UpdateDamage();
             playerInventory.boomLevel = (int)eq1.level;
             PlayerController.instance.BoomChange();
@@ -747,7 +745,7 @@ public class EquipmentController : MonoBehaviour
         }
         else if (eq1.type == EQUIPMENTTYPE.CAP)
         {
-            AudioController.instance.PlaySoundButton(AudioController.instance.clothesEquip);
+            AudioController.instance.PlaySound(AudioController.instance.clothesEquip);
             UpdateHealth();
             playerInventory.capLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.CapChange();
@@ -757,7 +755,7 @@ public class EquipmentController : MonoBehaviour
         }
         else
         {
-            AudioController.instance.PlaySoundButton(AudioController.instance.clothesEquip);
+            AudioController.instance.PlaySound(AudioController.instance.clothesEquip);
             UpdateHealth();
             playerInventory.clothesLevel = (int)eq1.level;
             PlayerController.instance.player.playerSkiner.ClothesChange();
@@ -832,7 +830,7 @@ public class EquipmentController : MonoBehaviour
 
     public void SellDuplicates()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.sellEquip);
+        AudioController.instance.PlaySound(AudioController.instance.sellEquip);
 
         amoutGunDesign = 0;
         amoutBoomDesign = 0;
@@ -1062,7 +1060,7 @@ public class EquipmentController : MonoBehaviour
 
     public void HidePopupUpgrade()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelUpgradeEquip, popupUpgradeEquip, 0f, 0f, 0.8f, 0f);
         panelUpgradeEquip.gameObject.SetActive(false);
         UIHandler.instance.tutorial.TutorialButtonUpgradeLevelInventory(false);
@@ -1120,7 +1118,7 @@ public class EquipmentController : MonoBehaviour
 
     public void HidePopupSwap(bool isClick)
     {
-        if (!isClick) AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        if (!isClick) AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelEquip, popupEquip, 0f, 0f, 0.8f, 0f);
         panelEquip.gameObject.SetActive(false);
     }

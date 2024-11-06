@@ -127,6 +127,7 @@ public class FlameHandler : WeaponShoter
 
     public override void UseBooster()
     {
+        AudioController.instance.PlaySoundWeapon2(AudioController.instance.flameBooster, 0.25f);
         ani.SetTrigger("booster");
     }
 
@@ -137,6 +138,7 @@ public class FlameHandler : WeaponShoter
 
     void FadeOut()
     {
+        AudioController.instance.StopSoundWeapon(AudioController.instance.weapon2, 0.25f);
         booster.isUseBooster = false;
         booster.CheckBooterState();
         colBooster.SetActive(false);
@@ -146,12 +148,15 @@ public class FlameHandler : WeaponShoter
     IEnumerator Shot()
     {
         distance = 5f;
+        AudioController.instance.PlaySoundWeapon2(AudioController.instance.flame, 0.25f);
         while (true)
         {
             ShotHandle(true, 1f, 0.35f);
             yield return new WaitForSeconds(attackDuration);
             ShotHandle(false, 0f, 0.35f);
+            AudioController.instance.StopSoundWeapon(AudioController.instance.weapon2, 0.25f);
             yield return new WaitForSeconds(cooldown);
+            AudioController.instance.PlaySoundWeapon2(AudioController.instance.flame, 0.25f);
         }
     }
 
@@ -224,18 +229,11 @@ public class FlameHandler : WeaponShoter
     public override void DisableWeapon()
     {
         ani.Rebind();
+        AudioController.instance.StopSoundWeapon(AudioController.instance.weapon2, 0f);
         ani.SetBool("startGame", true);
         if (shot != null) StopCoroutine(shot);
         if (rotate != null) StopCoroutine(rotate);
         ShotHandle(false, 0f, 0.35f);
         colBooster.SetActive(false);
-    }
-
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            ani.Rebind();
-        }
     }
 }

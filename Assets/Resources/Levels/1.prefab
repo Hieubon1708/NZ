@@ -8376,6 +8376,10 @@ MonoBehaviour:
   distanceTower: 25
   indexTower: -1
   lineRandoms: 
+  enemyMove:
+  - {fileID: 8300000, guid: 65bb90578f80e584e8f4a46721780903, type: 3}
+  enemyAttack:
+  - {fileID: 8300000, guid: 1af73792e4b293d4a998a7bfa5268456, type: 3}
   poolEnemies: {fileID: 152287362493903207}
   enemies:
   - {fileID: 3440869563518828017, guid: c46c28b844822c7419b085415db0c442, type: 3}

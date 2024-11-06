@@ -4,7 +4,7 @@ public class MachineGunBuyHandler : WeaponBuyButton
 {
     public override void Buy()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.MACHINE_GUN, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.MACHINE_GUN));
         BlockController.instance.CheckButtonStateAll();

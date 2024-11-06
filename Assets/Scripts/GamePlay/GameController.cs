@@ -59,6 +59,18 @@ public class GameController : MonoBehaviour
         GenerateColDisplay();
     }
 
+    public bool IsExistEnemyType(string name)
+    {
+        for (int i = 0; i < listEVisible.Count; i++)
+        {
+            if (listEVisible[i].name.Contains(name))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void GenerateColDisplay()
     {
         Vector2 sceenR = cam.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height / 2));
@@ -118,11 +130,16 @@ public class GameController : MonoBehaviour
  */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
+            DataManager.instance.dataStorage.isMusicActive = true;
+            DataManager.instance.dataStorage.isSoundActive = true;
+            UIHandler.instance.setting.LoadData();
             StartGame();
+            AudioController.instance.PlayMusic(AudioController.instance.bgIngame[level], 0f, 0.75f);
         }
         else
         {
             UIHandler.instance.tutorial.TutorialButtonBuyBlock(false);
+            AudioController.instance.PlayMusic(AudioController.instance.bgMenu[level], 0f, 0.75f);
         }
     }
 
@@ -190,6 +207,8 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
+        AudioController.instance.PlayMusic(AudioController.instance.bgMenu[level], 0f, 0.75f);
+
         SetValue(false);
         if (!isPLayBoss) EnemyTowerController.instance.Restart();
         else
@@ -230,7 +249,11 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        if(UIHandler.instance.tutorial.isFirstTimePlay) AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        if(UIHandler.instance.tutorial.isFirstTimePlay)
+        {
+            AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+            AudioController.instance.PlayMusic(AudioController.instance.bgIngame[level], 0.25f, 0.25f);
+        }
         if (!isPLayBoss) EnemyTowerController.instance.NextTower();
         SetValue(true);
         BlockController.instance.StartGame();

@@ -9,29 +9,38 @@ public class Setting : MonoBehaviour
 
     public void LoadData()
     {
-        settingOptions[0].LoadData(DataManager.instance.dataStorage.isMusicActive);
-        settingOptions[1].LoadData(DataManager.instance.dataStorage.isMusicActive);
+        SetBoolType(TypeSetting.Sound, DataManager.instance.dataStorage.isSoundActive);
+        settingOptions[1].SwitchStateHandle(DataManager.instance.dataStorage.isSoundActive, 0.25f);
+        SetBoolType(TypeSetting.Music, DataManager.instance.dataStorage.isMusicActive);
+        settingOptions[0].SwitchStateHandle(DataManager.instance.dataStorage.isMusicActive, 0.25f);
     }
 
     public void SetBoolType(TypeSetting type, bool isActive)
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
-        if (type == TypeSetting.Music) DataManager.instance.dataStorage.isMusicActive = isActive;
-        if(type == TypeSetting.Sound) DataManager.instance.dataStorage.isSoundActive = isActive;
-        Debug.LogWarning(DataManager.instance.dataStorage.isSoundActive);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        if (type == TypeSetting.Music)
+        {
+            DataManager.instance.dataStorage.isMusicActive = isActive;
+            AudioController.instance.EnableMusic(isActive, 0.25f);
+        }
+        if (type == TypeSetting.Sound)
+        {
+            DataManager.instance.dataStorage.isSoundActive = isActive;
+            AudioController.instance.EnableSound(isActive, 0.25f);
+        }
         DataManager.instance.SaveData();
     }
 
     public void ShowPanelSetting()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         panelSetting.gameObject.SetActive(true);
         UIHandler.instance.uIEffect.ScalePopup(panelSetting, settingPopup, 222f / 255f, 0.1f, 1f, 0.5f);
     }
     
     public void HidePanelSetting()
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelSetting, settingPopup, 0f, 0f, 0.8f, 0f);
         panelSetting.gameObject.SetActive(false);
     }

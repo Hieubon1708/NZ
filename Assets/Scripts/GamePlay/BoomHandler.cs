@@ -12,7 +12,7 @@ public class BoomHandler : MonoBehaviour
             col.enabled = true;
             DOVirtual.DelayedCall(0.75f, delegate
             {
-                AudioController.instance.PlaySoundBoom(AudioController.instance.boomBooster);
+                AudioController.instance.PlaySound(AudioController.instance.boomBooster);
                 col.enabled = false;
                 GameController.instance.ShakeCam(0.25f);
                 gameObject.SetActive(false);

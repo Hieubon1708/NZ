@@ -20,6 +20,12 @@ public class EnemyT3 : EnemyHandler
         targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
     }
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!EnemyTowerController.instance.IsExistAudioFly()) AudioController.instance.PlaySoundEnemyFly(0.25f);
+        base.OnTriggerEnter2D(collision);
+    }
+
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
@@ -75,6 +81,7 @@ public class EnemyT3 : EnemyHandler
     {
         base.DeathHandle();
         isLevingCave = false;
+        if (!EnemyTowerController.instance.IsExistAudioFly()) AudioController.instance.StopSoundEnemyFly(0.25f);
     }
 
     Vector2 RandomTarget()

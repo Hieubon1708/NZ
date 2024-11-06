@@ -22,6 +22,7 @@ public class EnemyHandler : MonoBehaviour
     public SpriteRenderer[] fullBodies;
     public HitEffect hitEffect;
     public GameObject shadow;
+    public int indexAudioMove;
 
     public float forceJump;
     public float multiplier;
@@ -468,7 +469,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void DeathHandle()
     {
-        //AudioController.instance.PlaySound(AudioController.instance.enemyDie);
+        AudioController.instance.PlaySound(AudioController.instance.enemyDie);
         UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();

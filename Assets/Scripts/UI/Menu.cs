@@ -181,7 +181,7 @@ public class Menu : MonoBehaviour
 
     public void OnClick(int index)
     {
-        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         ScaleOption(index, 0.15f);
     }
 }

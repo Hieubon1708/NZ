@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -21,9 +22,22 @@ public class CarController : MonoBehaviour
     public SpriteRenderer wheelRight;
     public SpriteRenderer shadow;
 
+    public bool isPlayerAudioAttackEnemy;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    public void PlayAudioEnemyAttack()
+    {
+        if (isPlayerAudioAttackEnemy) return;
+        isPlayerAudioAttackEnemy = true;
+        AudioController.instance.PlaySoundEnemyAttack(AudioController.instance.attack[GameController.instance.level]);
+        DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), delegate
+        {
+            isPlayerAudioAttackEnemy = false;
+        });
     }
 
     private void Start()
@@ -46,7 +60,7 @@ public class CarController : MonoBehaviour
     {
         carAni.SetTrigger("removeGameBlock");
     }
-    
+
     public void DeathAni()
     {
         carAni.SetTrigger("death");
@@ -64,10 +78,10 @@ public class CarController : MonoBehaviour
         if (e.a)
         {
 
-        Debug.LogWarning(distance);
-        Debug.LogWarning(Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance);
-        Debug.LogWarning(ePush.activeSelf);
-        Debug.LogWarning(droping.activeSelf);
+            Debug.LogWarning(distance);
+            Debug.LogWarning(Mathf.Abs(droping.transform.position.y - ePush.transform.position.y) >= distance);
+            Debug.LogWarning(ePush.activeSelf);
+            Debug.LogWarning(droping.activeSelf);
         }
 
     }
