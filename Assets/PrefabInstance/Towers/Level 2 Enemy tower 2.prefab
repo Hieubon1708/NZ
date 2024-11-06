@@ -1165,7 +1165,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4450444017842435}
   - component: {fileID: 61801922666824186}
-  - component: {fileID: 2449825638226040377}
   m_Layer: 0
   m_Name: collider
   m_TagString: Tower
@@ -1234,18 +1233,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.060789, y: 4.440638}
   m_EdgeRadius: 0
---- !u!114 &2449825638226040377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590792411861976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd8dead3b242c54c84b8613f25b1e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1607657478729308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,7 +1397,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4818665518687590}
   - component: {fileID: 212223583792717306}
-  - component: {fileID: 8196495856798526457}
   - component: {fileID: 7148634197657539886}
   m_Layer: 0
   m_Name: Zombie_Base_Front
@@ -1486,19 +1472,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8196495856798526457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722109049953761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTowerHandler: {fileID: 5863783749768097348}
 --- !u!210 &7148634197657539886
 SortingGroup:
   m_ObjectHideFlags: 0

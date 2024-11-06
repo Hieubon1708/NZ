@@ -7,6 +7,7 @@ public class PlayerAniEvent : MonoBehaviour
     public void ShotEvent()
     {
         if (!GameController.instance.isStart) return;
+        AudioController.instance.PlaySoundPlayer(AudioController.instance.shot);
         BulletController.instance.SetDefaultBullets();
         BulletController.instance.SetUpShot();
         PlayerController.instance.isFindingTarget = false;

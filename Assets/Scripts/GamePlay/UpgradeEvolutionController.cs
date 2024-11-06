@@ -24,7 +24,7 @@ public class UpgradeEvolutionController : MonoBehaviour
     {
         PUSHESENEMIES, INCREASEDAMAGE, ADDFROMBOOSTER, DECREASEENERGY, STUNENEMY
     }
-    
+
     public enum SHOCKEREVO
     {
         PUSHESENEMIES, INCREASEDAMAGE, ADDFROMBOOSTER, DECREASEENERGY, STUNENEMY
@@ -94,7 +94,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         if (isShowEvoMachineGun == true)
         {
             int random = Random.Range(0, 2);
-            if(random == 0) machineGuns.Add(uIUpgradeEvolution.machineGunRandom1);
+            if (random == 0) machineGuns.Add(uIUpgradeEvolution.machineGunRandom1);
             else machineGuns.Add(uIUpgradeEvolution.machineGunRandom2);
         }
         return machineGuns.ToArray();
@@ -134,7 +134,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         return false;
     }
-    
+
     public bool IsShockerContains(SHOCKEREVO type, int level)
     {
         for (int i = 0; i < shockers.Count; i++)
@@ -146,7 +146,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         return false;
     }
-    
+
     public bool IsFlameContains(FLAMEEVO type, int level)
     {
         for (int i = 0; i < flames.Count; i++)
@@ -158,7 +158,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         return false;
     }
-    
+
     public bool IsMachineGunContains(MACHINEGUNEVO type, int level)
     {
         for (int i = 0; i < machineGuns.Count; i++)
@@ -191,6 +191,7 @@ public class UpgradeEvolutionController : MonoBehaviour
 
     void SetActiveButtonUpgradeWeapon()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         weaponUpgradeHandler.EvoAccept();
         weaponUpgradeHandler.gameObject.SetActive(true);
         weaponUpgradeHandler.aniShowNewEvo.Play();
@@ -293,7 +294,7 @@ public class UpgradeEvolutionController : MonoBehaviour
         }
         return count;
     }
-    
+
     public int GetAmoutShockerEvo(SHOCKEREVO type, int level)
     {
         int count = 0;

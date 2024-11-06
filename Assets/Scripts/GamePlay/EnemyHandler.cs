@@ -468,6 +468,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void DeathHandle()
     {
+        //AudioController.instance.PlaySound(AudioController.instance.enemyDie);
         UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyEnemy);
         SetColNKinematicNRevival(false);
         StopCoroutines();

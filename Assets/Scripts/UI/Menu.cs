@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class Menu : MonoBehaviour
 {
     public RectTransform[] options;
     public Image[] optionImages;
+    public RectTransform canvas;
 
     public GameObject[] notifOptions;
     public GameObject[] lockOptions;
@@ -80,30 +82,19 @@ public class Menu : MonoBehaviour
         else optionImages[4].raycastTarget = false;
     }
 
-    public void Start()
-    {
-        startSizeX = 1080 / options.Length;
-        if (GameController.instance.cam.aspect >= 0.55f)
-        {
-            startSizeX += startSizeX - startSizeX * ((float)1920 / Screen.height);
-        }
-
-        startSizeY = options[0].sizeDelta.y;
-
-        bigSizeX = startSizeX * 1.2f;
-        bigSizeY = startSizeY * 1f;
-
-        minSizeX = (1080 - bigSizeX) / (options.Length - 1);
-
-        if (GameController.instance.cam.aspect >= 0.55f)
-        {
-            float screen = 1080 + (1080 - 1080 * ((float)1920 / Screen.height));
-            minSizeX = (screen - bigSizeX) / (options.Length - 1);
-        }
-    }
-
     public void ScaleOption(int index, float duration)
     {
+        if(startSizeX == 0)
+        {
+            startSizeX = canvas.sizeDelta.x / options.Length;
+            startSizeY = options[0].sizeDelta.y;
+
+            bigSizeX = startSizeX * 1.2f;
+            bigSizeY = startSizeY * 1f;
+
+            minSizeX = (canvas.sizeDelta.x - bigSizeX) / (options.Length - 1);
+        }
+
         if (isChangingOptions) return;
 
         isChangingOptions = true;
@@ -139,12 +130,12 @@ public class Menu : MonoBehaviour
         battle.SetActive(isActive);
         battleGameplay.SetActive(isActive);
         battleWorld.SetActive(isActive);
-        if( UIHandler.instance.tutorial.isTutorialDragBlock) UIHandler.instance.tutorial.blockDragTutorial.SetActive(isActive);
+        if (UIHandler.instance.tutorial.isTutorialDragBlock) UIHandler.instance.tutorial.blockDragTutorial.SetActive(isActive);
     }
 
     public void InventoryActive(bool isActive)
     {
-        if(isActive)
+        if (isActive)
         {
             EquipmentController.instance.playerInventory.UpdateTextCogwheel();
             EquipmentController.instance.playerInventory.UpdateTextDush();
@@ -153,7 +144,6 @@ public class Menu : MonoBehaviour
         if (isActive)
         {
             UIHandler.instance.tutorial.TutorialButtonInventory(true);
-            EquipmentController.instance.DesignUpdatePosition();
         }
     }
 
@@ -169,7 +159,7 @@ public class Menu : MonoBehaviour
             UIBoss.instance.UpdatePanel();
         }
         boss.SetActive(isActive);
-        if(isActive)
+        if (isActive)
         {
             UIHandler.instance.tutorial.TutorialButtonBoss(true);
         }
@@ -191,6 +181,7 @@ public class Menu : MonoBehaviour
 
     public void OnClick(int index)
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         ScaleOption(index, 0.15f);
     }
 }

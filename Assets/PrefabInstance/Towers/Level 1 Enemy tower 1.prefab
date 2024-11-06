@@ -468,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4363081047142096}
   - component: {fileID: 212648377551459711}
-  - component: {fileID: 598526814664422716}
   - component: {fileID: 6342444749219932998}
   m_Layer: 0
   m_Name: Zombie_Base_Export_Test
@@ -544,19 +543,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &598526814664422716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548017753272564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4d66222d6c86840acb3bec4c6f20ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTowerHandler: {fileID: 2833574505629969244}
 --- !u!210 &6342444749219932998
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1127,7 +1113,6 @@ MonoBehaviour:
   healthHandler: {fileID: -743801041022967399}
   damage: {fileID: 8499165566888003411}
   enemyController: {fileID: 5252272118276834461}
-  isVisible: 0
   fullTowers:
   - {fileID: 212648377551459711}
   - {fileID: 212466910760587985}
@@ -1154,7 +1139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4856741028423010}
   - component: {fileID: 61547092477512468}
-  - component: {fileID: 9116567628789356158}
   m_Layer: 0
   m_Name: collider
   m_TagString: Tower
@@ -1223,18 +1207,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.01, y: 3.29}
   m_EdgeRadius: 0
---- !u!114 &9116567628789356158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744204625660242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dd8dead3b242c54c84b8613f25b1e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1828572978516741
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +21,9 @@ public class WeaponBooster : MonoBehaviour
         UpdateTextEnergy();
     }
 
-
     public void OnClick()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         CheckTutorial(false, true);
         isUseBooster = true;
         frame.sprite = booster.frameDelay;

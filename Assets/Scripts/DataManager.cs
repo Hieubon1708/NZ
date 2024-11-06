@@ -280,8 +280,8 @@ public class DataManager : MonoBehaviour
     public void SaveData()
     {
         DataStorage dataStorage = new DataStorage(GameController.instance.level
-            , UIHandler.instance.setting.isSoundActive
-            , UIHandler.instance.setting.isMusicActive
+            , this.dataStorage.isSoundActive
+            , this.dataStorage.isMusicActive
             , UIHandler.instance.lastRewardTime, UIHandler.instance.goldRewardHighest
             , UIHandler.instance.progressHandler.progresses.ToArray());
         SaveFile(JsonConvert.SerializeObject(dataStorage), "DataStorage.json");

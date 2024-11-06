@@ -108,6 +108,7 @@ public class EnemyTowerHandler : MonoBehaviour
 
         if (hp == 0)
         {
+            AudioController.instance.PlaySoundTower(AudioController.instance.towerDestroy);
             UIHandler.instance.daily.CheckDaily(Daily.DailyType.DestroyTower);
             damageTaken = 0;
             UIHandler.instance.FlyGold(enemyController.col.transform.position, 100);

@@ -77,6 +77,7 @@ public class SummonEquipment : MonoBehaviour
         if (EquipmentController.instance.playerInventory.gem >= 5 || EquipmentController.instance.playerInventory.gem >= 45) UIHandler.instance.menu.notifOptions[1].SetActive(true);
         else UIHandler.instance.menu.notifOptions[1].SetActive(false);
         DataManager.instance.SaveChance();
+        DataManager.instance.SavePlayer();
     }
 
     void ShowRoll()
@@ -87,6 +88,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void HideRoll()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelRoll, rollPopup, 0f, 0f, 0.8f, 0f);
         panelRoll.gameObject.SetActive(false);
         UIHandler.instance.tutorial.TutorialButtonRoll(false);
@@ -98,14 +100,6 @@ public class SummonEquipment : MonoBehaviour
         for (int i = 0; i < equipmentInfosX10.Length; i++)
         {
             equipmentInfosX10[i].gameObject.SetActive(isActive);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            RollX10();
         }
     }
 
@@ -141,6 +135,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void RewardGem()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         EquipmentController.instance.playerInventory.gem += 10;
         UpdateText();
         CheckButtonState();
@@ -177,6 +172,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX1()
     {
+        //AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         GetMax();
         ActiveEquipsFrame(false);
         SubtractGem(5);
@@ -219,6 +215,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX10()
     {
+        //AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         GetMax();
         ActiveEquipsFrame(false);
         SubtractGem(45);
@@ -299,6 +296,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void ShowChances()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         leveInPopUp = level;
         LoadChances(leveInPopUp);
         panelChances.gameObject.SetActive(true);
@@ -318,17 +316,20 @@ public class SummonEquipment : MonoBehaviour
     public void ChanceNextLevel()
     {
         if (leveInPopUp + 1 == chanceDatas.Length) return;
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         LoadChances(++leveInPopUp);
     }
 
     public void ChanceBackLevel()
     {
         if (leveInPopUp - 1 == -1) return;
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         LoadChances(--leveInPopUp);
     }
 
     public void HideChances()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelChances, chancePopup, 0f, 0f, 0.8f, 0f);
         panelChances.gameObject.SetActive(false);
     }

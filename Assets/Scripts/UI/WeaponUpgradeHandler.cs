@@ -64,6 +64,7 @@ public class WeaponUpgradeHandler : ButtonUpgradee
 
     public override void Upgrade()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         blockUpgradeHandler.blockInfo.PlusGold(DataManager.instance.GetUpgradePriceWeaponConfig(level, levelUpgrade, weaponConfig));
         levelUpgrade++;
         if (evoUpgrade.activeSelf)

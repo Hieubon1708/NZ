@@ -54,6 +54,7 @@ public class Booster : MonoBehaviour
 
     public void PlusEnergy()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         amoutEnergy += 12;
         textAmoutEnergy.text = amoutEnergy.ToString();
         CheckBoosterState();

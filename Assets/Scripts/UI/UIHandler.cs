@@ -257,6 +257,7 @@ public class UIHandler : MonoBehaviour
 
     public void RewardGold()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         lastRewardTime = DateTime.Now;
         PlayerController.instance.player.gold += goldRewardHighest;
         GoldUpdatee();
@@ -264,6 +265,7 @@ public class UIHandler : MonoBehaviour
         countdownRewardGold = StartCoroutine(CountdownRewardGold(5 * 60));
         daily.CheckDaily(Daily.DailyType.WatchAds);
         DataManager.instance.SaveData();
+        DataManager.instance.SavePlayer();
     }
 
     public void GoldUpdatee()

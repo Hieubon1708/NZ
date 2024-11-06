@@ -493,6 +493,7 @@ public class Tutorial : MonoBehaviour
 
     public void XUnmask()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         EnableTutorial(false, scSelected);
         if (scSelected == scButtonBuyBlock) isFirstTimeClickButtonBuyBlock = true;
         if (scSelected == scButtonBuyWeapon) isFirstTimeClickButtonBuyWeapon = true;

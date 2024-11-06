@@ -702,6 +702,27 @@ public class UIUpgradeEvolution : MonoBehaviour
         }
     }
 
+    public void RerollSawEvo()
+    {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        RandomSawEvo();
+    }
+    public void RerollShockerEvo()
+    {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        RandomShockerEvo();
+    }
+    public void RerollFlameEvo()
+    {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        RandomFlameEvo();
+    }
+    public void RerollMachineGunEvo()
+    {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
+        RandomMachineGunEvo();
+    }
+
     public void HidePanelSawEvo()
     {
         sawCanvasGroup.alpha = 0;

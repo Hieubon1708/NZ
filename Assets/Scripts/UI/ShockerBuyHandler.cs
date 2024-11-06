@@ -2,6 +2,7 @@
 {
     public override void Buy()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.SHOCKER, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.SHOCKER));
         BlockController.instance.CheckButtonStateAll();

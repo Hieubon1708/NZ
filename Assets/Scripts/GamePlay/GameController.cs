@@ -162,28 +162,6 @@ public class GameController : MonoBehaviour
         listEVisible.Clear();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            level = Mathf.Clamp(++level, 0, 5);
-            ChangeBlockSprites(level);
-            ChangeCarSprites(level);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            level = Mathf.Clamp(++level, 0, 5);
-            ChangeBlockSprites(level);
-            ChangeCarSprites(level);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlayerController.instance.StartGame();
-        }
-    }
-
     public void ChangeBlockSprites(int level)
     {
         DataManager.instance.SetBlockSprites(level);
@@ -252,6 +230,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        if(UIHandler.instance.tutorial.isFirstTimePlay) AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         if (!isPLayBoss) EnemyTowerController.instance.NextTower();
         SetValue(true);
         BlockController.instance.StartGame();

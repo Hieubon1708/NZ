@@ -4,6 +4,7 @@ public class SawBuyHandler : WeaponBuyButton
 
     public override void Buy()
     {
+        AudioController.instance.PlaySoundButton(AudioController.instance.buttonClick);
         blockUpgradeHandler.BuyWeapon(GameController.WEAPON.SAW, 0);
         scBlock.PlusGold(DataManager.instance.GetPriceWeaponConfig(GameController.WEAPON.SAW));
         UIHandler.instance.tutorial.TutorialButtonBuyWeapon(true);

@@ -282,6 +282,8 @@ MonoBehaviour:
   view: {fileID: 4319744460993321}
   bones: []
   spriteInfoOrigin: []
+  alphaOrigin: []
+  tranOrigin: []
 --- !u!114 &8190240835078857614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3802,7 +3804,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4478774133468524}
   - component: {fileID: 212697933160053435}
-  - component: {fileID: 2981909922754016713}
   m_Layer: 0
   m_Name: Spider_2_1_Ass
   m_TagString: Untagged
@@ -3877,19 +3878,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &2981909922754016713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865147405579318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fa484e740df7948b8abfbd8c3597a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 1087254144996759}
 --- !u!1 &1883705050430329
 GameObject:
   m_ObjectHideFlags: 0
