@@ -37,6 +37,7 @@ public class Block : MonoBehaviour
 
     public void SubtractGold()
     {
+        UIHandler.instance.FlyGoldMenu(transform.position);
         PlayerController.instance.player.gold += sellingPrice;
         sellingPrice = 0;
         UIHandler.instance.GoldUpdatee();

@@ -13,6 +13,7 @@ public class EnemyTowerHandler : MonoBehaviour
     Dictionary<GameObject, Coroutine> flameTriggers = new Dictionary<GameObject, Coroutine>();
     public SpriteRenderer[] fullTowers;
     public HitEffect hitEffect;
+    public bool isStop;
 
     public void Start()
     {
@@ -23,6 +24,7 @@ public class EnemyTowerHandler : MonoBehaviour
     {
         if (collision.CompareTag("ColStopTower"))
         {
+            isStop = true;
             CarController.instance.multiplier = 0;
         }
         if (collision.CompareTag("ColDisplay") && !GameController.instance.listEVisible.Contains(enemyController.col))
@@ -90,6 +92,7 @@ public class EnemyTowerHandler : MonoBehaviour
     {
         healthHandler.SetDefaultInfo(ref towerInfo.hp);
         towerInfo.ChangeTextHp();
+        isStop = false;
     }
 
     void SubtractHp(int substractHp)

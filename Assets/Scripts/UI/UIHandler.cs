@@ -29,7 +29,6 @@ public class UIHandler : MonoBehaviour
     public GameObject goldFlyPrefab;
     public GameObject[] goldFlies;
     public int amout;
-    public Transform targetFlyGold;
     int curentCountFlyGold;
 
     public GameObject gold;
@@ -182,7 +181,6 @@ public class UIHandler : MonoBehaviour
         daily.LoadData();
         summonEquipment.LoadData();
         progressHandler.LoadData();
-        setting.LoadData();
         menu.LoadData();
         GemUpdatee();
         if (DataManager.instance.dataStorage != null)
@@ -190,6 +188,7 @@ public class UIHandler : MonoBehaviour
             goldRewardHighest = DataManager.instance.dataStorage.goldRewardHighest;
             lastRewardTime = DataManager.instance.dataStorage.lastRewardTime;
         }
+        setting.LoadData();
         CheckRewardGold();
         menu.ScaleOption(2, 0f);
     }
@@ -247,11 +246,26 @@ public class UIHandler : MonoBehaviour
         curentCountFlyGold++;
         progressHandler.PlusGoldInProgress(gold);
         if (curentCountFlyGold == goldFlies.Length) curentCountFlyGold = 0;
-        g.transform.DOMove(targetFlyGold.position, 0.55f).OnComplete(delegate
+        g.transform.DOMove(iconGoldStart.transform.position, 0.55f).OnComplete(delegate
         {
             uIEffect.Scale(iconGoldStart);
             g.SetActive(false);
             progressHandler.textGold.text = progressHandler.gold.ToString();
+        });
+    }
+    
+    public void FlyGoldMenu(Vector2 pos)
+    {
+        GameObject g = goldFlies[curentCountFlyGold];
+        g.transform.position = pos;
+        g.SetActive(true);
+        curentCountFlyGold++;
+        if (curentCountFlyGold == goldFlies.Length) curentCountFlyGold = 0;
+        g.transform.DOMove(iconGold.transform.position, 0.1f).OnComplete(delegate
+        {
+            AudioController.instance.PlaySound(AudioController.instance.flyGold);
+            uIEffect.Scale(iconGold);
+            g.SetActive(false);
         });
     }
 

@@ -172,7 +172,8 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX1()
     {
-        //AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.roll);
         GetMax();
         ActiveEquipsFrame(false);
         SubtractGem(5);
@@ -216,7 +217,7 @@ public class SummonEquipment : MonoBehaviour
 
     public void RollX10()
     {
-        //AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         GetMax();
         ActiveEquipsFrame(false);
         SubtractGem(45);
@@ -238,6 +239,7 @@ public class SummonEquipment : MonoBehaviour
         int i = 0;
         while (i < amount)
         {
+            AudioController.instance.PlaySound(AudioController.instance.roll);
             if ((int)equipmentInfosX10[i].level > GetMaxType((int)equipmentInfosX10[i].type)) equipmentInfosX10[i].frameLight.SetActive(true);
             else equipmentInfosX10[i].frameLight.SetActive(false);
             equipmentInfosX10[i].gameObject.SetActive(true);

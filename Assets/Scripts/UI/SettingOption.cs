@@ -11,7 +11,7 @@ public class SettingOption : MonoBehaviour
 
     public void SwitchState()
     {
-        UIHandler.instance.setting.SetBoolType(type, buttonInactive.activeSelf);
+        UIHandler.instance.setting.SetBoolType(type, buttonInactive.activeSelf, false, 0.25f);
         SwitchStateHandle(buttonInactive.activeSelf, 0.25f);
     }
 

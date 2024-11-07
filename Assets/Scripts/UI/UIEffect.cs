@@ -23,7 +23,7 @@ public class UIEffect : MonoBehaviour
     Tween delayGemUpdate;
     Tween scaleObj;
     float startScaleGem;
-    int indexGold;
+    public int indexGold;
 
     public void Start()
     {
@@ -51,7 +51,8 @@ public class UIEffect : MonoBehaviour
 
     public void FlyGold()
     {
-        FlyGoldHandle(true, 7, GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
+        indexGold = 0;
+        FlyGoldHandle(true, 7, 7, GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2)), targetGold.position, 1f, 0.35f, 0.35f, 0.45f, 0.45f, 0.45f);
         delayGoldUpdate = DOVirtual.DelayedCall(1.5f, delegate
         {
             UIHandler.instance.GoldUpdatee();
@@ -64,7 +65,7 @@ public class UIEffect : MonoBehaviour
         });
     }
 
-    void FlyGoldHandle(bool isUseLight, int amountGold, Vector2 pos, Vector2 target, float scale, float timeMoveInToOut, float randomTimeDelayMoveTarget1, float randomTimeDelayMoveTarget2, float randomTimeMoveToTarget1, float randomTimeMoveToTarget2)
+    void FlyGoldHandle(bool isUseLight, int total, int amountGold, Vector2 pos, Vector2 target, float scale, float timeMoveInToOut, float randomTimeDelayMoveTarget1, float randomTimeDelayMoveTarget2, float randomTimeMoveToTarget1, float randomTimeMoveToTarget2)
     {
         rectIn.position = pos;
         rectOut.position = pos;
@@ -85,11 +86,18 @@ public class UIEffect : MonoBehaviour
              {
                  lightCircle.DOFade(0f, 0.85f);
              });
+            if (index == total - amountGold && !isUseLight) AudioController.instance.PlaySoundEnemyAttack(AudioController.instance.eAttack, AudioController.instance.flyGoldEnd, 0f);
             golds[index].transform.DOMove(new Vector2(xOut, yOut), timeMoveInToOut).OnComplete(delegate
             {
                 delayCalls[index] = DOVirtual.DelayedCall(Random.Range(randomTimeDelayMoveTarget1, randomTimeDelayMoveTarget2), delegate
                 {
-                    golds[index].transform.DOMove(target, Random.Range(randomTimeMoveToTarget1, randomTimeMoveToTarget2)).OnComplete(delegate { golds[index].SetActive(false); Scale(UIHandler.instance.iconGold); });
+                    golds[index].transform.DOMove(target, Random.Range(randomTimeMoveToTarget1, randomTimeMoveToTarget2)).OnComplete(delegate
+                    {
+                        golds[index].SetActive(false);
+                        Scale(UIHandler.instance.iconGold);
+                        if (index == total - 1 && !isUseLight) AudioController.instance.StopSoundEnemyAttack(AudioController.instance.eAttack, 0.25f);
+                        if (index == 0 && isUseLight) AudioController.instance.PlaySound(AudioController.instance.flyGold);
+                    });
                 });
             });
             indexGold++;
@@ -97,9 +105,9 @@ public class UIEffect : MonoBehaviour
         }
     }
 
-    public void EndFlyGold(Vector2 pos)
+    public void EndFlyGold(int total, Vector2 pos)
     {
-        FlyGoldHandle(false, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.25f, 0.35f);
+        FlyGoldHandle(false, total, 10, pos, targetGoldEnd.position, 0.65f, 0.35f, 0.05f, 0.25f, 0.25f, 0.35f);
     }
 
     public void FlyGem()
@@ -116,11 +124,15 @@ public class UIEffect : MonoBehaviour
             gems[i].transform.DOScale(startScaleGem + (i % 2 == 0 ? 0.15f : 0.5f), 0.45f).SetEase(Ease.OutQuad);
             gems[i].transform.DORotate(new Vector3(0, 0, 360), 0.45f, RotateMode.FastBeyond360).SetEase(Ease.OutQuad);
             int index = i;
+            if (index == 0) AudioController.instance.PlaySound(AudioController.instance.gemReward);
             gems[index].transform.DOMove(new Vector2(x, y), 0.45f).OnComplete(delegate
             {
                 gems[index].transform.DOScale(startScaleGem, 0.35f).SetEase(Ease.InQuad);
                 gems[index].transform.DORotate(new Vector3(0, 0, 360), 0.35f, RotateMode.FastBeyond360).SetEase(Ease.InQuad);
-                gems[index].transform.DOMove(targetGems.transform.position, 0.35f).OnComplete(delegate { gems[index].SetActive(false); }).SetEase(Ease.InQuad);
+                gems[index].transform.DOMove(targetGems.transform.position, 0.35f).OnComplete(delegate
+                {
+                    gems[index].SetActive(false);
+                }).SetEase(Ease.InQuad);
             }).SetEase(Ease.OutQuad);
         }
         delayGemUpdate = DOVirtual.DelayedCall(0.9f, delegate

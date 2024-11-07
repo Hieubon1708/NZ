@@ -4361,7 +4361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925128048349482}
   - component: {fileID: 3212402677617147322}
-  m_Layer: 18
+  m_Layer: 0
   m_Name: main collider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5040,7 +5040,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 222012207
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_SortAtRoot: 1
 --- !u!114 &6902570907861161827
 MonoBehaviour:
@@ -5103,6 +5103,7 @@ MonoBehaviour:
   - {fileID: 212625598598616073}
   hitEffect: {fileID: 3163262519825093646}
   shadow: {fileID: 1343045052300249}
+  indexAudioMove: 0
   forceJump: 0
   multiplier: 1
   realSpeed: 0
@@ -6382,7 +6383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7781009252899925740}
   - component: {fileID: 7080665204201965545}
-  m_Layer: 18
+  m_Layer: 0
   m_Name: death col
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -6644,7 +6645,7 @@ GameObject:
   - component: {fileID: 4428819191517098981}
   - component: {fileID: 7754027514945823564}
   - component: {fileID: 4149623847072772139}
-  m_Layer: 18
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7012,11 +7013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2597407603152731815, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Layer
-      value: 18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3571161364059412704, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Layer
-      value: 18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4502626900472404923, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Mass

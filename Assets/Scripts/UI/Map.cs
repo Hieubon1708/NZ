@@ -21,6 +21,14 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.V))
+        {
+            ShowMap();
+        }
+    }
+
     public void ShowMap()
     {
         map.SetActive(true);
@@ -28,7 +36,6 @@ public class Map : MonoBehaviour
         UIHandler.instance.progressHandler.Restart();
         GameController.instance.isLose = false;
         BlockController.instance.SetActiveUI(true);
-        if (GameController.instance.level > 1) return;
         for (int i = 0; i < BlockController.instance.scBlocks.Count; i++)
         {
             BlockController.instance.scBlocks[i].blockUpgradeHandler.canvas.SetActive(true);
@@ -37,8 +44,10 @@ public class Map : MonoBehaviour
         {
             DOVirtual.DelayedCall(0.25f, delegate
             {
+                AudioController.instance.PlaySound(AudioController.instance.nextMap);
                 mapObjects[GameController.instance.level - 1].DoCompleted(mapObjects[GameController.instance.level].mapCompleted, delegate
                 {
+                    AudioController.instance.StopSoundEnemyFly(AudioController.instance.eFly, 0);
                     DOVirtual.DelayedCall(0.5f, delegate
                     {
                         GameController.instance.MapGenerate(GameController.instance.level + 1);

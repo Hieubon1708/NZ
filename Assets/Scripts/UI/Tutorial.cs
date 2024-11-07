@@ -139,8 +139,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonShop);
                 isFirstTimeClickButtonShop = true;
+                EnableTutorial(false, scButtonShop);
                 TutorialButtonRoll(false);
             }
             else
@@ -161,8 +161,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonBoss);
                 isFirstTimeClickButtonBoss = true;
+                EnableTutorial(false, scButtonBoss);
                 TutorialButtonPlayBoss(false);
             }
             else
@@ -184,8 +184,8 @@ public class Tutorial : MonoBehaviour
             if (isClick)
             {
                 scrollBoss.vertical = true;
-                EnableTutorial(false, scButtonPlayBoss);
                 isFirstTimeClickButtonPlayBoss = true;
+                EnableTutorial(false, scButtonPlayBoss);
             }
             else
             {
@@ -206,8 +206,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonRoll);
                 isFirstTimeClickButtonRoll = true;
+                EnableTutorial(false, scButtonRoll);
             }
             else
             {
@@ -227,8 +227,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonInventory);
                 isFirstTimeClickButtonInventory = true;
+                EnableTutorial(false, scButtonInventory);
                 TutorialButtonEquipInventory(false);
             }
             else
@@ -249,8 +249,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonEquipInventory);
                 isFirstTimeClickButtonEquipInventory = true;
+                EnableTutorial(false, scButtonEquipInventory);
                 TutorialButtonSellInventory(false);
             }
             else
@@ -271,8 +271,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonSellInventory);
                 isFirstTimeClickButtonSellInventory = true;
+                EnableTutorial(false, scButtonSellInventory);
             }
             else
             {
@@ -292,8 +292,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonUpgradeInventory);
                 isFirstTimeClickButtonUpgradeInventory = true;
+                EnableTutorial(false, scButtonUpgradeInventory);
             }
             else
             {
@@ -313,9 +313,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonUpgradeLevelInventory);
-
                 isFirstTimeClickButtonUpgradeLevelInventory = true;
+                EnableTutorial(false, scButtonUpgradeLevelInventory);
             }
             else
             {
@@ -335,8 +334,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonBuyBlock);
                 isFirstTimeClickButtonBuyBlock = true;
+                EnableTutorial(false, scButtonBuyBlock);
                 TutorialButtonBuyWeapon(false);
             }
             else
@@ -361,8 +360,8 @@ public class Tutorial : MonoBehaviour
             scButtonBuyWeapon = sawBuyHandler.tutorialOject;
             if (isClick)
             {
-                EnableTutorial(false, scButtonBuyWeapon);
                 isFirstTimeClickButtonBuyWeapon = true;
+                EnableTutorial(false, scButtonBuyWeapon);
                 TutorialButtonUpgradeEnergy(false);
             }
             else
@@ -390,8 +389,8 @@ public class Tutorial : MonoBehaviour
         {
             if (isClick)
             {
-                EnableTutorial(false, scButtonUpgradeWeaponEvo);
                 isFirstTimeClickUpgradeWeaponEvo = true;
+                EnableTutorial(false, scButtonUpgradeWeaponEvo);
                 TutorialButtonShop(false);
             }
             else
@@ -433,6 +432,7 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeDragBlock || BlockController.instance.blocks.Count < 4)
         {
+            Debug.LogWarning("Block Count " + BlockController.instance.blocks.Count);
         }
         else
         {
@@ -441,6 +441,7 @@ public class Tutorial : MonoBehaviour
                 isFirstTimeDragBlock = true;
                 isTutorialDragBlock = true;
                 blockDragTutorial.SetActive(false);
+                DataManager.instance.SaveTutorial();
             }
             else
             {

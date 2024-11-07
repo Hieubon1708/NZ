@@ -9,24 +9,29 @@ public class Setting : MonoBehaviour
 
     public void LoadData()
     {
-        SetBoolType(TypeSetting.Sound, DataManager.instance.dataStorage.isSoundActive);
-        settingOptions[1].SwitchStateHandle(DataManager.instance.dataStorage.isSoundActive, 0.25f);
-        SetBoolType(TypeSetting.Music, DataManager.instance.dataStorage.isMusicActive);
-        settingOptions[0].SwitchStateHandle(DataManager.instance.dataStorage.isMusicActive, 0.25f);
+        if (!UIHandler.instance.tutorial.isFirstTimePlay)
+        {
+            DataManager.instance.dataStorage.isMusicActive = true;
+            DataManager.instance.dataStorage.isSoundActive = true;
+        }
+        SetBoolType(TypeSetting.Sound, DataManager.instance.dataStorage.isSoundActive, true, 0);
+        settingOptions[1].SwitchStateHandle(DataManager.instance.dataStorage.isSoundActive, 0);
+        SetBoolType(TypeSetting.Music, DataManager.instance.dataStorage.isMusicActive, true, 0);
+        settingOptions[0].SwitchStateHandle(DataManager.instance.dataStorage.isMusicActive, 0);
     }
 
-    public void SetBoolType(TypeSetting type, bool isActive)
+    public void SetBoolType(TypeSetting type, bool isActive, bool isLoadData, float time)
     {
-        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        if(!isLoadData) AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         if (type == TypeSetting.Music)
         {
             DataManager.instance.dataStorage.isMusicActive = isActive;
-            AudioController.instance.EnableMusic(isActive, 0.25f);
+            AudioController.instance.EnableMusic(isActive, time);
         }
         if (type == TypeSetting.Sound)
         {
             DataManager.instance.dataStorage.isSoundActive = isActive;
-            AudioController.instance.EnableSound(isActive, 0.25f);
+            AudioController.instance.EnableSound(isActive, time);
         }
         DataManager.instance.SaveData();
     }

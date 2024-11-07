@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyTowerController : MonoBehaviour
@@ -59,6 +60,15 @@ public class EnemyTowerController : MonoBehaviour
         for (int i = 0; i < GameController.instance.listEVisible.Count; i++)
         {
             if (GameController.instance.listEVisible[i].name.Contains("fl")) return true;
+        }
+        return false;
+    }
+    
+    public bool IsExistAudioWalk()
+    {
+        for (int i = 0; i < poolScEs.Count; i++)
+        {
+            if (GameController.instance.listEVisible.Contains(poolScEs[i].gameObject) && poolScEs[i] is EnemyT1) return true;
         }
         return false;
     }
@@ -156,13 +166,14 @@ public class EnemyTowerController : MonoBehaviour
             yield return new WaitForSeconds(timeSpawn);
             EnemyHandler eSc = GetScE(es[index]);
 
-            if (GameController.instance.listEVisible.Contains(scTowers[indexTower].col) && eSc is EnemyT5) yield break;
+            if (GetTower().enemyTowerHandler.isStop && eSc is EnemyT5) yield break;
 
             es[index].SetActive(true);
-            eSc.SpawnbyTime();
             eSc.healthHandler.SetDefaultInfo(ref eSc.enemyInfo.hp);
             eSc.SetColNKinematicNRevival(true);
             eSc.animator.Rebind();
+            eSc.enemyInfo.bone.ResetBone();
+            eSc.SpawnbyTime();
             index++;
             if (index == es.Length) index = 0;
         }
@@ -472,7 +483,11 @@ public class EnemyTowerController : MonoBehaviour
         if (indexTower == towers.Length - 1)
         {
             DisableEs();
-            AudioController.instance.EnableMusic(false, 0.75f);
+            AudioController.instance.PlayMusic(AudioController.instance.bgMenu[GameController.instance.level], 0.75f, 0.75f);
+            AudioController.instance.StopSoundEnemyAttack(AudioController.instance.eAttack, 1.5f);
+            AudioController.instance.StopSoundEnemyFly(AudioController.instance.eFly, 1.5f);
+            AudioController.instance.StopSoundEnemyWalk(AudioController.instance.eWalk, 1.5f);
+            AudioController.instance.PlaySound(AudioController.instance.win);
             CarController.instance.multiplier = 0;
             GameController.instance.level++;
             if (GameController.instance.level > 1) GameController.instance.level = 0;
@@ -495,6 +510,7 @@ public class EnemyTowerController : MonoBehaviour
             UIHandler.instance.progressHandler.StopProgress();
             EquipmentController.instance.playerInventory.ConvertGoldToDush();
             BlockController.instance.CheckButtonStateAll();
+            Debug.LogWarning(BlockController.instance.blocks.Count);
             DOVirtual.DelayedCall(2f, delegate
             {
                 UIHandler.instance.progressHandler.ShowReward();

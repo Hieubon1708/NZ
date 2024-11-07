@@ -21,6 +21,7 @@ public class EnemyT5 : EnemyHandler
         SetHp();
         hitObj = objScaler;
         RestartSilk();
+        GameController.instance.listEVisible.Add(enemyInfo.gameObject);
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 4, GameController.instance.xPlus2);
         transform.position = new Vector2(targetX, CarController.instance.spawnY[Random.Range(0, CarController.instance.spawnY.Length)].transform.position.y);
     }
@@ -36,14 +37,14 @@ public class EnemyT5 : EnemyHandler
         base.OnTriggerEnter2D(collision);
         if (collision.CompareTag("Block") || collision.CompareTag("Player"))
         {
-            PlayerController.instance.playerHandler.SubtractHp(int.Parse(col.name));
+            PlayerController.instance.playerHandler.SubtractHp(enemyInfo.damage);
             if (ParLv2.instance != null) ParLv2.instance.PlaySpriderHitOnBlockOHeroParticle(new Vector2(transform.position.x, transform.position.y + 6));
             StopCoroutines();
             SetColNKinematicNRevival(false);
             rb.gravityScale = 0;
             rb.velocity = Vector2.zero;
             SetDeathAni();
-            GameController.instance.listEVisible.Remove(colObj);
+            GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
         }
     }
 
@@ -94,7 +95,7 @@ public class EnemyT5 : EnemyHandler
         healthBar.SetActive(false);
         if(!isDeadByTower) UIHandler.instance.FlyGold(hitObj.transform.position, 2);
         SetDeathAni();
-        GameController.instance.listEVisible.Remove(colObj);
+        GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
     }
 
     void RestartSilk()

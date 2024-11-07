@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 420
-  damage: 8
+  damage: 18
   bone: {fileID: 7825448298857881008}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
@@ -1056,6 +1056,7 @@ MonoBehaviour:
   - {fileID: 5625548171263538892}
   hitEffect: {fileID: 6668746329931022830}
   shadow: {fileID: 1451903839395144561}
+  indexAudioMove: 0
   forceJump: 5
   multiplier: 1
   realSpeed: 0

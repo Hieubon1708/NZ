@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShockerBoosterHandler : MonoBehaviour
 {
     public SpriteRenderer[] electricities;
+    public Rigidbody2D rb;
     public GameObject topBall, botBall;
     public BoxCollider2D col;
     public GameObject parBooster;
@@ -12,27 +13,31 @@ public class ShockerBoosterHandler : MonoBehaviour
     public float targetScaleParBooster;
     public float time;
     Coroutine moveBall;
+    public TrailRenderer trailRenderer;
 
     float startSizeElectricity;
     float startSizeParBooster;
     float startSizetopBall;
     float startSizebotBall;
     float startSizecol;
+    float startSizeTrail;
 
     public void ZoomInBooster()
     {
-        if(startSizecol == 0)
+        if (startSizecol == 0)
         {
             startSizecol = col.size.y;
             startSizeElectricity = electricities[0].size.y;
             startSizeParBooster = parBooster.transform.localScale.x;
             startSizetopBall = topBall.transform.position.y;
             startSizebotBall = botBall.transform.position.y;
+            startSizeTrail = trailRenderer.widthMultiplier;
         }
         col.size = new Vector2(col.size.x, startSizecol);
         topBall.transform.position = new Vector2(topBall.transform.position.x, startSizetopBall);
         botBall.transform.position = new Vector2(botBall.transform.position.x, startSizebotBall);
         parBooster.transform.localScale = new Vector3(startSizeParBooster, parBooster.transform.localScale.y, parBooster.transform.localScale.z);
+        trailRenderer.widthMultiplier = startSizeTrail;
 
         for (int i = 0; i < electricities.Length; i++)
         {
@@ -49,6 +54,18 @@ public class ShockerBoosterHandler : MonoBehaviour
         {
             col.size = new Vector2(col.size.x, y);
         }).SetEase(Ease.Linear);
+        DOVirtual.Float(trailRenderer.widthMultiplier, 5.81f * targetHeightElectricity, time, (w) =>
+        {
+            for (int i = 0; i < trailRenderer.positionCount; i++)
+            {
+                trailRenderer.SetPosition(i, new Vector2(trailRenderer.transform.position.x - 1.5f, trailRenderer.transform.position.y));
+            }
+            trailRenderer.widthMultiplier = w;
+        }).SetEase(Ease.Linear).OnComplete(delegate
+        {
+            if (moveBall != null) StopCoroutine(moveBall);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        });
 
         moveBall = StartCoroutine(MoveBall());
     }
@@ -65,7 +82,7 @@ public class ShockerBoosterHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        if(moveBall != null)
+        if (moveBall != null)
         {
             StopCoroutine(moveBall);
         }

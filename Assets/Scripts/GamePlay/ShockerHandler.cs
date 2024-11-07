@@ -17,7 +17,6 @@ public class ShockerHandler : WeaponShoter
     public int amout;
     int countBooster;
     int amoutShockerBooster = 1;
-    public Rigidbody2D[] shockerBoosters;
     public ShockerBoosterHandler[] shockerScBoosters;
     public Transform container;
     public List<GameObject> listEs = new List<GameObject>();
@@ -26,12 +25,10 @@ public class ShockerHandler : WeaponShoter
 
     public void Awake()
     {
-        shockerBoosters = new Rigidbody2D[amout];
         shockerScBoosters = new ShockerBoosterHandler[amout];
         for (int i = 0; i < amout; i++)
         {
             GameObject s = Instantiate(shockerBoosterPref, container);
-            shockerBoosters[i] = s.GetComponent<Rigidbody2D>();
             shockerScBoosters[i] = s.GetComponent<ShockerBoosterHandler>();
             s.SetActive(false);
         }
@@ -67,7 +64,7 @@ public class ShockerHandler : WeaponShoter
             }
             if (count == 0)
             {
-                AudioController.instance.PlaySoundWeapon1(AudioController.instance.shocker, 0.25f);
+                AudioController.instance.PlaySoundWeapon1(AudioController.instance.shocker, 0f);
                 light = StartCoroutine(ShockerLight());
                 shockerAttackAni.Play();
             }
@@ -88,7 +85,7 @@ public class ShockerHandler : WeaponShoter
             count--;
             if (count == 0)
             {
-                AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0.25f);
+                if (!booster.isUseBooster) AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0.25f);
                 if (light != null) StopCoroutine(light);
                 shockerAttackAni.Stop();
             }
@@ -101,9 +98,9 @@ public class ShockerHandler : WeaponShoter
         shockerAttackAni.Stop();
         if (light != null) StopCoroutine(light);
         if (shockerBooster != null) StopCoroutine(shockerBooster);
-        for (int i = 0; i < shockerBoosters.Length; i++)
+        for (int i = 0; i < shockerScBoosters.Length; i++)
         {
-            if (shockerBoosters[i].gameObject.activeSelf) shockerBoosters[i].gameObject.SetActive(false);
+            if (shockerScBoosters[i].gameObject.activeSelf) shockerScBoosters[i].gameObject.SetActive(false);
         }
         count = 0;
     }
@@ -197,13 +194,13 @@ public class ShockerHandler : WeaponShoter
     {
         for (int i = 0; i < amoutShockerBooster; i++)
         {
-            GameObject s = shockerBoosters[countBooster].gameObject;
+            GameObject s = shockerScBoosters[countBooster].gameObject;
             s.transform.position = pointSpawnBooster.position;
             s.SetActive(true);
-            shockerBoosters[countBooster].velocity = new Vector2(10, shockerBoosters[countBooster].velocity.y);
+            shockerScBoosters[countBooster].rb.velocity = new Vector2(10, 1.75f);
             shockerScBoosters[countBooster].ZoomInBooster();
             countBooster++;
-            if (countBooster == shockerBoosters.Length) countBooster = 0;
+            if (countBooster == shockerScBoosters.Length) countBooster = 0;
             DOVirtual.DelayedCall(1f, delegate
             {
                 s.SetActive(false);
@@ -220,9 +217,9 @@ public class ShockerHandler : WeaponShoter
 
         GetPercentageIncreaseDamage(ref multiplier);
 
-        for (int i = 0; i < shockerBoosters.Length; i++)
+        for (int i = 0; i < shockerScBoosters.Length; i++)
         {
-            shockerBoosters[i].name = ((int)(damage * multiplier)).ToString();
+            shockerScBoosters[i].name = ((int)(damage * multiplier)).ToString();
         }
     }
 

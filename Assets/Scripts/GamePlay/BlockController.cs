@@ -47,10 +47,12 @@ public class BlockController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         int goldReward = UIHandler.instance.progressHandler.gold;
+        UIHandler.instance.uIEffect.indexGold = 0;
+        int total = tempBlocks.Count;
         while (tempBlocks.Count > 0)
         {
-            UIHandler.instance.uIEffect.EndFlyGold(tempBlocks[tempBlocks.Count - 1].transform.position);
-            UIHandler.instance.uIEffect.EndFlyGold(tempBlocks[tempBlocks.Count - 1].transform.position);
+            UIHandler.instance.uIEffect.EndFlyGold(total * 20, tempBlocks[tempBlocks.Count - 1].transform.position);
+            UIHandler.instance.uIEffect.EndFlyGold(total * 20, tempBlocks[tempBlocks.Count - 1].transform.position);
             Block sc = GetScBlock(tempBlocks[tempBlocks.Count - 1]);
             DeleteBlockInGame(tempBlocks[tempBlocks.Count - 1]);
             goldReward += sc.sellingPrice;

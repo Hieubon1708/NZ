@@ -20,16 +20,10 @@ public class EnemyT3 : EnemyHandler
         targetX = CarController.instance.transform.position.x + GameController.instance.xPlus2;
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!EnemyTowerController.instance.IsExistAudioFly()) AudioController.instance.PlaySoundEnemyFly(0.25f);
-        base.OnTriggerEnter2D(collision);
-    }
-
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
-        if (collision.CompareTag("Tower") && col.enabled && EnemyTowerController.instance.GetTower().col == collision.gameObject) levingCave = StartCoroutine(LevingCave());
+        if (collision.CompareTag("Tower") && col.enabled && EnemyTowerController.instance.GetTower().col == collision.gameObject && Application.isPlaying) levingCave = StartCoroutine(LevingCave());
     }
 
     protected override void FixedUpdate()
@@ -81,7 +75,7 @@ public class EnemyT3 : EnemyHandler
     {
         base.DeathHandle();
         isLevingCave = false;
-        if (!EnemyTowerController.instance.IsExistAudioFly()) AudioController.instance.StopSoundEnemyFly(0.25f);
+        if (!EnemyTowerController.instance.IsExistAudioFly()) AudioController.instance.StopSoundEnemyFly(AudioController.instance.eFly, 0.25f);
     }
 
     Vector2 RandomTarget()
@@ -117,15 +111,5 @@ public class EnemyT3 : EnemyHandler
         base.SetDefaultField();
         delayRevival.Kill();
         content.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-        col.enabled = false;
-    }
-
-    public void OnEnable()
-    {
-        col.enabled = true;
     }
 }

@@ -62,7 +62,7 @@ public class SawHandler : WeaponShoter
             }
             if (count == 0)
             {
-                //AudioController.instance.PlaySoundWeapon1(AudioController.instance.saw, 0.25f);
+                AudioController.instance.PlaySoundWeapon1(AudioController.instance.saw, 0f);
                 blood = StartCoroutine(SawBlood());
                 sawAttackAni.Play();
             }
@@ -83,7 +83,7 @@ public class SawHandler : WeaponShoter
             count--;
             if (count == 0)
             {
-                AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0.25f);
+                if (!booster.isUseBooster) AudioController.instance.StopSoundWeapon(AudioController.instance.weapon1, 0.25f);
                 if (blood != null) StopCoroutine(blood);
                 sawAttackAni.Stop();
             }

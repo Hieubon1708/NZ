@@ -47,7 +47,7 @@ public class EnemyT4 : EnemyHandler
         SetColNKinematicNRevival(false);
         healthBar.SetActive(false);
         StopCoroutines();
-        if(!isDeadByTower) UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
+        if (!isDeadByTower) UIHandler.instance.FlyGold(enemyInfo.transform.position, 2);
         SetDeathAni();
         GameController.instance.listEVisible.Remove(gameObject);
     }
@@ -58,7 +58,9 @@ public class EnemyT4 : EnemyHandler
         SetDamage();
         SetHp();
         hitObj = content;
-        float x = GameController.instance.cam.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x + 1;
+        float xTower = EnemyTowerController.instance.GetTower().col.transform.position.x;
+        float xCol = GameController.instance.colDisplayPos.x;
+        float x = xCol > xTower ? xTower : xCol;
         float y = CarController.instance.spawnY[0].transform.position.y;
         transform.position = new Vector2(x, y);
     }
@@ -78,5 +80,10 @@ public class EnemyT4 : EnemyHandler
     public override void OnCollisionExit2D(Collision2D collision)
     {
         base.OnCollisionExit2D(collision);
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            animator.SetBool("attack", false);
+            isAttack = false;
+        }
     }
 }

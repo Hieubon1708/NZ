@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -58,7 +59,6 @@ public class EnemyHandler : MonoBehaviour
     protected Coroutine blockCollision;
     protected Coroutine playerCollision;
 
-
     protected LayerMask layerOrigin;
     protected LayerMask layerBumping;
 
@@ -86,12 +86,27 @@ public class EnemyHandler : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ColDisplay") && !content.activeSelf)
+        string tagCompare = "ColDisplay";
+        if (GameController.instance.colDisplayPos.x > EnemyTowerController.instance.GetTower().col.transform.position.x) tagCompare = "Tower";
+        if (collision.CompareTag(tagCompare) && !content.activeSelf)
         {
+            if(tagCompare == "Tower")
+            {
+                if(collision.gameObject != EnemyTowerController.instance.GetTower().col) return;
+            }
             content.SetActive(true);
             speed = realSpeed;
             col.enabled = false;
             col.enabled = true;
+            if (this is EnemyT1 && !EnemyTowerController.instance.IsExistAudioWalk())
+            {
+                AudioController.instance.PlaySoundEnemyWalk(AudioController.instance.eWalk, AudioController.instance.walk[GameController.instance.level], 0.25f);
+            }
+            if(this is EnemyT3 && !EnemyTowerController.instance.IsExistAudioFly())
+            {
+                AudioController.instance.PlaySoundEnemyFly(AudioController.instance.eFly, AudioController.instance.fly, 0.25f);
+            }
+            Debug.LogWarning("asda");
             GameController.instance.listEVisible.Add(enemyInfo.gameObject);
         }
         if (!content.activeSelf || enemyInfo.hp == 0) return;
@@ -478,7 +493,10 @@ public class EnemyHandler : MonoBehaviour
         healthBar.SetActive(false);
         if (shadow != null) shadow.SetActive(false);
         GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
-
+        if (this is EnemyT1 && !EnemyTowerController.instance.IsExistAudioWalk())
+        {
+            AudioController.instance.StopSoundEnemyWalk(AudioController.instance.eWalk, 0.25f);
+        }
         delayRevival = DOVirtual.DelayedCall(1f, delegate
         {
             EnemyTowerController.instance.ERevival(enemyInfo.gameObject, this);
@@ -575,13 +593,13 @@ public class EnemyHandler : MonoBehaviour
         speed = startSpeed;
         col.enabled = true;
         rb.isKinematic = false;
-        //isCollisionWithCar = false;
+        isCollisionWithCar = false;
         isStunned = false;
         isJump = false;
         isStunByWeapon = false;
         isShot = false;
         isBumping = false;
-        //frontalCollision = null;
+        frontalCollision = null;
         view.SetActive(true);
         healthBar.SetActive(false);
         //if (shadow != null) shadow.SetActive(true);

@@ -18,14 +18,11 @@ public class BlockHandler : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison++;
-        CarController.instance.PlayAudioEnemyAttack();
     }
 
     public void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) CarController.instance.amoutCollison--;
-        Debug.LogWarning(CarController.instance.amoutCollison);
-        if (CarController.instance.amoutCollison == 0) AudioController.instance.eAttack.Stop();
     }
 
     private void OnTriggerExit2D(Collider2D collision)

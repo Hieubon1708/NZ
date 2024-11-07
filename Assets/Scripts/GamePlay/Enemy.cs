@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int hp;
-    public float damage;
+    public int damage;
     public Bone bone;
 
     public int SubtractHp(int hp)

@@ -3,6 +3,7 @@ using DG.Tweening;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -46,6 +47,8 @@ public class GameController : MonoBehaviour
     public GameObject boss;
     public GameObject main;
 
+    public Vector2 colDisplayPos;
+
     public bool isStart;
     public Camera cam;
 
@@ -74,7 +77,7 @@ public class GameController : MonoBehaviour
     void GenerateColDisplay()
     {
         Vector2 sceenR = cam.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height / 2));
-        Instantiate(colDisplay, new Vector2(sceenR.x + gameCamera.transform.position.x, sceenR.y), Quaternion.identity, transform);
+        colDisplayPos = Instantiate(colDisplay, new Vector2(sceenR.x + gameCamera.transform.position.x, sceenR.y), Quaternion.identity, transform).transform.position;
     }
 
     public void MapGenerate(int index)
@@ -124,15 +127,11 @@ public class GameController : MonoBehaviour
         UpgradeEvolutionController.instance.LoadData();
         BlockController.instance.LoadData();
         //UIBoss.instance.LoadData();
-
         /* Instantiate(v, new Vector2(CarController.instance.transform.position.x + 4f, CarController.instance.transform.position.y + 3), Quaternion.identity);
          Instantiate(v, new Vector2(CarController.instance.transform.position.x + 8f, CarController.instance.transform.position.y + 3), Quaternion.identity);
  */
         if (!UIHandler.instance.tutorial.isFirstTimePlay)
         {
-            DataManager.instance.dataStorage.isMusicActive = true;
-            DataManager.instance.dataStorage.isSoundActive = true;
-            UIHandler.instance.setting.LoadData();
             StartGame();
             AudioController.instance.PlayMusic(AudioController.instance.bgIngame[level], 0f, 0.75f);
         }
@@ -208,7 +207,6 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         AudioController.instance.PlayMusic(AudioController.instance.bgMenu[level], 0f, 0.75f);
-
         SetValue(false);
         if (!isPLayBoss) EnemyTowerController.instance.Restart();
         else
@@ -249,7 +247,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        if(UIHandler.instance.tutorial.isFirstTimePlay)
+        if (UIHandler.instance.tutorial.isFirstTimePlay)
         {
             AudioController.instance.PlaySound(AudioController.instance.buttonClick);
             AudioController.instance.PlayMusic(AudioController.instance.bgIngame[level], 0.25f, 0.25f);
@@ -267,7 +265,7 @@ public class GameController : MonoBehaviour
         menuCamera.SetActive(!isActive);
         gameCamera.SetActive(isActive);
         if (!isPLayBoss || !isActive) touchScreen.SetActive(isActive);
-        if(isPLayBoss) UIBoss.instance.ActiveButtonBack(!isActive);
+        if (isPLayBoss) UIBoss.instance.ActiveButtonBack(!isActive);
         buttonStart.SetActive(!isActive);
         if (!isPLayBoss) menu.SetActive(!isActive);
         isStart = isActive;

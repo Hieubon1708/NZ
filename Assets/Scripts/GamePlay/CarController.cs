@@ -22,22 +22,40 @@ public class CarController : MonoBehaviour
     public SpriteRenderer wheelRight;
     public SpriteRenderer shadow;
 
-    public bool isPlayerAudioAttackEnemy;
+    int count;
+    bool isDelayEnemyAttack;
+    Tween delayCall;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void PlayAudioEnemyAttack()
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isPlayerAudioAttackEnemy) return;
-        isPlayerAudioAttackEnemy = true;
-        AudioController.instance.PlaySoundEnemyAttack(AudioController.instance.attack[GameController.instance.level]);
-        DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), delegate
+        if (collision.CompareTag("Enemy") && !GameController.instance.isLose)
         {
-            isPlayerAudioAttackEnemy = false;
-        });
+            if (count == 0 || !isDelayEnemyAttack)
+            {
+                delayCall.Kill();
+                isDelayEnemyAttack = true;
+                AudioController.instance.PlaySoundEnemyAttack(AudioController.instance.eAttack, AudioController.instance.attack[GameController.instance.level], 0.25f);
+                delayCall = DOVirtual.DelayedCall(Random.Range(1.5f, 2.5f), delegate
+                {
+                    isDelayEnemyAttack = false;
+                });
+            }
+            count++;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy") && !GameController.instance.isLose)
+        {
+            count--;
+            if (count == 0) AudioController.instance.StopSoundEnemyAttack(AudioController.instance.eAttack, 0.25f);
+        }
     }
 
     private void Start()
@@ -93,6 +111,7 @@ public class CarController : MonoBehaviour
 
     public void Restart()
     {
+        count = 0;
         carAni.Rebind();
     }
 }

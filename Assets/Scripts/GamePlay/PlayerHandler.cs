@@ -20,7 +20,7 @@ public class PlayerHandler : MonoBehaviour
     public void SubtractHp(int subtractHp)
     {
         if (playerInfo.hp == 0) return;
-        if(!healthBar.activeSelf) healthBar.SetActive(true);
+        if (!healthBar.activeSelf) healthBar.SetActive(true);
         float hp = playerInfo.SubtractHp(subtractHp);
         healthHandler.SubtractHp(hp);
         hitEffect.PlayHitEffect(fullBodies);
@@ -28,7 +28,10 @@ public class PlayerHandler : MonoBehaviour
         if (hp == 0)
         {
             AudioController.instance.PlaySound(AudioController.instance.playerDie);
-            AudioController.instance.EnableMusic(false, 0.75f);
+            AudioController.instance.PlayMusic(AudioController.instance.bgMenu[GameController.instance.level], 0.75f, 0.75f);
+            AudioController.instance.StopSoundEnemyAttack(AudioController.instance.eAttack, 1.5f);
+            AudioController.instance.StopSoundEnemyFly(AudioController.instance.eFly, 1.5f);
+            AudioController.instance.StopSoundEnemyWalk(AudioController.instance.eWalk, 1.5f);
             GameController.instance.isStart = false;
             GameController.instance.isLose = true;
             if (GameController.instance.isPLayBoss)
@@ -47,7 +50,11 @@ public class PlayerHandler : MonoBehaviour
             UIHandler.instance.EndGame();
             DOVirtual.DelayedCall(1.75f, delegate
             {
-                if (UIHandler.instance.tutorial.isFirstTimeDestroyTower) UIHandler.instance.progressHandler.ShowLose();
+                if (UIHandler.instance.tutorial.isFirstTimeDestroyTower)
+                {
+                    UIHandler.instance.progressHandler.ShowLose();
+                    AudioController.instance.PlaySound(AudioController.instance.lose);
+                }
                 else UIHandler.instance.progressHandler.HideLose();
             });
         }

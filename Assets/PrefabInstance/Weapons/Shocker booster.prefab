@@ -229,7 +229,7 @@ Transform:
   m_GameObject: {fileID: 1179696903737525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.007, y: 0, z: 0}
+  m_LocalPosition: {x: 0.007, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -248,7 +248,7 @@ TrailRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 0
+  m_MotionVectors: 2
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
@@ -3029,6 +3029,7 @@ MonoBehaviour:
   - {fileID: 212102198365969400}
   - {fileID: 212259453414841277}
   - {fileID: 212402840846918565}
+  rb: {fileID: 50567418034361857}
   topBall: {fileID: 1974760481012029}
   botBall: {fileID: 1125029575399944}
   col: {fileID: 61784343637483231}
@@ -3036,6 +3037,7 @@ MonoBehaviour:
   targetHeightElectricity: 0.8
   targetScaleParBooster: 0.8
   time: 0.8
+  trailRenderer: {fileID: 96969973192944011}
 --- !u!210 &-2318944648849539089
 SortingGroup:
   m_ObjectHideFlags: 0

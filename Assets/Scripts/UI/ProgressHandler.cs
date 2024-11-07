@@ -74,7 +74,7 @@ public class ProgressHandler : MonoBehaviour
 
     public void HideLose()
     {
-        AudioController.instance.PlaySound(AudioController.instance.buttonClick);
+        if(UIHandler.instance.tutorial.isFirstTimeDestroyTower) AudioController.instance.PlaySound(AudioController.instance.buttonClick);
         UIHandler.instance.uIEffect.ScalePopup(panelLose, losePopup, 0f, 0f, 0.8f, 0f);
         panelLose.gameObject.SetActive(false);
         UIHandler.instance.DoLayerCover(1f, 0.75f, delegate
