@@ -97,9 +97,20 @@ public class WeaponUpgradeHandler : ButtonUpgradee
                     UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelMachineGunEvo(); isEvoContains = true;
                 }
             }
+            if (weaponShoter.weaponType == GameController.WEAPON.SHOCKER)
+            {
+                if (level > UpgradeEvolutionController.instance.shockers.Count)
+                {
+                    UpgradeEvolutionController.instance.uIUpgradeEvolution.ShowPanelShockerEvo(); isEvoContains = true;
+                }
+            }
             if (isEvoContains)
             {
                 gameObject.SetActive(false);
+            }
+            else
+            {
+                EvoAccept();
             }
         }
         if(weaponShoter.scaleUpgrade.isPlaying) weaponShoter.scaleUpgrade.Stop();

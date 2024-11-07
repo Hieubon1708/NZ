@@ -17,9 +17,12 @@ public class EnemyT5 : EnemyHandler
     public override void SpawnbyTime()
     {
         isDeadByTower = false;
-        SetDamage();
-        SetHp();
-        hitObj = objScaler;
+        if (healthHandler.startHp == 0)
+        {
+            SetDamage();
+            SetHp();
+            hitObj = objScaler;
+        }
         RestartSilk();
         GameController.instance.listEVisible.Add(enemyInfo.gameObject);
         targetX = EUtils.RandomXDistanceByCar(GameController.instance.xPlus1 + 4, GameController.instance.xPlus2);
@@ -93,7 +96,7 @@ public class EnemyT5 : EnemyHandler
         }
         SetColNKinematicNRevival(false);
         healthBar.SetActive(false);
-        if(!isDeadByTower) UIHandler.instance.FlyGold(hitObj.transform.position, 2);
+        if (!isDeadByTower) UIHandler.instance.FlyGold(hitObj.transform.position, 2);
         SetDeathAni();
         GameController.instance.listEVisible.Remove(enemyInfo.gameObject);
     }

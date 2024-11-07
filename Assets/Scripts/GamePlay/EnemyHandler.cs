@@ -106,7 +106,6 @@ public class EnemyHandler : MonoBehaviour
             {
                 AudioController.instance.PlaySoundEnemyFly(AudioController.instance.eFly, AudioController.instance.fly, 0.25f);
             }
-            Debug.LogWarning("asda");
             GameController.instance.listEVisible.Add(enemyInfo.gameObject);
         }
         if (!content.activeSelf || enemyInfo.hp == 0) return;

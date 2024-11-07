@@ -432,20 +432,19 @@ public class Tutorial : MonoBehaviour
     {
         if (isFirstTimeDragBlock || BlockController.instance.blocks.Count < 4)
         {
-            Debug.LogWarning("Block Count " + BlockController.instance.blocks.Count);
         }
         else
         {
             if (isClick)
             {
                 isFirstTimeDragBlock = true;
-                isTutorialDragBlock = true;
+                isTutorialDragBlock = false;
                 blockDragTutorial.SetActive(false);
                 DataManager.instance.SaveTutorial();
             }
             else
             {
-                isTutorialDragBlock = false;
+                isTutorialDragBlock = true;
                 Vector2 pos = BlockController.instance.blocks[2].transform.position;
                 blockDragTutorial.transform.position = pos;
                 blockDragTutorial.SetActive(true);

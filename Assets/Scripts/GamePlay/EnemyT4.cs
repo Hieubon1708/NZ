@@ -55,9 +55,12 @@ public class EnemyT4 : EnemyHandler
     public override void SpawnbyTime()
     {
         isDeadByTower = false;
-        SetDamage();
-        SetHp();
-        hitObj = content;
+        if (healthHandler.startHp == 0)
+        {
+            SetDamage();
+            SetHp();
+            hitObj = content;
+        }
         float xTower = EnemyTowerController.instance.GetTower().col.transform.position.x;
         float xCol = GameController.instance.colDisplayPos.x;
         float x = xCol > xTower ? xTower : xCol;
@@ -68,7 +71,7 @@ public class EnemyT4 : EnemyHandler
     public override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
         {
             animator.SetInteger("attackRandomizer", Random.Range(0, 2));
             animator.SetBool("attack", true);
@@ -80,7 +83,7 @@ public class EnemyT4 : EnemyHandler
     public override void OnCollisionExit2D(Collision2D collision)
     {
         base.OnCollisionExit2D(collision);
-        if (collision.gameObject.CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Car"))
         {
             animator.SetBool("attack", false);
             isAttack = false;

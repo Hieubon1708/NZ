@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1230
-  damage: 20
+  damage: 30
   bone: {fileID: 7099280852617269894}
 --- !u!114 &9144352815958860949
 MonoBehaviour:
@@ -2324,6 +2324,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4806894517271360772, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 571052113138162316, guid: ac4c68faef870cd4d9a8b1b234876037, type: 2}
     - target: {fileID: 6179988147239823511, guid: d8068be6d159df14e83c6f971831d2e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

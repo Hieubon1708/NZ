@@ -169,11 +169,11 @@ public class EnemyTowerController : MonoBehaviour
             if (GetTower().enemyTowerHandler.isStop && eSc is EnemyT5) yield break;
 
             es[index].SetActive(true);
+            eSc.SpawnbyTime();
             eSc.healthHandler.SetDefaultInfo(ref eSc.enemyInfo.hp);
             eSc.SetColNKinematicNRevival(true);
             eSc.animator.Rebind();
             eSc.enemyInfo.bone.ResetBone();
-            eSc.SpawnbyTime();
             index++;
             if (index == es.Length) index = 0;
         }
